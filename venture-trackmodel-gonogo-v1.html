@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Model Venture — Go/No-Go | v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 32px;
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.65;
+    font-size: 14px;
+  }
+  .header {
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 16px;
+    margin-bottom: 28px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .header .meta { color: #666; font-size: 12px; margin-top: 4px; }
+
+  .verdict-box {
+    background: #e8f5e9;
+    border: 2px solid #2e7d32;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .verdict-box h2 {
+    font-size: 28px;
+    color: #2e7d32;
+    margin-bottom: 6px;
+  }
+  .verdict-box .sub {
+    font-size: 14px;
+    color: #555;
+  }
+
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .proof-card {
+    background: #f7f7f5;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .proof-card .label { font-weight: 600; }
+  .proof-card .value { color: #555; font-size: 13px; }
+  .proof-card.highlight { border-right: 4px solid #2e7d32; }
+
+  .gap-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .gap-item:last-child { border-bottom: none; }
+  .gap-item strong { color: #d32f2f; }
+
+  .econ-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .econ-table th {
+    text-align: right;
+    padding: 8px;
+    background: #f7f7f5;
+    font-weight: 600;
+    border-bottom: 2px solid #ddd;
+  }
+  .econ-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .econ-table tr.best { background: #e8f5e9; }
+
+  .phase-card {
+    background: #f7f7f5;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 10px;
+    border-right: 4px solid #ccc;
+  }
+  .phase-card.active { border-right-color: #2e7d32; }
+  .phase-card h4 { font-size: 15px; margin-bottom: 6px; }
+  .phase-card .details { font-size: 13px; color: #555; }
+
+  .risk-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    gap: 8px;
+  }
+  .risk-item:last-child { border-bottom: none; }
+  .risk-level {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .risk-level.high { background: #fde8e8; color: #c62828; }
+  .risk-level.med { background: #fff3e0; color: #e65100; }
+  .risk-level.low { background: #e8f5e9; color: #2e7d32; }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+    font-size: 11px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Track Model Venture — Go/No-Go</h1>
+  <div class="meta">v1 | 21.02.2026 | PRIMO Stage 2 Research Complete | Yaniv + Roei</div>
+</div>
+
+<!-- ==================== VERDICT ==================== -->
+<div class="verdict-box">
+  <h2>CONDITIONAL GO</h2>
+  <div class="sub">הגאפ בשוק אמיתי. The Golf Project מוכיח שהמודל עובד. MVP פיזי בלבד — AR בשלב 2.</div>
+</div>
+
+<!-- ==================== VALIDATION SIGNAL ==================== -->
+<div class="section">
+  <div class="section-title">Validation Signal #1 — The Golf Project</div>
+  <div class="proof-card highlight">
+    <div>
+      <div class="label">The Golf Project (thegolfproject.com)</div>
+      <div class="value">Custom 3D wood golf course maps. Exact same concept, different sport.</div>
+    </div>
+  </div>
+  <div class="proof-card">
+    <span class="label">Customers</span>
+    <span class="value">6,000+</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">Price point</span>
+    <span class="value">$225 — $420</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">Reviews</span>
+    <span class="value">400+ five-star</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">Library</span>
+    <span class="value">3,000+ maps, 2,500+ courses</span>
+  </div>
+  <div style="font-size: 13px; color: #555; margin-top: 10px; padding: 10px; background: #fff8e6; border-radius: 6px;">
+    <strong>Why this matters:</strong> Same model (niche sport + physical location + premium 3D memorabilia + personalization). Golfers and track riders have similar willingness-to-pay profiles. If it works for golf at $225-$420, it can work for track at $150-$300.
+  </div>
+</div>
+
+<!-- ==================== MARKET GAPS ==================== -->
+<div class="section">
+  <div class="section-title">7 Market Gaps — What Nobody Is Doing</div>
+  <div class="gap-item"><strong>1.</strong> No physical + digital layer (AR/telemetry) on any track model product</div>
+  <div class="gap-item"><strong>2.</strong> No topographic/elevation-accurate models (Spa, Suzuka, COTA have famous elevation — all rendered flat today)</div>
+  <div class="gap-item"><strong>3.</strong> No personalization — "your lap, your data, your date" doesn't exist</div>
+  <div class="gap-item"><strong>4.</strong> MotoGP / motorcycle track day = underserved (market is F1-fan focused, not rider-focused)</div>
+  <div class="gap-item"><strong>5.</strong> Track day participants (riders) barely served — entire market targets spectators/fans</div>
+  <div class="gap-item"><strong>6.</strong> Mid-market $100-$300 premium gift category is empty (below = commoditized Etsy PLA, above = signed memorabilia)</div>
+  <div class="gap-item"><strong>7.</strong> No subscription/collection model ("circuit of the month")</div>
+</div>
+
+<!-- ==================== NUMBERS ==================== -->
+<div class="section">
+  <div class="section-title">Key Numbers</div>
+  <div class="proof-card">
+    <span class="label">Track day riders (US+EU)</span>
+    <span class="value">40,000 — 65,000 unique/year</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">Annual spend per rider</span>
+    <span class="value">$2,200 — $5,000+</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">r/Trackdays</span>
+    <span class="value">47,000 members</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">r/motorcycles + r/MotoGP</span>
+    <span class="value">1.18M combined</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">Motorsport memorabilia market</span>
+    <span class="value">~$1.25B (2026)</span>
+  </div>
+  <div class="proof-card">
+    <span class="label">Existing track art (Etsy)</span>
+    <span class="value">$16 — $200 (flat, no data, no personalization)</span>
+  </div>
+  <div class="proof-card highlight">
+    <span class="label">Competitive gap (premium 3D + personalized + data)</span>
+    <span class="value">$150 — $400 = zero competitors</span>
+  </div>
+</div>
+
+<!-- ==================== UNIT ECONOMICS ==================== -->
+<div class="section">
+  <div class="section-title">Unit Economics — Path to $5K/month</div>
+  <table class="econ-table">
+    <tr>
+      <th>Method</th>
+      <th>COGS</th>
+      <th>Retail</th>
+      <th>GM%</th>
+      <th>Units for $5K</th>
+    </tr>
+    <tr>
+      <td>FDM PLA (own printer)</td>
+      <td>$15-25</td>
+      <td>$99</td>
+      <td>~70%</td>
+      <td>~95/mo</td>
+    </tr>
+    <tr class="best">
+      <td>CNC Wood (premium)</td>
+      <td>$17-31</td>
+      <td>$149</td>
+      <td>~70%</td>
+      <td>~62/mo</td>
+    </tr>
+    <tr>
+      <td>Resin cast</td>
+      <td>$8-15</td>
+      <td>$79</td>
+      <td>~65%</td>
+      <td>~127/mo</td>
+    </tr>
+    <tr class="best">
+      <td>Laser-cut layered</td>
+      <td>$15-35</td>
+      <td>$129</td>
+      <td>~68%</td>
+      <td>~75/mo</td>
+    </tr>
+  </table>
+  <div style="font-size: 12px; color: #888; margin-top: 8px;">* Includes ~30% overhead (platform fees, ads, returns). Green rows = sweet spots.</div>
+</div>
+
+<!-- ==================== AR VERDICT ==================== -->
+<div class="section">
+  <div class="section-title">AR/VR — Verdict</div>
+  <div style="background: #fff8e6; border-radius: 8px; padding: 14px; border-right: 4px solid #d9730d;">
+    <strong>AR is NOT a gimmick for this product</strong> — because the data is personal (rider's GPS, speed, lean angle). But it's NOT the MVP.<br><br>
+    <strong>MVP (Phase 1):</strong> QR code → web page with 3D track + rider's telemetry overlay. Cost: $6-14K. Uses Google model-viewer (free) + Three.js.<br><br>
+    <strong>Phase 2:</strong> Camera AR overlay on physical model. +$9-17K.<br><br>
+    <strong>Phase 3:</strong> Dedicated app with direct RaceChrono/Harry's LapTimer import. $47-120K.<br><br>
+    <strong>Recommendation:</strong> Launch physical-only. Add QR→web data layer once product-market fit is proven. Camera AR is Phase 3, not Phase 2.
+  </div>
+</div>
+
+<!-- ==================== ROADMAP ==================== -->
+<div class="section">
+  <div class="section-title">Roadmap</div>
+
+  <div class="phase-card active">
+    <h4>Phase 1 — Validate (Month 1-3)</h4>
+    <div class="details">
+      FDM printer ($600) + 3-5 popular tracks (Mugello, Spa, Barcelona, Silverstone, Suzuka).<br>
+      Sell on Etsy at $79-$99. Target: 20-30 units/month.<br>
+      Test personalization (name + date + lap time engraving).<br>
+      <strong>Investment: ~$1,500. Revenue target: $2K-3K/month.</strong>
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <h4>Phase 2 — Optimize (Month 4-8)</h4>
+    <div class="details">
+      Add CNC wood premium line ($149-$199). Test laser-cut layered option.<br>
+      Own Shopify store. Premium packaging.<br>
+      Add QR→web data layer (3D track + telemetry). Build: $6-14K.<br>
+      Target: 50-80 units/month. Revenue: $5-8K/month.
+    </div>
+  </div>
+
+  <div class="phase-card">
+    <h4>Phase 3 — Scale (Month 9+)</h4>
+    <div class="details">
+      Injection mold top sellers ($5-10K/mold). Two tiers: accessible ($69) + premium ($149-$249).<br>
+      Camera AR. Subscription drops. B2B to track day organizers.<br>
+      Fulfillment service (ShipBob). Target: 100-200 units/month.
+    </div>
+  </div>
+</div>
+
+<!-- ==================== RISKS ==================== -->
+<div class="section">
+  <div class="section-title">Risks</div>
+  <div class="risk-item">
+    <span class="risk-level high">HIGH</span>
+    <span>Physical product = not passive. Production, shipping, QC, returns. This is e-commerce, not SaaS.</span>
+  </div>
+  <div class="risk-item">
+    <span class="risk-level med">MED</span>
+    <span>62-95 units/month for $5K profit. Achievable but requires marketing + community work.</span>
+  </div>
+  <div class="risk-item">
+    <span class="risk-level med">MED</span>
+    <span>Free STL files online = price pressure on basic models. Differentiation must come from finish, materials, personalization.</span>
+  </div>
+  <div class="risk-item">
+    <span class="risk-level low">LOW</span>
+    <span>Motorcycle niche specifically unvalidated (Golf Project validates the model, not the audience).</span>
+  </div>
+  <div class="risk-item">
+    <span class="risk-level low">LOW</span>
+    <span>AR development cost ($6-14K for web layer). Manageable, and deferred to Phase 2.</span>
+  </div>
+</div>
+
+<!-- ==================== CONDITIONS ==================== -->
+<div class="section">
+  <div class="section-title">Go Conditions</div>
+  <div style="background: #f7f7f5; border-radius: 8px; padding: 16px;">
+    <ol style="margin-right: 16px; font-size: 14px;">
+      <li style="margin-bottom: 8px;"><strong>Roei leads operations</strong> — production, shipping, customer service. Yaniv = product/strategy only.</li>
+      <li style="margin-bottom: 8px;"><strong>Phase 1 budget capped at $1,500</strong> — printer + materials + Etsy setup. No AR investment yet.</li>
+      <li style="margin-bottom: 8px;"><strong>Kill criteria:</strong> If less than 15 units sold in first 60 days → pause and reassess.</li>
+      <li style="margin-bottom: 8px;"><strong>Yaniv time: 0 hours until Scout W1 is live.</strong> Then max 2-3 hrs/week (product direction only).</li>
+      <li style="margin-bottom: 8px;"><strong>Elevation-accurate models = the differentiator.</strong> Not flat circuit outlines (everyone does that).</li>
+    </ol>
+  </div>
+</div>
+
+<div class="footer">
+  PRIMO Venture Protocol Stage 2 | 4 research agents | 21.02.2026<br>
+  Data sources: Etsy, Trackscapes, MiniRaceTracks, Raised Relief, The Golf Project, ACEM, r/Trackdays, RaceChrono, Google model-viewer, Shapeways, Craftcloud, + 80 additional sources
+</div>
+
+</body>
+</html>

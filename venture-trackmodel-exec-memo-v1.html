@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Memo — Track Model Venture | v1</title>
+<style>
+  @media print { body { padding: 20px; } .no-print { display: none; } }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Calibri, -apple-system, sans-serif;
+    background: #fff;
+    color: #1a1a1a;
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+    font-size: 13px;
+  }
+
+  /* Cover */
+  .cover { border-bottom: 3px solid #1a1a1a; padding-bottom: 20px; margin-bottom: 32px; }
+  .cover h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 2px; }
+  .cover .subtitle { font-size: 15px; color: #555; margin-bottom: 12px; }
+  .cover-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 12px; color: #777; }
+  .cover-meta span { white-space: nowrap; }
+
+  /* Sections */
+  .section { margin-bottom: 28px; page-break-inside: avoid; }
+  .section-num { font-size: 11px; font-weight: 700; color: #999; letter-spacing: 1px; text-transform: uppercase; }
+  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+
+  /* Evidence tags */
+  .ev { font-size: 10px; font-weight: 700; border-radius: 3px; padding: 1px 5px; margin-left: 4px; vertical-align: middle; }
+  .ev-v { background: #e8f5e9; color: #2e7d32; } /* Verified */
+  .ev-e { background: #fff8e1; color: #e65100; } /* Estimate */
+  .ev-u { background: #fde8e8; color: #c62828; } /* Unknown */
+
+  /* Cards */
+  .card { background: #f8f8f6; border-radius: 6px; padding: 14px 16px; margin-bottom: 8px; }
+  .card-green { border-left: 4px solid #2e7d32; }
+  .card-yellow { border-left: 4px solid #e6a700; }
+  .card-red { border-left: 4px solid #c62828; }
+  .card-blue { border-left: 4px solid #1565c0; }
+  .card h4 { font-size: 14px; margin-bottom: 4px; }
+  .card p, .card .detail { font-size: 13px; color: #555; }
+
+  /* Verdict */
+  .verdict { text-align: center; padding: 20px; border: 2px solid #2e7d32; border-radius: 8px; margin-bottom: 28px; background: #f0faf0; }
+  .verdict h2 { font-size: 24px; color: #2e7d32; }
+  .verdict .sub { font-size: 13px; color: #555; margin-top: 4px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0; }
+  th { text-align: left; padding: 8px; background: #f0f0ee; font-weight: 600; border-bottom: 2px solid #ccc; }
+  td { padding: 8px; border-bottom: 1px solid #eee; vertical-align: top; }
+  tr.highlight { background: #f0faf0; }
+
+  /* Rows */
+  .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+  .row:last-child { border-bottom: none; }
+  .row .label { font-weight: 600; }
+  .row .value { color: #555; text-align: right; }
+
+  /* Risk dots */
+  .risk-tag { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 3px; }
+  .risk-high { background: #fde8e8; color: #c62828; }
+  .risk-med { background: #fff3e0; color: #e65100; }
+  .risk-low { background: #e8f5e9; color: #2e7d32; }
+
+  /* Traffic light */
+  .tl { display: flex; gap: 8px; align-items: center; padding: 10px 14px; border-radius: 6px; margin-bottom: 6px; }
+  .tl-green { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+  .tl-yellow { background: #fff8e1; border-left: 4px solid #e6a700; }
+  .tl-red { background: #fde8e8; border-left: 4px solid #c62828; }
+
+  /* Insight */
+  .insight { background: #fff8e6; border-radius: 6px; padding: 14px 16px; border-left: 4px solid #d9730d; margin: 10px 0; }
+
+  /* Pilot appendix */
+  .pilot-box { background: #f0f4ff; border: 1px solid #b0c4de; border-radius: 8px; padding: 16px; margin: 10px 0; }
+
+  /* Footer */
+  .footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid #ddd; font-size: 11px; color: #999; }
+
+  /* Legend */
+  .legend { display: flex; gap: 16px; font-size: 11px; margin-bottom: 20px; flex-wrap: wrap; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <h1>Track Model Venture</h1>
+  <div class="subtitle">Premium 3D Miniature Racing Circuit Models with Personalized Telemetry Layer</div>
+  <div class="cover-meta">
+    <span>v1 | 21.02.2026</span>
+    <span>Primak Executive Memo</span>
+    <span>Classification: Internal + Partners</span>
+    <span>Prepared by: PRIMO (Primak)</span>
+    <span>Partners: Yaniv Primak (Product & BizDev) + Roei (Operations)</span>
+  </div>
+</div>
+
+<!-- Legend -->
+<div class="legend no-print">
+  <span><span class="ev ev-v">V</span> Verified Fact (cited source)</span>
+  <span><span class="ev ev-e">E</span> Reasoned Estimate (derived from data)</span>
+  <span><span class="ev ev-u">U</span> Unknown (assumption, needs validation)</span>
+</div>
+
+<!-- ===== 1. EXECUTIVE SUMMARY ===== -->
+<div class="section">
+  <div class="section-num">Section 1</div>
+  <div class="section-title">Executive Summary</div>
+
+  <div class="verdict">
+    <h2>CONDITIONAL GO</h2>
+    <div class="sub">Real market gap. Proven model (Golf Project). Physical-only MVP. AR deferred to Phase 2.</div>
+  </div>
+
+  <div class="card card-green">
+    <h4>What</h4>
+    <p>Premium 3D miniature racing circuit models — elevation-accurate, personalized (rider's name, date, lap time), with a digital telemetry layer (QR to web-based 3D visualization of rider's own GPS data).</p>
+  </div>
+  <div class="card card-green">
+    <h4>Why Now</h4>
+    <p>The Golf Project proves the model works at scale (6,000 customers, $225-$420). <span class="ev ev-v">V</span> No one serves the motorcycle track day rider with premium personalized memorabilia. 7 identified market gaps. Zero competitors in the $150-$400 personalized + data segment. <span class="ev ev-v">V</span></p>
+  </div>
+  <div class="card card-blue">
+    <h4>Investment Ask</h4>
+    <p>Phase 1 validation: $1,500 (printer + materials + Etsy setup). <span class="ev ev-e">E</span><br>
+    Pilot (14 days): $615 total. <span class="ev ev-e">E</span><br>
+    Path to $5K/month profit: 48-95 units/month depending on method. <span class="ev ev-e">E</span></p>
+  </div>
+  <div class="card card-yellow">
+    <h4>Key Risk</h4>
+    <p>This is a physical product business — production, shipping, QC, returns. Not passive. Roei must own operations. Yaniv = product direction + business development only.</p>
+  </div>
+</div>
+
+<!-- ===== 2. PROBLEM & OPPORTUNITY ===== -->
+<div class="section">
+  <div class="section-num">Section 2</div>
+  <div class="section-title">Problem & Opportunity</div>
+
+  <p style="margin-bottom: 12px;">Motorcycle track day riders spend $2,200-$5,000+/year on the hobby <span class="ev ev-v">V</span> but have almost zero premium memorabilia options. The entire motorsport collectibles market ($1.25B in 2026) <span class="ev ev-v">V</span> targets spectators/fans, not participants.</p>
+
+  <strong style="display: block; margin-bottom: 8px;">7 Market Gaps Identified:</strong>
+
+  <table>
+    <tr><th>#</th><th>Gap</th><th>Evidence</th></tr>
+    <tr><td>1</td><td>No physical + digital layer (AR/telemetry) on any track model</td><td><span class="ev ev-v">V</span></td></tr>
+    <tr><td>2</td><td>No topographic/elevation-accurate models (Spa, Suzuka, COTA)</td><td><span class="ev ev-v">V</span></td></tr>
+    <tr><td>3</td><td>No personalization ("your lap, your data, your date")</td><td><span class="ev ev-v">V</span></td></tr>
+    <tr><td>4</td><td>MotoGP / motorcycle track day = underserved (F1-fan focused)</td><td><span class="ev ev-v">V</span></td></tr>
+    <tr><td>5</td><td>Track day participants (riders) barely served</td><td><span class="ev ev-v">V</span></td></tr>
+    <tr><td>6</td><td>$100-$300 premium gift category is empty</td><td><span class="ev ev-v">V</span></td></tr>
+    <tr><td>7</td><td>No subscription/collection model</td><td><span class="ev ev-v">V</span></td></tr>
+  </table>
+</div>
+
+<!-- ===== 3. VALIDATION EVIDENCE ===== -->
+<div class="section">
+  <div class="section-num">Section 3</div>
+  <div class="section-title">Validation Evidence</div>
+
+  <div class="card card-green">
+    <h4>The Golf Project (thegolfproject.com) <span class="ev ev-v">V</span></h4>
+    <p>Custom 3D wood golf course maps. Exact same model, different sport.<br>
+    6,000+ customers | $225-$420 price point | 400+ five-star reviews | 3,000+ maps, 2,500+ courses.<br>
+    <strong>Proof:</strong> Same model (niche sport + physical location + premium 3D memorabilia + personalization).</p>
+  </div>
+
+  <div class="card card-green">
+    <h4>Raised Relief (raisedrelief.com) <span class="ev ev-v">V</span></h4>
+    <p>3D ski resort relief maps. Vacuum-formed from USGS elevation data. $34.99-$100+. 30+ resorts. B2B to resort gift shops. <strong>Proves:</strong> terrain-based collectibles work as a category.</p>
+  </div>
+
+  <div class="card card-yellow">
+    <h4>Trackscapes (trackscapes.com) <span class="ev ev-v">V</span></h4>
+    <p>CNC Baltic birch track wall art. 100+ circuits. GBP 59+. Operating for years without IP license using non-affiliation disclaimer. <strong>Proves:</strong> track-shaped art sells, and the IP model is workable.</p>
+  </div>
+
+  <strong style="display: block; margin: 12px 0 8px;">Community Size:</strong>
+  <div class="row"><span class="label">r/Trackdays</span><span class="value">47,000 members <span class="ev ev-v">V</span></span></div>
+  <div class="row"><span class="label">r/motorcycles + r/MotoGP</span><span class="value">1.18M combined <span class="ev ev-v">V</span></span></div>
+  <div class="row"><span class="label">Track day riders (US+EU)</span><span class="value">40,000-65,000 unique/year <span class="ev ev-e">E</span></span></div>
+  <div class="row"><span class="label">Annual spend per rider</span><span class="value">$2,200-$5,000+ <span class="ev ev-v">V</span></span></div>
+  <div class="row"><span class="label">F1 global fans</span><span class="value">750M <span class="ev ev-v">V</span></span></div>
+  <div class="row"><span class="label">Motorsport memorabilia market (2026)</span><span class="value">~$1.25B <span class="ev ev-v">V</span></span></div>
+</div>
+
+<!-- ===== 4. BUSINESS MODEL ===== -->
+<div class="section">
+  <div class="section-num">Section 4</div>
+  <div class="section-title">Business Model & Unit Economics</div>
+
+  <strong style="display: block; margin-bottom: 8px;">Revenue Model:</strong>
+  <p style="margin-bottom: 12px;">D2C e-commerce (Etsy Phase 1, Shopify Phase 2). Premium physical product with optional digital telemetry layer. Personalization (name, date, lap time) as standard. Future: B2B to track day organizers, subscription drops.</p>
+
+  <strong style="display: block; margin-bottom: 8px;">Unit Economics by Manufacturing Method:</strong>
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>COGS/unit</th>
+      <th>Retail</th>
+      <th>GM%</th>
+      <th>Units for $5K/mo</th>
+    </tr>
+    <tr>
+      <td>FDM PLA (own printer)</td>
+      <td>$12-20 <span class="ev ev-e">E</span></td>
+      <td>$99</td>
+      <td>~70%</td>
+      <td>~95</td>
+    </tr>
+    <tr class="highlight">
+      <td>CNC Wood (premium)</td>
+      <td>$17-31 <span class="ev ev-e">E</span></td>
+      <td>$149</td>
+      <td>~70%</td>
+      <td>~62</td>
+    </tr>
+    <tr>
+      <td>Resin cast</td>
+      <td>$8-15 <span class="ev ev-e">E</span></td>
+      <td>$79</td>
+      <td>~65%</td>
+      <td>~127</td>
+    </tr>
+    <tr class="highlight">
+      <td>Laser-cut layered</td>
+      <td>$15-35 <span class="ev ev-e">E</span></td>
+      <td>$129</td>
+      <td>~68%</td>
+      <td>~75</td>
+    </tr>
+    <tr>
+      <td>Injection mold (at 2,500+ units)</td>
+      <td>$4-6 <span class="ev ev-e">E</span></td>
+      <td>$69</td>
+      <td>~70%</td>
+      <td>~104</td>
+    </tr>
+  </table>
+  <div style="font-size: 11px; color: #888; margin-top: 4px;">* Includes ~30% overhead (platform fees 8-15%, ads 10-15%, returns 2-5%). Green rows = sweet spots.</div>
+
+  <div class="insight">
+    <strong>Recommended path:</strong> Start with FDM PLA ($99 retail, ~70% GM). Add CNC wood premium line ($149-$199) in Phase 2. Injection mold top sellers in Phase 3 ($69 accessible tier). Two-tier strategy mirrors The Golf Project's $225/$375 split.
+  </div>
+</div>
+
+<!-- ===== 5. COMPETITIVE LANDSCAPE ===== -->
+<div class="section">
+  <div class="section-num">Section 5</div>
+  <div class="section-title">Competitive Landscape</div>
+
+  <table>
+    <tr><th>Segment</th><th>Players</th><th>Price</th><th>Gap vs. Us</th></tr>
+    <tr><td>Premium Wood</td><td>MiniRacetracks, Trackscapes, RetroGP</td><td>$60-190 <span class="ev ev-v">V</span></td><td>No elevation, no personalization, no data</td></tr>
+    <tr><td>Metal Wall Art</td><td>PetrolVibes, Plasma-Tracks</td><td>$40-290 <span class="ev ev-v">V</span></td><td>No elevation, no personalization</td></tr>
+    <tr><td>Budget 3D Print</td><td>Dozens of Etsy sellers</td><td>$16-50 <span class="ev ev-v">V</span></td><td>Commoditized, flat, no premium</td></tr>
+    <tr><td>DIY STL Files</td><td>Cults3D, Thingiverse</td><td>$0-5 <span class="ev ev-v">V</span></td><td>Free, but no product/experience</td></tr>
+    <tr><td>AR Collectibles</td><td>Eventshop, ANIM8TED</td><td>$15-40 <span class="ev ev-v">V</span></td><td>Sports tickets, not motorsport</td></tr>
+    <tr class="highlight"><td><strong>Our Position</strong></td><td><strong>Track Model</strong></td><td><strong>$99-$199</strong></td><td><strong>Elevation + Personal data + 3D = unique</strong></td></tr>
+  </table>
+
+  <div class="insight">
+    <strong>Key insight:</strong> The market is highly fragmented — dozens of small sellers, no dominant brand. Differentiation comes from: (1) elevation accuracy, (2) personalization, (3) telemetry data layer. Free STL files create downward pressure on basic models, making premium positioning essential.
+  </div>
+</div>
+
+<!-- ===== 6. LEGAL & IP ===== -->
+<div class="section">
+  <div class="section-num">Section 6</div>
+  <div class="section-title">Legal & IP</div>
+
+  <div class="tl tl-green"><strong>Track shapes (geometric layout)</strong> — NOT copyrightable. Geographic fact. Free to use. <span class="ev ev-v">V</span></div>
+  <div class="tl tl-green"><strong>Personal GPS data from rider's own ride</strong> — Rider's data, rider's memory. Fully clear. <span class="ev ev-v">V</span></div>
+  <div class="tl tl-green"><strong>OpenStreetMap / public topographic data</strong> — Commercially usable (ODbL license). <span class="ev ev-v">V</span></div>
+  <div class="tl tl-yellow"><strong>Circuit names used descriptively</strong> — Possible under nominative fair use + non-affiliation disclaimer. Trackscapes + Golf Project operate this way for years. <span class="ev ev-v">V</span></div>
+  <div class="tl tl-red"><strong>"F1", "Formula 1", "MotoGP", "Grand Prix"</strong> — Strictly trademarked. NEVER use without license. <span class="ev ev-v">V</span></div>
+
+  <strong style="display: block; margin: 12px 0 8px;">Legal Roadmap:</strong>
+  <div class="row"><span class="label">Phase 1 (Month 1-6)</span><span class="value">Personal GPS data + local circuits + OSM shapes. Legal budget: $0 <span class="ev ev-e">E</span></span></div>
+  <div class="row"><span class="label">Phase 2 (Month 6-12)</span><span class="value">Descriptive naming + disclaimer (Trackscapes model). IP attorney: $2-5K <span class="ev ev-e">E</span></span></div>
+  <div class="row"><span class="label">Phase 3 (Month 12+)</span><span class="value">Circuit-level licenses for top sellers. Licensing = competitive moat. <span class="ev ev-e">E</span></span></div>
+
+  <div class="insight">
+    <strong>Bottom line:</strong> IP is NOT a blocker. Phase 1 has zero legal risk. Licensing in Phase 3 becomes a competitive moat (Linear Edge + NASCAR precedent). Budget $2-5K for IP attorney before Phase 2. <span class="ev ev-e">E</span>
+  </div>
+</div>
+
+<!-- ===== 7. AR/DIGITAL LAYER ===== -->
+<div class="section">
+  <div class="section-num">Section 7</div>
+  <div class="section-title">Digital Layer (AR/Telemetry)</div>
+
+  <div class="card card-green">
+    <h4>MVP Recommended: QR to Web 3D Viewer</h4>
+    <p>QR code on physical model links to interactive 3D track visualization (Three.js + Google model-viewer). Rider's GPS trace, speed, lean angle overlaid. No app required. Works on any phone.<br>
+    <strong>Cost: $6,000-14,500</strong> <span class="ev ev-e">E</span> | Timeline: 4-8 weeks <span class="ev ev-e">E</span></p>
+  </div>
+
+  <div class="card card-yellow">
+    <h4>Phase 2: Camera AR Overlay</h4>
+    <p>Phone camera recognizes physical model, overlays telemetry data. Uses MindAR (free) or Zappar (~$3K/year). Additional $9-17K. <span class="ev ev-e">E</span><br>
+    <strong>Note:</strong> 8th Wall is shutting down (Feb 2026). <span class="ev ev-v">V</span> Alternatives are newer and less proven.</p>
+  </div>
+
+  <div class="insight">
+    <strong>Verdict:</strong> AR is NOT a gimmick for this product because the data is personal (rider's GPS, speed, lean angle). But it is NOT the MVP. The value is in the DATA, not the AR lens. Launch physical-only. Add QR-web layer once product-market fit is proven. Camera AR is Phase 3. <span class="ev ev-e">E</span>
+  </div>
+</div>
+
+<!-- ===== 8. RISK REGISTER ===== -->
+<div class="section">
+  <div class="section-num">Section 8</div>
+  <div class="section-title">Risk Register</div>
+
+  <table>
+    <tr><th>Risk</th><th>Level</th><th>Mitigation</th></tr>
+    <tr>
+      <td>Physical product = not passive (production, shipping, QC, returns)</td>
+      <td><span class="risk-tag risk-high">HIGH</span></td>
+      <td>Roei owns 100% of operations. Yaniv = product/bizdev only.</td>
+    </tr>
+    <tr>
+      <td>62-95 units/month needed for $5K. Requires consistent marketing.</td>
+      <td><span class="risk-tag risk-med">MED</span></td>
+      <td>Start on Etsy (built-in traffic). Reddit community seeding. Track day partnerships.</td>
+    </tr>
+    <tr>
+      <td>Free STL files online = price pressure on basic models.</td>
+      <td><span class="risk-tag risk-med">MED</span></td>
+      <td>Differentiate on finishing, materials, personalization, elevation accuracy. Not geometry.</td>
+    </tr>
+    <tr>
+      <td>Motorcycle niche specifically unvalidated (Golf Project validates model, not audience).</td>
+      <td><span class="risk-tag risk-low">LOW</span></td>
+      <td>Pilot validates this directly. Kill criteria at 15 units / 60 days.</td>
+    </tr>
+    <tr>
+      <td>Trademark C&D if using famous circuit names.</td>
+      <td><span class="risk-tag risk-low">LOW</span></td>
+      <td>Phase 1 = local tracks + personal GPS only. No famous names needed.</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ===== 9. ROADMAP ===== -->
+<div class="section">
+  <div class="section-num">Section 9</div>
+  <div class="section-title">Roadmap</div>
+
+  <div class="card card-green">
+    <h4>Phase 1 — Validate (Month 1-3)</h4>
+    <p>FDM printer ($600) + 3-5 popular tracks. Sell on Etsy at $79-$99. Test personalization (name + date + lap time engraving).<br>
+    <strong>Investment: ~$1,500</strong> <span class="ev ev-e">E</span> | <strong>Target: 20-30 units/month, $2-3K revenue</strong> <span class="ev ev-e">E</span></p>
+  </div>
+  <div class="card card-yellow">
+    <h4>Phase 2 — Optimize (Month 4-8)</h4>
+    <p>Add CNC wood premium line ($149-$199). Own Shopify store. QR-web data layer ($6-14K). Premium packaging.<br>
+    <strong>Target: 50-80 units/month, $5-8K revenue</strong> <span class="ev ev-e">E</span></p>
+  </div>
+  <div class="card card-blue">
+    <h4>Phase 3 — Scale (Month 9+)</h4>
+    <p>Injection mold top sellers ($5-10K/mold). Two tiers: accessible ($69) + premium ($149-$249). Camera AR. Subscription drops. B2B to track day organizers. Fulfillment service (ShipBob).<br>
+    <strong>Target: 100-200 units/month</strong> <span class="ev ev-e">E</span></p>
+  </div>
+</div>
+
+<!-- ===== 10. GO/NO-GO DECISION ===== -->
+<div class="section">
+  <div class="section-num">Section 10</div>
+  <div class="section-title">Go/No-Go Decision</div>
+
+  <table>
+    <tr><th>Criterion</th><th>Threshold</th><th>Status</th><th>Score</th></tr>
+    <tr class="highlight"><td>Comparable validated business exists</td><td>At least 1 at scale</td><td>Golf Project: 6,000 customers, $225-$420 <span class="ev ev-v">V</span></td><td><strong>PASS</strong></td></tr>
+    <tr class="highlight"><td>Market gap is real and specific</td><td>3+ identifiable gaps</td><td>7 gaps identified, 0 competitors in our segment <span class="ev ev-v">V</span></td><td><strong>PASS</strong></td></tr>
+    <tr class="highlight"><td>Unit economics viable at small scale</td><td>GM > 60% at 50 units/mo</td><td>GM 65-70% across methods <span class="ev ev-e">E</span></td><td><strong>PASS</strong></td></tr>
+    <tr class="highlight"><td>Phase 1 investment under $2,000</td><td>Max $2K for validation</td><td>$1,500 estimated <span class="ev ev-e">E</span></td><td><strong>PASS</strong></td></tr>
+    <tr class="highlight"><td>Legal path clear for Phase 1</td><td>No showstopper IP risk</td><td>Track shapes = not copyrightable. Phase 1 = $0 legal <span class="ev ev-v">V</span></td><td><strong>PASS</strong></td></tr>
+    <tr><td>Audience willingness-to-pay validated</td><td>Direct signal from target audience</td><td>Inferred from Golf Project + rider spend. Not directly tested. <span class="ev ev-u">U</span></td><td><strong>CONDITIONAL</strong></td></tr>
+    <tr><td>Operations partner committed</td><td>Named owner for production</td><td>Roei indicated interest. No formal commitment yet. <span class="ev ev-u">U</span></td><td><strong>CONDITIONAL</strong></td></tr>
+  </table>
+
+  <div class="verdict" style="margin-top: 16px;">
+    <h2>CONDITIONAL GO</h2>
+    <div class="sub">5/7 criteria PASS. 2 conditional — resolved by pilot execution.<br>
+    Conditions: (1) Roei formally commits to operations. (2) Pilot validates audience WTP.</div>
+  </div>
+</div>
+
+<!-- ===== APPENDIX A: PILOT ===== -->
+<div class="section" style="page-break-before: always;">
+  <div class="section-num">Appendix A</div>
+  <div class="section-title">Pilot Design</div>
+
+  <div class="pilot-box">
+    <h4 style="margin-bottom: 8px;">14-Day Validation Pilot</h4>
+
+    <div class="row"><span class="label">Objective</span><span class="value">Validate demand signal before investing in production</span></div>
+    <div class="row"><span class="label">Duration</span><span class="value">14 days <span class="ev ev-e">E</span></span></div>
+    <div class="row"><span class="label">Budget</span><span class="value">$615 total <span class="ev ev-e">E</span></span></div>
+    <div class="row"><span class="label">Yaniv time</span><span class="value">0 until Scout W1 is live, then max 4 hours total <span class="ev ev-u">U</span></span></div>
+    <div class="row"><span class="label">Roei time</span><span class="value">~15-20 hours total <span class="ev ev-e">E</span></span></div>
+  </div>
+
+  <strong style="display: block; margin: 12px 0 8px;">Budget Breakdown:</strong>
+  <table>
+    <tr><th>Item</th><th>Cost</th></tr>
+    <tr><td>FDM Printer (Bambu Lab A1 Mini or similar entry)</td><td>$300 <span class="ev ev-v">V</span></td></tr>
+    <tr><td>PLA filament (2 rolls)</td><td>$40 <span class="ev ev-v">V</span></td></tr>
+    <tr><td>Finishing supplies (sandpaper, spray paint, clear coat)</td><td>$25 <span class="ev ev-e">E</span></td></tr>
+    <tr><td>Etsy setup + listing fees (5 tracks)</td><td>$10 <span class="ev ev-v">V</span></td></tr>
+    <tr><td>Product photography setup</td><td>$40 <span class="ev ev-e">E</span></td></tr>
+    <tr><td>5x sample packaging</td><td>$25 <span class="ev ev-e">E</span></td></tr>
+    <tr><td>Reddit community post + test traffic</td><td>$0</td></tr>
+    <tr><td>3D modeling / STL prep (if needed, Fiverr)</td><td>$75-$175 <span class="ev ev-e">E</span></td></tr>
+    <tr class="highlight"><td><strong>Total</strong></td><td><strong>$515-$615</strong></td></tr>
+  </table>
+
+  <strong style="display: block; margin: 16px 0 8px;">Success / Kill Criteria:</strong>
+  <table>
+    <tr><th>Metric</th><th>Kill</th><th>Continue</th><th>Scale</th></tr>
+    <tr><td>Etsy favorites (14 days)</td><td>&lt; 20</td><td>20-50</td><td>&gt; 50</td></tr>
+    <tr><td>Inquiries / messages</td><td>0</td><td>1-3</td><td>&gt; 3</td></tr>
+    <tr><td>Orders (60 days)</td><td>&lt; 15</td><td>15-30</td><td>&gt; 30</td></tr>
+    <tr><td>Reddit post engagement</td><td>&lt; 10 upvotes</td><td>10-50</td><td>&gt; 50</td></tr>
+    <tr><td>Repeat / referral</td><td>0</td><td>1</td><td>&gt; 1</td></tr>
+  </table>
+
+  <strong style="display: block; margin: 16px 0 8px;">Pilot Tracks (5):</strong>
+  <p>Mugello, Spa-Francorchamps, Barcelona-Catalunya, Silverstone, Suzuka. Selected for: elevation drama, global recognition, MotoGP + F1 relevance. <span class="ev ev-e">E</span></p>
+</div>
+
+<!-- ===== APPENDIX B: ROLES ===== -->
+<div class="section">
+  <div class="section-num">Appendix B</div>
+  <div class="section-title">Role Split</div>
+
+  <table>
+    <tr><th>Domain</th><th>Owner</th><th>Scope</th></tr>
+    <tr><td>Product direction & design</td><td>Yaniv</td><td>Track selection, materials, pricing, digital layer spec, brand</td></tr>
+    <tr><td>Business development</td><td>Yaniv</td><td>Partnerships, licensing conversations, B2B</td></tr>
+    <tr><td>Production & manufacturing</td><td>Roei</td><td>3D printing, finishing, QC, inventory</td></tr>
+    <tr><td>Shipping & fulfillment</td><td>Roei</td><td>Packaging, shipping, returns, customer service</td></tr>
+    <tr><td>Etsy / Shopify operations</td><td>Roei</td><td>Listings, photos, order management</td></tr>
+    <tr><td>Strategy & research</td><td>PRIMO</td><td>Market intelligence, competitive monitoring, financial modeling</td></tr>
+  </table>
+</div>
+
+<!-- ===== APPENDIX C: SOURCES ===== -->
+<div class="section">
+  <div class="section-num">Appendix C</div>
+  <div class="section-title">Key Sources</div>
+  <div style="font-size: 11px; color: #666; columns: 2; column-gap: 20px;">
+    <p>The Golf Project (thegolfproject.com)</p>
+    <p>Trackscapes (trackscapes.com)</p>
+    <p>MiniRacetracks (miniracetracks.com)</p>
+    <p>Raised Relief (raisedrelief.com)</p>
+    <p>PetrolVibes (petrolvibes.com)</p>
+    <p>Linear Edge (linearedge.com)</p>
+    <p>3D Racetracks / Nurburgring partnership</p>
+    <p>Etsy F1/MotoGP track market</p>
+    <p>Cults3D, Thingiverse, Printables (STL files)</p>
+    <p>Google model-viewer (modelviewer.dev)</p>
+    <p>RaceChrono, Harry's LapTimer</p>
+    <p>ACEM European motorcycle data</p>
+    <p>r/Trackdays, r/motorcycles, r/MotoGP</p>
+    <p>F1 Official Guidelines</p>
+    <p>OpenStreetMap (ODbL license)</p>
+    <p>TUMFTM/racetrack-database (GitHub)</p>
+    <p>Shapeways, Craftcloud, Xometry, Sculpteo pricing</p>
+    <p>Global Growth Insights — Motorsports Market</p>
+    <p>Fortune Business Insights — 3D Printing, AR Market</p>
+    <p>Verified Market Research — Sports Memorabilia</p>
+    <p>8th Wall shutdown announcement</p>
+  </div>
+</div>
+
+<div class="footer">
+  Primak Executive Memo | Track Model Venture | v1 | 21.02.2026<br>
+  Research: 4 parallel agents (Competitive Landscape, Market Size, Manufacturing, AR/VR Feasibility) + Legal Layer<br>
+  Evidence Classification: <span class="ev ev-v">V</span> Verified &nbsp; <span class="ev ev-e">E</span> Estimate &nbsp; <span class="ev ev-u">U</span> Unknown
+</div>
+
+</body>
+</html>

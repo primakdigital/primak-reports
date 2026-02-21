@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Track Model Venture — Legal Layer | v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    padding: 32px;
+    max-width: 760px;
+    margin: 0 auto;
+    line-height: 1.65;
+    font-size: 14px;
+  }
+  .header { border-bottom: 2px solid #1a1a1a; padding-bottom: 16px; margin-bottom: 28px; }
+  .header h1 { font-size: 22px; font-weight: 700; }
+  .header .meta { color: #666; font-size: 12px; margin-top: 4px; }
+
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: #888; margin-bottom: 10px;
+    padding-bottom: 4px; border-bottom: 1px solid #eee;
+  }
+
+  .traffic-light {
+    display: flex; gap: 8px; align-items: center;
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 8px;
+  }
+  .tl-green { background: #e8f5e9; border-right: 4px solid #2e7d32; }
+  .tl-yellow { background: #fff8e1; border-right: 4px solid #f9a825; }
+  .tl-red { background: #fde8e8; border-right: 4px solid #c62828; }
+  .tl-dot {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+  }
+  .tl-dot.green { background: #2e7d32; }
+  .tl-dot.yellow { background: #f9a825; }
+  .tl-dot.red { background: #c62828; }
+
+  .strategy-card {
+    background: #f7f7f5; border-radius: 8px; padding: 16px;
+    margin-bottom: 10px; border-right: 4px solid #ccc;
+  }
+  .strategy-card.recommended { border-right-color: #2e7d32; }
+  .strategy-card h4 { font-size: 15px; margin-bottom: 6px; }
+  .strategy-card .details { font-size: 13px; color: #555; }
+  .strategy-card .tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 3px; margin-top: 6px;
+  }
+  .tag-safe { background: #e8f5e9; color: #2e7d32; }
+  .tag-moderate { background: #fff8e1; color: #e65100; }
+  .tag-phase2 { background: #e3f2fd; color: #1565c0; }
+
+  .impact-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid #f0f0f0;
+  }
+  .impact-row:last-child { border-bottom: none; }
+
+  .insight-box {
+    background: #fff8e6; border-radius: 8px; padding: 14px 16px;
+    border-right: 4px solid #d9730d; margin-bottom: 10px; font-size: 14px;
+  }
+
+  .footer {
+    margin-top: 32px; padding-top: 16px; border-top: 1px solid #eee;
+    font-size: 11px; color: #999;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Track Model — Legal & IP Layer</h1>
+  <div class="meta">v1 | 21.02.2026 | PRIMO Venture Protocol | Supplement to Go/No-Go Report</div>
+</div>
+
+<!-- ==================== TRAFFIC LIGHT ==================== -->
+<div class="section">
+  <div class="section-title">What You Can and Can't Do — Traffic Light</div>
+
+  <div class="traffic-light tl-green">
+    <span class="tl-dot green"></span>
+    <span><strong>Track shape (geometric layout)</strong> — NOT copyrightable. Geographic fact. Free to use.</span>
+  </div>
+  <div class="traffic-light tl-green">
+    <span class="tl-dot green"></span>
+    <span><strong>Personal GPS data from rider's own ride</strong> — Rider's data, rider's memory. Fully clear.</span>
+  </div>
+  <div class="traffic-light tl-green">
+    <span class="tl-dot green"></span>
+    <span><strong>OpenStreetMap / public topographic data</strong> — Commercially usable (ODbL license with attribution).</span>
+  </div>
+  <div class="traffic-light tl-green">
+    <span class="tl-dot green"></span>
+    <span><strong>Local / lesser-known circuits</strong> — Minimal enforcement. Most welcome the publicity.</span>
+  </div>
+  <div class="traffic-light tl-yellow">
+    <span class="tl-dot yellow"></span>
+    <span><strong>Circuit names used descriptively</strong> — Possible under nominative fair use + non-affiliation disclaimer. Trackscapes + Golf Project operate this way for years.</span>
+  </div>
+  <div class="traffic-light tl-yellow">
+    <span class="tl-dot yellow"></span>
+    <span><strong>Selling on Etsy/Amazon</strong> — One trademark complaint = instant takedown. Own site is safer.</span>
+  </div>
+  <div class="traffic-light tl-red">
+    <span class="tl-dot red"></span>
+    <span><strong>"F1", "Formula 1", "MotoGP", "Grand Prix"</strong> — Strictly trademarked. NEVER use without license.</span>
+  </div>
+  <div class="traffic-light tl-red">
+    <span class="tl-dot red"></span>
+    <span><strong>Circuit logos or F1/MotoGP/FIA logos</strong> — Copyright + trademark. Zero tolerance.</span>
+  </div>
+  <div class="traffic-light tl-red">
+    <span class="tl-dot red"></span>
+    <span><strong>Claiming "officially licensed"</strong> — When you're not. Fraud.</span>
+  </div>
+</div>
+
+<!-- ==================== KEY PRECEDENTS ==================== -->
+<div class="section">
+  <div class="section-title">Precedents — How Others Do It</div>
+
+  <div class="strategy-card">
+    <h4>Trackscapes (UK) — "Unofficial hobbyist supplier"</h4>
+    <div class="details">
+      100+ circuits, uses official names, operates for years.<br>
+      Disclaimer: "not affiliated or associated with any organisations."<br>
+      <strong>No license. No enforcement action.</strong>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <h4>The Golf Project (US) — "Artistic representations only"</h4>
+    <div class="details">
+      6,000+ customers, 2,500+ golf courses, $225-$420.<br>
+      Disclaimer: "not affiliated with or endorsed by any golf course."<br>
+      <strong>No license. No enforcement. Exact same legal model.</strong>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <h4>3D Racetracks + Nurburgring — Licensed partnership</h4>
+    <div class="details">
+      Nurburgring approached THEM for licensing. Product sold in official paddock shop.<br>
+      <strong>Proves circuits WANT licensed products. Small operators can get deals.</strong>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <h4>Linear Edge (US) — NASCAR license</h4>
+    <div class="details">
+      Licensing agreement with NASCAR + majority of North American tracks.<br>
+      Licensed status = competitive moat + retail distribution.<br>
+      <strong>Licensing as strategy, not just compliance.</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CREATIVE SOLUTIONS ==================== -->
+<div class="section">
+  <div class="section-title">7 Creative Strategies — Ranked by Safety</div>
+
+  <div class="strategy-card recommended">
+    <h4>A. Personal GPS Data Products</h4>
+    <div class="details">"Your Ride at [Location]" — model from rider's own GPS data. Their data, their ride, their memory. Zero IP risk. Maximum personalization premium.</div>
+    <span class="tag tag-safe">SAFE — Phase 1 MVP</span>
+  </div>
+
+  <div class="strategy-card recommended">
+    <h4>B. Local / Track Day Circuits First</h4>
+    <div class="details">Start with regional tracks (Greece, Spain, Italy track day venues). Not F1 calendar. Minimal enforcement, often welcome publicity. Build brand before touching big names.</div>
+    <span class="tag tag-safe">SAFE — Phase 1</span>
+  </div>
+
+  <div class="strategy-card recommended">
+    <h4>C. OpenStreetMap / Public Data Derived</h4>
+    <div class="details">Generate track shapes from OSM + public elevation data (SRTM). GitHub: TUMFTM/racetrack-database has 20+ tracks as GPS points. Your 3D interpretation = your copyright.</div>
+    <span class="tag tag-safe">SAFE — Phase 1</span>
+  </div>
+
+  <div class="strategy-card">
+    <h4>D. "Geographic Art" — No Names</h4>
+    <div class="details">Sell shape only. Use GPS coordinates as product name ("45.6156°N, 9.2811°E"). Fans recognize the shape. Zero trademark exposure. SEO challenge.</div>
+    <span class="tag tag-safe">SAFE</span>
+  </div>
+
+  <div class="strategy-card">
+    <h4>E. Trackscapes Model — Descriptive Use + Disclaimer</h4>
+    <div class="details">Use circuit names to describe (not brand). Non-affiliation disclaimer. Widely used, years of operation without enforcement. The industry standard for small sellers.</div>
+    <span class="tag tag-moderate">MODERATE — Phase 2</span>
+  </div>
+
+  <div class="strategy-card">
+    <h4>F. Direct Circuit Licensing</h4>
+    <div class="details">Contact circuits directly (not F1 corporate). Offer royalty + gift shop placement. Nurburgring precedent proves it works. License = moat + distribution.</div>
+    <span class="tag tag-phase2">GROWTH — Phase 3</span>
+  </div>
+
+  <div class="strategy-card">
+    <h4>G. Track Day Organizer Partnerships</h4>
+    <div class="details">Partner with organizers (Track Rabbit, MotorsportReg, local operators). They have circuit relationships. Co-branded: "Your ride at [circuit] with [organizer]".</div>
+    <span class="tag tag-phase2">GROWTH — Phase 2-3</span>
+  </div>
+</div>
+
+<!-- ==================== MARGIN IMPACT ==================== -->
+<div class="section">
+  <div class="section-title">Licensing Impact on Margins</div>
+
+  <div class="impact-row">
+    <span><strong>Typical sports licensing royalty</strong></span>
+    <span>8-12% of net sales</span>
+  </div>
+  <div class="impact-row">
+    <span><strong>Product at $200, no license</strong></span>
+    <span>GM 73% ($110 profit/unit)</span>
+  </div>
+  <div class="impact-row">
+    <span><strong>Product at $200, with 10% royalty</strong></span>
+    <span>GM 63% ($90 profit/unit)</span>
+  </div>
+  <div class="impact-row">
+    <span><strong>Minimum annual guarantees (major properties)</strong></span>
+    <span>$10K — $100K+ (cash flow risk)</span>
+  </div>
+
+  <div class="insight-box">
+    <strong>The counter-intuitive insight:</strong> Licensing costs money (-10% GM) but CREATES a moat. If you have exclusive circuit licenses, competitors can't legally sell those tracks. Linear Edge's NASCAR deal = competitors locked out. Licensing is an investment, not just a cost.
+  </div>
+</div>
+
+<!-- ==================== RECOMMENDED LEGAL ROADMAP ==================== -->
+<div class="section">
+  <div class="section-title">Legal Roadmap — Phased Approach</div>
+
+  <div class="strategy-card recommended">
+    <h4>Phase 1: No License Needed (Month 1-6)</h4>
+    <div class="details">
+      Personal GPS data products + local track day circuits + OSM-derived shapes.<br>
+      No famous names. Build brand. Prove product-market fit.<br>
+      <strong>Legal budget: $0.</strong> Consult IP attorney only before Phase 2 ($2-5K).
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <h4>Phase 2: Descriptive Use (Month 6-12)</h4>
+    <div class="details">
+      Add famous circuit shapes with descriptive naming + non-affiliation disclaimer (Trackscapes model).<br>
+      Own Shopify store (not Etsy — lower takedown risk).<br>
+      Start licensing conversations with 3-5 mid-tier circuits.<br>
+      <strong>Legal budget: $2-5K (IP attorney consultation for international sales from Israel).</strong>
+    </div>
+  </div>
+
+  <div class="strategy-card">
+    <h4>Phase 3: Licensed Player (Month 12+)</h4>
+    <div class="details">
+      Secure circuit-level licenses for top 5-10 selling tracks.<br>
+      "Only officially licensed [circuit] sculpture" = marketing differentiator + premium pricing.<br>
+      Explore F1/MotoGP corporate licensing only if revenue justifies minimums.<br>
+      <strong>Legal budget: $5-10K/year (royalties + legal).</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== WORST CASE ==================== -->
+<div class="section">
+  <div class="section-title">Worst Case Scenarios</div>
+
+  <div class="traffic-light tl-yellow">
+    <span class="tl-dot yellow"></span>
+    <span><strong>Cease & Desist letter</strong> — Most likely first action. Remove/rename product. Business continues. Probability: Moderate (if using famous names).</span>
+  </div>
+  <div class="traffic-light tl-yellow">
+    <span class="tl-dot yellow"></span>
+    <span><strong>Platform takedown</strong> — Etsy/Amazon listings removed on complaint. Account strikes. Probability: Low-Moderate on platforms.</span>
+  </div>
+  <div class="traffic-light tl-green">
+    <span class="tl-dot green"></span>
+    <span><strong>Lawsuit</strong> — Very unlikely for small seller of art products. Would require cross-border enforcement (expensive for plaintiff). Probability: Very Low.</span>
+  </div>
+</div>
+
+<!-- ==================== BOTTOM LINE ==================== -->
+<div class="section">
+  <div class="section-title">Bottom Line</div>
+  <div class="insight-box">
+    <strong>IP is NOT a blocker for Go/No-Go.</strong> The personal GPS data angle + local circuits = zero legal risk for Phase 1. Famous circuit names can be added in Phase 2 using the industry-standard disclaimer model (proven by Trackscapes + Golf Project). Long-term, licensing becomes a competitive MOAT, not just a cost.<br><br>
+    <strong>One action item:</strong> Budget $2-5K for IP attorney before Phase 2. Confirm non-affiliation disclaimer approach under Israeli law for international e-commerce. Everything else = clean.
+  </div>
+</div>
+
+<div class="footer">
+  PRIMO Venture Protocol — Legal Layer | Sources: F1 Official Guidelines, Trackscapes Disclaimer, The Golf Project, 3D Racetracks/Nurburgring, Linear Edge/NASCAR, OpenStreetMap, TUMFTM GitHub, One World IP, Copyright Aid, LIMA Licensing Industry | v1 | 21.02.2026
+</div>
+
+</body>
+</html>
