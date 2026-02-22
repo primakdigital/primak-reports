@@ -1,0 +1,2067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CathWorks — Yaniv Primak Portfolio</title>
+  <style>
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #121317;
+      color: #f5f5f5;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ============================================================
+       LEFT SIDEBAR (fixed, 80px)
+    ============================================================ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 80px;
+      height: 100vh;
+      background-color: #121317;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .sidebar-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .sidebar-logo {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #f5f5f5;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .sidebar-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: #8592a3;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .sidebar-label:hover {
+      color: #5cc981;
+    }
+
+    /* ============================================================
+       MAIN CONTENT — offset for sidebar
+    ============================================================ */
+    .main {
+      margin-left: 80px;
+      width: calc(100% - 80px);
+      max-width: 1360px;
+    }
+
+    /* ============================================================
+       HERO IMAGE
+    ============================================================ */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 763px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        #0d3d3b 0%,
+        #0a4a5e 20%,
+        #0c3350 40%,
+        #0e1f3d 60%,
+        #0a1520 80%,
+        #050b12 100%
+      );
+    }
+
+    /* Subtle grid overlay for medical/technical feel */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(92,201,129,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(92,201,129,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* Radial glow center */
+    .hero-glow {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(92,201,129,0.12) 0%, rgba(10,74,94,0.08) 40%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* Simulated vessel / catheter lines */
+    .hero-vessel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.35;
+    }
+
+    /* Circular medical scanner rings */
+    .hero-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(92,201,129,0.2);
+    }
+    .hero-ring-1 {
+      width: 320px; height: 320px;
+      top: calc(50% - 160px); left: calc(50% - 160px);
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+    .hero-ring-2 {
+      width: 500px; height: 500px;
+      top: calc(50% - 250px); left: calc(50% - 250px);
+      border-color: rgba(92,201,129,0.1);
+      animation: pulse-ring 4s ease-in-out infinite 0.8s;
+    }
+    .hero-ring-3 {
+      width: 700px; height: 700px;
+      top: calc(50% - 350px); left: calc(50% - 350px);
+      border-color: rgba(92,201,129,0.06);
+      animation: pulse-ring 4s ease-in-out infinite 1.6s;
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+    /* Central crosshair / target */
+    .hero-crosshair {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+    }
+    .hero-crosshair::before,
+    .hero-crosshair::after {
+      content: '';
+      position: absolute;
+      background: rgba(92,201,129,0.6);
+    }
+    .hero-crosshair::before {
+      width: 1px;
+      height: 100%;
+      left: 50%;
+      top: 0;
+    }
+    .hero-crosshair::after {
+      height: 1px;
+      width: 100%;
+      top: 50%;
+      left: 0;
+    }
+
+    /* Small data readout labels */
+    .hero-data {
+      position: absolute;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: rgba(92,201,129,0.7);
+      font-family: "Helvetica Neue", monospace;
+    }
+    .hero-data-1 { top: 28%; left: 20%; }
+    .hero-data-2 { top: 60%; left: 15%; }
+    .hero-data-3 { top: 25%; right: 18%; }
+    .hero-data-4 { top: 65%; right: 22%; }
+
+    /* Gradient fade bottom */
+    .hero-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 220px;
+      background: linear-gradient(to bottom, transparent 0%, #121317 100%);
+    }
+
+    /* Hero bottom badge */
+    .hero-badge {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #5cc981;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero-badge-text {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: #5cc981;
+      text-transform: uppercase;
+    }
+
+    /* Year tag top right */
+    .hero-year {
+      position: absolute;
+      top: 36px;
+      right: 48px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: #8592a3;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       PROJECT INFO SECTION
+    ============================================================ */
+    .project-info {
+      padding: 64px 48px 80px;
+      display: grid;
+      grid-template-columns: 314px 1fr 656px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* Left: logo + role */
+    .project-logo-area {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .project-logo {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #f5f5f5;
+      text-transform: uppercase;
+    }
+
+    .project-logo span {
+      color: #5cc981;
+    }
+
+    .project-role {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .role-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #8592a3;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .role-item {
+      font-size: 14px;
+      color: #f5f5f5;
+      line-height: 1.8;
+      padding-left: 0;
+      position: relative;
+    }
+
+    /* Middle: empty spacer */
+    .project-spacer {
+      /* intentional gap */
+    }
+
+    /* Right: description */
+    .project-description {
+      max-width: 656px;
+    }
+
+    .project-description p {
+      font-size: 18px;
+      line-height: 1.75;
+      color: #8592a3;
+      font-weight: 300;
+    }
+
+    .project-tag-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #5cc981;
+      border: 1px solid rgba(92,201,129,0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+
+    /* ============================================================
+       CONTENT SECTIONS
+    ============================================================ */
+    .content-section {
+      padding: 0 48px 80px;
+    }
+
+    /* ============================================================
+       SECTION 1 — Large product screenshot (FFR System)
+    ============================================================ */
+    .screenshot-full {
+      width: 100%;
+      height: 580px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0px 4px 4px rgba(0,0,0,0.25), 0px 24px 80px rgba(0,0,0,0.5);
+      border-radius: 0;
+    }
+
+    .screenshot-bg-ffr {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        145deg,
+        #050d18 0%,
+        #071a2e 30%,
+        #0a2840 60%,
+        #061520 100%
+      );
+    }
+
+    /* FFR interface elements */
+    .ffr-topbar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 44px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(92,201,129,0.15);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .ffr-topbar-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+
+    .ffr-topbar-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(92,201,129,0.8);
+      text-transform: uppercase;
+      margin-left: 8px;
+    }
+
+    .ffr-main-area {
+      position: absolute;
+      top: 44px; bottom: 0; left: 0; right: 0;
+      display: grid;
+      grid-template-columns: 220px 1fr 200px;
+    }
+
+    .ffr-sidebar-left {
+      border-right: 1px solid rgba(255,255,255,0.06);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ffr-sidebar-item {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .ffr-sidebar-item.active {
+      background: rgba(92,201,129,0.4);
+      width: 60%;
+    }
+
+    .ffr-sidebar-item.short { width: 70%; }
+    .ffr-sidebar-item.medium { width: 85%; }
+    .ffr-sidebar-item.long { width: 100%; }
+
+    .ffr-center {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* The 3D vessel visualization in the FFR center */
+    .ffr-vessel-display {
+      width: 100%;
+      height: 300px;
+      position: relative;
+      border: 1px solid rgba(92,201,129,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 40% 50%, #0a3040 0%, #040c15 60%, #020709 100%);
+    }
+
+    .ffr-vessel-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .ffr-metrics-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .ffr-metric {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 4px;
+      padding: 12px 16px;
+    }
+
+    .ffr-metric-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: #8592a3;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .ffr-metric-value {
+      font-size: 22px;
+      font-weight: 700;
+      color: #5cc981;
+    }
+
+    .ffr-metric-value.warning {
+      color: #e8a53a;
+    }
+
+    .ffr-metric-unit {
+      font-size: 10px;
+      color: #8592a3;
+      margin-left: 2px;
+    }
+
+    .ffr-sidebar-right {
+      border-left: 1px solid rgba(255,255,255,0.06);
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ffr-right-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      color: #8592a3;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .ffr-right-block {
+      background: rgba(92,201,129,0.06);
+      border: 1px solid rgba(92,201,129,0.15);
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+
+    .ffr-right-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5cc981;
+    }
+
+    .ffr-right-sub {
+      font-size: 9px;
+      color: #8592a3;
+      margin-top: 2px;
+    }
+
+    .screenshot-label {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       SECTION 2 — 3D Vessel Visualization
+    ============================================================ */
+    .section-grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .vessel-card {
+      height: 440px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0px 4px 4px rgba(0,0,0,0.25), 0px 16px 60px rgba(0,0,0,0.5);
+    }
+
+    .vessel-card-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .vessel-card-bg-1 {
+      background: radial-gradient(ellipse at 35% 55%, #0d3a5c 0%, #071525 50%, #030a10 100%);
+    }
+
+    .vessel-card-bg-2 {
+      background: radial-gradient(ellipse at 65% 45%, #0a2d1e 0%, #060d18 50%, #020608 100%);
+    }
+
+    .vessel-card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .vessel-3d-svg {
+      width: 100%;
+      height: 260px;
+    }
+
+    .vessel-card-tag {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: #5cc981;
+      text-transform: uppercase;
+      margin-top: 20px;
+    }
+
+    /* ============================================================
+       QUOTE / TEXT SECTIONS
+    ============================================================ */
+    .text-section {
+      padding: 64px 48px;
+      max-width: 900px;
+    }
+
+    .text-section p {
+      font-size: 26px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #f5f5f5;
+      letter-spacing: -0.01em;
+    }
+
+    .text-section p strong {
+      color: #5cc981;
+      font-weight: 500;
+    }
+
+    .text-section-2 {
+      padding: 64px 48px;
+      max-width: 820px;
+      margin-left: auto;
+    }
+
+    .text-section-2 p {
+      font-size: 22px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: #8592a3;
+      letter-spacing: 0em;
+    }
+
+    /* ============================================================
+       SECTION 3 — Dashboard screenshot (browser mockup)
+    ============================================================ */
+    .browser-mockup {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 4px 4px rgba(0,0,0,0.25), 0px 32px 100px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .browser-topbar {
+      height: 48px;
+      background: #1e2128;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .browser-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .browser-dot-red   { background: #ff5f57; }
+    .browser-dot-yellow { background: #febc2e; }
+    .browser-dot-green  { background: #28c840; }
+
+    .browser-url {
+      flex: 1;
+      height: 26px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      margin: 0 16px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+    }
+
+    .browser-url-text {
+      font-size: 11px;
+      color: #8592a3;
+      letter-spacing: 0.02em;
+    }
+
+    .browser-content {
+      height: 520px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0e14;
+    }
+
+    /* Dashboard interior */
+    .dash-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #0d1520 0%, #080d14 50%, #05090e 100%);
+    }
+
+    .dash-topnav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 52px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 32px;
+    }
+
+    .dash-nav-logo {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #f5f5f5;
+    }
+
+    .dash-nav-item {
+      font-size: 11px;
+      color: #8592a3;
+      letter-spacing: 0.05em;
+    }
+
+    .dash-nav-item.active {
+      color: #5cc981;
+    }
+
+    .dash-body {
+      position: absolute;
+      top: 52px; left: 0; right: 0; bottom: 0;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+    }
+
+    .dash-sidebar {
+      border-right: 1px solid rgba(255,255,255,0.05);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dash-sidebar-item {
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #8592a3;
+    }
+
+    .dash-sidebar-item.active {
+      background: rgba(92,201,129,0.1);
+      color: #5cc981;
+    }
+
+    .dash-main {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dash-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .dash-kpi {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+
+    .dash-kpi-label {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: #8592a3;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .dash-kpi-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f5f5f5;
+    }
+
+    .dash-kpi-value.green { color: #5cc981; }
+    .dash-kpi-value.amber { color: #e8a53a; }
+
+    .dash-chart-area {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+    }
+
+    .dash-chart-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 6px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dash-chart-title {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: #8592a3;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    /* Simulated line chart */
+    .chart-line-svg {
+      width: 100%;
+      height: 120px;
+    }
+
+    /* Simulated donut chart */
+    .chart-donut-svg {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    /* ============================================================
+       ADDITIONAL SCREENSHOTS ROW
+    ============================================================ */
+    .screenshots-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .screenshot-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0px 4px 4px rgba(0,0,0,0.25), 0px 16px 48px rgba(0,0,0,0.5);
+      height: 260px;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .screenshot-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0px 8px 8px rgba(0,0,0,0.3), 0px 24px 64px rgba(0,0,0,0.6);
+    }
+
+    .sc-bg-1 {
+      background: linear-gradient(135deg, #0c1f35 0%, #071524 50%, #040c18 100%);
+    }
+    .sc-bg-2 {
+      background: linear-gradient(135deg, #0a1e14 0%, #061510 50%, #030a08 100%);
+    }
+    .sc-bg-3 {
+      background: linear-gradient(135deg, #1a1220 0%, #0e0a16 50%, #07050d 100%);
+    }
+
+    .sc-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .sc-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+
+    .sc-title {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    /* Mini chart bars */
+    .mini-bars {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .mini-bar {
+      width: 14px;
+      border-radius: 2px 2px 0 0;
+      background: rgba(92,201,129,0.3);
+    }
+
+    .mini-bar.active {
+      background: rgba(92,201,129,0.7);
+    }
+
+    /* Mini line */
+    .mini-line-svg {
+      width: 120px;
+      height: 60px;
+      margin-bottom: 16px;
+    }
+
+    /* ============================================================
+       SECTION LABEL / EYEBROW
+    ============================================================ */
+    .section-eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: #5cc981;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: #5cc981;
+    }
+
+    /* ============================================================
+       IMPACT STATS
+    ============================================================ */
+    .impact-section {
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 80px;
+    }
+
+    .impact-stat {
+      background: #121317;
+      padding: 48px 48px;
+      text-align: left;
+    }
+
+    .impact-number {
+      font-size: 56px;
+      font-weight: 800;
+      color: #f5f5f5;
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .impact-number span {
+      color: #5cc981;
+    }
+
+    .impact-label {
+      font-size: 13px;
+      color: #8592a3;
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       FOOTER / NAVIGATION
+    ============================================================ */
+    .footer {
+      margin-top: 80px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Prev/Next nav */
+    .project-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .project-nav-item {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: background 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .project-nav-item:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .project-nav-item.next {
+      border-left: 1px solid rgba(255,255,255,0.08);
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .project-nav-direction {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: #8592a3;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-nav-item.next .project-nav-direction {
+      flex-direction: row-reverse;
+    }
+
+    .project-nav-arrow {
+      font-size: 16px;
+      color: #5cc981;
+    }
+
+    .project-nav-name {
+      font-size: 24px;
+      font-weight: 600;
+      color: #f5f5f5;
+      transition: color 0.2s ease;
+    }
+
+    .project-nav-item:hover .project-nav-name {
+      color: #5cc981;
+    }
+
+    /* Separator */
+    .footer-separator {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Bio / Contact area */
+    .footer-contact {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 80px;
+      padding: 80px 48px;
+      align-items: start;
+    }
+
+    /* Left: photo + bio */
+    .footer-bio {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .footer-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e2430 0%, #2a3040 100%);
+      border: 2px solid rgba(92,201,129,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-photo-initials {
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: -0.02em;
+    }
+
+    .footer-photo-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid rgba(92,201,129,0.15);
+    }
+
+    .footer-bio-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: #f5f5f5;
+    }
+
+    .footer-bio-title {
+      font-size: 13px;
+      color: #8592a3;
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    /* Right: CTA + form */
+    .footer-cta {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .footer-heading {
+      font-size: 40px;
+      font-weight: 700;
+      color: #f5f5f5;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-heading span {
+      color: #5cc981;
+    }
+
+    .footer-form {
+      display: flex;
+      gap: 0;
+      max-width: 500px;
+    }
+
+    .footer-input {
+      flex: 1;
+      height: 52px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      padding: 0 20px;
+      font-size: 14px;
+      color: #f5f5f5;
+      font-family: "Helvetica Neue", sans-serif;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .footer-input::placeholder {
+      color: #8592a3;
+    }
+
+    .footer-input:focus {
+      border-color: rgba(92,201,129,0.4);
+    }
+
+    .footer-btn {
+      height: 52px;
+      padding: 0 28px;
+      background: #5cc981;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      color: #121317;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: "Helvetica Neue", sans-serif;
+      transition: background 0.2s ease;
+    }
+
+    .footer-btn:hover {
+      background: #4ab870;
+    }
+
+    .footer-contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-contact-item {
+      font-size: 13px;
+      color: #8592a3;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-contact-item:hover {
+      color: #f5f5f5;
+    }
+
+    .footer-contact-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    /* LinkedIn */
+    .linkedin-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+
+    .linkedin-icon:hover {
+      border-color: #5cc981;
+      background: rgba(92,201,129,0.08);
+    }
+
+    /* Bottom footer bar */
+    .footer-bottom {
+      padding: 24px 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copyright {
+      font-size: 11px;
+      color: #8592a3;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-back-top {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: #8592a3;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-back-top:hover {
+      color: #5cc981;
+    }
+
+    /* ============================================================
+       PARALLAX helper
+    ============================================================ */
+    .parallax-hero {
+      will-change: transform;
+    }
+
+    /* ============================================================
+       SCROLLBAR
+    ============================================================ */
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #121317;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(92,201,129,0.3);
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(92,201,129,0.6);
+    }
+
+    /* ============================================================
+       UTILITIES
+    ============================================================ */
+    .mt-80 { margin-top: 80px; }
+    .mb-80 { margin-bottom: 80px; }
+    .w-full { width: 100%; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       LEFT SIDEBAR
+  ============================================================ -->
+  <aside class="sidebar">
+    <div class="sidebar-menu">
+      <span class="sidebar-logo">Primak</span>
+      <div class="sidebar-divider"></div>
+      <span class="sidebar-label">Work</span>
+      <span class="sidebar-label">About</span>
+      <span class="sidebar-label">Contact</span>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero parallax-hero" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+
+      <!-- Animated rings -->
+      <div class="hero-ring hero-ring-1"></div>
+      <div class="hero-ring hero-ring-2"></div>
+      <div class="hero-ring hero-ring-3"></div>
+
+      <!-- Crosshair -->
+      <div class="hero-crosshair"></div>
+
+      <!-- SVG vessel lines -->
+      <svg class="hero-vessel" viewBox="0 0 1360 763" preserveAspectRatio="xMidYMid slice">
+        <!-- Main coronary vessel path -->
+        <path d="M 200,600 Q 350,500 480,380 Q 580,280 680,250 Q 780,220 860,260 Q 940,300 980,380 Q 1020,460 1060,500 Q 1100,540 1140,520"
+              fill="none" stroke="rgba(92,201,129,0.25)" stroke-width="3" stroke-linecap="round"/>
+        <!-- Branch 1 -->
+        <path d="M 680,250 Q 700,180 740,140 Q 780,100 820,120"
+              fill="none" stroke="rgba(92,201,129,0.18)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Branch 2 -->
+        <path d="M 860,260 Q 900,220 920,180 Q 940,140 960,160"
+              fill="none" stroke="rgba(92,201,129,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- FFR measurement point -->
+        <circle cx="780" cy="235" r="6" fill="none" stroke="rgba(92,201,129,0.6)" stroke-width="1.5"/>
+        <circle cx="780" cy="235" r="2" fill="rgba(92,201,129,0.8)"/>
+        <!-- Measurement line -->
+        <line x1="780" y1="229" x2="780" y2="150" stroke="rgba(92,201,129,0.4)" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="790" y="145" fill="rgba(92,201,129,0.7)" font-size="11" font-family="Helvetica Neue" letter-spacing="1">FFR 0.74</text>
+      </svg>
+
+      <!-- Data readouts -->
+      <div class="hero-data hero-data-1">
+        PATIENT ID: CW-2847<br>
+        VESSEL: LAD<br>
+        LESION: 72%
+      </div>
+      <div class="hero-data hero-data-2">
+        PRESSURE RATIO: 0.74<br>
+        THRESHOLD: 0.80<br>
+        STATUS: SIGNIFICANT
+      </div>
+      <div class="hero-data hero-data-3">
+        FLOW: 1.24 mL/s<br>
+        STENOSIS: 3D
+      </div>
+      <div class="hero-data hero-data-4">
+        iFR: 0.86<br>
+        CFR: 2.1
+      </div>
+
+      <!-- Bottom badge -->
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span class="hero-badge-text">FFRangio · Real-Time 3D Assessment · FDA Cleared</span>
+      </div>
+
+      <!-- Year -->
+      <div class="hero-year">2019 – 2022</div>
+
+      <!-- Bottom fade -->
+      <div class="hero-fade"></div>
+    </section>
+
+    <!-- PROJECT INFO -->
+    <section class="project-info">
+
+      <!-- Left: logo + role -->
+      <div class="project-logo-area">
+        <div class="project-logo">Cath<span>Works</span></div>
+
+        <div class="project-role">
+          <div class="role-label">Role</div>
+          <div class="role-item">Product Strategy</div>
+          <div class="role-item">User Behavior</div>
+          <div class="role-item">UX / UI Design</div>
+          <div class="role-item">Front End Development</div>
+        </div>
+      </div>
+
+      <!-- Middle spacer -->
+      <div class="project-spacer"></div>
+
+      <!-- Right: description -->
+      <div class="project-description">
+        <p>Medical device startup that provides real-time 3D visual assessments in hospital emergency rooms</p>
+        <div class="project-tag-row">
+          <span class="project-tag">MedTech</span>
+          <span class="project-tag">Cardiac Diagnostics</span>
+          <span class="project-tag">AI-Powered</span>
+          <span class="project-tag">FDA Cleared</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         SECTION 1 — FFR System Interface
+    ============================================================ -->
+    <section class="content-section">
+      <div class="section-eyebrow">System Interface</div>
+      <div class="screenshot-full">
+        <div class="screenshot-bg-ffr"></div>
+
+        <!-- Top bar -->
+        <div class="ffr-topbar">
+          <div class="ffr-topbar-dot" style="background:#ff5f57"></div>
+          <div class="ffr-topbar-dot" style="background:#febc2e"></div>
+          <div class="ffr-topbar-dot" style="background:#28c840"></div>
+          <span class="ffr-topbar-label">FFRangio · CathWorks Clinical Suite · v3.2.1</span>
+        </div>
+
+        <!-- Main area -->
+        <div class="ffr-main-area">
+          <!-- Left sidebar -->
+          <div class="ffr-sidebar-left">
+            <div class="ffr-sidebar-item active"></div>
+            <div class="ffr-sidebar-item short" style="height:5px;width:75%"></div>
+            <div class="ffr-sidebar-item" style="width:90%;height:5px;background:rgba(255,255,255,0.07)"></div>
+            <div class="ffr-sidebar-item" style="width:65%;height:5px;background:rgba(255,255,255,0.07)"></div>
+            <div class="ffr-sidebar-item" style="width:80%;height:5px;background:rgba(255,255,255,0.07)"></div>
+            <div style="flex:1"></div>
+            <div class="ffr-sidebar-item" style="width:50%;height:5px;background:rgba(92,201,129,0.2)"></div>
+            <div class="ffr-sidebar-item" style="width:70%;height:5px;background:rgba(255,255,255,0.07)"></div>
+          </div>
+
+          <!-- Center -->
+          <div class="ffr-center">
+            <!-- 3D Vessel Display -->
+            <div class="ffr-vessel-display">
+              <svg class="ffr-vessel-svg" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid meet">
+                <!-- Vessel background glow -->
+                <defs>
+                  <radialGradient id="vesselGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#0a4a5e" stop-opacity="0.6"/>
+                    <stop offset="100%" stop-color="#020b12" stop-opacity="0"/>
+                  </radialGradient>
+                  <linearGradient id="vesselGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#5cc981" stop-opacity="0.8"/>
+                    <stop offset="40%" stop-color="#e8a53a" stop-opacity="0.9"/>
+                    <stop offset="70%" stop-color="#e85a3a" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="#5cc981" stop-opacity="0.7"/>
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                  </filter>
+                </defs>
+
+                <ellipse cx="300" cy="150" rx="220" ry="130" fill="url(#vesselGlow)"/>
+
+                <!-- Main vessel tube (upper wall) -->
+                <path d="M 60,100 Q 150,80 250,90 Q 320,95 380,85 Q 440,75 530,95"
+                      fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                <!-- Main vessel tube (lower wall) -->
+                <path d="M 60,160 Q 150,180 250,165 Q 320,155 380,165 Q 440,175 530,155"
+                      fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+                <!-- Vessel centerline colored by FFR -->
+                <path d="M 60,130 Q 150,130 250,128 Q 320,125 380,125 Q 440,125 530,125"
+                      fill="none" stroke="url(#vesselGrad)" stroke-width="6" stroke-linecap="round" filter="url(#glow)"/>
+
+                <!-- Branch vessel -->
+                <path d="M 300,115 Q 310,80 340,60 Q 360,45 390,50"
+                      fill="none" stroke="rgba(92,201,129,0.5)" stroke-width="3" stroke-linecap="round"/>
+
+                <!-- Measurement markers -->
+                <circle cx="200" cy="128" r="4" fill="none" stroke="rgba(92,201,129,0.8)" stroke-width="1.5"/>
+                <line x1="200" y1="124" x2="200" y2="95" stroke="rgba(92,201,129,0.6)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="208" y="92" fill="rgba(92,201,129,0.9)" font-size="9" font-family="Helvetica Neue">0.88</text>
+
+                <circle cx="340" cy="125" r="4" fill="none" stroke="rgba(232,165,58,0.9)" stroke-width="1.5"/>
+                <line x1="340" y1="121" x2="340" y2="90" stroke="rgba(232,165,58,0.6)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="348" y="87" fill="rgba(232,165,58,0.9)" font-size="9" font-family="Helvetica Neue">0.74</text>
+
+                <circle cx="430" cy="125" r="4" fill="none" stroke="rgba(232,90,58,0.9)" stroke-width="1.5"/>
+                <line x1="430" y1="121" x2="430" y2="95" stroke="rgba(232,90,58,0.6)" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="438" y="92" fill="rgba(232,90,58,0.9)" font-size="9" font-family="Helvetica Neue">0.68</text>
+
+                <!-- Axis labels -->
+                <text x="60" y="290" fill="rgba(133,146,163,0.6)" font-size="8" font-family="Helvetica Neue" letter-spacing="1">PROXIMAL</text>
+                <text x="480" y="290" fill="rgba(133,146,163,0.6)" font-size="8" font-family="Helvetica Neue" letter-spacing="1">DISTAL</text>
+              </svg>
+            </div>
+
+            <!-- Metrics row -->
+            <div class="ffr-metrics-row">
+              <div class="ffr-metric">
+                <div class="ffr-metric-label">FFR Value</div>
+                <div class="ffr-metric-value">0.74<span class="ffr-metric-unit"></span></div>
+              </div>
+              <div class="ffr-metric">
+                <div class="ffr-metric-label">iFR</div>
+                <div class="ffr-metric-value warning">0.86</div>
+              </div>
+              <div class="ffr-metric">
+                <div class="ffr-metric-label">Stenosis</div>
+                <div class="ffr-metric-value">72<span class="ffr-metric-unit">%</span></div>
+              </div>
+              <div class="ffr-metric">
+                <div class="ffr-metric-label">Vessel</div>
+                <div class="ffr-metric-value" style="font-size:16px">LAD</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right sidebar -->
+          <div class="ffr-sidebar-right">
+            <div class="ffr-right-label">Decision</div>
+            <div class="ffr-right-block">
+              <div class="ffr-right-value">PCI</div>
+              <div class="ffr-right-sub">Revascularize indicated</div>
+            </div>
+            <div style="margin-top:8px">
+              <div class="ffr-right-label">Patient</div>
+              <div style="font-size:11px;color:#8592a3;line-height:1.8;">
+                ID: CW-2847<br>
+                Age: 64<br>
+                Vessel: LAD<br>
+                Operator: Dr. K
+              </div>
+            </div>
+            <div style="margin-top:auto">
+              <div class="ffr-right-label">Report</div>
+              <div style="height:5px;background:rgba(92,201,129,0.3);border-radius:2px;margin-top:6px"></div>
+              <div style="font-size:9px;color:#8592a3;margin-top:6px">Ready to export</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="screenshot-label">FFR System Interface — CathWorks Clinical Suite</div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 — 3D Vessel Visualization
+    ============================================================ -->
+    <section class="content-section">
+      <div class="section-eyebrow">3D Vessel Mapping</div>
+      <div class="section-grid-two">
+
+        <!-- Card 1: 3D reconstruction -->
+        <div class="vessel-card">
+          <div class="vessel-card-bg vessel-card-bg-1"></div>
+          <div class="vessel-card-content">
+            <svg class="vessel-3d-svg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <radialGradient id="cardGlow1" cx="45%" cy="55%" r="55%">
+                  <stop offset="0%" stop-color="#0d3a5c" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#030810" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="glow2">
+                  <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                  <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <ellipse cx="200" cy="130" rx="160" ry="100" fill="url(#cardGlow1)"/>
+
+              <!-- 3D vessel - left anterior descending (LAD) -->
+              <!-- Outer wall perspective illusion -->
+              <path d="M 60,180 Q 120,160 200,140 Q 280,120 340,130 Q 370,135 380,140"
+                    fill="none" stroke="rgba(13,58,92,0.8)" stroke-width="12" stroke-linecap="round"/>
+              <!-- Inner vessel path -->
+              <path d="M 60,178 Q 120,158 200,138 Q 280,118 340,128 Q 370,133 380,138"
+                    fill="none" stroke="rgba(92,201,129,0.6)" stroke-width="5" stroke-linecap="round" filter="url(#glow2)"/>
+
+              <!-- Branch: circumflex -->
+              <path d="M 200,138 Q 220,100 260,80 Q 290,65 320,75"
+                    fill="none" stroke="rgba(13,58,92,0.8)" stroke-width="8" stroke-linecap="round"/>
+              <path d="M 200,138 Q 220,98 260,78 Q 290,63 320,73"
+                    fill="none" stroke="rgba(92,201,129,0.45)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow2)"/>
+
+              <!-- Branch: RCA -->
+              <path d="M 120,170 Q 110,210 130,240 Q 150,265 180,255"
+                    fill="none" stroke="rgba(13,58,92,0.7)" stroke-width="7" stroke-linecap="round"/>
+              <path d="M 120,170 Q 110,208 130,238 Q 150,263 180,253"
+                    fill="none" stroke="rgba(92,201,129,0.35)" stroke-width="3" stroke-linecap="round" filter="url(#glow2)"/>
+
+              <!-- FFR lesion highlight -->
+              <ellipse cx="280" cy="123" rx="20" ry="8" fill="none" stroke="rgba(232,165,58,0.7)" stroke-width="1.5"/>
+              <circle cx="280" cy="123" r="3" fill="rgba(232,165,58,0.8)" filter="url(#glow2)"/>
+
+              <!-- Labels -->
+              <text x="350" y="112" fill="rgba(92,201,129,0.6)" font-size="9" font-family="Helvetica Neue" letter-spacing="1">LAD</text>
+              <text x="326" y="68" fill="rgba(92,201,129,0.5)" font-size="9" font-family="Helvetica Neue">LCx</text>
+              <text x="182" y="260" fill="rgba(92,201,129,0.4)" font-size="9" font-family="Helvetica Neue">RCA</text>
+
+              <!-- Grid lines for 3D depth perception -->
+              <line x1="40" y1="80" x2="380" y2="80" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="40" y1="130" x2="380" y2="130" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="40" y1="180" x2="380" y2="180" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="100" y1="40" x2="100" y2="260" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="200" y1="40" x2="200" y2="260" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+              <line x1="300" y1="40" x2="300" y2="260" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+            </svg>
+            <div class="vessel-card-tag">3D Coronary Reconstruction</div>
+          </div>
+        </div>
+
+        <!-- Card 2: pressure map -->
+        <div class="vessel-card">
+          <div class="vessel-card-bg vessel-card-bg-2"></div>
+          <div class="vessel-card-content">
+            <svg class="vessel-3d-svg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <radialGradient id="cardGlow2" cx="55%" cy="45%" r="50%">
+                  <stop offset="0%" stop-color="#0a2d1e" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#020608" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="pressureGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#5cc981"/>
+                  <stop offset="45%" stop-color="#e8a53a"/>
+                  <stop offset="65%" stop-color="#e85a3a"/>
+                  <stop offset="100%" stop-color="#e85a3a" stop-opacity="0.5"/>
+                </linearGradient>
+                <filter id="glow3">
+                  <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                  <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              <ellipse cx="200" cy="130" rx="155" ry="95" fill="url(#cardGlow2)"/>
+
+              <!-- Pressure gradient vessel -->
+              <path d="M 50,130 Q 130,125 220,128 Q 290,130 340,128 Q 370,127 390,128"
+                    fill="none" stroke="url(#pressureGrad)" stroke-width="8" stroke-linecap="round" filter="url(#glow3)"/>
+
+              <!-- Pressure wave animation simulation -->
+              <path d="M 50,160 Q 100,145 160,155 Q 220,165 280,155 Q 320,148 390,158"
+                    fill="none" stroke="rgba(92,201,129,0.2)" stroke-width="2"/>
+              <path d="M 50,100 Q 100,112 160,105 Q 220,98 280,104 Q 320,110 390,100"
+                    fill="none" stroke="rgba(92,201,129,0.2)" stroke-width="2"/>
+
+              <!-- Color legend bar -->
+              <defs>
+                <linearGradient id="legendGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#5cc981"/>
+                  <stop offset="50%" stop-color="#e8a53a"/>
+                  <stop offset="100%" stop-color="#e85a3a"/>
+                </linearGradient>
+              </defs>
+              <rect x="80" y="210" width="240" height="8" rx="4" fill="url(#legendGrad)"/>
+              <text x="76" y="230" fill="rgba(92,201,129,0.7)" font-size="9" font-family="Helvetica Neue">1.0</text>
+              <text x="192" y="230" fill="rgba(232,165,58,0.7)" font-size="9" font-family="Helvetica Neue">0.80</text>
+              <text x="308" y="230" fill="rgba(232,90,58,0.7)" font-size="9" font-family="Helvetica Neue">0.60</text>
+
+              <!-- FFR threshold marker -->
+              <line x1="198" y1="200" x2="198" y2="215" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+              <text x="168" y="198" fill="rgba(255,255,255,0.4)" font-size="8" font-family="Helvetica Neue">Threshold</text>
+
+              <!-- Title -->
+              <text x="200" y="40" fill="rgba(133,146,163,0.6)" font-size="10" font-family="Helvetica Neue"
+                    text-anchor="middle" letter-spacing="2">FFR PRESSURE GRADIENT MAP</text>
+            </svg>
+            <div class="vessel-card-tag">Pressure Gradient Mapping</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TEXT SECTION 1
+    ============================================================ -->
+    <div class="text-section">
+      <div class="section-eyebrow">Design Challenge</div>
+      <p>Implementing a <strong>fully functional surgical simulation process</strong> for the purpose of making real-time decisions.</p>
+    </div>
+
+    <!-- ============================================================
+         IMPACT STATS
+    ============================================================ -->
+    <div class="impact-section">
+      <div class="impact-stat">
+        <div class="impact-number">$<span>585</span>M</div>
+        <div class="impact-label">Acquisition by Medtronic<br>(up to $1B milestone-based)</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-number">100<span>K+</span></div>
+        <div class="impact-label">Patients treated<br>across global hospitals</div>
+      </div>
+      <div class="impact-stat">
+        <div class="impact-number">FDA<span>✓</span></div>
+        <div class="impact-label">Cleared medical device<br>CE Mark approved</div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SECTION 3 — Dashboard Browser Mockup
+    ============================================================ -->
+    <section class="content-section">
+      <div class="section-eyebrow">Clinical Dashboard</div>
+      <div class="browser-mockup">
+        <div class="browser-topbar">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-url">
+            <span class="browser-url-text">cathworks.com/clinical/dashboard</span>
+          </div>
+        </div>
+        <div class="browser-content">
+          <div class="dash-bg"></div>
+          <div class="dash-topnav">
+            <span class="dash-nav-logo">CathWorks</span>
+            <span class="dash-nav-item">Patients</span>
+            <span class="dash-nav-item active">Dashboard</span>
+            <span class="dash-nav-item">Reports</span>
+            <span class="dash-nav-item">Settings</span>
+          </div>
+          <div class="dash-body">
+            <div class="dash-sidebar">
+              <div class="dash-sidebar-item active">Overview</div>
+              <div class="dash-sidebar-item">Active Cases</div>
+              <div class="dash-sidebar-item">Analytics</div>
+              <div class="dash-sidebar-item">Patients</div>
+              <div class="dash-sidebar-item">Reports</div>
+            </div>
+            <div class="dash-main">
+              <!-- KPI row -->
+              <div class="dash-kpi-row">
+                <div class="dash-kpi">
+                  <div class="dash-kpi-label">Total Cases</div>
+                  <div class="dash-kpi-value">1,247</div>
+                </div>
+                <div class="dash-kpi">
+                  <div class="dash-kpi-label">PCI Rate</div>
+                  <div class="dash-kpi-value green">43%</div>
+                </div>
+                <div class="dash-kpi">
+                  <div class="dash-kpi-label">Avg FFR</div>
+                  <div class="dash-kpi-value amber">0.81</div>
+                </div>
+                <div class="dash-kpi">
+                  <div class="dash-kpi-label">Active Today</div>
+                  <div class="dash-kpi-value">12</div>
+                </div>
+              </div>
+
+              <!-- Chart area -->
+              <div class="dash-chart-area">
+                <div class="dash-chart-card">
+                  <div class="dash-chart-title">Monthly Case Volume</div>
+                  <svg class="chart-line-svg" viewBox="0 0 400 120" preserveAspectRatio="none">
+                    <defs>
+                      <linearGradient id="chartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#5cc981" stop-opacity="0.3"/>
+                        <stop offset="100%" stop-color="#5cc981" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Area fill -->
+                    <path d="M 0,100 L 30,85 L 80,70 L 130,60 L 180,40 L 230,50 L 280,30 L 330,20 L 380,25 L 400,22 L 400,120 L 0,120 Z"
+                          fill="url(#chartGrad)"/>
+                    <!-- Line -->
+                    <path d="M 0,100 L 30,85 L 80,70 L 130,60 L 180,40 L 230,50 L 280,30 L 330,20 L 380,25 L 400,22"
+                          fill="none" stroke="#5cc981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Dots -->
+                    <circle cx="280" cy="30" r="4" fill="#5cc981"/>
+                    <circle cx="330" cy="20" r="4" fill="#5cc981"/>
+                    <!-- Grid lines -->
+                    <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="0" y1="60" x2="400" y2="60" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                    <line x1="0" y1="90" x2="400" y2="90" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+                  </svg>
+                </div>
+
+                <div class="dash-chart-card" style="display:flex;flex-direction:column;align-items:center">
+                  <div class="dash-chart-title" style="align-self:flex-start">PCI vs DEFER</div>
+                  <svg class="chart-donut-svg" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"/>
+                    <!-- PCI segment: 43% = ~155deg -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#5cc981" stroke-width="12"
+                            stroke-dasharray="102 239" stroke-dashoffset="60" transform="rotate(-90 50 50)"/>
+                    <!-- Defer segment -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#e8a53a" stroke-width="12"
+                            stroke-dasharray="137 239" stroke-dashoffset="-42" transform="rotate(-90 50 50)"/>
+                    <text x="50" y="54" text-anchor="middle" fill="#f5f5f5" font-size="14" font-weight="700" font-family="Helvetica Neue">43%</text>
+                  </svg>
+                  <div style="display:flex;gap:12px;margin-top:8px">
+                    <div style="display:flex;align-items:center;gap:4px">
+                      <div style="width:8px;height:8px;border-radius:50%;background:#5cc981"></div>
+                      <span style="font-size:9px;color:#8592a3">PCI</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:4px">
+                      <div style="width:8px;height:8px;border-radius:50%;background:#e8a53a"></div>
+                      <span style="font-size:9px;color:#8592a3">Defer</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TEXT SECTION 2
+    ============================================================ -->
+    <div class="text-section-2">
+      <div class="section-eyebrow">Outcome</div>
+      <p>Achieving data-driven decision making by constructing an accurate user flow in harmony with the clinical team's work.</p>
+    </div>
+
+    <!-- ============================================================
+         SECTION 4 — Additional Screenshots Row
+    ============================================================ -->
+    <section class="content-section">
+      <div class="section-eyebrow">Deliverables</div>
+      <div class="screenshots-row">
+
+        <!-- Card 1: Reports -->
+        <div class="screenshot-card sc-bg-1">
+          <div class="sc-content">
+            <div class="mini-bars">
+              <div class="mini-bar" style="height:30px"></div>
+              <div class="mini-bar" style="height:50px"></div>
+              <div class="mini-bar active" style="height:70px"></div>
+              <div class="mini-bar" style="height:45px"></div>
+              <div class="mini-bar active" style="height:60px"></div>
+              <div class="mini-bar" style="height:35px"></div>
+              <div class="mini-bar active" style="height:75px"></div>
+            </div>
+            <div class="sc-title">Clinical Report System</div>
+          </div>
+        </div>
+
+        <!-- Card 2: Charts -->
+        <div class="screenshot-card sc-bg-2">
+          <div class="sc-content">
+            <svg class="mini-line-svg" viewBox="0 0 120 60">
+              <path d="M 0,50 Q 20,40 40,30 Q 60,20 80,25 Q 100,30 120,10"
+                    fill="none" stroke="rgba(92,201,129,0.6)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M 0,55 Q 20,50 40,45 Q 60,40 80,42 Q 100,44 120,35"
+                    fill="none" stroke="rgba(232,165,58,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <div class="sc-title">Outcome Analytics</div>
+          </div>
+        </div>
+
+        <!-- Card 3: Mobile / tablet -->
+        <div class="screenshot-card sc-bg-3">
+          <div class="sc-content">
+            <!-- Tablet mockup -->
+            <div style="width:80px;height:100px;border:2px solid rgba(92,201,129,0.25);border-radius:8px;background:rgba(92,201,129,0.04);display:flex;align-items:center;justify-content:center;margin-bottom:16px">
+              <svg width="40" height="40" viewBox="0 0 40 40">
+                <path d="M 10,30 Q 15,20 20,15 Q 25,10 30,12" fill="none" stroke="rgba(92,201,129,0.5)" stroke-width="2"/>
+                <circle cx="20" cy="15" r="4" fill="none" stroke="rgba(92,201,129,0.4)" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="sc-title">Tablet Interface Design</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
+    <footer class="footer">
+
+      <!-- Prev / Next navigation -->
+      <nav class="project-nav">
+        <a class="project-nav-item" href="labs02.html">
+          <div class="project-nav-direction">
+            <span class="project-nav-arrow">←</span>
+            Previous project
+          </div>
+          <div class="project-nav-name">Lab02</div>
+        </a>
+        <a class="project-nav-item next" href="orchestra.html">
+          <div class="project-nav-direction">
+            Next project
+            <span class="project-nav-arrow">→</span>
+          </div>
+          <div class="project-nav-name">Orchesta</div>
+        </a>
+      </nav>
+
+      <div class="footer-separator"></div>
+
+      <!-- Bio + Contact -->
+      <div class="footer-contact">
+
+        <!-- Left: photo + bio -->
+        <div class="footer-bio">
+          <div class="footer-photo">
+            <span class="footer-photo-initials">YP</span>
+            <div class="footer-photo-ring"></div>
+          </div>
+          <div class="footer-bio-name">Yaniv Primak</div>
+          <div class="footer-bio-title">Product designer & strategist. Building meaningful digital experiences at the intersection of design and technology.</div>
+          <div class="linkedin-icon" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M1.5 1h13A.5.5 0 0 1 15 1.5v13a.5.5 0 0 1-.5.5h-13A.5.5 0 0 1 1 14.5v-13A.5.5 0 0 1 1.5 1z" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none"/>
+              <path d="M5 6.5v5M5 4.5v.5" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M8 11.5V9a1.5 1.5 0 0 1 3 0v2.5M8 6.5v5" stroke="rgba(255,255,255,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Right: CTA -->
+        <div class="footer-cta">
+          <div class="footer-heading">Let's build<br><span>amazing</span> dreams</div>
+
+          <form class="footer-form" onsubmit="return false;">
+            <input class="footer-input" type="email" placeholder="Your email address">
+            <button class="footer-btn" type="submit">Send</button>
+          </form>
+
+          <div class="footer-contact-info">
+            <div class="footer-contact-item">
+              <svg class="footer-contact-icon" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4l6 5 6-5" stroke="rgba(133,146,163,0.7)" stroke-width="1.2"/>
+                <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="rgba(133,146,163,0.7)" stroke-width="1.2"/>
+              </svg>
+              office@primak.co
+            </div>
+            <div class="footer-contact-item">
+              <svg class="footer-contact-icon" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1.5A4.5 4.5 0 0 1 12.5 6c0 3-4.5 8.5-4.5 8.5S3.5 9 3.5 6A4.5 4.5 0 0 1 8 1.5z" stroke="rgba(133,146,163,0.7)" stroke-width="1.2"/>
+                <circle cx="8" cy="6" r="1.5" stroke="rgba(133,146,163,0.7)" stroke-width="1.2"/>
+              </svg>
+              Tel Aviv-Yafo, Israel
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <span class="footer-copyright">© 2026 Yaniv Primak. All rights reserved.</span>
+        <div class="footer-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M5 8V2M2 5l3-3 3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to top
+        </div>
+      </div>
+
+    </footer>
+
+  </main>
+
+  <!-- ============================================================
+       JAVASCRIPT — Parallax + Interactions
+  ============================================================ -->
+  <script>
+    // Parallax on hero
+    const hero = document.querySelector('.parallax-hero');
+    const heroBg = document.querySelector('.hero-bg');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.pageYOffset;
+      if (hero && scrollY < window.innerHeight * 1.5) {
+        const layers = hero.querySelectorAll('.hero-bg, .hero-grid, .hero-glow');
+        layers.forEach(el => {
+          el.style.transform = `translateY(${scrollY * 0.3}px)`;
+        });
+        // Rings move slightly slower
+        hero.querySelectorAll('.hero-ring').forEach(ring => {
+          ring.style.transform = `translateY(${scrollY * 0.15}px)`;
+        });
+        // Data labels drift
+        hero.querySelectorAll('.hero-data').forEach(d => {
+          d.style.transform = `translateY(${scrollY * 0.1}px)`;
+        });
+      }
+    }, { passive: true });
+
+    // Sidebar nav label smooth scroll (placeholder)
+    document.querySelectorAll('.sidebar-label').forEach(label => {
+      label.addEventListener('click', () => {
+        // In a real site, scroll to respective section
+        const label_text = label.textContent.toLowerCase();
+        if (label_text === 'contact') {
+          document.querySelector('.footer').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Screenshot cards hover — subtle tilt
+    document.querySelectorAll('.screenshot-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `translateY(-4px) rotateY(${x * 4}deg) rotateX(${y * -4}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.4s ease, box-shadow 0.3s ease';
+        setTimeout(() => { card.style.transition = ''; }, 400);
+      });
+    });
+
+    // Vessel cards hover
+    document.querySelectorAll('.vessel-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `translateY(-6px) rotateY(${x * 5}deg) rotateX(${y * -5}deg)`;
+        card.style.boxShadow = '0px 8px 8px rgba(0,0,0,0.3), 0px 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(92,201,129,0.05)';
+        card.style.transition = 'transform 0.1s ease, box-shadow 0.1s ease';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+        card.style.transition = 'transform 0.4s ease, box-shadow 0.4s ease';
+      });
+    });
+
+    // Intersection Observer — fade in sections
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Apply initial hidden state and observe
+    const animateEls = document.querySelectorAll(
+      '.content-section, .text-section, .text-section-2, .impact-section, .footer-contact'
+    );
+
+    animateEls.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+
+    // Also observe individual cards for stagger
+    document.querySelectorAll('.vessel-card, .screenshot-card, .impact-stat').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s`;
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

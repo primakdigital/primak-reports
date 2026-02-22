@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labs/02 — Yaniv Primak Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #121317;
+    color: #f5f5f5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 80px;
+    min-height: 100vh;
+    background: #121317;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+  }
+
+  .sidebar-menu {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #8592a3;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .sidebar-menu:hover { color: #5cc981; }
+
+  .sidebar-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5cc981;
+    position: absolute;
+    top: 40px;
+  }
+
+  .main { flex: 1; overflow: hidden; }
+
+  /* HERO — dark VC/premium */
+  .hero {
+    width: 1360px;
+    height: 763px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #060608 0%, #0e0e14 25%, #14141e 50%, #1a1a28 75%, #0e1020 100%);
+  }
+
+  .hero-bokeh-1 {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(92,201,129,0.08) 0%, transparent 60%);
+    top: -200px;
+    right: -100px;
+  }
+
+  .hero-bokeh-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(60,100,200,0.08) 0%, transparent 60%);
+    bottom: 100px;
+    left: 200px;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-gradient-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 320px;
+    background: linear-gradient(to bottom, transparent, #121317);
+  }
+
+  .hero-tag-cloud {
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 0.4;
+  }
+
+  .hero-tag-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: #f5f5f5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-tag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5cc981;
+  }
+
+  .hero-content {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    right: 80px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 16px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #f5f5f5;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero-title span {
+    color: #5cc981;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: #8592a3;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  /* PROJECT INFO */
+  .project-info {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 80px;
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .project-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1a1a2e, #3a4a7e);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: #f5f5f5;
+    margin-bottom: 32px;
+    letter-spacing: 0.05em;
+    font-family: monospace;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 12px;
+  }
+
+  .meta-role-list { list-style: none; margin-bottom: 32px; }
+
+  .meta-role-list li {
+    font-size: 14px;
+    color: #f5f5f5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.4;
+  }
+
+  .accent-line {
+    width: 40px;
+    height: 3px;
+    background: #5cc981;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+
+  .project-description {
+    font-size: 24px;
+    line-height: 1.6;
+    color: #f5f5f5;
+    font-weight: 300;
+    max-width: 700px;
+    align-self: center;
+  }
+
+  .project-description strong { color: #5cc981; font-weight: 500; }
+
+  /* SECTIONS */
+  .section {
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    line-height: 1.15;
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: #8592a3;
+    line-height: 1.8;
+    max-width: 680px;
+  }
+
+  /* DARK DASHBOARD MOCKUP */
+  .dark-dashboard {
+    width: 100%;
+    background: #080810;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+
+  .dd-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .dd-logo {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    font-family: monospace;
+    color: #f5f5f5;
+  }
+
+  .dd-logo span { color: #5cc981; }
+
+  .dd-nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .dd-nav-item {
+    font-size: 12px;
+    color: #8592a3;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .dd-nav-item:hover, .dd-nav-item.active { color: #f5f5f5; }
+
+  .dd-body {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .portfolio-company {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.3s;
+  }
+
+  .portfolio-company:hover {
+    background: rgba(92,201,129,0.05);
+    border-color: rgba(92,201,129,0.15);
+  }
+
+  .pc-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .pc-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f5f5f5;
+  }
+
+  .pc-sector {
+    font-size: 10px;
+    color: #8592a3;
+    letter-spacing: 0.05em;
+  }
+
+  .pc-growth {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5cc981;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 40px 32px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+  }
+
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(255,255,255,0.03); }
+
+  .stat-number {
+    font-size: 40px;
+    font-weight: 700;
+    color: #5cc981;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: #8592a3;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* MOBILE MOCKUP */
+  .mobile-mockup-section {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .mobile-frame {
+    width: 280px;
+    height: 560px;
+    background: #060608;
+    border-radius: 36px;
+    border: 2px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+  }
+
+  .mobile-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 20px;
+    background: #030305;
+    border-radius: 10px;
+    z-index: 2;
+  }
+
+  .mobile-screen {
+    position: absolute;
+    inset: 0;
+    padding: 50px 16px 24px;
+    background: linear-gradient(160deg, #0d0d16, #141420);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mobile-header {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(92,201,129,0.6);
+    text-transform: uppercase;
+    padding: 0 8px;
+  }
+
+  .mobile-portfolio-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mpi-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .mpi-info { flex: 1; }
+  .mpi-name { font-size: 11px; font-weight: 600; color: #f5f5f5; margin-bottom: 2px; }
+  .mpi-sector { font-size: 9px; color: #8592a3; }
+  .mpi-value { font-size: 11px; font-weight: 600; color: #5cc981; }
+
+  /* YOU WE DIAGRAM */
+  .you-we-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 80px;
+    background: rgba(92,201,129,0.02);
+    border-radius: 16px;
+    margin: 40px 0;
+    position: relative;
+  }
+
+  .diagram-node {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .diagram-node-you {
+    background: rgba(255,255,255,0.06);
+    border: 2px solid rgba(255,255,255,0.12);
+  }
+
+  .diagram-node-we {
+    background: rgba(92,201,129,0.1);
+    border: 2px solid rgba(92,201,129,0.3);
+    box-shadow: 0 0 40px rgba(92,201,129,0.15);
+  }
+
+  .diagram-node-label {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .diagram-node-sub {
+    font-size: 10px;
+    color: #8592a3;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .diagram-connector {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, rgba(255,255,255,0.08), rgba(92,201,129,0.3), rgba(92,201,129,0.5));
+    position: relative;
+    max-width: 120px;
+  }
+
+  .diagram-connector::after {
+    content: '→';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: rgba(92,201,129,0.6);
+    background: #121317;
+    padding: 0 8px;
+  }
+
+  .diagram-side-nodes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .diagram-satellite {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  /* PARTNER LOGOS */
+  .partner-logos {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+
+  .partner-logo {
+    flex: 1;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    transition: all 0.3s;
+    cursor: pointer;
+    font-family: monospace;
+  }
+
+  .partner-logo:last-child { border-right: none; }
+  .partner-logo:hover {
+    background: rgba(92,201,129,0.04);
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* LAPTOP MOCKUP */
+  .laptop-mockup {
+    width: 100%;
+    background: #060608;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px 12px 6px 6px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+
+  .laptop-bar {
+    height: 32px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .laptop-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .laptop-screen-content {
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .laptop-nav-bar {
+    height: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    gap: 32px;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .laptop-nav-link {
+    height: 8px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .laptop-hero-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px;
+    background: radial-gradient(ellipse at center, rgba(92,201,129,0.04), transparent 60%);
+  }
+
+  .laptop-headline-block {
+    height: 20px;
+    width: 400px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+  }
+
+  .laptop-subline-block {
+    height: 12px;
+    width: 300px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+  }
+
+  .laptop-cta-block {
+    height: 36px;
+    width: 140px;
+    background: rgba(92,201,129,0.2);
+    border: 1px solid rgba(92,201,129,0.3);
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+
+  /* FOOTER */
+  .footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 48px 80px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-link { display: flex; flex-direction: column; gap: 6px; transition: opacity 0.3s; }
+  .nav-link:hover { opacity: 0.7; }
+  .nav-direction { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #8592a3; }
+  .nav-project { font-size: 20px; font-weight: 600; color: #f5f5f5; }
+
+  .bio-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .bio-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5cc981, #3aa862);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #121317;
+  }
+
+  .bio-name { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .bio-title-text { font-size: 13px; color: #5cc981; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+  .bio-body { font-size: 14px; color: #8592a3; line-height: 1.8; }
+  .contact-block { display: flex; flex-direction: column; gap: 16px; }
+  .contact-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #5cc981; }
+  .contact-title { font-size: 28px; font-weight: 700; line-height: 1.2; }
+
+  .form-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: #f5f5f5;
+    font-family: inherit;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+
+  .form-input:focus { border-color: #5cc981; }
+  .form-input::placeholder { color: #8592a3; }
+
+  .form-btn {
+    background: #5cc981;
+    color: #121317;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    transition: all 0.3s;
+  }
+
+  .form-btn:hover { background: #4ab870; transform: translateY(-2px); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 80px;
+  }
+
+  .footer-copy { font-size: 12px; color: #8592a3; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { font-size: 12px; color: #8592a3; transition: color 0.3s; }
+  .footer-links a:hover { color: #5cc981; }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-dot"></div>
+    <span class="sidebar-menu">menu</span>
+  </aside>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-bokeh-1"></div>
+      <div class="hero-bokeh-2"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-tag-cloud">
+        <div class="hero-tag-item"><div class="hero-tag-dot"></div>Deep Tech</div>
+        <div class="hero-tag-item"><div class="hero-tag-dot"></div>Venture Capital</div>
+        <div class="hero-tag-item"><div class="hero-tag-dot"></div>Portfolio</div>
+        <div class="hero-tag-item"><div class="hero-tag-dot"></div>Startups</div>
+        <div class="hero-tag-item"><div class="hero-tag-dot"></div>Innovation</div>
+      </div>
+      <div class="hero-gradient-fade"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Case Study — 05</div>
+        <div class="hero-tag">Venture Capital &nbsp;·&nbsp; B2B &nbsp;·&nbsp; B2C</div>
+        <h1 class="hero-title">Labs<span>/02</span></h1>
+        <p class="hero-subtitle">Complete brand identity, storytelling, and digital design system for a cutting-edge deep tech VC fund.</p>
+      </div>
+    </div>
+
+    <!-- PROJECT INFO -->
+    <div class="project-info">
+      <div>
+        <div class="project-logo">L/02</div>
+        <div class="meta-label">Role</div>
+        <ul class="meta-role-list">
+          <li>Brand Identity &amp; Logo</li>
+          <li>Storytelling Framework</li>
+          <li>Design Language System</li>
+          <li>Digital Assets</li>
+          <li>Website Design</li>
+        </ul>
+      </div>
+      <div>
+        <div class="accent-line"></div>
+        <p class="project-description">
+          Developed <strong>branding, storytelling, design language, logo, and digital assets</strong> for a VC fund shaping the future through deep tech investment.
+        </p>
+      </div>
+    </div>
+
+    <!-- DARK DASHBOARD -->
+    <div class="section">
+      <div class="section-label">Portfolio Dashboard</div>
+      <div class="dark-dashboard">
+        <div class="dd-header">
+          <div class="dd-logo">Labs<span>/02</span></div>
+          <div class="dd-nav">
+            <div class="dd-nav-item active">Portfolio</div>
+            <div class="dd-nav-item">Investments</div>
+            <div class="dd-nav-item">Events</div>
+            <div class="dd-nav-item">About</div>
+          </div>
+          <div style="font-size: 12px; color: #5cc981; letter-spacing: 0.1em;">C2A</div>
+        </div>
+        <div class="dd-body">
+          <div class="portfolio-grid">
+            <div class="portfolio-company">
+              <div class="pc-logo" style="background: linear-gradient(135deg, #1a3a6a, #2a5ab0);">AI</div>
+              <div class="pc-name">DataMind AI</div>
+              <div class="pc-sector">Deep Learning</div>
+              <div class="pc-growth">+124%</div>
+            </div>
+            <div class="portfolio-company">
+              <div class="pc-logo" style="background: linear-gradient(135deg, #1a5a2a, #2a9a40);">BT</div>
+              <div class="pc-name">BioTech Labs</div>
+              <div class="pc-sector">Biotech</div>
+              <div class="pc-growth">+87%</div>
+            </div>
+            <div class="portfolio-company">
+              <div class="pc-logo" style="background: linear-gradient(135deg, #5a1a1a, #a03030);">QT</div>
+              <div class="pc-name">Quantum Sys</div>
+              <div class="pc-sector">Quantum Computing</div>
+              <div class="pc-growth">+203%</div>
+            </div>
+            <div class="portfolio-company">
+              <div class="pc-logo" style="background: linear-gradient(135deg, #3a1a5a, #6030a0);">NS</div>
+              <div class="pc-name">NeuroSync</div>
+              <div class="pc-sector">Neurotechnology</div>
+              <div class="pc-growth">+156%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div style="padding: 0 80px 80px;">
+      <div class="stats-bar">
+        <div class="stat-item">
+          <div class="stat-number">$9.8M</div>
+          <div class="stat-label">Total Invested</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$12.0M</div>
+          <div class="stat-label">Portfolio Value</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">150+</div>
+          <div class="stat-label">Companies</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Events</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE + TEXT -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Mobile Experience</div>
+      <div class="mobile-mockup-section">
+        <div>
+          <div class="accent-line"></div>
+          <h2 class="section-title">Let's shape the<br>future together</h2>
+          <p class="section-body" style="margin-bottom: 24px;">Labs/02 mentors and invests in the most cutting-edge, disruptive, and exciting deep tech startups. The brand needed to communicate boldness, precision, and a long-term vision — at every touchpoint.</p>
+          <p class="section-body">We built a design system that works from pitch deck to mobile app — unified, scalable, and built to signal credibility to both founders and LPs.</p>
+        </div>
+        <div class="mobile-frame">
+          <div class="mobile-notch"></div>
+          <div class="mobile-screen">
+            <div class="mobile-header">Labs/02 — Portfolio</div>
+            <div class="mobile-portfolio-item">
+              <div class="mpi-dot" style="background: #4a90d9;"></div>
+              <div class="mpi-info">
+                <div class="mpi-name">DataMind AI</div>
+                <div class="mpi-sector">Deep Learning</div>
+              </div>
+              <div class="mpi-value">+124%</div>
+            </div>
+            <div class="mobile-portfolio-item">
+              <div class="mpi-dot" style="background: #5cc981;"></div>
+              <div class="mpi-info">
+                <div class="mpi-name">BioTech Labs</div>
+                <div class="mpi-sector">Biotech</div>
+              </div>
+              <div class="mpi-value">+87%</div>
+            </div>
+            <div class="mobile-portfolio-item">
+              <div class="mpi-dot" style="background: #e05050;"></div>
+              <div class="mpi-info">
+                <div class="mpi-name">Quantum Sys</div>
+                <div class="mpi-sector">Quantum</div>
+              </div>
+              <div class="mpi-value">+203%</div>
+            </div>
+            <div class="mobile-portfolio-item">
+              <div class="mpi-dot" style="background: #a060e0;"></div>
+              <div class="mpi-info">
+                <div class="mpi-name">NeuroSync</div>
+                <div class="mpi-sector">Neurotech</div>
+              </div>
+              <div class="mpi-value">+156%</div>
+            </div>
+            <div style="margin-top: 8px; background: rgba(92,201,129,0.08); border: 1px solid rgba(92,201,129,0.15); border-radius: 8px; padding: 12px;">
+              <div style="font-size: 9px; color: #5cc981; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px;">Next Event</div>
+              <div style="font-size: 11px; color: #f5f5f5;">Deep Tech Summit 2026</div>
+              <div style="font-size: 9px; color: #8592a3; margin-top: 2px;">March 15 · Tel Aviv</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAPTOP WEBSITE MOCKUP -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Website Design</div>
+      <div class="laptop-mockup">
+        <div class="laptop-bar">
+          <div class="laptop-dot" style="background: #ff5f57;"></div>
+          <div class="laptop-dot" style="background: #ffbd2e;"></div>
+          <div class="laptop-dot" style="background: #28ca41;"></div>
+        </div>
+        <div class="laptop-screen-content">
+          <div class="laptop-nav-bar">
+            <div class="laptop-nav-link" style="width: 50px;"></div>
+            <div class="laptop-nav-link" style="width: 60px; margin-left: auto;"></div>
+            <div class="laptop-nav-link" style="width: 60px;"></div>
+            <div class="laptop-nav-link" style="width: 60px;"></div>
+            <div class="laptop-nav-link" style="width: 80px; background: rgba(92,201,129,0.3);"></div>
+          </div>
+          <div class="laptop-hero-area">
+            <div class="laptop-headline-block"></div>
+            <div class="laptop-subline-block"></div>
+            <div class="laptop-cta-block"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTNER LOGOS -->
+    <div style="padding: 0 80px 80px;">
+      <div style="font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #5cc981; margin-bottom: 24px;">Portfolio Companies</div>
+      <div class="partner-logos">
+        <div class="partner-logo">DataMind</div>
+        <div class="partner-logo">Quantum</div>
+        <div class="partner-logo">NeuroSync</div>
+        <div class="partner-logo">BioTech</div>
+        <div class="partner-logo">NovaDrive</div>
+        <div class="partner-logo">AeroAI</div>
+      </div>
+    </div>
+
+    <!-- YOU → WE DIAGRAM -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">The Labs/02 Model</div>
+      <div class="accent-line"></div>
+      <h2 class="section-title">We mentor and invest in the most cutting-edge,<br>disruptive, and exciting deep tech startups</h2>
+      <div class="you-we-diagram">
+        <div class="diagram-node diagram-node-you">
+          <div class="diagram-node-label">You</div>
+          <div class="diagram-node-sub">Founder</div>
+        </div>
+        <div class="diagram-connector"></div>
+        <div class="diagram-node diagram-node-we">
+          <div class="diagram-node-label" style="color: #5cc981;">We</div>
+          <div class="diagram-node-sub">Labs/02</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;">
+        <div style="text-align: center; padding: 32px; background: rgba(92,201,129,0.04); border: 1px solid rgba(92,201,129,0.1); border-radius: 12px;">
+          <div style="font-size: 28px; margin-bottom: 12px;">💡</div>
+          <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Mentorship</div>
+          <div style="font-size: 13px; color: #8592a3; line-height: 1.6;">Industry veterans who've built and scaled deep tech companies globally</div>
+        </div>
+        <div style="text-align: center; padding: 32px; background: rgba(92,201,129,0.04); border: 1px solid rgba(92,201,129,0.1); border-radius: 12px;">
+          <div style="font-size: 28px; margin-bottom: 12px;">💰</div>
+          <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Investment</div>
+          <div style="font-size: 13px; color: #8592a3; line-height: 1.6;">Pre-seed to Series A capital with a hands-on, thesis-driven approach</div>
+        </div>
+        <div style="text-align: center; padding: 32px; background: rgba(92,201,129,0.04); border: 1px solid rgba(92,201,129,0.1); border-radius: 12px;">
+          <div style="font-size: 28px; margin-bottom: 12px;">🌐</div>
+          <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Network</div>
+          <div style="font-size: 13px; color: #8592a3; line-height: 1.6;">Access to 150+ portfolio companies, 100+ events, and global partners</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER NAV -->
+    <div class="footer-nav">
+      <a class="nav-link" href="queue.html">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-project">Queue</span>
+      </a>
+      <a class="nav-link" href="anu.html" style="text-align:right;">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-project">ANU Museum</span>
+      </a>
+    </div>
+
+    <!-- BIO + CONTACT -->
+    <div class="bio-section">
+      <div>
+        <div class="bio-avatar">YP</div>
+        <div class="bio-name">Yaniv Primak</div>
+        <div class="bio-title-text">Product Design &amp; Strategy</div>
+        <p class="bio-body">I design products that change industries and create measurable value. From AI cardiac diagnostics (acquired by Medtronic for $585M) to VC branding, drone systems, and museum exhibitions — I bring strategic thinking and sharp execution to every engagement.</p>
+      </div>
+      <div class="contact-block">
+        <div class="contact-label">Get in Touch</div>
+        <div class="contact-title">Let's work<br>together</div>
+        <input class="form-input" type="text" placeholder="Your name">
+        <input class="form-input" type="email" placeholder="Your email">
+        <input class="form-input" type="text" placeholder="What are you building?">
+        <button class="form-btn">Send Message</button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Yaniv Primak. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">Dribbble</a>
+        <a href="#">yaniv@primak.co</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

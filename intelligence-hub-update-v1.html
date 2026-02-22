@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIMO Intelligence Hub — עדכון v4.0</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #fff;
+    color: #37352f;
+    line-height: 1.6;
+    padding: 40px 20px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .header {
+    border-bottom: 1px solid #e9e9e7;
+    padding-bottom: 20px;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .header .meta {
+    font-size: 13px;
+    color: #9b9a97;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-green { background: #dbeddb; color: #1e6b2c; }
+  .badge-blue { background: #d3e5ef; color: #24548d; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: #f7f6f3;
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-card .number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #37352f;
+  }
+  .stat-card .label {
+    font-size: 13px;
+    color: #9b9a97;
+    margin-top: 2px;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 28px 0 14px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e9e9e7;
+  }
+  h2 .file-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: #9b9a97;
+    background: #f1f1ef;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-right: 8px;
+    direction: ltr;
+    display: inline-block;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  th {
+    background: #f7f6f3;
+    text-align: right;
+    padding: 8px 12px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #9b9a97;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f1f1ef;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .dot-green { background: #0f7b0f; }
+  .dot-red { background: #e03e3e; }
+  .dot-yellow { background: #dfab01; }
+  .dot-blue { background: #2f80ed; }
+
+  .section-card {
+    background: #f7f6f3;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .section-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .section-card ul {
+    padding-right: 20px;
+    font-size: 14px;
+  }
+  .section-card li {
+    margin-bottom: 4px;
+  }
+
+  .highlight-box {
+    background: #f1f5f9;
+    border-right: 3px solid #2f80ed;
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #e9e9e7;
+    font-size: 12px;
+    color: #9b9a97;
+    text-align: center;
+  }
+
+  .change-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+  .tag-new { background: #dbeddb; color: #1e6b2c; }
+  .tag-updated { background: #d3e5ef; color: #24548d; }
+  .tag-removed { background: #fee2e2; color: #991b1b; }
+
+  code {
+    background: #f1f1ef;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    direction: ltr;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>PRIMO Intelligence Hub — עדכון</h1>
+  <div class="meta">
+    22.02.2026 &nbsp;|&nbsp; v5.0 &nbsp;|&nbsp;
+    <span class="badge badge-green">4 קבצים עודכנו</span> &nbsp;
+    <span class="badge badge-blue">Brand Reset — תהליך פנטגרם</span>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="number">4</div>
+    <div class="label">מסמכים עודכנו</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">62</div>
+    <div class="label">שינויים בפועל</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">v5.0</div>
+    <div class="label">גרסה נוכחית</div>
+  </div>
+</div>
+
+<!-- PENTAGRAM BRAND RESET PROCESS -->
+<h2>
+  <span class="file-tag">Brand Reset</span>
+  תהליך פנטגרם — ריפוזישנינג Primak
+</h2>
+
+<div class="highlight-box">
+  תהליך מלא בסגנון Pentagram: 3 צוותים, מחקר שוק, מתודולוגיה מ-OpenView case study, יישום על פרימק. בתהליך רוויו עם יניב (22.02.2026).
+</div>
+
+<table>
+  <thead>
+    <tr><th>שלב</th><th>תוצר</th><th>סטטוס</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Team A — הצעות יצירתיות</td>
+      <td>Natasha Jen, Paula Scher, Andrea Trabucco-Campos, Giorgia Lupi<br><code>_REPORTS/pentagram-brand-reset-v1.html</code></td>
+      <td><span class="change-tag tag-updated">הושלם</span></td>
+    </tr>
+    <tr>
+      <td>Team B — קאונטר בריף</td>
+      <td>Michael Bierut, Eddie Opara, Jody Hudson-Powell, Domenic Lippa<br><code>_REPORTS/pentagram-brand-reset-counter-v1.html</code></td>
+      <td><span class="change-tag tag-updated">הושלם</span></td>
+    </tr>
+    <tr>
+      <td>Team C — מחקר שוק</td>
+      <td>5 workstreams: מתחרים, שפת קונה, AI retrieval, מודלים מנצחים, תיקוף שוק<br><code>_REPORTS/pentagram-market-research-v1.html</code></td>
+      <td><span class="change-tag tag-updated">הושלם</span></td>
+    </tr>
+    <tr>
+      <td>מתודולוגיה + יישום</td>
+      <td>6-phase Pentagram methodology מ-OpenView case, יושם על פרימק<br><code>_REPORTS/pentagram-methodology-primak-v1.html</code></td>
+      <td><span class="change-tag tag-new">ברוויו</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-card">
+  <h3>ממצאי מפתח — Discovery</h3>
+  <ul>
+    <li><strong>זהות אמיתית שהתגלתה:</strong> "I turn stuck technology into product" — אושר ע"י יניב</li>
+    <li><strong>פער מותג:</strong> המותג אומר "Fractional CPO for high-stakes AI" — אבל המציאות חוצה 5 תחומים עם 0 כשלים</li>
+    <li><strong>נראות = אפס:</strong> 8 חיפושים, 0 תוצאות. CathWorks ($585M) לא מתועד אונליין</li>
+    <li><strong>3,000+</strong> פרופילי "Fractional CPO" ב-LinkedIn — שוק commodity ($3-15K/חודש)</li>
+    <li><strong>White space:</strong> "Product Turnaround" לא קיים כקטגוריה — אף אחד לא עושה turnaround למוצר טכנולוגי</li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3>6 מודלים עסקיים שמופו</h3>
+  <ul>
+    <li><strong>Smokejumper</strong> (Rich Mironov) — מייעץ, לא בונה. $250-400/hr</li>
+    <li><strong>Operating Partner</strong> (VC Model) — אותה מכניקה, קשור לקרן. $300-500K/yr</li>
+    <li><strong>Product Transformation</strong> (SVPG/Cagan) — מלמד, לא נוגע במוצר. $15-50K/workshop</li>
+    <li><strong>Turnaround Management</strong> (Deloitte/FTI) — $500-1,500/hr אבל רק פיננסים</li>
+    <li><strong>Thought Leader</strong> (Biddle/Reforge) — מוכר ידע, לא מבצע. $10-25K/keynote</li>
+    <li><strong>Experience Studio</strong> (McKinsey) — immersive "show don't tell". $50-500K</li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3>סטטוס רוויו (22.02.2026)</h3>
+  <ul>
+    <li>Part 1 — OpenView Case ✅ מאושר</li>
+    <li>Part 2 — Why It Worked ✅ מאושר (תיקון: ייחודיות + יופי, לא אחד על חשבון השני. רפרנס: Moog)</li>
+    <li>Part 3 — Methodology ✅ מאושר</li>
+    <li>Part 4 — Discovery ✅ מאושר + הורחב (6 מודלים עסקיים)</li>
+    <li>Part 4 — Challenge → 🔄 ממתין לרוויו</li>
+    <li>Part 4 — Principles → 🔄 ממתין לרוויו</li>
+    <li>Part 4 — System Design → 🔄 ממתין לרוויו (דיון על Positioning התחיל)</li>
+    <li>Phase 5 — Implementation → 🔄 ממתין לרוויו</li>
+    <li>Phase 6 — Validation → 🔄 ממתין לרוויו</li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3>5 Brand Principles (נמצאו בהתנהגות)</h3>
+  <ul>
+    <li><strong>Direct</strong> — "מהבטן." מפשט ומבצע</li>
+    <li><strong>Versatile</strong> — 5 תחומים, המיומנות עוברת כי זה לא ידע תחומי</li>
+    <li><strong>Relentless</strong> — 5 חברות, 0 כשלים. לא עוזב עד שזה עובד</li>
+    <li><strong>Founder-native</strong> — שפת יזמים, לא שפת יועצים</li>
+    <li><strong>Commercial</strong> — הפלט הוא הכנסות, לא וויירפריימס</li>
+  </ul>
+</div>
+
+<div class="section-card">
+  <h3>תיעוד מלא</h3>
+  <ul>
+    <li>לוג תהליך: <code>_WORKSPACE/brand-reset/pentagram-process-log.md</code></li>
+    <li>החלטות נעולות: <code>_WORKSPACE/brand-reset/brand-reset-decisions.md</code></li>
+  </ul>
+</div>
+
+<!-- FILE 1 -->
+<h2>
+  <span class="file-tag">01-project-instructions.md</span>
+  PRIMO Intelligence Hub (Mobile)
+</h2>
+
+<div class="highlight-box">
+  שכתוב מלא — מ-65 שורות (19.02) ל-114 שורות. כל הפוזישנינג, סטטוסים ופרוטוקולים מעודכנים.
+</div>
+
+<table>
+  <thead>
+    <tr><th>סעיף</th><th>שינוי</th><th>סטטוס</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>פוזישנינג</td>
+      <td>"AI-native product & growth studio" → <strong>"Fractional CPO for high-stakes AI"</strong><br>One-liner + Vertical + Voice + 5 Deal Gates</td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>תואר</td>
+      <td>"UX Architect & Product Strategist" → <strong>"Founder & CPO, Primak"</strong></td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>Proof Cases</td>
+      <td>טבלה חדשה — 8 cases, flex by audience</td>
+      <td><span class="change-tag tag-new">חדש</span></td>
+    </tr>
+    <tr>
+      <td>LeCun v8.2</td>
+      <td>Energy Scan + Decision Filter + Guardian — אינטגרציה מלאה</td>
+      <td><span class="change-tag tag-new">חדש</span></td>
+    </tr>
+    <tr>
+      <td>Hard Rules</td>
+      <td>7 → <strong>12 כללים</strong> (Partner Mode v8.3, CHILL TEST, OSINT)</td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>סטטוס נוכחי</td>
+      <td>5 יציאות: Momentick (שולם), BIGY, Adventure AI, BoW, Open U<br>Pipeline: ARC, Scout 9 targets, Guy Assif, Gateway contacts</td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>תשתית מערכת</td>
+      <td>Skills Audit אוטונומי (שבת 08:00), AIM Brain, Pipeline Intelligence</td>
+      <td><span class="change-tag tag-new">חדש</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- FILE 2 -->
+<h2>
+  <span class="file-tag">02-aim-brain-export.md</span>
+  Brain Export
+</h2>
+
+<table>
+  <thead>
+    <tr><th>סעיף</th><th>שינוי</th><th>סטטוס</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Active Deals</td>
+      <td>Momentick + Open U הוסרו. Club D + DriftSense נוספו.</td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>Pipeline</td>
+      <td>Guy Assif accelerator נוסף. Gateway contacts → 12 (Micha Risling חדש).</td>
+      <td><span class="change-tag tag-new">חדש</span></td>
+    </tr>
+    <tr>
+      <td>Positioning</td>
+      <td>"7 decisions pending" → <strong>"6/7 LOCKED"</strong>. One-liner + Title סופי.</td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>Exited</td>
+      <td>סקשן חדש — 5 יציאות מתועדות</td>
+      <td><span class="change-tag tag-new">חדש</span></td>
+    </tr>
+    <tr>
+      <td>Tasks</td>
+      <td>10 משימות מתועדפות (היו 7). דדליינים מעודכנים.</td>
+      <td><span class="change-tag tag-updated">עודכן</span></td>
+    </tr>
+    <tr>
+      <td>Key Rules</td>
+      <td>LeCun v8.2 + Partner Mode + OSINT נוספו</td>
+      <td><span class="change-tag tag-new">חדש</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- FILE 3 -->
+<h2>
+  <span class="file-tag">SKILL.md</span>
+  Client Intelligence Hub → v4.0
+</h2>
+
+<div class="highlight-box">
+  רענון מלא של כל הפורטפוליו. נוספו 2 סקשנים חדשים: Pipeline ו-Scout Outreach.
+</div>
+
+<table>
+  <thead>
+    <tr><th>פעולה</th><th>פירוט</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="status-dot dot-yellow"></span> ICA KC</td>
+      <td>"Active development" → <strong>⏸️ PAUSED</strong>. פרטי הקפאה, post-mortem, grants research, סיכוני ריכוז.</td>
+    </tr>
+    <tr>
+      <td><span class="status-dot dot-yellow"></span> IcanDo</td>
+      <td>"Contract signed" → <strong>Contract pending</strong>. ICA pilot + biosensor app + Garmin.</td>
+    </tr>
+    <tr>
+      <td><span class="status-dot dot-blue"></span> ARC Innovation</td>
+      <td><span class="change-tag tag-new">חדש</span> — 120+ startups, $5.8B, Didi → Zimlichman, 14 targets mapped.</td>
+    </tr>
+    <tr>
+      <td><span class="status-dot dot-blue"></span> Scout Pipeline</td>
+      <td><span class="change-tag tag-new">חדש</span> — Ron/Sola, Adiel/AISAP, Gal/Feminai. Gateway contacts.</td>
+    </tr>
+    <tr>
+      <td><span class="status-dot dot-red"></span> 5 יציאות</td>
+      <td>Momentick, Adventure AI, BoW, Open U, Serial Pickler → הועברו ל-Exited/Archived.</td>
+    </tr>
+    <tr>
+      <td><span class="status-dot dot-green"></span> Company Context</td>
+      <td>שוכתב מאפס: פוזישנינג חדש, proof cases, moat, global pricing.</td>
+    </tr>
+    <tr>
+      <td><span class="status-dot dot-green"></span> Auto-Context Triggers</td>
+      <td>13 → <strong>17 triggers</strong>. נוספו: ARC, Didi, Micha, Guy Assif. עודכנו: ICA, BIGI, Momentick.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- POSITIONING STATUS -->
+<h2>פוזישנינג — Brand Reset (ברוויו 22.02.2026)</h2>
+
+<div class="section-card">
+  <table>
+    <tbody>
+      <tr><td style="width:120px; font-weight:600; color:#9b9a97;">נעול 19.02</td><td>"Fractional CPO for high-stakes AI. We ship the products humans need to trust."</td></tr>
+      <tr><td style="font-weight:600; color:#e03e3e;">מתגלה 22.02</td><td><strong>"I turn stuck technology into product"</strong> — אושר ע"י יניב כזהות אמיתית</td></tr>
+      <tr><td style="font-weight:600; color:#9b9a97;">Title</td><td>CPO, Primak (הוסר "Founder")</td></tr>
+      <tr><td style="font-weight:600; color:#9b9a97;">Vertical</td><td>🔄 בדיון — broad (כל הטכנולוגיה) vs. narrow (AI בלבד)</td></tr>
+      <tr><td style="font-weight:600; color:#9b9a97;">Voice</td><td>English-first. Hebrew DMs. Chill authority. Numbers > adjectives. ✅ ללא שינוי</td></tr>
+      <tr><td style="font-weight:600; color:#9b9a97;">Deal Gates</td><td>Budget ✓ Decision Maker ✓ Scope Lock ✓ Floor ✓ Exit 6mo ✓ — ✅ ללא שינוי</td></tr>
+      <tr><td style="font-weight:600; color:#9b9a97;">Services</td><td>מ-DEFERRED ל-<strong>Diagnose / Build / Lead</strong> (מוצע)</td></tr>
+      <tr><td style="font-weight:600; color:#9b9a97;">קטגוריה חדשה</td><td><strong>Product Turnaround</strong> — white space שזוהה. אף אחד לא בעלים.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- CURRENT PORTFOLIO -->
+<h2>מצב פורטפוליו נוכחי</h2>
+
+<table>
+  <thead>
+    <tr><th>פרויקט</th><th>סטטוס</th><th>הערה</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Club D</td><td><span class="status-dot dot-green"></span> פעיל</td><td>—</td></tr>
+    <tr><td>DriftSense</td><td><span class="status-dot dot-green"></span> פעיל</td><td>—</td></tr>
+    <tr><td>ICA KC</td><td><span class="status-dot dot-yellow"></span> מוקפא</td><td>דלת פתוחה ₪500K+</td></tr>
+    <tr><td>IcanDo</td><td><span class="status-dot dot-yellow"></span> חוזה בהמתנה</td><td>430₪/שעה, close 28.02</td></tr>
+    <tr><td>ARC Innovation</td><td><span class="status-dot dot-blue"></span> Pipeline</td><td>דידי → זימליכמן. 120+ סטארטאפים.</td></tr>
+    <tr><td>Scout Outreach</td><td><span class="status-dot dot-blue"></span> Pipeline</td><td>9 targets, ₪470-960K</td></tr>
+    <tr><td>Guy Assif</td><td><span class="status-dot dot-blue"></span> Pipeline</td><td>פגישה 26.02 יפו</td></tr>
+    <tr><td>Momentick</td><td><span class="status-dot dot-red"></span> EXIT</td><td>₪3,744 שולם</td></tr>
+    <tr><td>BIGY/RGE</td><td><span class="status-dot dot-red"></span> EXIT</td><td>עומרי ממשיך סושיאל</td></tr>
+    <tr><td>Adventure AI</td><td><span class="status-dot dot-red"></span> EXIT</td><td>דרור → עומרי</td></tr>
+    <tr><td>BoW</td><td><span class="status-dot dot-red"></span> סגור</td><td>עומרי = Gateway contact</td></tr>
+    <tr><td>Open University</td><td><span class="status-dot dot-red"></span> ארכיון</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<div class="footer">
+  PRIMO Intelligence Hub Update v5.0 &nbsp;|&nbsp; 22.02.2026 &nbsp;|&nbsp; Generated by PRIMO
+</div>
+
+</body>
+</html>

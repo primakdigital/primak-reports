@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selina — Yaniv Primak Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #121317;
+    color: #f5f5f5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* LAYOUT */
+  .page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* LEFT SIDEBAR */
+  .sidebar {
+    width: 80px;
+    min-height: 100vh;
+    background: #121317;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+  }
+
+  .sidebar-menu {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #8592a3;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .sidebar-menu:hover { color: #5cc981; }
+
+  .sidebar-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5cc981;
+    position: absolute;
+    top: 40px;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    width: 1360px;
+    height: 763px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 25%, #4a1e6e 50%, #6b2f8a 70%, #8b3fa0 100%);
+  }
+
+  .hero-bg-shapes {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-circle-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(138,63,160,0.6) 0%, transparent 70%);
+    top: -100px;
+    right: 100px;
+  }
+
+  .hero-circle-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(92,201,129,0.3) 0%, transparent 70%);
+    bottom: 100px;
+    left: 200px;
+  }
+
+  .hero-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .hero-gradient-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: linear-gradient(to bottom, transparent, #121317);
+  }
+
+  .hero-content {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    right: 80px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: #8592a3;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(138,63,160,0.3);
+    border: 1px solid rgba(138,63,160,0.5);
+    color: #c97de8;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  /* PROJECT INFO SECTION */
+  .project-info {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 80px;
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .project-meta {}
+
+  .project-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #6b2f8a, #8b3fa0);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 32px;
+    letter-spacing: -0.03em;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 12px;
+  }
+
+  .meta-role-list {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .meta-role-list li {
+    font-size: 14px;
+    color: #f5f5f5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.4;
+  }
+
+  .project-description {
+    font-size: 24px;
+    line-height: 1.6;
+    color: #f5f5f5;
+    font-weight: 300;
+    max-width: 700px;
+    align-self: center;
+  }
+
+  .project-description strong {
+    color: #5cc981;
+    font-weight: 500;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    line-height: 1.15;
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: #8592a3;
+    line-height: 1.8;
+    max-width: 680px;
+  }
+
+  /* TAGLINE BAND */
+  .tagline-band {
+    padding: 60px 80px;
+    background: linear-gradient(135deg, rgba(107,47,138,0.15), rgba(18,19,23,0));
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .tagline-text {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #f5f5f5, #c97de8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* SCREENSHOT ROW */
+  .screenshot-row {
+    display: flex;
+    gap: 20px;
+    margin: 40px 0;
+  }
+
+  .screenshot-main {
+    flex: 2;
+    height: 380px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .screenshot-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .screenshot-side-item {
+    flex: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* DEVICE MOCKUPS */
+  .devices-row {
+    display: flex;
+    gap: 40px;
+    align-items: flex-end;
+    margin: 40px 0;
+    padding: 60px;
+    background: linear-gradient(135deg, rgba(107,47,138,0.1), rgba(18,19,23,0));
+    border-radius: 16px;
+  }
+
+  .device-laptop {
+    flex: 1;
+    height: 280px;
+    background: linear-gradient(135deg, #1e1040, #3d1e6e);
+    border-radius: 12px 12px 4px 4px;
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .device-tablet {
+    width: 200px;
+    height: 260px;
+    background: linear-gradient(135deg, #1e1040, #3d1e6e);
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .device-phone {
+    width: 120px;
+    height: 240px;
+    background: linear-gradient(135deg, #1e1040, #3d1e6e);
+    border-radius: 20px;
+    border: 2px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .device-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .device-screen-content {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(107,47,138,0.4), rgba(18,19,23,0.8));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .device-screen-line {
+    height: 4px;
+    background: rgba(201,125,232,0.4);
+    border-radius: 2px;
+  }
+
+  /* FOOD GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 40px 0;
+  }
+
+  .gallery-item {
+    height: 200px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* PRINCIPLES */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 40px 0;
+  }
+
+  .principle-box {
+    background: rgba(107,47,138,0.15);
+    border: 1px solid rgba(201,125,232,0.2);
+    border-radius: 12px;
+    padding: 32px;
+    transition: all 0.3s;
+  }
+
+  .principle-box:hover {
+    background: rgba(107,47,138,0.25);
+    border-color: rgba(201,125,232,0.4);
+    transform: translateY(-4px);
+  }
+
+  .principle-number {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #c97de8;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .principle-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .principle-body {
+    font-size: 13px;
+    color: #8592a3;
+    line-height: 1.7;
+  }
+
+  /* ICONS SECTION */
+  .icons-row {
+    display: flex;
+    gap: 40px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+  }
+
+  .icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(107,47,138,0.4), rgba(201,125,232,0.2));
+    border: 1px solid rgba(201,125,232,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .icon-label {
+    font-size: 12px;
+    color: #8592a3;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  /* PLACEHOLDER IMAGES */
+  .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.15);
+    text-transform: uppercase;
+  }
+
+  .ph-purple { background: linear-gradient(135deg, #1a0a2e, #4a1e6e); }
+  .ph-purple-light { background: linear-gradient(135deg, #2d1b4e, #6b2f8a); }
+  .ph-hotel { background: linear-gradient(135deg, #0d0d14, #2a1540, #4a2070); }
+  .ph-food { background: linear-gradient(135deg, #1a1008, #3d2810, #5a3820); }
+  .ph-green-dark { background: linear-gradient(135deg, #081508, #1a2e1a, #2a4a2a); }
+  .ph-dark-blue { background: linear-gradient(135deg, #080810, #141428, #1e1e40); }
+
+  /* STATS ROW */
+  .stats-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 40px 32px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+  }
+
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(255,255,255,0.03); }
+
+  .stat-number {
+    font-size: 40px;
+    font-weight: 700;
+    color: #c97de8;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: #8592a3;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* TWO COL */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .two-col-text {}
+  .two-col-visual {}
+
+  /* FOOTER NAV */
+  .footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 48px 80px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: opacity 0.3s;
+  }
+
+  .nav-link:hover { opacity: 0.7; }
+
+  .nav-direction {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #8592a3;
+  }
+
+  .nav-project {
+    font-size: 20px;
+    font-weight: 600;
+    color: #f5f5f5;
+  }
+
+  .nav-arrow {
+    font-size: 24px;
+    color: #5cc981;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* BIO SECTION */
+  .bio-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .bio-block {}
+
+  .bio-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5cc981, #3aa862);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #121317;
+  }
+
+  .bio-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .bio-title-text {
+    font-size: 13px;
+    color: #5cc981;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .bio-body {
+    font-size: 14px;
+    color: #8592a3;
+    line-height: 1.8;
+  }
+
+  /* CONTACT FORM */
+  .contact-block { display: flex; flex-direction: column; gap: 16px; }
+
+  .contact-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 4px;
+  }
+
+  .contact-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    line-height: 1.2;
+  }
+
+  .form-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: #f5f5f5;
+    font-family: inherit;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+
+  .form-input:focus { border-color: #5cc981; }
+  .form-input::placeholder { color: #8592a3; }
+
+  .form-btn {
+    background: #5cc981;
+    color: #121317;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    transition: all 0.3s;
+  }
+
+  .form-btn:hover {
+    background: #4ab870;
+    transform: translateY(-2px);
+  }
+
+  /* FOOTER BOTTOM */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 80px;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: #8592a3;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: #8592a3;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: #5cc981; }
+
+  /* ACCENT LINE */
+  .accent-line {
+    width: 40px;
+    height: 3px;
+    background: #5cc981;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+
+  .accent-line-purple {
+    width: 40px;
+    height: 3px;
+    background: #c97de8;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-dot"></div>
+    <span class="sidebar-menu">menu</span>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-bg-shapes">
+        <div class="hero-circle-1"></div>
+        <div class="hero-circle-2"></div>
+        <div class="hero-lines"></div>
+      </div>
+      <div class="hero-gradient-fade"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Case Study — 01</div>
+        <div class="hero-tag">TravelTech &nbsp;·&nbsp; B2C</div>
+        <h1 class="hero-title">Selina</h1>
+        <p class="hero-subtitle">Hotel chain app design & digital marketing strategy for social and content delivery.</p>
+      </div>
+    </div>
+
+    <!-- PROJECT INFO -->
+    <div class="project-info">
+      <div class="project-meta">
+        <div class="project-logo">S</div>
+        <div class="meta-label">Role</div>
+        <ul class="meta-role-list">
+          <li>UX / UI Design</li>
+          <li>Product Strategy</li>
+          <li>Marketing Strategy</li>
+          <li>Content System Design</li>
+          <li>Brand Experience</li>
+        </ul>
+      </div>
+      <div>
+        <div class="accent-line"></div>
+        <p class="project-description">
+          Designed in the smartest way a hotel chain app and a <strong>marketing strategy</strong> for social and content delivery. Creating a seamless traveler experience from discovery to checkout.
+        </p>
+      </div>
+    </div>
+
+    <!-- TAGLINE BAND -->
+    <div class="tagline-band">
+      <div class="tagline-text">INSPIRING POWERFUL<br>CONNECTIONS</div>
+    </div>
+
+    <!-- DEVICE MOCKUPS SECTION -->
+    <div class="section">
+      <div class="section-label">Product Design</div>
+      <div class="two-col">
+        <div class="two-col-text">
+          <div class="accent-line-purple"></div>
+          <h2 class="section-title">A Hotel Experience Built for Modern Travelers</h2>
+          <p class="section-body">Selina needed a digital presence that matched its bold, community-driven brand. The app was designed to surface the right content at the right moment — whether booking a room, joining an event, or exploring a local experience.</p>
+        </div>
+        <div class="two-col-visual">
+          <div class="devices-row" style="padding: 40px; margin: 0; gap: 20px;">
+            <div class="device-laptop">
+              <div class="device-screen-content">
+                <div class="device-screen-line" style="width: 80%;"></div>
+                <div class="device-screen-line" style="width: 60%;"></div>
+                <div class="device-screen-line" style="width: 70%;"></div>
+              </div>
+              <div class="device-label" style="position: relative; z-index: 1;"></div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <div class="device-tablet">
+                <div class="device-screen-content">
+                  <div class="device-screen-line" style="width: 70%;"></div>
+                  <div class="device-screen-line" style="width: 50%;"></div>
+                </div>
+              </div>
+              <div class="device-phone" style="align-self: center;">
+                <div class="device-screen-content">
+                  <div class="device-screen-line" style="width: 60%;"></div>
+                  <div class="device-screen-line" style="width: 40%;"></div>
+                  <div class="device-screen-line" style="width: 50%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOTEL IMAGERY -->
+    <div class="section" style="padding-top: 0;">
+      <div class="screenshot-row">
+        <div class="screenshot-main">
+          <div class="placeholder ph-hotel"><span>Hotel Photography — Interior</span></div>
+        </div>
+        <div class="screenshot-side">
+          <div class="screenshot-side-item">
+            <div class="placeholder ph-purple-light"><span>Lobby Experience</span></div>
+          </div>
+          <div class="screenshot-side-item">
+            <div class="placeholder ph-green-dark"><span>Outdoor Spaces</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOD GALLERY -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">F&amp;B Experience</div>
+      <div class="gallery-grid">
+        <div class="gallery-item"><div class="placeholder ph-food"><span>Drink 01</span></div></div>
+        <div class="gallery-item"><div class="placeholder ph-hotel"><span>Food 01</span></div></div>
+        <div class="gallery-item"><div class="placeholder ph-food"><span>Drink 02</span></div></div>
+        <div class="gallery-item"><div class="placeholder ph-hotel"><span>Food 02</span></div></div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div style="padding: 0 80px;">
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">120+</div>
+          <div class="stat-label">Locations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3M+</div>
+          <div class="stat-label">App Sessions</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">40%</div>
+          <div class="stat-label">Booking Increase</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4.8★</div>
+          <div class="stat-label">App Store Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CREATIVE PROCESS -->
+    <div class="section">
+      <div class="section-label">Process</div>
+      <div class="accent-line-purple"></div>
+      <h2 class="section-title">The Most Creative Process</h2>
+      <p class="section-body" style="margin-bottom: 40px;">Deeply immersive discovery sessions with the Selina team to map out traveler journeys, competitive positioning, and the intersection of hospitality and community.</p>
+    </div>
+
+    <!-- PRINCIPLES -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Design Principles</div>
+      <div class="principles-grid">
+        <div class="principle-box">
+          <div class="principle-number">Project / 01</div>
+          <div class="principle-title">Community First</div>
+          <div class="principle-body">Every design decision anchored in how it brings travelers closer to local communities and each other.</div>
+        </div>
+        <div class="principle-box">
+          <div class="principle-number">UX / 02</div>
+          <div class="principle-title">Frictionless Flow</div>
+          <div class="principle-body">From inspiration to booking in under 3 taps. Content surfaces the right offer at the right moment.</div>
+        </div>
+        <div class="principle-box">
+          <div class="principle-number">Life / 03</div>
+          <div class="principle-title">Authentic Voice</div>
+          <div class="principle-body">Content strategy built on genuine traveler stories, not polished advertising. Real voices, real places.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FACE/ID ICONS -->
+    <div class="section">
+      <div class="section-label">Identity System</div>
+      <div class="icons-row">
+        <div class="icon-card">
+          <div class="icon-circle">🧭</div>
+          <div class="icon-label">Explorer Profile</div>
+        </div>
+        <div class="icon-card">
+          <div class="icon-circle">🏨</div>
+          <div class="icon-label">Space Types</div>
+        </div>
+        <div class="icon-card">
+          <div class="icon-circle">🌿</div>
+          <div class="icon-label">Sustainability</div>
+        </div>
+        <div class="icon-card">
+          <div class="icon-circle">🎭</div>
+          <div class="icon-label">Local Events</div>
+        </div>
+        <div class="icon-card">
+          <div class="icon-circle">📱</div>
+          <div class="icon-label">Mobile First</div>
+        </div>
+        <div class="icon-card">
+          <div class="icon-circle">🤝</div>
+          <div class="icon-label">Community</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER NAV -->
+    <div class="footer-nav">
+      <a class="nav-link" href="orchestra.html">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-project">Orchestra</span>
+      </a>
+      <div class="nav-arrow">
+        <span style="font-size:13px; color:#8592a3; letter-spacing:0.2em; text-transform:uppercase;">Next Project</span>
+      </div>
+      <a class="nav-link" href="neurobrave.html" style="text-align:right;">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-project">NeuroBrave</span>
+      </a>
+    </div>
+
+    <!-- BIO + CONTACT -->
+    <div class="bio-section">
+      <div class="bio-block">
+        <div class="bio-avatar">YP</div>
+        <div class="bio-name">Yaniv Primak</div>
+        <div class="bio-title-text">Product Design &amp; Strategy</div>
+        <p class="bio-body">I design products that change industries and create measurable value. From AI cardiac diagnostics (acquired by Medtronic for $585M) to hotel tech, drone systems, and VC platforms — I bring strategic thinking and sharp execution to every engagement.</p>
+      </div>
+      <div class="contact-block">
+        <div class="contact-label">Get in Touch</div>
+        <div class="contact-title">Let's work<br>together</div>
+        <input class="form-input" type="text" placeholder="Your name">
+        <input class="form-input" type="email" placeholder="Your email">
+        <input class="form-input" type="text" placeholder="What are you building?">
+        <button class="form-btn">Send Message</button>
+      </div>
+    </div>
+
+    <!-- FOOTER BOTTOM -->
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Yaniv Primak. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">Dribbble</a>
+        <a href="#">yaniv@primak.co</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

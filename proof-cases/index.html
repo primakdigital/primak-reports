@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Primak — Design & Technology Taskforce</title>
+  <style>
+    /* ── RESET & BASE ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #121317;
+      --text:      #f5f5f5;
+      --secondary: #8592a3;
+      --accent:    #5cc981;
+      --sidebar-w: 80px;
+      --card-r:    12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--bg);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    #sidebar .menu-label {
+      transform: rotate(-90deg);
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    #sidebar .menu-label:hover { color: var(--text); }
+
+    /* Mobile hamburger */
+    #mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 24px; left: 24px;
+      z-index: 200;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    #mobile-menu-btn span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── MAIN CONTENT ── */
+    #main {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 40px 80px 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #hero .logo {
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      opacity: 0.9;
+    }
+
+    #hero .hero-text {
+      font-size: clamp(32px, 5.5vw, 88px);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      max-width: 1100px;
+      margin-top: auto;
+      padding-top: 80px;
+    }
+
+    #hero .hero-text em {
+      font-style: normal;
+      color: var(--secondary);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 48px;
+    }
+
+    /* ── PROJECTS SECTION ── */
+    #projects {
+      padding: 0 80px 120px;
+    }
+
+    /* ── PROJECT CARD ── */
+    .project-card {
+      margin-bottom: 32px;
+      border-radius: var(--card-r);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+      display: block;
+    }
+
+    .project-card:hover { transform: scale(1.012); }
+
+    .project-card:hover .card-img-inner {
+      transform: scale(1.04);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 560px;
+      overflow: hidden;
+      border-radius: var(--card-r) var(--card-r) 0 0;
+    }
+
+    .card-img-inner {
+      width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    /* gradient placeholders */
+    .grad-cathworks  { background: linear-gradient(135deg, #0a1a1f 0%, #0d3540 30%, #1a6b72 60%, #2eb8c2 100%); }
+    .grad-orchestra  { background: linear-gradient(135deg, #0f0000 0%, #1a0000 30%, #3d0a0a 60%, #6b1515 85%, #8b1f1f 100%); }
+    .grad-selina     { background: linear-gradient(135deg, #1a0d00 0%, #3d1f00 30%, #7a3d00 60%, #c4620a 90%, #e87c1e 100%); }
+    .grad-neurobrave { background: linear-gradient(135deg, #0d0800 0%, #2a1500 30%, #5c2d00 55%, #b05a00 80%, #e07a10 100%); }
+    .grad-beefree    { background: linear-gradient(135deg, #001a08 0%, #003d12 30%, #006b20 60%, #00a830 85%, #12d645 100%); }
+    .grad-queue      { background: linear-gradient(135deg, #050018 0%, #0d0035 30%, #1a0066 55%, #3300aa 80%, #5500cc 100%); }
+    .grad-labs       { background: linear-gradient(135deg, #001a08 0%, #003d12 30%, #005c18 60%, #007a22 100%); }
+    .grad-anu        { background: linear-gradient(135deg, #00060f 0%, #001428 30%, #002a52 60%, #004080 85%, #005899 100%); }
+
+    /* card overlay + scene elements */
+    .card-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .card-scene {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Abstract shape decorations per card */
+    .scene-cathworks::before {
+      content: '';
+      position: absolute;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(46,184,194,0.25);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-cathworks::after {
+      content: '';
+      position: absolute;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,184,194,0.18) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-cathworks .inner-ring {
+      position: absolute;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      border: 1px solid rgba(46,184,194,0.15);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-cathworks .cross-h,
+    .scene-cathworks .cross-v {
+      position: absolute;
+      background: rgba(46,184,194,0.12);
+    }
+    .scene-cathworks .cross-h {
+      width: 600px; height: 1px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-cathworks .cross-v {
+      width: 1px; height: 400px;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    /* Orchestra dots */
+    .scene-orchestra .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(180,30,30,0.5) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.7;
+    }
+    .scene-orchestra::before {
+      content: '';
+      position: absolute;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(120,20,20,0.35) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    /* Selina warm lines */
+    .scene-selina::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(196,98,10,0.2);
+      top: 50%; left: 60%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-selina .glow-blob {
+      position: absolute;
+      width: 400px; height: 300px;
+      background: radial-gradient(ellipse, rgba(196,98,10,0.28) 0%, transparent 70%);
+      right: 0; top: 30%;
+    }
+
+    /* NeuroBrave neural */
+    .scene-neuro::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(176,90,0,0.32) 0%, transparent 60%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-neuro .node {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(224,122,16,0.6);
+    }
+    .scene-neuro .line {
+      position: absolute;
+      background: rgba(224,122,16,0.2);
+      height: 1px;
+      transform-origin: left center;
+    }
+
+    /* BeeFree aerial */
+    .scene-beefree::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,168,48,0.2);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-beefree .hex-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.12;
+      background-image:
+        linear-gradient(60deg, rgba(0,168,48,0.5) 1px, transparent 1px),
+        linear-gradient(-60deg, rgba(0,168,48,0.5) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(0,168,48,0.5) 1px, transparent 1px);
+      background-size: 50px 87px;
+    }
+    .scene-beefree .glow-center {
+      position: absolute;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(18,214,69,0.22) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    /* Queue */
+    .scene-queue::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(85,0,204,0.3) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-queue .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(85,0,204,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(85,0,204,0.15) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Labs */
+    .scene-labs::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,122,34,0.28) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-labs .pill-row {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+    }
+    .scene-labs .vc-pill {
+      background: rgba(0,122,34,0.25);
+      border: 1px solid rgba(92,201,129,0.3);
+      border-radius: 30px;
+      padding: 8px 22px;
+      font-size: 14px;
+      color: rgba(92,201,129,0.8);
+      white-space: nowrap;
+    }
+
+    /* ANU */
+    .scene-anu::before {
+      content: '';
+      position: absolute;
+      width: 560px; height: 560px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,88,153,0.3);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-anu .arc {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(0,88,153,0.2);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .scene-anu .glow-anu {
+      position: absolute;
+      width: 350px; height: 250px;
+      background: radial-gradient(ellipse, rgba(0,64,128,0.3) 0%, transparent 70%);
+      top: 40%; left: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    /* Card number badge */
+    .card-num {
+      position: absolute;
+      top: 28px; left: 32px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.35);
+      z-index: 3;
+    }
+
+    /* ── CARD INFO (below image) ── */
+    .card-info {
+      background: #191b20;
+      padding: 36px 40px;
+      border-radius: 0 0 var(--card-r) var(--card-r);
+      display: flex;
+      align-items: flex-start;
+      gap: 60px;
+    }
+
+    .card-project-name {
+      min-width: 220px;
+    }
+
+    .card-project-name h2 {
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .card-project-name .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--secondary);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .card-roles {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 40px;
+      padding-top: 4px;
+    }
+
+    .role-item {
+      font-size: 15px;
+      color: var(--secondary);
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-item::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      flex-shrink: 0;
+    }
+
+    /* ── CLIENT LOGOS ── */
+    #clients {
+      padding: 100px 80px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    #clients h2 {
+      font-size: clamp(28px, 3.5vw, 52px);
+      font-weight: 300;
+      margin-bottom: 60px;
+      letter-spacing: -0.02em;
+    }
+
+    .logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px 60px;
+      align-items: center;
+    }
+
+    .client-logo {
+      opacity: 0.35;
+      transition: opacity 0.3s;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .client-logo:hover { opacity: 0.7; }
+
+    /* ── SERVICES ── */
+    #services {
+      padding: 100px 80px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    #services h2 {
+      font-size: clamp(28px, 3.5vw, 52px);
+      font-weight: 300;
+      margin-bottom: 64px;
+      letter-spacing: -0.02em;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .service-card {
+      background: #191b20;
+      padding: 48px 48px;
+      transition: background 0.3s;
+    }
+
+    .service-card:hover { background: #1e2026; }
+
+    .service-card:nth-child(1) { border-radius: var(--card-r) 0 0 0; }
+    .service-card:nth-child(2) { border-radius: 0 var(--card-r) 0 0; }
+    .service-card:nth-child(5) { border-radius: 0 0 0 var(--card-r); }
+    .service-card:nth-child(6) { border-radius: 0 0 var(--card-r) 0; }
+
+    .service-icon {
+      width: 48px; height: 48px;
+      margin-bottom: 28px;
+      opacity: 0.8;
+    }
+
+    .service-card h3 {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .service-card p {
+      font-size: 15px;
+      color: var(--secondary);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    #footer {
+      padding: 100px 80px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .footer-bio {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .footer-avatar {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a2030, #2a3545);
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: var(--secondary);
+    }
+
+    .footer-bio h3 {
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .footer-bio p {
+      font-size: 16px;
+      color: var(--secondary);
+      line-height: 1.75;
+      max-width: 460px;
+    }
+
+    .footer-contact {}
+
+    .footer-contact h2 {
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .footer-contact .tagline {
+      font-size: 18px;
+      color: var(--secondary);
+      margin-bottom: 40px;
+    }
+
+    .contact-form {
+      display: flex;
+      gap: 0;
+      margin-bottom: 36px;
+    }
+
+    .contact-form input {
+      flex: 1;
+      background: #191b20;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      padding: 14px 20px;
+      font-size: 15px;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .contact-form input::placeholder { color: var(--secondary); }
+    .contact-form input:focus { border-color: rgba(92,201,129,0.4); }
+
+    .contact-form button {
+      background: transparent;
+      border: 1px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 28px;
+      font-size: 15px;
+      color: var(--accent);
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      white-space: nowrap;
+    }
+
+    .contact-form button:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .contact-details a {
+      font-size: 15px;
+      color: var(--secondary);
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-details a:hover { color: var(--text); }
+
+    .contact-details svg {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    /* ── FOOTER BOTTOM ── */
+    .footer-bottom {
+      margin-left: var(--sidebar-w);
+      padding: 28px 80px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--secondary);
+    }
+
+    /* ── HOVER ARROWS on cards ── */
+    .card-arrow {
+      position: absolute;
+      bottom: 32px; right: 36px;
+      z-index: 3;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s, transform 0.35s, background 0.3s;
+    }
+
+    .project-card:hover .card-arrow {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card-arrow:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .card-arrow svg {
+      width: 20px; height: 20px;
+      color: var(--text);
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--secondary);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 64px;
+    }
+
+    .scroll-hint .line {
+      width: 40px;
+      height: 1px;
+      background: var(--secondary);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      #hero { padding: 32px 48px 64px; }
+      #projects { padding: 0 48px 100px; }
+      #clients, #services { padding: 80px 48px; }
+      #footer { padding: 80px 48px; }
+      .footer-bottom { padding: 24px 48px; }
+      .card-info { gap: 36px; }
+    }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card:nth-child(n) { border-radius: 0; }
+      .service-card:first-child { border-radius: var(--card-r) var(--card-r) 0 0; }
+      .service-card:last-child  { border-radius: 0 0 var(--card-r) var(--card-r); }
+      #footer { grid-template-columns: 1fr; gap: 56px; }
+      .card-info { flex-direction: column; gap: 24px; }
+      .card-roles { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      #sidebar { display: none; }
+      #mobile-menu-btn { display: flex; }
+      #main { margin-left: 0; }
+      .footer-bottom { margin-left: 0; }
+      #hero { padding: 72px 28px 56px; }
+      #projects { padding: 0 20px 80px; }
+      #clients, #services { padding: 64px 28px; }
+      #footer { padding: 64px 28px; }
+      .footer-bottom { padding: 20px 28px; }
+      .card-img-wrap { height: 340px; }
+      .card-info { padding: 24px 24px; }
+      .service-card { padding: 36px 32px; }
+    }
+
+    @media (max-width: 480px) {
+      .card-img-wrap { height: 260px; }
+      .contact-form { flex-direction: column; }
+      .contact-form input { border-right: 1px solid rgba(255,255,255,0.1); border-radius: 8px 8px 0 0; border-bottom: none; }
+      .contact-form button { border-radius: 0 0 8px 8px; padding: 14px; }
+      .logos-row { gap: 28px 36px; }
+    }
+
+    /* ── ANIMATION ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .fade-up.d1 { animation-delay: 0.1s; }
+    .fade-up.d2 { animation-delay: 0.25s; }
+    .fade-up.d3 { animation-delay: 0.4s; }
+
+    /* NeuroBrave nodes animation */
+    @keyframes pulse-node {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.4); }
+    }
+
+    .node-pulse { animation: pulse-node 2s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" aria-label="Navigation">
+    <span class="menu-label" onclick="window.scrollTo({top:0,behavior:'smooth'})">menu</span>
+  </aside>
+
+  <!-- MOBILE MENU BUTTON -->
+  <button id="mobile-menu-btn" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <!-- MAIN -->
+  <main id="main">
+
+    <!-- ── HERO ── -->
+    <section id="hero">
+      <div class="logo fade-up d1">primak</div>
+
+      <div>
+        <p class="hero-text fade-up d2">
+          primak is a design and technology taskforce driven by
+          <em>strategic and critical thinking</em> to empower brands and products
+        </p>
+
+        <div class="scroll-hint fade-up d3">
+          <span class="line"></span>
+          <span>Scroll to explore</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ── -->
+    <section id="projects">
+      <p class="section-label">Selected Work</p>
+
+      <!-- 1. CathWorks -->
+      <a class="project-card" href="cathworks.html">
+        <div class="card-img-wrap grad-cathworks">
+          <div class="card-scene scene-cathworks">
+            <div class="inner-ring"></div>
+            <div class="cross-h"></div>
+            <div class="cross-v"></div>
+          </div>
+          <span class="card-num">01</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>CathWorks</h2>
+            <div class="card-tags">
+              <span class="tag">Healthcare</span>
+              <span class="tag">B2B</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Product Strategy</span>
+            <span class="role-item">UI Design</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">Medical Device UX</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 2. Orchestra -->
+      <a class="project-card" href="orchestra.html">
+        <div class="card-img-wrap grad-orchestra">
+          <div class="card-scene scene-orchestra">
+            <div class="dot-grid"></div>
+          </div>
+          <span class="card-num">02</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>Orchestra</h2>
+            <div class="card-tags">
+              <span class="tag">Cyber Security</span>
+              <span class="tag">B2B</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Product Strategy</span>
+            <span class="role-item">Front End Development</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">Design System</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3. Selina -->
+      <a class="project-card" href="selina.html">
+        <div class="card-img-wrap grad-selina">
+          <div class="card-scene scene-selina">
+            <div class="glow-blob"></div>
+          </div>
+          <span class="card-num">03</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>Selina</h2>
+            <div class="card-tags">
+              <span class="tag">TravelTech</span>
+              <span class="tag">B2C</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Product Strategy</span>
+            <span class="role-item">UI Design</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">App Design</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4. NeuroBrave -->
+      <a class="project-card" href="neurobrave.html">
+        <div class="card-img-wrap grad-neurobrave">
+          <div class="card-scene scene-neuro">
+            <!-- Neural nodes -->
+            <div class="node node-pulse" style="width:8px;height:8px;top:38%;left:42%;animation-delay:0s"></div>
+            <div class="node node-pulse" style="width:6px;height:6px;top:30%;left:55%;animation-delay:0.4s"></div>
+            <div class="node node-pulse" style="width:10px;height:10px;top:50%;left:50%;animation-delay:0.8s"></div>
+            <div class="node node-pulse" style="width:6px;height:6px;top:60%;left:40%;animation-delay:1.2s"></div>
+            <div class="node node-pulse" style="width:8px;height:8px;top:45%;left:62%;animation-delay:0.6s"></div>
+            <div class="node node-pulse" style="width:5px;height:5px;top:55%;left:58%;animation-delay:1.5s"></div>
+            <div class="node node-pulse" style="width:7px;height:7px;top:35%;left:48%;animation-delay:0.3s"></div>
+            <!-- Lines between nodes -->
+            <div class="line" style="width:200px;top:40%;left:42%;transform:rotate(-20deg)"></div>
+            <div class="line" style="width:160px;top:50%;left:50%;transform:rotate(30deg)"></div>
+            <div class="line" style="width:140px;top:35%;left:48%;transform:rotate(15deg)"></div>
+            <div class="line" style="width:180px;top:52%;left:40%;transform:rotate(-15deg)"></div>
+          </div>
+          <span class="card-num">04</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>NeuroBrave</h2>
+            <div class="card-tags">
+              <span class="tag">NeuroTechnology</span>
+              <span class="tag">B2B</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Product Strategy</span>
+            <span class="role-item">UX Research</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">Neuro UX</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 5. BeeFree -->
+      <a class="project-card" href="beefree.html">
+        <div class="card-img-wrap grad-beefree">
+          <div class="card-scene scene-beefree">
+            <div class="hex-grid"></div>
+            <div class="glow-center"></div>
+          </div>
+          <span class="card-num">05</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>BeeFree</h2>
+            <div class="card-tags">
+              <span class="tag">Drone Technology</span>
+              <span class="tag">B2B2C</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Product Strategy</span>
+            <span class="role-item">UI Design</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">Front End Development</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 6. Queue -->
+      <a class="project-card" href="queue.html">
+        <div class="card-img-wrap grad-queue">
+          <div class="card-scene scene-queue">
+            <div class="grid-lines"></div>
+          </div>
+          <span class="card-num">06</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>Queue</h2>
+            <div class="card-tags">
+              <span class="tag">Authority Creation</span>
+              <span class="tag">B2B</span>
+              <span class="tag">B2C</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Product Strategy</span>
+            <span class="role-item">UI Design</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">Knowledge Platform</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Labs/02 -->
+      <a class="project-card" href="labs02.html">
+        <div class="card-img-wrap grad-labs">
+          <div class="card-scene scene-labs">
+            <div class="pill-row">
+              <span class="vc-pill">Venture Capital</span>
+              <span class="vc-pill">Portfolio</span>
+              <span class="vc-pill">Incubation</span>
+            </div>
+          </div>
+          <span class="card-num" style="color:rgba(92,201,129,0.5)">Labs / 02</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>Labs / 02</h2>
+            <div class="card-tags">
+              <span class="tag">Venture Capital</span>
+              <span class="tag">B2B</span>
+              <span class="tag">B2C</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Venture Brand Identity</span>
+            <span class="role-item">Portfolio Design</span>
+            <span class="role-item">Digital Presence</span>
+            <span class="role-item">Startup Advisory</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- ANU Museum -->
+      <a class="project-card" href="anu.html">
+        <div class="card-img-wrap grad-anu">
+          <div class="card-scene scene-anu">
+            <div class="glow-anu"></div>
+            <div class="arc" style="width:400px;height:400px"></div>
+            <div class="arc" style="width:280px;height:280px;border-color:rgba(0,88,153,0.15)"></div>
+            <div class="arc" style="width:160px;height:160px;border-color:rgba(0,88,153,0.2)"></div>
+          </div>
+          <span class="card-num">ANU</span>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="card-info">
+          <div class="card-project-name">
+            <h2>ANU Museum</h2>
+            <div class="card-tags">
+              <span class="tag">Museum &amp; Exhibitions</span>
+              <span class="tag">B2G2C</span>
+            </div>
+          </div>
+          <div class="card-roles">
+            <span class="role-item">Interactive Exhibition</span>
+            <span class="role-item">Digital Experience</span>
+            <span class="role-item">UX / UI Design</span>
+            <span class="role-item">Cultural Technology</span>
+          </div>
+        </div>
+      </a>
+
+    </section>
+
+    <!-- ── CLIENT LOGOS ── -->
+    <section id="clients">
+      <h2>Also trust us</h2>
+      <div class="logos-row">
+        <span class="client-logo">Medtronic</span>
+        <span class="client-logo">CathWorks</span>
+        <span class="client-logo">Selina</span>
+        <span class="client-logo">Orchestra</span>
+        <span class="client-logo">NeuroBrave</span>
+        <span class="client-logo">BeeFree</span>
+        <span class="client-logo">Queue</span>
+        <span class="client-logo">ANU Museum</span>
+        <span class="client-logo">Labs / 02</span>
+      </div>
+    </section>
+
+    <!-- ── SERVICES ── -->
+    <section id="services">
+      <h2>Our Services</h2>
+
+      <div class="services-grid">
+
+        <!-- 1 -->
+        <div class="service-card">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#f5f5f5" stroke-width="1.5">
+            <rect x="6" y="10" width="36" height="28" rx="3"/>
+            <path d="M6 18h36M14 10v8M34 10v8"/>
+            <circle cx="16" cy="28" r="3"/><circle cx="24" cy="24" r="3"/><circle cx="32" cy="30" r="3"/>
+            <path d="M19 27l3-2 6 4" stroke-linecap="round"/>
+          </svg>
+          <h3>Product Strategy Development</h3>
+          <p>We map your market, define your competitive edge, and build a product roadmap that translates vision into measurable milestones.</p>
+        </div>
+
+        <!-- 2 -->
+        <div class="service-card">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#f5f5f5" stroke-width="1.5">
+            <rect x="8" y="8" width="14" height="14" rx="2"/>
+            <rect x="26" y="8" width="14" height="14" rx="2"/>
+            <rect x="8" y="26" width="14" height="14" rx="2"/>
+            <rect x="26" y="26" width="14" height="14" rx="2"/>
+            <path d="M22 15h4M15 22v4M33 22v4M22 33h4"/>
+          </svg>
+          <h3>UX Architecture</h3>
+          <p>User flows, information architecture, and interaction models designed around how real people think — not how engineers assume they do.</p>
+        </div>
+
+        <!-- 3 -->
+        <div class="service-card">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#f5f5f5" stroke-width="1.5">
+            <rect x="6" y="14" width="36" height="26" rx="3"/>
+            <path d="M16 14V10a2 2 0 012-2h12a2 2 0 012 2v4"/>
+            <path d="M18 28l4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Rapid Prototyping</h3>
+          <p>From concept to clickable prototype in days. We validate assumptions early, saving months of costly development cycles.</p>
+        </div>
+
+        <!-- 4 -->
+        <div class="service-card">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#f5f5f5" stroke-width="1.5">
+            <rect x="10" y="8" width="28" height="32" rx="4"/>
+            <rect x="15" y="14" width="18" height="12" rx="2"/>
+            <path d="M15 32h8M15 37h12"/>
+          </svg>
+          <h3>UI Design</h3>
+          <p>Pixel-perfect interfaces that feel as good as they look. We craft design systems that scale from MVP to enterprise.</p>
+        </div>
+
+        <!-- 5 -->
+        <div class="service-card">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#f5f5f5" stroke-width="1.5">
+            <path d="M8 36L16 20l8 12 6-8 10 12"/>
+            <circle cx="16" cy="20" r="2" fill="#f5f5f5" stroke="none"/>
+            <circle cx="24" cy="32" r="2" fill="#f5f5f5" stroke="none"/>
+            <circle cx="30" cy="24" r="2" fill="#f5f5f5" stroke="none"/>
+            <circle cx="40" cy="36" r="2" fill="#f5f5f5" stroke="none"/>
+            <rect x="6" y="8" width="12" height="8" rx="1" opacity="0.4"/>
+            <path d="M10 8V6M18 8V6"/>
+          </svg>
+          <h3>Front and back-end development</h3>
+          <p>Full-stack engineering from React and TypeScript to Node.js, Python, and cloud infrastructure — built to ship and built to last.</p>
+        </div>
+
+        <!-- 6 -->
+        <div class="service-card">
+          <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="#f5f5f5" stroke-width="1.5">
+            <circle cx="24" cy="16" r="8"/>
+            <path d="M24 24v16M16 36h16"/>
+            <path d="M10 28c0-4 6-6 14-6s14 2 14 6" stroke-dasharray="3 3"/>
+          </svg>
+          <h3>Product Management</h3>
+          <p>End-to-end product ownership — sprint planning, stakeholder alignment, roadmap governance, and cross-functional leadership.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer id="footer">
+
+      <div class="footer-bio">
+        <div class="footer-avatar">Y</div>
+        <h3>Hey, I'm Yaniv Primak</h3>
+        <p>
+          An innovator and tech enthusiast with 15+ years building products
+          that move markets. From medical devices acquired by Medtronic to
+          global hospitality platforms — I lead with strategy, design with
+          precision, and ship with teams that believe the bold always win.
+        </p>
+      </div>
+
+      <div class="footer-contact">
+        <h2>Contact Us</h2>
+        <p class="tagline">Let's build amazing dreams</p>
+
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <input type="email" placeholder="Your email address" required />
+          <button type="submit">Submit</button>
+        </form>
+
+        <div class="contact-details">
+          <a href="mailto:office@primak.co">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 7l10 7 10-7"/>
+            </svg>
+            office@primak.co
+          </a>
+          <a href="#">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            Tel Aviv-Yafo, Israel
+          </a>
+          <a href="https://linkedin.com/in/yanivprimak" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn — Yaniv Primak
+          </a>
+        </div>
+      </div>
+
+    </footer>
+
+  </main>
+
+  <!-- FOOTER BOTTOM -->
+  <div class="footer-bottom">
+    <span>© 2026 Primak. All rights reserved.</span>
+    <span>Design &amp; Technology Taskforce — Tel Aviv</span>
+  </div>
+
+  <script>
+    // ── SCROLL FADE-IN for project cards ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.project-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(40px)';
+      card.style.transition = `opacity 0.7s ease ${i * 0.06}s, transform 0.7s ease ${i * 0.06}s`;
+      observer.observe(card);
+    });
+
+    // Service cards
+    document.querySelectorAll('.service-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(24px)';
+      card.style.transition = `opacity 0.6s ease ${i * 0.08}s, transform 0.6s ease ${i * 0.08}s`;
+      observer.observe(card);
+    });
+
+    // ── CONTACT FORM ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const input = e.target.querySelector('input');
+      btn.textContent = 'Sent!';
+      btn.style.background = 'var(--accent)';
+      btn.style.color = '#000';
+      input.value = '';
+      setTimeout(() => {
+        btn.textContent = 'Submit';
+        btn.style.background = 'transparent';
+        btn.style.color = 'var(--accent)';
+      }, 3000);
+    }
+
+    // ── MOBILE MENU BUTTON animation ──
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    let menuOpen = false;
+    mobileBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      const spans = mobileBtn.querySelectorAll('span');
+      if (menuOpen) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+      } else {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '';
+        spans[2].style.transform = '';
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BeeFree Agro — Yaniv Primak Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #121317;
+    color: #f5f5f5;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 80px;
+    min-height: 100vh;
+    background: #121317;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    flex-shrink: 0;
+  }
+
+  .sidebar-menu {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #8592a3;
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .sidebar-menu:hover { color: #5cc981; }
+
+  .sidebar-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5cc981;
+    position: absolute;
+    top: 40px;
+  }
+
+  .main { flex: 1; overflow: hidden; }
+
+  /* HERO — aerial green */
+  .hero {
+    width: 1360px;
+    height: 763px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0a1a0a 0%, #0f2a0f 20%, #1a4a1a 45%, #2a6a20 65%, #3a8a25 85%, #4aaa2a 100%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(800px) rotateX(30deg) translateY(-100px);
+    transform-origin: top center;
+  }
+
+  .hero-field {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 60% 60%, rgba(74,170,42,0.25) 0%, transparent 60%);
+  }
+
+  .hero-gradient-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 350px;
+    background: linear-gradient(to bottom, transparent, #121317);
+  }
+
+  .hero-gradient-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 400px;
+    background: linear-gradient(to right, #0a1a0a, transparent);
+  }
+
+  /* Drone icon in hero */
+  .hero-drone {
+    position: absolute;
+    top: 120px;
+    right: 180px;
+    font-size: 80px;
+    filter: drop-shadow(0 0 30px rgba(92,201,129,0.6));
+    animation: hover-drone 3s ease-in-out infinite;
+  }
+
+  @keyframes hover-drone {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .hero-scan-line {
+    position: absolute;
+    top: 200px;
+    right: 100px;
+    width: 300px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(92,201,129,0.8), transparent);
+    box-shadow: 0 0 10px rgba(92,201,129,0.5);
+    animation: scan 2s ease-in-out infinite;
+  }
+
+  @keyframes scan {
+    0%, 100% { opacity: 0; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(60px); }
+  }
+
+  .hero-content {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    right: 80px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 16px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(92,201,129,0.12);
+    border: 1px solid rgba(92,201,129,0.3);
+    color: #5cc981;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: #8592a3;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  /* PROJECT INFO */
+  .project-info {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 80px;
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .project-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1a4a1a, #5cc981);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 32px;
+    letter-spacing: -0.03em;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 12px;
+  }
+
+  .meta-role-list { list-style: none; margin-bottom: 32px; }
+
+  .meta-role-list li {
+    font-size: 14px;
+    color: #f5f5f5;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.4;
+  }
+
+  .accent-line {
+    width: 40px;
+    height: 3px;
+    background: #5cc981;
+    margin-bottom: 24px;
+    border-radius: 2px;
+  }
+
+  .project-description {
+    font-size: 24px;
+    line-height: 1.6;
+    color: #f5f5f5;
+    font-weight: 300;
+    max-width: 700px;
+    align-self: center;
+  }
+
+  .project-description strong { color: #5cc981; font-weight: 500; }
+
+  /* SECTIONS */
+  .section {
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    line-height: 1.15;
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: #8592a3;
+    line-height: 1.8;
+    max-width: 680px;
+  }
+
+  /* DRONE CONTROLLER UI */
+  .controller-visual {
+    width: 100%;
+    height: 420px;
+    background: linear-gradient(135deg, #0a1a0a, #0f2a0f, #1a4a1a);
+    border-radius: 16px;
+    border: 1px solid rgba(92,201,129,0.15);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0;
+  }
+
+  .ctrl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    border-bottom: 1px solid rgba(92,201,129,0.1);
+    background: rgba(0,0,0,0.3);
+  }
+
+  .ctrl-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #5cc981;
+    letter-spacing: 0.1em;
+  }
+
+  .ctrl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #5cc981;
+    box-shadow: 0 0 6px #5cc981;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .ctrl-title { font-size: 13px; color: #8592a3; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  .ctrl-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 0;
+  }
+
+  .ctrl-map {
+    position: relative;
+    border-right: 1px solid rgba(92,201,129,0.08);
+    overflow: hidden;
+  }
+
+  .ctrl-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(92,201,129,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(92,201,129,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .ctrl-drone-pos {
+    position: absolute;
+    top: 40%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(92,201,129,0.2);
+    border: 2px solid #5cc981;
+    box-shadow: 0 0 16px rgba(92,201,129,0.5);
+  }
+
+  .ctrl-drone-pos::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid rgba(92,201,129,0.3);
+    animation: pulse 2s linear infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+  }
+
+  .cattle-dots {
+    position: absolute;
+    inset: 0;
+  }
+
+  .cattle-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,200,60,0.7);
+    box-shadow: 0 0 4px rgba(255,200,60,0.5);
+  }
+
+  .ctrl-panel {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .panel-stat {
+    background: rgba(92,201,129,0.06);
+    border: 1px solid rgba(92,201,129,0.1);
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+
+  .panel-stat-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #5cc981;
+    margin-bottom: 4px;
+  }
+
+  .panel-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f5f5f5;
+    letter-spacing: -0.01em;
+  }
+
+  /* AERIAL LANDSCAPE */
+  .aerial-section {
+    width: 100%;
+    height: 360px;
+    background: linear-gradient(160deg, #0a1a0a, #1a3a0a, #2a6a1a, #3a8a25, #4aaa2a);
+    position: relative;
+    overflow: hidden;
+    margin: 40px 0;
+    border-radius: 16px;
+  }
+
+  .aerial-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 30px,
+        rgba(0,0,0,0.08) 30px,
+        rgba(0,0,0,0.08) 31px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 30px,
+        rgba(0,0,0,0.08) 30px,
+        rgba(0,0,0,0.08) 31px
+      );
+  }
+
+  .aerial-label {
+    position: absolute;
+    bottom: 30px;
+    left: 40px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* FLOW DIAGRAM */
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 48px;
+    background: rgba(92,201,129,0.04);
+    border: 1px solid rgba(92,201,129,0.1);
+    border-radius: 16px;
+    margin: 40px 0;
+  }
+
+  .flow-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .flow-icon-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(92,201,129,0.1);
+    border: 2px solid rgba(92,201,129,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    transition: all 0.3s;
+  }
+
+  .flow-icon-circle:hover {
+    background: rgba(92,201,129,0.2);
+    border-color: #5cc981;
+    box-shadow: 0 0 20px rgba(92,201,129,0.3);
+  }
+
+  .flow-node-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    color: #f5f5f5;
+  }
+
+  .flow-node-sub {
+    font-size: 11px;
+    color: #8592a3;
+    text-align: center;
+    line-height: 1.4;
+    max-width: 100px;
+  }
+
+  .flow-arrow {
+    color: #5cc981;
+    font-size: 24px;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  /* VALUE PROPS */
+  .value-props {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 40px 0;
+  }
+
+  .value-card {
+    background: rgba(92,201,129,0.04);
+    border: 1px solid rgba(92,201,129,0.12);
+    border-radius: 12px;
+    padding: 32px;
+    transition: all 0.3s;
+  }
+
+  .value-card:hover {
+    background: rgba(92,201,129,0.08);
+    border-color: rgba(92,201,129,0.3);
+    transform: translateY(-4px);
+  }
+
+  .value-card-icon {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .value-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .value-card-body {
+    font-size: 13px;
+    color: #8592a3;
+    line-height: 1.7;
+  }
+
+  /* BIG QUOTE */
+  .big-quote {
+    padding: 80px;
+    background: linear-gradient(135deg, rgba(92,201,129,0.04), rgba(18,19,23,0));
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .big-quote-text {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    max-width: 900px;
+  }
+
+  .big-quote-text .highlight { color: #5cc981; }
+
+  /* STATS */
+  .stats-row {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 40px 0;
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 40px 32px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s;
+  }
+
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(255,255,255,0.03); }
+
+  .stat-number {
+    font-size: 40px;
+    font-weight: 700;
+    color: #5cc981;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: #8592a3;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  .footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 48px 80px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: opacity 0.3s;
+  }
+
+  .nav-link:hover { opacity: 0.7; }
+  .nav-direction { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #8592a3; }
+  .nav-project { font-size: 20px; font-weight: 600; color: #f5f5f5; }
+
+  .bio-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .bio-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #5cc981, #3aa862);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #121317;
+  }
+
+  .bio-name { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+
+  .bio-title-text {
+    font-size: 13px;
+    color: #5cc981;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .bio-body { font-size: 14px; color: #8592a3; line-height: 1.8; }
+
+  .contact-block { display: flex; flex-direction: column; gap: 16px; }
+
+  .contact-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #5cc981;
+  }
+
+  .contact-title { font-size: 28px; font-weight: 700; line-height: 1.2; }
+
+  .form-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px 18px;
+    color: #f5f5f5;
+    font-family: inherit;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s;
+    outline: none;
+  }
+
+  .form-input:focus { border-color: #5cc981; }
+  .form-input::placeholder { color: #8592a3; }
+
+  .form-btn {
+    background: #5cc981;
+    color: #121317;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+    transition: all 0.3s;
+  }
+
+  .form-btn:hover { background: #4ab870; transform: translateY(-2px); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 80px;
+  }
+
+  .footer-copy { font-size: 12px; color: #8592a3; }
+  .footer-links { display: flex; gap: 32px; }
+  .footer-links a { font-size: 12px; color: #8592a3; transition: color 0.3s; }
+  .footer-links a:hover { color: #5cc981; }
+</style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-dot"></div>
+    <span class="sidebar-menu">menu</span>
+  </aside>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-field"></div>
+      <div class="hero-drone">🚁</div>
+      <div class="hero-scan-line"></div>
+      <div class="hero-gradient-fade"></div>
+      <div class="hero-gradient-left"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Case Study — 03</div>
+        <div class="hero-tag">Drone Technology &nbsp;·&nbsp; B2B2C</div>
+        <h1 class="hero-title">BeeFree Agro</h1>
+        <p class="hero-subtitle">Autonomous drone "Joe" provides real-time intelligence about livestock from above. Agriculture reimagined.</p>
+      </div>
+    </div>
+
+    <!-- PROJECT INFO -->
+    <div class="project-info">
+      <div>
+        <div class="project-logo">BF</div>
+        <div class="meta-label">Role</div>
+        <ul class="meta-role-list">
+          <li>Product Strategy</li>
+          <li>UX / UI Design</li>
+          <li>Drone Interface Design</li>
+          <li>Data Visualization</li>
+          <li>Go-to-Market</li>
+        </ul>
+      </div>
+      <div>
+        <div class="accent-line"></div>
+        <p class="project-description">
+          Autonomous drone system named <strong>"Joe"</strong> provides real-time information about what's happening on the ground — locating, counting, and managing cattle herds with precision aerial intelligence.
+        </p>
+      </div>
+    </div>
+
+    <!-- SYSTEM DESCRIPTION -->
+    <div class="section">
+      <div class="section-label">The Challenge</div>
+      <div class="accent-line"></div>
+      <h2 class="section-title">BeeFree Agro is an autonomous livestock<br>management system</h2>
+      <p class="section-body">Traditional cattle management is labor-intensive, costly, and imprecise. BeeFree Agro uses autonomous drone technology to locate and count cattle, detect anomalies, and deliver actionable insights to farmers — all without a pilot in the loop.</p>
+    </div>
+
+    <!-- DRONE CONTROLLER UI -->
+    <div style="padding: 0 80px;">
+      <div class="controller-visual">
+        <div class="ctrl-header">
+          <div class="ctrl-status">
+            <div class="ctrl-dot"></div>
+            DRONE ACTIVE — JOE-01
+          </div>
+          <div class="ctrl-title">BeeFree Control Interface</div>
+          <div style="font-size: 12px; color: #8592a3;">ALT: 120m &nbsp;·&nbsp; BATT: 87%</div>
+        </div>
+        <div class="ctrl-body">
+          <div class="ctrl-map">
+            <div class="ctrl-grid"></div>
+            <!-- Cattle dots -->
+            <div class="cattle-dots">
+              <div class="cattle-dot" style="top: 30%; left: 20%;"></div>
+              <div class="cattle-dot" style="top: 35%; left: 25%;"></div>
+              <div class="cattle-dot" style="top: 28%; left: 30%;"></div>
+              <div class="cattle-dot" style="top: 60%; left: 40%;"></div>
+              <div class="cattle-dot" style="top: 65%; left: 45%;"></div>
+              <div class="cattle-dot" style="top: 62%; left: 50%;"></div>
+              <div class="cattle-dot" style="top: 70%; left: 48%;"></div>
+              <div class="cattle-dot" style="top: 25%; left: 70%;"></div>
+              <div class="cattle-dot" style="top: 30%; left: 75%;"></div>
+              <div class="cattle-dot" style="top: 22%; left: 78%;"></div>
+            </div>
+            <div class="ctrl-drone-pos"></div>
+          </div>
+          <div class="ctrl-panel">
+            <div class="panel-stat">
+              <div class="panel-stat-label">Cattle Detected</div>
+              <div class="panel-stat-value">247</div>
+            </div>
+            <div class="panel-stat">
+              <div class="panel-stat-label">Coverage Area</div>
+              <div class="panel-stat-value">3.2 km²</div>
+            </div>
+            <div class="panel-stat">
+              <div class="panel-stat-label">Anomalies</div>
+              <div class="panel-stat-value" style="color: #ffb830;">2</div>
+            </div>
+            <div class="panel-stat">
+              <div class="panel-stat-label">Mission Status</div>
+              <div class="panel-stat-value" style="font-size: 14px; color: #5cc981;">SCANNING</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AERIAL LANDSCAPE -->
+    <div style="padding: 0 80px 80px;">
+      <div class="aerial-section">
+        <div class="aerial-overlay"></div>
+        <div class="aerial-label">Aerial field scan — 120m altitude</div>
+      </div>
+    </div>
+
+    <!-- FLOW DIAGRAM -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">How It Works</div>
+      <div class="flow-diagram">
+        <div class="flow-node">
+          <div class="flow-icon-circle">🚁</div>
+          <div class="flow-node-label">Drone Flight</div>
+          <div class="flow-node-sub">Joe autonomously covers the field</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-icon-circle">📡</div>
+          <div class="flow-node-label">Data Capture</div>
+          <div class="flow-node-sub">IR + visual sensors, GPS tagging</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-icon-circle">⚙️</div>
+          <div class="flow-node-label">Processing</div>
+          <div class="flow-node-sub">AI counts, classifies, detects anomalies</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-node">
+          <div class="flow-icon-circle">📊</div>
+          <div class="flow-node-label">Insights</div>
+          <div class="flow-node-sub">Real-time dashboard and alerts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALUE PROPS -->
+    <div class="section" style="padding-top: 0;">
+      <div class="section-label">Value Proposition</div>
+      <div class="value-props">
+        <div class="value-card">
+          <div class="value-card-icon">💰</div>
+          <div class="value-card-title">Save Money</div>
+          <div class="value-card-body">Reduce labor costs by up to 60%. One drone replaces multiple headcount for daily cattle checks.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon">🛡️</div>
+          <div class="value-card-title">Reduce Risk</div>
+          <div class="value-card-body">Early detection of sick or injured animals. Prevent losses before they become costly emergencies.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-icon">😴</div>
+          <div class="value-card-title">Sleep Better</div>
+          <div class="value-card-body">Automated overnight missions mean Joe monitors your herd while you rest. Wake up to a full report.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div style="padding: 0 80px 80px;">
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">247</div>
+          <div class="stat-label">Cattle / Mission</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">98.2%</div>
+          <div class="stat-label">Count Accuracy</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">60%</div>
+          <div class="stat-label">Labor Reduction</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">4 min</div>
+          <div class="stat-label">Per 100 Acres</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIG QUOTE -->
+    <div class="big-quote">
+      <div class="big-quote-text">
+        <span class="highlight">Save money. Reduce risk. Sleep better.</span><br>
+        Start using drones to count and manage cattle herds.
+      </div>
+    </div>
+
+    <!-- FOOTER NAV -->
+    <div class="footer-nav">
+      <a class="nav-link" href="neurobrave.html">
+        <span class="nav-direction">← Previous</span>
+        <span class="nav-project">NeuroBrave</span>
+      </a>
+      <a class="nav-link" href="queue.html" style="text-align:right;">
+        <span class="nav-direction">Next →</span>
+        <span class="nav-project">Queue</span>
+      </a>
+    </div>
+
+    <!-- BIO + CONTACT -->
+    <div class="bio-section">
+      <div>
+        <div class="bio-avatar">YP</div>
+        <div class="bio-name">Yaniv Primak</div>
+        <div class="bio-title-text">Product Design &amp; Strategy</div>
+        <p class="bio-body">I design products that change industries and create measurable value. From AI cardiac diagnostics (acquired by Medtronic for $585M) to drone systems, neurotechnology, and VC platforms — I bring strategic thinking and sharp execution to every engagement.</p>
+      </div>
+      <div class="contact-block">
+        <div class="contact-label">Get in Touch</div>
+        <div class="contact-title">Let's work<br>together</div>
+        <input class="form-input" type="text" placeholder="Your name">
+        <input class="form-input" type="email" placeholder="Your email">
+        <input class="form-input" type="text" placeholder="What are you building?">
+        <button class="form-btn">Send Message</button>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Yaniv Primak. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">Dribbble</a>
+        <a href="#">yaniv@primak.co</a>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
