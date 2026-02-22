@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visual Acuity Test PWA — Technical Specification — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #37352f; padding: 40px 32px; max-width: 920px; margin: 0 auto; line-height: 1.7; }
+  .header { margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #e9e9e7; }
+  .header h1 { font-size: 26px; font-weight: 700; }
+  .header .meta { color: #9b9a97; font-size: 13px; display: flex; gap: 12px; margin-top: 4px; flex-wrap: wrap; }
+  .header .meta span { background: #f1f1ef; padding: 2px 8px; border-radius: 3px; }
+
+  h2 { font-size: 18px; font-weight: 700; margin: 32px 0 12px; padding-bottom: 4px; border-bottom: 1px solid #e9e9e7; color: #37352f; }
+  h3 { font-size: 15px; font-weight: 700; margin: 20px 0 8px; color: #37352f; }
+  h4 { font-size: 13px; font-weight: 700; margin: 14px 0 6px; color: #6b6b6b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  p, li { font-size: 14px; color: #37352f; }
+  p { margin-bottom: 10px; }
+  ul, ol { margin: 8px 0 12px 20px; }
+  li { margin-bottom: 4px; }
+
+  .card { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; }
+  .card-green { border-left: 4px solid #0f7b6c; }
+  .card-orange { border-left: 4px solid #d9730d; }
+  .card-blue { border-left: 4px solid #2f80ed; }
+  .card-red { border-left: 4px solid #e03e3e; }
+  .card-purple { border-left: 4px solid #6940a5; }
+
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-right: 4px; }
+  .tag-mvp { background: #dbeddb; color: #0f7b6c; }
+  .tag-v2 { background: #fadec9; color: #d9730d; }
+  .tag-risk { background: #fde8e8; color: #e03e3e; }
+  .tag-api { background: #e8deee; color: #6940a5; }
+
+  code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; background: #f7f6f3; padding: 2px 6px; border-radius: 3px; color: #e03e3e; }
+  pre { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 12px; background: #1e1e1e; color: #d4d4d4; padding: 16px 20px; border-radius: 6px; overflow-x: auto; margin: 10px 0 16px; line-height: 1.5; white-space: pre; }
+  pre .comment { color: #6a9955; }
+  pre .keyword { color: #569cd6; }
+  pre .string { color: #ce9178; }
+  pre .number { color: #b5cea8; }
+  pre .func { color: #dcdcaa; }
+  pre .type { color: #4ec9b0; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
+  .summary-card { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 4px; padding: 14px; text-align: center; }
+  .summary-card .num { font-size: 22px; font-weight: 700; color: #0f7b6c; }
+  .summary-card .num.orange { color: #d9730d; }
+  .summary-card .num.blue { color: #2f80ed; }
+  .summary-card .num.red { color: #e03e3e; }
+  .summary-card .desc { font-size: 11px; color: #9b9a97; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; font-size: 13px; }
+  th { background: #f7f6f3; font-weight: 700; text-align: left; padding: 8px 12px; border-bottom: 2px solid #e9e9e7; }
+  td { padding: 8px 12px; border-bottom: 1px solid #f1f1ef; }
+  tr:hover td { background: #fbfbfa; }
+
+  .flow-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .flow-num { width: 28px; height: 28px; background: #2f80ed; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .flow-content { flex: 1; }
+  .flow-content .title { font-size: 14px; font-weight: 600; }
+  .flow-content .detail { font-size: 12px; color: #6b6b6b; margin-top: 2px; }
+
+  .arch-box { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .module { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 6px; padding: 12px 16px; }
+  .module .name { font-size: 13px; font-weight: 700; color: #2f80ed; }
+  .module .files { font-size: 11px; color: #9b9a97; margin-top: 2px; }
+  .module .desc { font-size: 12px; color: #6b6b6b; margin-top: 4px; }
+
+  .warning { background: #fef6ee; border: 1px solid #fadec9; border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-size: 13px; }
+  .warning strong { color: #d9730d; }
+
+  .decision { background: #f0faf8; border: 1px solid #dbeddb; border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-size: 13px; }
+  .decision strong { color: #0f7b6c; }
+
+  .footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #e9e9e7; font-size: 12px; color: #9b9a97; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Visual Acuity Test PWA — Technical Specification</h1>
+  <div class="meta">
+    <span>v1</span>
+    <span>2026-02-22</span>
+    <span>Platform: Samsung Galaxy Tab S10 Ultra</span>
+    <span>Chrome PWA</span>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- EXECUTIVE SUMMARY -->
+<!-- ============================================================ -->
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="num">8</div>
+    <div class="desc">App Screens</div>
+  </div>
+  <div class="summary-card">
+    <div class="num blue">5</div>
+    <div class="desc">Web APIs Used</div>
+  </div>
+  <div class="summary-card">
+    <div class="num orange">3</div>
+    <div class="desc">Risk Areas</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">MVP</div>
+    <div class="desc">~3 weeks dev</div>
+  </div>
+</div>
+
+<div class="card card-green">
+  <strong>Approach:</strong> Single-page PWA running in Chrome on Samsung Tab S10 Ultra. Voice-only interaction via Web Speech API. Front camera for patient photos and distance estimation via MediaPipe Face Landmarker. Numeric Snellen optotypes calibrated to the tablet's physical screen dimensions. All data stored locally in IndexedDB.
+</div>
+
+<!-- ============================================================ -->
+<!-- 1. DEVICE SPECIFICATIONS -->
+<!-- ============================================================ -->
+
+<h2>1. Target Device — Samsung Galaxy Tab S10 Ultra</h2>
+
+<table>
+  <tr><th>Property</th><th>Value</th><th>Impact</th></tr>
+  <tr><td>Display</td><td>14.6" Dynamic AMOLED 2X</td><td>Large enough for 6/60 optotypes at 1m</td></tr>
+  <tr><td>Resolution</td><td>1848 x 2960 px</td><td>High density = smooth optotype edges</td></tr>
+  <tr><td>PPI</td><td>~239 PPI</td><td>Key input for mm-to-pixel calculation</td></tr>
+  <tr><td>Pixel Pitch</td><td>~0.1063 mm/px</td><td>25.4mm / 239ppi = 0.1063 mm per pixel</td></tr>
+  <tr><td>Front Camera</td><td>Dual 12MP + 12MP UW</td><td>Sufficient for face detection + photos</td></tr>
+  <tr><td>Browser</td><td>Chrome (Samsung Internet also possible)</td><td>Full Web Speech + getUserMedia support</td></tr>
+  <tr><td>Orientation</td><td>Landscape (recommended)</td><td>2960px width = 314mm usable</td></tr>
+</table>
+
+<div class="decision">
+  <strong>Design Decision:</strong> Lock to landscape orientation via manifest + CSS. The 2960px width (landscape) gives ~314mm of horizontal space, which is more than enough for the largest optotype (87.3mm at 6m, 14.55mm at 1m).
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. SNELLEN OPTOTYPE SIZING -->
+<!-- ============================================================ -->
+
+<h2>2. Snellen Optotype Sizing — The Math</h2>
+
+<h3>2.1 Core Formula</h3>
+
+<p>A Snellen optotype subtends <strong>5 arcminutes</strong> at its designated distance. The formula for optotype height:</p>
+
+<pre>
+<span class="comment">// Snellen optotype height in mm</span>
+<span class="comment">// For acuity level 6/N at test distance D meters:</span>
+
+optotype_height_mm = 2 * D * Math.tan((5 / 60) * (Math.PI / 180)) * (N / 6)
+
+<span class="comment">// Simplified: height_mm = D * 0.001454 * N</span>
+<span class="comment">// Where N = denominator of Snellen fraction (6, 9, 12, 18, 24, 36, 60)</span>
+<span class="comment">// D = test distance in meters</span>
+</pre>
+
+<h3>2.2 Optotype Size Table (at 1 meter distance)</h3>
+
+<table>
+  <tr><th>Acuity</th><th>N</th><th>Height (mm)</th><th>Height (px @ 239ppi)</th><th>Stroke Width (mm)</th><th>Stroke (px)</th></tr>
+  <tr><td>6/60</td><td>60</td><td>14.55</td><td>137</td><td>2.91</td><td>27</td></tr>
+  <tr><td>6/36</td><td>36</td><td>8.73</td><td>82</td><td>1.75</td><td>16</td></tr>
+  <tr><td>6/24</td><td>24</td><td>5.82</td><td>55</td><td>1.16</td><td>11</td></tr>
+  <tr><td>6/18</td><td>18</td><td>4.36</td><td>41</td><td>0.87</td><td>8</td></tr>
+  <tr><td>6/12</td><td>12</td><td>2.91</td><td>27</td><td>0.58</td><td>5</td></tr>
+  <tr><td>6/9</td><td>9</td><td>2.18</td><td>21</td><td>0.44</td><td>4</td></tr>
+  <tr><td>6/6</td><td>6</td><td>1.45</td><td>14</td><td>0.29</td><td>3</td></tr>
+</table>
+
+<div class="warning">
+  <strong>Critical:</strong> 6/6 at 1 meter = only 14 pixels tall. This is at the limit of readability. If the doctor wants 6/6 testing, either: (a) increase distance to 1.5-2m, or (b) accept that 6/9 is the finest testable acuity at 1m. At 1.5m, 6/6 = 21px (viable). At 2m, 6/6 = 28px (comfortable).
+</div>
+
+<h3>2.3 Dynamic Size Calculation (JavaScript)</h3>
+
+<pre>
+<span class="keyword">const</span> SCREEN_PPI = <span class="number">239</span>;  <span class="comment">// Samsung Tab S10 Ultra</span>
+<span class="keyword">const</span> MM_PER_PX = <span class="number">25.4</span> / SCREEN_PPI;  <span class="comment">// 0.1063 mm/px</span>
+
+<span class="keyword">const</span> ACUITY_LEVELS = [
+  { label: <span class="string">'6/60'</span>, n: <span class="number">60</span> },
+  { label: <span class="string">'6/36'</span>, n: <span class="number">36</span> },
+  { label: <span class="string">'6/24'</span>, n: <span class="number">24</span> },
+  { label: <span class="string">'6/18'</span>, n: <span class="number">18</span> },
+  { label: <span class="string">'6/12'</span>, n: <span class="number">12</span> },
+  { label: <span class="string">'6/9'</span>,  n: <span class="number">9</span>  },
+  { label: <span class="string">'6/6'</span>,  n: <span class="number">6</span>  },
+];
+
+<span class="comment">/**
+ * Calculate optotype height in pixels for a given acuity level and distance.
+ * @param {number} n - Snellen denominator (6, 9, 12, 18, 24, 36, 60)
+ * @param {number} distanceM - Test distance in meters
+ * @returns {{ heightPx: number, strokePx: number, heightMm: number }}
+ */</span>
+<span class="keyword">function</span> <span class="func">calcOptotypeSize</span>(n, distanceM) {
+  <span class="comment">// 5 arcminutes total optotype height</span>
+  <span class="keyword">const</span> arcMin = <span class="number">5</span>;
+  <span class="keyword">const</span> arcRad = (arcMin / <span class="number">60</span>) * (Math.PI / <span class="number">180</span>);
+
+  <span class="comment">// Height for 6/6 at this distance, then scale by N/6</span>
+  <span class="keyword">const</span> baseHeightMm = <span class="number">2</span> * (distanceM * <span class="number">1000</span>) * Math.tan(arcRad / <span class="number">2</span>);
+  <span class="keyword">const</span> heightMm = baseHeightMm * (n / <span class="number">6</span>);
+  <span class="keyword">const</span> heightPx = Math.round(heightMm / MM_PER_PX);
+  <span class="keyword">const</span> strokePx = Math.max(<span class="number">2</span>, Math.round(heightPx / <span class="number">5</span>));
+
+  <span class="keyword">return</span> { heightPx, strokePx, heightMm };
+}
+
+<span class="comment">// Example: 6/18 at 1.2 meters</span>
+<span class="comment">// calcOptotypeSize(18, 1.2) => { heightPx: 49, strokePx: 10, heightMm: 5.24 }</span>
+</pre>
+
+<h3>2.4 Rendering Optotypes</h3>
+
+<div class="card card-blue">
+  <strong>Approach:</strong> Use a <code>&lt;canvas&gt;</code> element to render numeric optotypes (digits 0-9). This gives pixel-perfect control over stroke width and exact sizing. Do NOT use CSS font-size — fonts have variable metrics and ascenders/descenders that break precise Snellen geometry.
+</div>
+
+<pre>
+<span class="comment">/**
+ * Draw a numeric optotype on canvas.
+ * Uses a 5x5 grid system matching Snellen specifications.
+ * Each digit drawn with exact stroke width = heightPx / 5.
+ */</span>
+<span class="keyword">function</span> <span class="func">drawOptotype</span>(ctx, digit, x, y, heightPx) {
+  <span class="keyword">const</span> strokeW = Math.max(<span class="number">2</span>, Math.round(heightPx / <span class="number">5</span>));
+
+  ctx.fillStyle = <span class="string">'#000000'</span>;
+  ctx.font = `bold ${heightPx}px 'Arial Black', sans-serif`;
+  ctx.textAlign = <span class="string">'center'</span>;
+  ctx.textBaseline = <span class="string">'middle'</span>;
+  ctx.fillText(String(digit), x, y);
+}
+
+<span class="comment">/**
+ * Alternative: Pre-rendered SVG paths for each digit 0-9.
+ * This guarantees exact Snellen 5x5 grid proportions.
+ * Recommended for clinical accuracy.
+ */</span>
+<span class="keyword">const</span> OPTOTYPE_PATHS = {
+  <span class="comment">// Each path defined on a 50x50 viewBox (5x5 grid, 10px per unit)</span>
+  <span class="comment">// Scale to target heightPx at render time</span>
+  <span class="string">'0'</span>: <span class="string">'M10,0 H40 V50 H10 Z M20,10 H30 V40 H20 Z'</span>,
+  <span class="comment">// ... define all 10 digits as SVG paths</span>
+};
+</pre>
+
+<div class="warning">
+  <strong>Recommendation:</strong> For true clinical validity, use standardized Sloan numerals or commission a set of numeric optotypes designed on a strict 5x5 grid. The doctor should validate the optotype set before deployment. Standard fonts like Arial do NOT have uniform stroke widths and will not match Snellen specifications exactly.
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. WEB SPEECH API — VOICE RECOGNITION -->
+<!-- ============================================================ -->
+
+<h2>3. Voice Recognition — Web Speech API</h2>
+
+<h3>3.1 Capability Assessment</h3>
+
+<table>
+  <tr><th>Feature</th><th>Chrome Android</th><th>Notes</th></tr>
+  <tr><td>SpeechRecognition</td><td>Supported</td><td>Uses <code>webkitSpeechRecognition</code> prefix</td></tr>
+  <tr><td>Hebrew (he-IL)</td><td>Supported</td><td>Set via <code>recognition.lang = 'he-IL'</code></td></tr>
+  <tr><td>Continuous mode</td><td>Supported</td><td>Keeps listening after pauses</td></tr>
+  <tr><td>Interim results</td><td>Supported</td><td>Shows partial transcription</td></tr>
+  <tr><td>JSGF Grammars</td><td>Ignored by Chrome</td><td>Chrome sends to server regardless</td></tr>
+  <tr><td>Offline</td><td>NOT supported</td><td>Requires internet connection</td></tr>
+  <tr><td>Digit recognition</td><td>Good</td><td>Numbers are well-recognized vocabulary</td></tr>
+</table>
+
+<div class="warning">
+  <strong>Critical Constraint:</strong> Chrome's speech recognition sends audio to Google servers. This means: (1) Internet connection required at all times, (2) HIPAA/privacy considerations for a medical environment, (3) JSGF grammars are accepted but ignored by Chrome's server — no constrained vocabulary. Mitigation: post-process results to extract only digit patterns.
+</div>
+
+<h3>3.2 Speech Recognition Setup</h3>
+
+<pre>
+<span class="comment">/**
+ * Voice controller for the Visual Acuity Test.
+ * Handles both Hebrew and number recognition.
+ */</span>
+<span class="keyword">class</span> <span class="type">VoiceController</span> {
+  <span class="keyword">constructor</span>(lang = <span class="string">'he-IL'</span>) {
+    <span class="keyword">const</span> SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    <span class="keyword">if</span> (!SR) <span class="keyword">throw new</span> Error(<span class="string">'Speech Recognition not supported'</span>);
+
+    <span class="keyword">this</span>.recognition = <span class="keyword">new</span> SR();
+    <span class="keyword">this</span>.recognition.lang = lang;
+    <span class="keyword">this</span>.recognition.continuous = <span class="keyword">false</span>;    <span class="comment">// One utterance at a time</span>
+    <span class="keyword">this</span>.recognition.interimResults = <span class="keyword">false</span>; <span class="comment">// Only final results</span>
+    <span class="keyword">this</span>.recognition.maxAlternatives = <span class="number">3</span>;   <span class="comment">// Get alternatives for digits</span>
+
+    <span class="keyword">this</span>._resolvePromise = <span class="keyword">null</span>;
+    <span class="keyword">this</span>._rejectPromise = <span class="keyword">null</span>;
+
+    <span class="keyword">this</span>.recognition.onresult = (event) => {
+      <span class="keyword">const</span> results = [];
+      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < event.results[<span class="number">0</span>].length; i++) {
+        results.push({
+          transcript: event.results[<span class="number">0</span>][i].transcript.trim(),
+          confidence: event.results[<span class="number">0</span>][i].confidence
+        });
+      }
+      <span class="keyword">if</span> (<span class="keyword">this</span>._resolvePromise) <span class="keyword">this</span>._resolvePromise(results);
+    };
+
+    <span class="keyword">this</span>.recognition.onerror = (event) => {
+      <span class="keyword">if</span> (<span class="keyword">this</span>._rejectPromise) <span class="keyword">this</span>._rejectPromise(event.error);
+    };
+
+    <span class="keyword">this</span>.recognition.onnomatch = () => {
+      <span class="keyword">if</span> (<span class="keyword">this</span>._resolvePromise) <span class="keyword">this</span>._resolvePromise([]);
+    };
+  }
+
+  <span class="comment">/** Listen for a single utterance. Returns array of {transcript, confidence} */</span>
+  <span class="func">listen</span>() {
+    <span class="keyword">return new</span> Promise((resolve, reject) => {
+      <span class="keyword">this</span>._resolvePromise = resolve;
+      <span class="keyword">this</span>._rejectPromise = reject;
+      <span class="keyword">this</span>.recognition.start();
+    });
+  }
+
+  <span class="func">stop</span>() {
+    <span class="keyword">this</span>.recognition.stop();
+  }
+}
+
+<span class="comment">/**
+ * Extract digits from speech recognition result.
+ * Handles Hebrew number words: אפס, אחת, שתיים, שלוש, ארבע, חמש, שש, שבע, שמונה, תשע
+ * Also handles English and raw digit strings.
+ */</span>
+<span class="keyword">const</span> HEBREW_DIGITS = {
+  <span class="string">'אפס'</span>: <span class="number">0</span>, <span class="string">'אחת'</span>: <span class="number">1</span>, <span class="string">'אחד'</span>: <span class="number">1</span>, <span class="string">'שתיים'</span>: <span class="number">2</span>, <span class="string">'שניים'</span>: <span class="number">2</span>,
+  <span class="string">'שלוש'</span>: <span class="number">3</span>, <span class="string">'ארבע'</span>: <span class="number">4</span>, <span class="string">'חמש'</span>: <span class="number">5</span>, <span class="string">'שש'</span>: <span class="number">6</span>,
+  <span class="string">'שבע'</span>: <span class="number">7</span>, <span class="string">'שמונה'</span>: <span class="number">8</span>, <span class="string">'תשע'</span>: <span class="number">9</span>,
+};
+
+<span class="keyword">function</span> <span class="func">extractDigits</span>(transcript) {
+  <span class="keyword">let</span> digits = [];
+
+  <span class="comment">// Try raw digit extraction first</span>
+  <span class="keyword">const</span> rawDigits = transcript.replace(/[^\d]/g, <span class="string">''</span>);
+  <span class="keyword">if</span> (rawDigits.length > <span class="number">0</span>) {
+    <span class="keyword">return</span> rawDigits.split(<span class="string">''</span>).map(Number);
+  }
+
+  <span class="comment">// Try Hebrew word-to-digit mapping</span>
+  <span class="keyword">const</span> words = transcript.split(/\s+/);
+  <span class="keyword">for</span> (<span class="keyword">const</span> word of words) {
+    <span class="keyword">if</span> (HEBREW_DIGITS[word] !== <span class="keyword">undefined</span>) {
+      digits.push(HEBREW_DIGITS[word]);
+    }
+  }
+
+  <span class="keyword">return</span> digits;
+}
+</pre>
+
+<h3>3.3 Voice Interaction Patterns</h3>
+
+<div class="card card-green">
+  <strong>Patient ID Entry:</strong> Patient speaks their ID number (9 digits in Israel). System listens in continuous mode, concatenates digits, shows on screen for confirmation. Patient says "כן" (yes) or "לא" (no) to confirm.
+</div>
+
+<div class="card card-blue">
+  <strong>Optotype Reading:</strong> System displays a row of digits. Patient reads them aloud one by one. System compares spoken digits against displayed digits. Match threshold: 3 out of 5 correct on a line = pass that acuity level.
+</div>
+
+<div class="card card-orange">
+  <strong>Fallback — On-Screen Keyboard:</strong> For environments with high background noise or if speech recognition fails repeatedly, provide a large-button numeric keypad as fallback. This breaks the "no touch" requirement but ensures the test can still be completed.
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. TEXT-TO-SPEECH -->
+<!-- ============================================================ -->
+
+<h2>4. Text-to-Speech — Instructions to Patient</h2>
+
+<h3>4.1 SpeechSynthesis API</h3>
+
+<pre>
+<span class="comment">/**
+ * Speak instructions to the patient in Hebrew.
+ * Falls back to pre-recorded audio if TTS unavailable.
+ */</span>
+<span class="keyword">class</span> <span class="type">InstructionSpeaker</span> {
+  <span class="keyword">constructor</span>() {
+    <span class="keyword">this</span>.synth = window.speechSynthesis;
+    <span class="keyword">this</span>.hebrewVoice = <span class="keyword">null</span>;
+    <span class="keyword">this</span>._findHebrewVoice();
+  }
+
+  <span class="func">_findHebrewVoice</span>() {
+    <span class="keyword">const</span> voices = <span class="keyword">this</span>.synth.getVoices();
+    <span class="keyword">this</span>.hebrewVoice = voices.find(v => v.lang.startsWith(<span class="string">'he'</span>)) || <span class="keyword">null</span>;
+
+    <span class="comment">// Voices may load asynchronously</span>
+    <span class="keyword">if</span> (!<span class="keyword">this</span>.hebrewVoice) {
+      <span class="keyword">this</span>.synth.onvoiceschanged = () => {
+        <span class="keyword">const</span> v = <span class="keyword">this</span>.synth.getVoices();
+        <span class="keyword">this</span>.hebrewVoice = v.find(v => v.lang.startsWith(<span class="string">'he'</span>)) || <span class="keyword">null</span>;
+      };
+    }
+  }
+
+  <span class="comment">/** Speak a Hebrew instruction. Returns promise that resolves when done. */</span>
+  <span class="func">speak</span>(text) {
+    <span class="keyword">return new</span> Promise((resolve) => {
+      <span class="keyword">const</span> utterance = <span class="keyword">new</span> SpeechSynthesisUtterance(text);
+      utterance.lang = <span class="string">'he-IL'</span>;
+      <span class="keyword">if</span> (<span class="keyword">this</span>.hebrewVoice) utterance.voice = <span class="keyword">this</span>.hebrewVoice;
+      utterance.rate = <span class="number">0.9</span>;  <span class="comment">// Slightly slower for clarity</span>
+      utterance.onend = resolve;
+      <span class="keyword">this</span>.synth.speak(utterance);
+    });
+  }
+}
+
+<span class="comment">// Pre-defined instruction strings</span>
+<span class="keyword">const</span> INSTRUCTIONS = {
+  welcome:     <span class="string">'שלום. ברוכים הבאים לבדיקת חדות ראייה. אנא אמרו את מספר תעודת הזהות שלכם.'</span>,
+  coverRight:  <span class="string">'אנא כסו את העין הימנית עם המסתיר. נבדוק קודם את העין השמאלית.'</span>,
+  coverLeft:   <span class="string">'כעת כסו את העין השמאלית. נבדוק את העין הימנית.'</span>,
+  readDigits:  <span class="string">'אנא קראו את המספרים שמופיעים על המסך.'</span>,
+  correct:     <span class="string">'נכון. ממשיכים לשורה הבאה.'</span>,
+  incorrect:   <span class="string">'ננסה שורה גדולה יותר.'</span>,
+  testDone:    <span class="string">'הבדיקה הסתיימה. תודה רבה.'</span>,
+};
+</pre>
+
+<div class="decision">
+  <strong>Design Decision:</strong> Hebrew TTS availability on Samsung devices depends on installed voice packs. The app should: (1) Check for Hebrew voice on load, (2) If unavailable, fall back to pre-recorded MP3 audio files bundled with the PWA, (3) Pre-recorded audio is actually preferred for medical settings — consistent, clear, professional.
+</div>
+
+<!-- ============================================================ -->
+<!-- 5. CAMERA & DISTANCE MEASUREMENT -->
+<!-- ============================================================ -->
+
+<h2>5. Camera Access & Distance Estimation</h2>
+
+<h3>5.1 getUserMedia — Front Camera</h3>
+
+<pre>
+<span class="comment">/**
+ * Initialize front camera stream for the tablet.
+ */</span>
+<span class="keyword">async function</span> <span class="func">initCamera</span>() {
+  <span class="keyword">const</span> constraints = {
+    video: {
+      facingMode: <span class="string">'user'</span>,          <span class="comment">// Front camera</span>
+      width: { ideal: <span class="number">1920</span> },
+      height: { ideal: <span class="number">1080</span> },
+      frameRate: { ideal: <span class="number">15</span> },    <span class="comment">// Lower = less CPU</span>
+    },
+    audio: <span class="keyword">false</span>,
+  };
+
+  <span class="keyword">const</span> stream = <span class="keyword">await</span> navigator.mediaDevices.getUserMedia(constraints);
+
+  <span class="keyword">const</span> video = document.getElementById(<span class="string">'camera-preview'</span>);
+  video.srcObject = stream;
+  <span class="keyword">await</span> video.play();
+
+  <span class="keyword">return</span> { stream, video };
+}
+
+<span class="comment">/**
+ * Capture a snapshot from the video stream.
+ * @returns {Blob} JPEG image blob
+ */</span>
+<span class="keyword">async function</span> <span class="func">capturePhoto</span>(video) {
+  <span class="keyword">const</span> canvas = document.createElement(<span class="string">'canvas'</span>);
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  <span class="keyword">const</span> ctx = canvas.getContext(<span class="string">'2d'</span>);
+  ctx.drawImage(video, <span class="number">0</span>, <span class="number">0</span>);
+
+  <span class="keyword">return new</span> Promise(resolve => {
+    canvas.toBlob(resolve, <span class="string">'image/jpeg'</span>, <span class="number">0.85</span>);
+  });
+}
+</pre>
+
+<h3>5.2 Distance Estimation — Three Approaches (Ranked)</h3>
+
+<h4>Option A: Fixed Distance with Validation (Recommended for MVP)</h4>
+
+<div class="card card-green">
+  <strong>Simplest and most reliable.</strong> Instruct the patient to sit at a marked position (tape on floor, chair bolted down, etc.). Use face detection only to verify a face is present and roughly the right size. No real-time distance computation needed.
+  <br><br>
+  <strong>Implementation:</strong> Use MediaPipe Face Detector (lightweight) to confirm face is detected. Check that face bounding box height is within an expected pixel range for the target distance. If face appears too large (too close) or too small (too far), show a visual/audio warning.
+</div>
+
+<pre>
+<span class="comment">/**
+ * OPTION A: Fixed-distance validation.
+ * Expected face height in pixels at 1m distance for a 12MP front camera
+ * at 1080p: roughly 200-350px depending on face size.
+ * Calibrate once with actual setup.
+ */</span>
+<span class="keyword">const</span> DISTANCE_CONFIG = {
+  targetDistanceM: <span class="number">1.0</span>,
+  expectedFaceHeightPx: { min: <span class="number">180</span>, max: <span class="number">380</span> },
+  <span class="comment">// Calibrate these values during installation</span>
+};
+
+<span class="keyword">function</span> <span class="func">validateDistance</span>(faceHeightPx) {
+  <span class="keyword">const</span> { min, max } = DISTANCE_CONFIG.expectedFaceHeightPx;
+  <span class="keyword">if</span> (faceHeightPx > max) <span class="keyword">return</span> <span class="string">'TOO_CLOSE'</span>;
+  <span class="keyword">if</span> (faceHeightPx < min) <span class="keyword">return</span> <span class="string">'TOO_FAR'</span>;
+  <span class="keyword">return</span> <span class="string">'OK'</span>;
+}
+</pre>
+
+<h4>Option B: Iris-Based Distance Measurement (V2 Enhancement)</h4>
+
+<div class="card card-orange">
+  <strong>MediaPipe Face Landmarker</strong> detects 478 facial landmarks including iris points. Human iris diameter is ~11.7mm (constant). Using pinhole camera model: <code>distance = (focalLength * realIrisDiameter) / irisDiameterInPixels</code>.
+  <br><br>
+  <strong>Accuracy:</strong> Google reports &lt;10% error. At 1m, that means +/-10cm — acceptable for adaptive sizing.
+  <br><br>
+  <strong>Complexity:</strong> Requires loading ~4MB WASM model. Works in browser but adds startup time and CPU load.
+</div>
+
+<pre>
+<span class="comment">/**
+ * OPTION B: Iris-based distance estimation using MediaPipe.
+ * Load via CDN: @mediapipe/tasks-vision
+ */</span>
+<span class="keyword">import</span> { FaceLandmarker, FilesetResolver } <span class="keyword">from</span>
+  <span class="string">'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest'</span>;
+
+<span class="keyword">async function</span> <span class="func">initFaceLandmarker</span>() {
+  <span class="keyword">const</span> vision = <span class="keyword">await</span> FilesetResolver.forVisionTasks(
+    <span class="string">'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm'</span>
+  );
+  <span class="keyword">return await</span> FaceLandmarker.createFromOptions(vision, {
+    baseOptions: {
+      modelAssetPath: <span class="string">'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task'</span>,
+      delegate: <span class="string">'GPU'</span>,
+    },
+    runningMode: <span class="string">'VIDEO'</span>,
+    numFaces: <span class="number">1</span>,
+    outputFaceBlendshapes: <span class="keyword">false</span>,
+    outputFacialTransformationMatrixes: <span class="keyword">false</span>,
+  });
+}
+
+<span class="comment">// Iris landmarks in MediaPipe Face Landmarker:</span>
+<span class="comment">// Left iris: indices 468, 469, 470, 471, 472</span>
+<span class="comment">// Right iris: indices 473, 474, 475, 476, 477</span>
+<span class="keyword">const</span> REAL_IRIS_DIAMETER_MM = <span class="number">11.7</span>;
+
+<span class="keyword">function</span> <span class="func">estimateDistance</span>(landmarks, imageWidth) {
+  <span class="comment">// Left iris: leftmost (469) and rightmost (471)</span>
+  <span class="keyword">const</span> leftIrisL = landmarks[<span class="number">469</span>];
+  <span class="keyword">const</span> leftIrisR = landmarks[<span class="number">471</span>];
+
+  <span class="keyword">const</span> irisWidthPx = Math.abs(leftIrisR.x - leftIrisL.x) * imageWidth;
+
+  <span class="comment">// Focal length must be calibrated for the specific camera.</span>
+  <span class="comment">// For Tab S10 Ultra front camera at 1080p, approximate focalLength ~950px.</span>
+  <span class="comment">// CALIBRATE THIS VALUE with known-distance measurements.</span>
+  <span class="keyword">const</span> FOCAL_LENGTH_PX = <span class="number">950</span>;
+
+  <span class="keyword">const</span> distanceMm = (FOCAL_LENGTH_PX * REAL_IRIS_DIAMETER_MM) / irisWidthPx;
+  <span class="keyword">return</span> distanceMm / <span class="number">1000</span>; <span class="comment">// Return meters</span>
+}
+</pre>
+
+<h4>Option C: 2cm Reference Line Detection (Original Spec — Not Recommended)</h4>
+
+<div class="card card-red">
+  <strong>Original requirement was to detect a 2cm reference line on the occluder.</strong> This requires: (1) custom computer vision to detect a specific line marker, (2) consistent lighting, (3) marker always visible to camera. This is fragile and complex. Options A or B are superior. If the doctor insists, use ArUco markers (standardized fiducial markers) instead of a plain line — libraries like <code>js-aruco</code> exist but add complexity.
+</div>
+
+<!-- ============================================================ -->
+<!-- 6. DATA STORAGE -->
+<!-- ============================================================ -->
+
+<h2>6. Data Storage — IndexedDB</h2>
+
+<div class="decision">
+  <strong>Design Decision: IndexedDB over localStorage.</strong> Reasons: (1) Can store binary data (photos) without base64 encoding, (2) No 5MB limit — can store hundreds of test sessions with photos, (3) Async API won't block UI, (4) Structured queries by patient ID and date, (5) Available in Service Workers for offline sync.
+</div>
+
+<h3>6.1 Database Schema</h3>
+
+<pre>
+<span class="comment">// Database: VisualAcuityDB v1</span>
+<span class="comment">// Object Stores:</span>
+
+<span class="comment">// 1. patients — keyed by ID number</span>
+{
+  id: <span class="string">'123456789'</span>,            <span class="comment">// Israeli Teudat Zehut</span>
+  createdAt: <span class="string">'2026-02-22T10:00:00Z'</span>,
+  lastTestAt: <span class="string">'2026-02-22T10:15:00Z'</span>,
+}
+
+<span class="comment">// 2. sessions — keyed by auto-increment, indexed by patientId + date</span>
+{
+  id: <span class="number">1</span>,                          <span class="comment">// Auto-increment</span>
+  patientId: <span class="string">'123456789'</span>,
+  timestamp: <span class="string">'2026-02-22T10:00:00Z'</span>,
+  distanceM: <span class="number">1.0</span>,
+  rightEye: {
+    acuity: <span class="string">'6/12'</span>,
+    responses: [
+      { level: <span class="string">'6/60'</span>, displayed: [<span class="number">3</span>,<span class="number">8</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">7</span>], spoken: [<span class="number">3</span>,<span class="number">8</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">7</span>], correct: <span class="number">5</span> },
+      { level: <span class="string">'6/36'</span>, displayed: [<span class="number">9</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>], spoken: [<span class="number">9</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>], correct: <span class="number">5</span> },
+      <span class="comment">// ...</span>
+    ],
+  },
+  leftEye: { <span class="comment">/* same structure */</span> },
+}
+
+<span class="comment">// 3. photos — keyed by auto-increment, indexed by sessionId</span>
+{
+  id: <span class="number">1</span>,
+  sessionId: <span class="number">1</span>,
+  type: <span class="string">'face_id'</span>,             <span class="comment">// face_id | occluder_right | occluder_left</span>
+  timestamp: <span class="string">'2026-02-22T10:00:05Z'</span>,
+  blob: Blob,                   <span class="comment">// JPEG image data</span>
+}
+</pre>
+
+<pre>
+<span class="comment">/**
+ * Initialize IndexedDB for the Visual Acuity app.
+ */</span>
+<span class="keyword">function</span> <span class="func">openDB</span>() {
+  <span class="keyword">return new</span> Promise((resolve, reject) => {
+    <span class="keyword">const</span> request = indexedDB.open(<span class="string">'VisualAcuityDB'</span>, <span class="number">1</span>);
+
+    request.onupgradeneeded = (event) => {
+      <span class="keyword">const</span> db = event.target.result;
+
+      <span class="keyword">const</span> patients = db.createObjectStore(<span class="string">'patients'</span>, { keyPath: <span class="string">'id'</span> });
+
+      <span class="keyword">const</span> sessions = db.createObjectStore(<span class="string">'sessions'</span>, {
+        keyPath: <span class="string">'id'</span>,
+        autoIncrement: <span class="keyword">true</span>,
+      });
+      sessions.createIndex(<span class="string">'patientId'</span>, <span class="string">'patientId'</span>);
+      sessions.createIndex(<span class="string">'timestamp'</span>, <span class="string">'timestamp'</span>);
+
+      <span class="keyword">const</span> photos = db.createObjectStore(<span class="string">'photos'</span>, {
+        keyPath: <span class="string">'id'</span>,
+        autoIncrement: <span class="keyword">true</span>,
+      });
+      photos.createIndex(<span class="string">'sessionId'</span>, <span class="string">'sessionId'</span>);
+    };
+
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+}
+</pre>
+
+<!-- ============================================================ -->
+<!-- 7. PWA CONFIGURATION -->
+<!-- ============================================================ -->
+
+<h2>7. PWA Configuration</h2>
+
+<h3>7.1 Manifest</h3>
+
+<pre>
+<span class="comment">// manifest.json</span>
+{
+  <span class="string">"name"</span>: <span class="string">"Visual Acuity Test"</span>,
+  <span class="string">"short_name"</span>: <span class="string">"VA Test"</span>,
+  <span class="string">"start_url"</span>: <span class="string">"/index.html"</span>,
+  <span class="string">"display"</span>: <span class="string">"fullscreen"</span>,         <span class="comment">// No browser chrome</span>
+  <span class="string">"orientation"</span>: <span class="string">"landscape"</span>,      <span class="comment">// Lock landscape</span>
+  <span class="string">"background_color"</span>: <span class="string">"#FFFFFF"</span>,   <span class="comment">// White — matches test bg</span>
+  <span class="string">"theme_color"</span>: <span class="string">"#FFFFFF"</span>,
+  <span class="string">"icons"</span>: [
+    { <span class="string">"src"</span>: <span class="string">"icon-192.png"</span>, <span class="string">"sizes"</span>: <span class="string">"192x192"</span>, <span class="string">"type"</span>: <span class="string">"image/png"</span> },
+    { <span class="string">"src"</span>: <span class="string">"icon-512.png"</span>, <span class="string">"sizes"</span>: <span class="string">"512x512"</span>, <span class="string">"type"</span>: <span class="string">"image/png"</span> }
+  ],
+  <span class="string">"permissions"</span>: [<span class="string">"camera"</span>, <span class="string">"microphone"</span>]
+}
+</pre>
+
+<h3>7.2 Service Worker (Offline Shell)</h3>
+
+<pre>
+<span class="comment">// sw.js — Cache app shell for offline loading</span>
+<span class="keyword">const</span> CACHE_NAME = <span class="string">'va-test-v1'</span>;
+<span class="keyword">const</span> SHELL_FILES = [
+  <span class="string">'/'</span>,
+  <span class="string">'/index.html'</span>,
+  <span class="string">'/app.js'</span>,
+  <span class="string">'/styles.css'</span>,
+  <span class="string">'/manifest.json'</span>,
+  <span class="string">'/audio/welcome.mp3'</span>,       <span class="comment">// Pre-recorded instructions</span>
+  <span class="string">'/audio/cover-right.mp3'</span>,
+  <span class="string">'/audio/cover-left.mp3'</span>,
+  <span class="string">'/audio/read-digits.mp3'</span>,
+  <span class="string">'/audio/correct.mp3'</span>,
+  <span class="string">'/audio/incorrect.mp3'</span>,
+  <span class="string">'/audio/test-done.mp3'</span>,
+  <span class="string">'/video/intro.mp4'</span>,         <span class="comment">// Occluder positioning video</span>
+];
+
+self.addEventListener(<span class="string">'install'</span>, (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(SHELL_FILES))
+  );
+});
+
+self.addEventListener(<span class="string">'fetch'</span>, (event) => {
+  event.respondWith(
+    caches.match(event.request).then(cached => cached || fetch(event.request))
+  );
+});
+</pre>
+
+<div class="warning">
+  <strong>Offline Limitation:</strong> The app shell (HTML, JS, CSS, audio, video) works offline. However, <strong>speech recognition requires internet</strong> (Chrome sends audio to Google servers). For a fully offline solution, consider the on-screen keyboard fallback or an on-device speech model (not available in Web Speech API). The camera, optotype rendering, and data storage all work fully offline.
+</div>
+
+<!-- ============================================================ -->
+<!-- 8. APPLICATION FLOW -->
+<!-- ============================================================ -->
+
+<h2>8. Application Flow — Screen by Screen</h2>
+
+<div class="flow-step">
+  <div class="flow-num">1</div>
+  <div class="flow-content">
+    <div class="title">Welcome / ID Entry Screen</div>
+    <div class="detail">White screen. TTS: "Please say your ID number." Microphone icon pulses. Patient speaks 9-digit ID. Digits appear on screen as recognized. Confirm prompt: "Is [number] correct? Say yes or no." On confirm, create or load patient record in IndexedDB.</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">2</div>
+  <div class="flow-content">
+    <div class="title">Face Photo Capture</div>
+    <div class="detail">Front camera activates. Patient sees themselves on screen. TTS: "Please look at the camera." Auto-capture after face is detected and stable for 2 seconds (or manual voice trigger: "Ready"). Photo saved to IndexedDB as face_id type.</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">3</div>
+  <div class="flow-content">
+    <div class="title">Instruction Video</div>
+    <div class="detail">Play pre-recorded MP4 showing how to hold the occluder (eye cover). 15-30 second video. Auto-advance when done. Skip option via voice command "skip" / "דלג".</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">4</div>
+  <div class="flow-content">
+    <div class="title">Distance Validation</div>
+    <div class="detail">Camera checks patient distance. Shows visual guide: green outline if distance OK, red if too close/far. TTS guidance: "Move slightly closer" / "Move slightly back." Once distance validated, lock the test distance value and proceed.</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">5</div>
+  <div class="flow-content">
+    <div class="title">Right Eye Test (Left Eye Covered)</div>
+    <div class="detail">TTS: "Cover your left eye with the occluder." Take occluder verification photo. Begin adaptive test sequence (see Section 9). Camera periodically checks occluder position.</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">6</div>
+  <div class="flow-content">
+    <div class="title">Between-Eyes Photo</div>
+    <div class="detail">After right eye test completes, take another face photo (verification). Brief pause.</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">7</div>
+  <div class="flow-content">
+    <div class="title">Left Eye Test (Right Eye Covered)</div>
+    <div class="detail">TTS: "Now cover your right eye." Take occluder verification photo. Same adaptive test as Step 5.</div>
+  </div>
+</div>
+
+<div class="flow-step">
+  <div class="flow-num">8</div>
+  <div class="flow-content">
+    <div class="title">Results Screen</div>
+    <div class="detail">Display: Right Eye acuity, Left Eye acuity, test date/time, patient ID. Option to export (print / email). TTS: "Test complete. Thank you." Auto-reset to Welcome screen after 30 seconds of inactivity.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 9. ADAPTIVE TESTING ALGORITHM -->
+<!-- ============================================================ -->
+
+<h2>9. Adaptive Testing Algorithm</h2>
+
+<pre>
+<span class="comment">/**
+ * Adaptive staircase algorithm for visual acuity testing.
+ *
+ * Rules:
+ * - Start at 6/24 (middle of range)
+ * - Each line shows 5 random digits
+ * - 3/5 correct = PASS → go to next smaller line
+ * - < 3/5 correct = FAIL → go to next larger line
+ * - Test ends when: (a) patient fails after passing, or (b) reaches 6/6, or (c) fails 6/60
+ * - Final acuity = smallest line passed
+ */</span>
+<span class="keyword">class</span> <span class="type">AdaptiveTest</span> {
+  <span class="keyword">constructor</span>(distanceM) {
+    <span class="keyword">this</span>.distanceM = distanceM;
+    <span class="keyword">this</span>.levels = [<span class="number">60</span>, <span class="number">36</span>, <span class="number">24</span>, <span class="number">18</span>, <span class="number">12</span>, <span class="number">9</span>, <span class="number">6</span>]; <span class="comment">// Snellen denominators</span>
+    <span class="keyword">this</span>.currentIndex = <span class="number">2</span>; <span class="comment">// Start at 6/24</span>
+    <span class="keyword">this</span>.responses = [];
+    <span class="keyword">this</span>.bestPassed = <span class="keyword">null</span>;
+    <span class="keyword">this</span>.hasReversed = <span class="keyword">false</span>;
+    <span class="keyword">this</span>.digitsPerLine = <span class="number">5</span>;
+    <span class="keyword">this</span>.passThreshold = <span class="number">3</span>; <span class="comment">// 3 out of 5 = pass</span>
+  }
+
+  <span class="comment">/** Generate random digits for current line. Avoids ambiguous pairs (e.g., 6/9). */</span>
+  <span class="func">generateLine</span>() {
+    <span class="keyword">const</span> safeDigits = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">8</span>]; <span class="comment">// Exclude 0, 6, 9 (too similar)</span>
+    <span class="keyword">const</span> line = [];
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < <span class="keyword">this</span>.digitsPerLine; i++) {
+      <span class="keyword">let</span> d;
+      <span class="keyword">do</span> {
+        d = safeDigits[Math.floor(Math.random() * safeDigits.length)];
+      } <span class="keyword">while</span> (line.length > <span class="number">0</span> && d === line[line.length - <span class="number">1</span>]); <span class="comment">// No repeats</span>
+      line.push(d);
+    }
+    <span class="keyword">return</span> line;
+  }
+
+  <span class="comment">/** Get current acuity level info */</span>
+  <span class="func">getCurrentLevel</span>() {
+    <span class="keyword">const</span> n = <span class="keyword">this</span>.levels[<span class="keyword">this</span>.currentIndex];
+    <span class="keyword">const</span> size = calcOptotypeSize(n, <span class="keyword">this</span>.distanceM);
+    <span class="keyword">return</span> { label: `6/${n}`, n, ...size };
+  }
+
+  <span class="comment">/**
+   * Record response and determine next action.
+   * @returns {{ done: boolean, nextAction: 'smaller'|'larger'|'end', acuity: string|null }}
+   */</span>
+  <span class="func">recordResponse</span>(displayed, spoken) {
+    <span class="keyword">let</span> correct = <span class="number">0</span>;
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < displayed.length; i++) {
+      <span class="keyword">if</span> (spoken[i] === displayed[i]) correct++;
+    }
+
+    <span class="keyword">const</span> n = <span class="keyword">this</span>.levels[<span class="keyword">this</span>.currentIndex];
+    <span class="keyword">const</span> passed = correct >= <span class="keyword">this</span>.passThreshold;
+
+    <span class="keyword">this</span>.responses.push({
+      level: `6/${n}`,
+      displayed,
+      spoken,
+      correct,
+      passed,
+    });
+
+    <span class="keyword">if</span> (passed) {
+      <span class="keyword">this</span>.bestPassed = `6/${n}`;
+
+      <span class="comment">// Already at smallest — done</span>
+      <span class="keyword">if</span> (<span class="keyword">this</span>.currentIndex >= <span class="keyword">this</span>.levels.length - <span class="number">1</span>) {
+        <span class="keyword">return</span> { done: <span class="keyword">true</span>, nextAction: <span class="string">'end'</span>, acuity: <span class="keyword">this</span>.bestPassed };
+      }
+
+      <span class="comment">// After a reversal, passing means we found the threshold</span>
+      <span class="keyword">if</span> (<span class="keyword">this</span>.hasReversed) {
+        <span class="keyword">return</span> { done: <span class="keyword">true</span>, nextAction: <span class="string">'end'</span>, acuity: <span class="keyword">this</span>.bestPassed };
+      }
+
+      <span class="keyword">this</span>.currentIndex++;
+      <span class="keyword">return</span> { done: <span class="keyword">false</span>, nextAction: <span class="string">'smaller'</span>, acuity: <span class="keyword">null</span> };
+    } <span class="keyword">else</span> {
+      <span class="comment">// Failed largest line — very poor vision</span>
+      <span class="keyword">if</span> (<span class="keyword">this</span>.currentIndex <= <span class="number">0</span>) {
+        <span class="keyword">return</span> { done: <span class="keyword">true</span>, nextAction: <span class="string">'end'</span>, acuity: <span class="string">'< 6/60'</span> };
+      }
+
+      <span class="comment">// Already had a pass before — this fail establishes the threshold</span>
+      <span class="keyword">if</span> (<span class="keyword">this</span>.bestPassed) {
+        <span class="keyword">return</span> { done: <span class="keyword">true</span>, nextAction: <span class="string">'end'</span>, acuity: <span class="keyword">this</span>.bestPassed };
+      }
+
+      <span class="keyword">this</span>.hasReversed = <span class="keyword">true</span>;
+      <span class="keyword">this</span>.currentIndex--;
+      <span class="keyword">return</span> { done: <span class="keyword">false</span>, nextAction: <span class="string">'larger'</span>, acuity: <span class="keyword">null</span> };
+    }
+  }
+}
+</pre>
+
+<!-- ============================================================ -->
+<!-- 10. OPTOTYPE DISPLAY LAYOUT -->
+<!-- ============================================================ -->
+
+<h2>10. Optotype Display Layout</h2>
+
+<pre>
+<span class="comment">/*
+ * Screen layout during test (landscape):
+ *
+ * ┌────────────────────────────────────────────────────────────┐
+ * │                                                            │
+ * │                          ▼  ▼  ▼                           │
+ * │               [  3  ]   [  8  ]   [  5  ]                  │  ← Target line
+ * │                          ▲  ▲  ▲                           │
+ * │                                                            │
+ * │  ┌──────────┐                              ┌────────────┐  │
+ * │  │ Acuity   │                              │ 🎤 Listening│  │
+ * │  │ 6/18     │                              │   ...       │  │
+ * │  └──────────┘                              └────────────┘  │
+ * └────────────────────────────────────────────────────────────┘
+ *
+ * - White background (#FFFFFF), black optotypes (#000000)
+ * - Target digits centered horizontally with equal spacing
+ * - Arrows (▼ ▲) above and below EACH digit (as per doctor spec)
+ * - Small status indicators in corners (non-distracting)
+ * - Camera preview hidden during test (runs in background)
+ */</span>
+</pre>
+
+<pre>
+<span class="comment">/* CSS for test screen */</span>
+.test-screen {
+  width: <span class="number">100</span>vw;
+  height: <span class="number">100</span>vh;
+  background: <span class="string">#FFFFFF</span>;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.optotype-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: <span class="number">40</span>px;  <span class="comment">/* Spacing between digits — adjustable */</span>
+}
+
+.optotype-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow-indicator {
+  color: <span class="string">#000000</span>;
+  font-size: <span class="number">24</span>px;
+  line-height: <span class="number">1</span>;
+  margin: <span class="number">8</span>px <span class="number">0</span>;
+}
+
+.status-badge {
+  position: absolute;
+  bottom: <span class="number">20</span>px;
+  right: <span class="number">20</span>px;
+  background: <span class="string">#f0f0f0</span>;
+  border-radius: <span class="number">8</span>px;
+  padding: <span class="number">8</span>px <span class="number">16</span>px;
+  font-size: <span class="number">14</span>px;
+  opacity: <span class="number">0.7</span>;
+}
+
+.mic-indicator {
+  position: absolute;
+  bottom: <span class="number">20</span>px;
+  left: <span class="number">20</span>px;
+  width: <span class="number">48</span>px;
+  height: <span class="number">48</span>px;
+  border-radius: <span class="number">50</span>%;
+  background: <span class="string">#e8f5e9</span>;
+  animation: pulse <span class="number">1.5</span>s infinite;
+}
+
+@keyframes pulse {
+  <span class="number">0</span>%, <span class="number">100</span>% { transform: scale(<span class="number">1</span>); opacity: <span class="number">0.7</span>; }
+  <span class="number">50</span>% { transform: scale(<span class="number">1.15</span>); opacity: <span class="number">1</span>; }
+}
+</pre>
+
+<!-- ============================================================ -->
+<!-- 11. MODULE ARCHITECTURE -->
+<!-- ============================================================ -->
+
+<h2>11. Module Architecture</h2>
+
+<div class="arch-box">
+  <div class="module">
+    <div class="name">index.html</div>
+    <div class="files">Entry point, screen containers</div>
+    <div class="desc">Single HTML file with hidden screen divs. Only one visible at a time. Minimal DOM.</div>
+  </div>
+  <div class="module">
+    <div class="name">app.js</div>
+    <div class="files">Main controller</div>
+    <div class="desc">State machine controlling screen transitions. Orchestrates all modules.</div>
+  </div>
+  <div class="module">
+    <div class="name">voice.js</div>
+    <div class="files">VoiceController + InstructionSpeaker</div>
+    <div class="desc">Speech recognition + TTS. Digit extraction with Hebrew mapping.</div>
+  </div>
+  <div class="module">
+    <div class="name">camera.js</div>
+    <div class="files">Camera + Distance</div>
+    <div class="desc">getUserMedia init, photo capture, distance validation, optional MediaPipe integration.</div>
+  </div>
+  <div class="module">
+    <div class="name">optotype.js</div>
+    <div class="files">Snellen rendering</div>
+    <div class="desc">Size calculation, canvas rendering, optotype paths. Pure display logic.</div>
+  </div>
+  <div class="module">
+    <div class="name">test-engine.js</div>
+    <div class="files">AdaptiveTest algorithm</div>
+    <div class="desc">Staircase logic, response scoring, acuity determination. No UI.</div>
+  </div>
+  <div class="module">
+    <div class="name">storage.js</div>
+    <div class="files">IndexedDB wrapper</div>
+    <div class="desc">CRUD operations for patients, sessions, photos. Export functionality.</div>
+  </div>
+  <div class="module">
+    <div class="name">sw.js</div>
+    <div class="files">Service Worker</div>
+    <div class="desc">Offline caching of app shell and audio/video assets.</div>
+  </div>
+</div>
+
+<h3>11.1 State Machine</h3>
+
+<pre>
+<span class="comment">/**
+ * App states and transitions:
+ *
+ *  WELCOME → ID_ENTRY → FACE_PHOTO → INTRO_VIDEO →
+ *  DISTANCE_CHECK → RIGHT_EYE_TEST → BETWEEN_PHOTO →
+ *  LEFT_EYE_TEST → RESULTS → WELCOME (loop)
+ *
+ * Each state has: enter(), exit(), handleVoice(result)
+ */</span>
+<span class="keyword">const</span> STATES = {
+  WELCOME:        <span class="string">'welcome'</span>,
+  ID_ENTRY:       <span class="string">'id_entry'</span>,
+  FACE_PHOTO:     <span class="string">'face_photo'</span>,
+  INTRO_VIDEO:    <span class="string">'intro_video'</span>,
+  DISTANCE_CHECK: <span class="string">'distance_check'</span>,
+  RIGHT_EYE_TEST: <span class="string">'right_eye_test'</span>,
+  BETWEEN_PHOTO:  <span class="string">'between_photo'</span>,
+  LEFT_EYE_TEST:  <span class="string">'left_eye_test'</span>,
+  RESULTS:        <span class="string">'results'</span>,
+};
+</pre>
+
+<!-- ============================================================ -->
+<!-- 12. RISK MATRIX -->
+<!-- ============================================================ -->
+
+<h2>12. Risk Matrix & Mitigations</h2>
+
+<table>
+  <tr><th>Risk</th><th>Severity</th><th>Mitigation</th></tr>
+  <tr>
+    <td><strong>Speech recognition fails in noisy clinic</strong></td>
+    <td><span class="tag tag-risk">HIGH</span></td>
+    <td>Large on-screen number buttons as fallback. Silent clinic room recommended. Directional microphone if needed.</td>
+  </tr>
+  <tr>
+    <td><strong>Hebrew speech recognition inaccuracy</strong></td>
+    <td><span class="tag tag-risk">HIGH</span></td>
+    <td>Post-process all results: accept only single digits 0-9. Show recognized digit on screen for immediate feedback. Allow "repeat" / "חזור" voice command.</td>
+  </tr>
+  <tr>
+    <td><strong>Internet required for speech recognition</strong></td>
+    <td><span class="tag tag-v2">MEDIUM</span></td>
+    <td>Clinic will have WiFi. For offline: fall back to touch buttons. Consider Whisper.cpp WASM build for V2 (fully local, but 40MB+ model).</td>
+  </tr>
+  <tr>
+    <td><strong>6/6 optotype too small at 1m</strong></td>
+    <td><span class="tag tag-v2">MEDIUM</span></td>
+    <td>14px is borderline. Recommend 1.5m distance (21px) or accept 6/9 as finest level at 1m. Doctor must approve.</td>
+  </tr>
+  <tr>
+    <td><strong>Screen PPI variation</strong></td>
+    <td><span class="tag tag-mvp">LOW</span></td>
+    <td>App is designed for Tab S10 Ultra specifically. Include calibration screen where user places a credit card (85.6mm) against screen to verify PPI.</td>
+  </tr>
+  <tr>
+    <td><strong>Patient privacy (photos + medical data in browser)</strong></td>
+    <td><span class="tag tag-risk">HIGH</span></td>
+    <td>IndexedDB is device-local only. Add PIN lock to app. Encrypt patient data with Web Crypto API. Regular export + wipe protocol.</td>
+  </tr>
+  <tr>
+    <td><strong>Camera permissions denied</strong></td>
+    <td><span class="tag tag-mvp">LOW</span></td>
+    <td>First-run setup guide. Once granted, permissions persist for PWA. Device managed by clinic.</td>
+  </tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- 13. MVP vs V2 -->
+<!-- ============================================================ -->
+
+<h2>13. MVP Scope vs V2 Enhancements</h2>
+
+<h3>MVP (~3 weeks development)</h3>
+
+<div class="card card-green">
+<strong>Core features — everything needed for a working clinical test:</strong>
+<ul>
+  <li>Patient ID entry via voice (with touch fallback)</li>
+  <li>Face photo capture at start</li>
+  <li>Instruction video playback</li>
+  <li>Fixed-distance mode (1m or 1.5m, physically marked in clinic)</li>
+  <li>Face detection to validate patient is present (no distance computation)</li>
+  <li>Numeric Snellen optotypes rendered on canvas, calibrated for Tab S10 Ultra PPI</li>
+  <li>Adaptive staircase testing algorithm (6/60 through 6/6)</li>
+  <li>Voice recognition for digit reading (Hebrew, with touch fallback)</li>
+  <li>Right eye then left eye sequence</li>
+  <li>Results display with acuity per eye</li>
+  <li>IndexedDB storage of patient records + session data</li>
+  <li>PWA manifest + service worker for fullscreen + offline shell</li>
+  <li>Pre-recorded Hebrew audio instructions (not TTS-dependent)</li>
+</ul>
+</div>
+
+<h3>V2 Enhancements</h3>
+
+<div class="card card-orange">
+<strong>Additions that improve accuracy and UX but are not essential for first deployment:</strong>
+<ul>
+  <li>Iris-based distance measurement (MediaPipe Face Landmarker)</li>
+  <li>Dynamic optotype resizing based on real-time distance</li>
+  <li>Occluder position verification via camera (detect if correct eye is covered)</li>
+  <li>Periodic photo capture during test for compliance audit</li>
+  <li>Data export to CSV/JSON for integration with clinic EMR</li>
+  <li>Print-friendly results page</li>
+  <li>Multi-language support (Russian, Arabic, English in addition to Hebrew)</li>
+  <li>Admin panel: view all patients, search, statistics</li>
+  <li>Cloud sync (encrypted) for backup</li>
+  <li>Offline speech recognition via Whisper WASM</li>
+  <li>Web Crypto API encryption for stored patient data</li>
+  <li>Calibration screen (credit card reference for verifying PPI)</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- 14. TECHNOLOGY STACK SUMMARY -->
+<!-- ============================================================ -->
+
+<h2>14. Technology Stack Summary</h2>
+
+<table>
+  <tr><th>Layer</th><th>Technology</th><th>Why</th></tr>
+  <tr><td>Framework</td><td>Vanilla JS (no framework)</td><td>Minimal bundle, no build step, easy to maintain. 8 screens don't justify React/Vue overhead.</td></tr>
+  <tr><td>Rendering</td><td>HTML5 Canvas</td><td>Pixel-perfect optotype sizing. No font-metric ambiguity.</td></tr>
+  <tr><td>Voice In</td><td>Web Speech API (SpeechRecognition)</td><td>Built into Chrome. No extra library. Hebrew supported.</td></tr>
+  <tr><td>Voice Out</td><td>Pre-recorded MP3 + SpeechSynthesis fallback</td><td>Consistent audio quality in medical setting.</td></tr>
+  <tr><td>Camera</td><td>getUserMedia + Canvas snapshot</td><td>Standard API, well-supported on Android Chrome.</td></tr>
+  <tr><td>Face Detection</td><td>MediaPipe Face Detector (lightweight)</td><td>Validates face presence. CDN-loaded, ~1MB.</td></tr>
+  <tr><td>Distance (V2)</td><td>MediaPipe Face Landmarker</td><td>478 landmarks including iris. ~4MB WASM model.</td></tr>
+  <tr><td>Storage</td><td>IndexedDB</td><td>Structured data + binary blobs (photos). No size limit.</td></tr>
+  <tr><td>Offline</td><td>Service Worker + Cache API</td><td>App shell loads without internet.</td></tr>
+  <tr><td>Hosting</td><td>Any HTTPS server (GitHub Pages, Netlify, clinic server)</td><td>HTTPS required for camera + mic permissions.</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- 15. CALIBRATION PROCEDURE -->
+<!-- ============================================================ -->
+
+<h2>15. One-Time Calibration Procedure</h2>
+
+<div class="card card-blue">
+<strong>Before first clinical use, perform these steps:</strong>
+<ol>
+  <li><strong>Verify screen PPI:</strong> Display a 85.6mm rectangle on screen. Hold a credit card against it. If exact match, PPI is correct (239). If not, adjust <code>SCREEN_PPI</code> constant.</li>
+  <li><strong>Mark test distance:</strong> Place tape on floor at exactly 1m (or 1.5m) from tablet screen. Position a fixed chair.</li>
+  <li><strong>Calibrate face detection range:</strong> Have someone sit at the marked distance. Record the face bounding box height in pixels. Set <code>expectedFaceHeightPx.min/max</code> with +/-20% tolerance.</li>
+  <li><strong>Test speech recognition:</strong> Speak digits 0-9 in Hebrew. Verify all are correctly recognized. Note any problem digits and add to HEBREW_DIGITS mapping.</li>
+  <li><strong>Grant permissions:</strong> Open app in Chrome, grant camera + microphone permissions. Install as PWA (Add to Home Screen). Verify fullscreen mode works.</li>
+  <li><strong>Doctor validation:</strong> Have the ophthalmologist verify optotype sizes at each acuity level match clinical expectations at the test distance.</li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<!-- 16. FILE STRUCTURE -->
+<!-- ============================================================ -->
+
+<h2>16. Project File Structure</h2>
+
+<pre>
+visual-acuity-pwa/
+├── index.html              <span class="comment"># Single page app — all screens</span>
+├── manifest.json           <span class="comment"># PWA manifest — fullscreen, landscape</span>
+├── sw.js                   <span class="comment"># Service worker — offline caching</span>
+├── styles.css              <span class="comment"># All styles — test screen, UI, animations</span>
+├── js/
+│   ├── app.js              <span class="comment"># State machine, screen transitions</span>
+│   ├── voice.js            <span class="comment"># SpeechRecognition + TTS wrapper</span>
+│   ├── camera.js           <span class="comment"># getUserMedia, photo capture, face detect</span>
+│   ├── optotype.js         <span class="comment"># Snellen math + canvas rendering</span>
+│   ├── test-engine.js      <span class="comment"># Adaptive staircase algorithm</span>
+│   ├── storage.js          <span class="comment"># IndexedDB CRUD</span>
+│   └── config.js           <span class="comment"># Constants: PPI, distance, thresholds</span>
+├── audio/
+│   ├── welcome.mp3         <span class="comment"># "Please say your ID number"</span>
+│   ├── cover-right.mp3     <span class="comment"># "Cover your right eye"</span>
+│   ├── cover-left.mp3      <span class="comment"># "Cover your left eye"</span>
+│   ├── read-digits.mp3     <span class="comment"># "Read the numbers on screen"</span>
+│   ├── correct.mp3         <span class="comment"># "Correct, next line"</span>
+│   ├── incorrect.mp3       <span class="comment"># "Let's try a larger line"</span>
+│   ├── too-close.mp3       <span class="comment"># "Please move back slightly"</span>
+│   ├── too-far.mp3         <span class="comment"># "Please move closer"</span>
+│   └── test-done.mp3       <span class="comment"># "Test complete, thank you"</span>
+├── video/
+│   └── intro.mp4           <span class="comment"># Occluder instruction video</span>
+├── icons/
+│   ├── icon-192.png
+│   └── icon-512.png
+└── assets/
+    └── optotype-paths.json <span class="comment"># SVG paths for digits 0-9 (5x5 grid)</span>
+</pre>
+
+<!-- ============================================================ -->
+<!-- 17. KEY API REFERENCES -->
+<!-- ============================================================ -->
+
+<h2>17. Key API References</h2>
+
+<table>
+  <tr><th>API</th><th>Documentation</th><th>Used For</th></tr>
+  <tr><td>SpeechRecognition</td><td>MDN Web API</td><td>Voice input from patient</td></tr>
+  <tr><td>SpeechSynthesis</td><td>MDN Web API</td><td>TTS fallback for instructions</td></tr>
+  <tr><td>getUserMedia</td><td>MDN MediaDevices</td><td>Front camera access</td></tr>
+  <tr><td>Canvas 2D</td><td>MDN CanvasRenderingContext2D</td><td>Optotype rendering</td></tr>
+  <tr><td>IndexedDB</td><td>MDN IDBDatabase</td><td>Patient data + photo storage</td></tr>
+  <tr><td>Service Worker</td><td>MDN Service Worker API</td><td>Offline app shell caching</td></tr>
+  <tr><td>Cache API</td><td>MDN CacheStorage</td><td>Asset caching for offline use</td></tr>
+  <tr><td>Fullscreen API</td><td>MDN Element.requestFullscreen</td><td>Hide browser chrome during test</td></tr>
+  <tr><td>MediaPipe Tasks Vision</td><td>Google AI Edge docs</td><td>Face detection + landmarks</td></tr>
+  <tr><td>Web App Manifest</td><td>MDN Web App Manifests</td><td>PWA install + display config</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+
+<div class="footer">
+  <span>Visual Acuity PWA — Technical Specification v1</span>
+  <span>2026-02-22 | Primak</span>
+</div>
+
+</body>
+</html>

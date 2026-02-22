@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scout Outreach Hub v1 — PRIMO Intelligence</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f9fa; color: #1a1a2e; padding: 24px; max-width: 900px; margin: 0 auto; }
+
+  .header { background: #1a1a2e; color: #fff; padding: 20px 24px; border-radius: 12px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 20px; font-weight: 700; }
+  .header .meta { font-size: 12px; opacity: 0.7; text-align: left; }
+  .header .scan { font-size: 13px; color: #7ee8a2; font-weight: 600; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat { background: #fff; border-radius: 10px; padding: 16px; text-align: center; border: 1px solid #e8e8e8; }
+  .stat .num { font-size: 24px; font-weight: 700; color: #1a1a2e; }
+  .stat .label { font-size: 11px; color: #888; margin-top: 4px; }
+
+  .msg-card { background: #fff; border-radius: 12px; border: 1px solid #e0e0e0; margin-bottom: 20px; overflow: hidden; transition: box-shadow 0.2s; }
+  .msg-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+  .msg-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; }
+  .msg-header .target-info h2 { font-size: 17px; font-weight: 700; margin-bottom: 2px; }
+  .msg-header .target-info .company { font-size: 13px; color: #666; }
+
+  .badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge.draft { background: #fff3cd; color: #856404; }
+  .badge.sent { background: #d4edda; color: #155724; }
+  .badge.replied { background: #cce5ff; color: #004085; }
+
+  .msg-intel { padding: 16px 20px; background: #fafbfc; border-bottom: 1px solid #f0f0f0; }
+  .msg-intel .row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+  .msg-intel .tag { font-size: 11px; background: #e8f4fd; color: #1a73e8; padding: 3px 8px; border-radius: 4px; }
+  .msg-intel .tag.red { background: #fde8e8; color: #c0392b; }
+  .msg-intel .tag.green { background: #e8fde8; color: #27ae60; }
+  .msg-intel .tag.purple { background: #f0e8fd; color: #7b2ff7; }
+
+  .connections { padding: 12px 20px; border-bottom: 1px solid #f0f0f0; }
+  .connections h4 { font-size: 12px; color: #888; margin-bottom: 8px; font-weight: 600; }
+  .conn-item { font-size: 13px; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+  .conn-item .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .conn-item .dot.hot { background: #e74c3c; }
+  .conn-item .dot.warm { background: #f39c12; }
+  .conn-item .dot.cold { background: #3498db; }
+
+  .msg-body { padding: 20px; }
+  .msg-body .platform { font-size: 11px; color: #888; margin-bottom: 12px; font-weight: 600; }
+  .msg-text { background: #f8f9fa; border-radius: 8px; padding: 16px; font-size: 14px; line-height: 1.8; border-right: 3px solid #1a73e8; white-space: pre-line; }
+
+  .msg-footer { padding: 12px 20px; background: #fafbfc; border-top: 1px solid #f0f0f0; display: flex; justify-content: space-between; font-size: 12px; color: #888; }
+
+  .pipeline { margin-top: 24px; background: #fff; border-radius: 12px; border: 1px solid #e0e0e0; padding: 20px; }
+  .pipeline h3 { font-size: 15px; margin-bottom: 12px; }
+  .pipeline-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; }
+  .pipeline-row:last-child { border: none; }
+  .pipeline-row .name { font-weight: 600; }
+  .pipeline-row .status { font-size: 11px; }
+
+  .footer { text-align: center; padding: 20px; font-size: 11px; color: #aaa; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Scout Outreach Hub</h1>
+    <div class="scan">🕐 סריקה: 22.02.2026</div>
+  </div>
+  <div class="meta">
+    PRIMO Intelligence<br>
+    v2 | Week 1 Messages — Recalibrated
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="num">9</div>
+    <div class="label">יעדים מאושרים</div>
+  </div>
+  <div class="stat">
+    <div class="num">3</div>
+    <div class="label">הודעות מוכנות</div>
+  </div>
+  <div class="stat">
+    <div class="num">0</div>
+    <div class="label">נשלחו</div>
+  </div>
+  <div class="stat">
+    <div class="num">₪470-960K</div>
+    <div class="label">Pipeline EV</div>
+  </div>
+</div>
+
+<!-- MESSAGE 1: Ron Peled -->
+<div class="msg-card">
+  <div class="msg-header">
+    <div class="target-info">
+      <h2>1. Ron Peled</h2>
+      <div class="company">Sola Security — Co-Founder & COO | $65M | AI Cyber No-Code</div>
+    </div>
+    <span class="badge draft">DRAFT</span>
+  </div>
+
+  <div class="msg-intel">
+    <div class="row">
+      <span class="tag green">4 DMs דו-כיווניים</span>
+      <span class="tag">$65M Total Funding</span>
+      <span class="tag">Microsoft M12</span>
+      <span class="tag purple">2,000+ Users</span>
+    </div>
+    <div class="row">
+      <span class="tag">Ex-CISO LivePerson</span>
+      <span class="tag">Ex-CEO ProtectOps</span>
+      <span class="tag">Guy Flechter = CEO (גם מחובר)</span>
+    </div>
+  </div>
+
+  <div class="connections">
+    <h4>נקודות ממשק</h4>
+    <div class="conn-item"><span class="dot warm"></span>ProtectOps + Orchestra = אותו אקוסיסטם סייבר</div>
+    <div class="conn-item"><span class="dot warm"></span>4 הודעות קיימות — המשך שיחה, לא cold</div>
+    <div class="conn-item"><span class="dot hot"></span>"Design has Canva" = הם עצמם אמרו שעיצוב קריטי</div>
+    <div class="conn-item"><span class="dot hot"></span>No-code platform = ה-UX הוא המוצר</div>
+  </div>
+
+  <div class="msg-body">
+    <div class="platform">📨 LINKEDIN DM</div>
+    <div class="msg-text">רון היי,
+
+עוקב אחרי Sola. כשהמשתמשים בונים security apps בעצמם — ה-UX הוא הפרודקט.
+
+עשיתי product ל-Orchestra (מייסדי NSO) ו-CathWorks ($585M exit). עולמות קרובים.
+
+קפה?</div>
+  </div>
+
+  <div class="msg-footer">
+    <span>Est. Deal: ₪80-150K</span>
+    <span>Proof Cases: Orchestra (NSO) + CathWorks ($585M)</span>
+  </div>
+</div>
+
+<!-- MESSAGE 2: Adiel Am-Shalom -->
+<div class="msg-card">
+  <div class="msg-header">
+    <div class="target-info">
+      <h2>2. Adiel Am-Shalom</h2>
+      <div class="company">AISAP — President & Founder | $13M | AI Cardiac Ultrasound | FDA</div>
+    </div>
+    <span class="badge draft">DRAFT</span>
+  </div>
+
+  <div class="msg-intel">
+    <div class="row">
+      <span class="tag red">Cold — אין warm path</span>
+      <span class="tag">$13M Seed</span>
+      <span class="tag green">FDA 510(k) Cleared</span>
+      <span class="tag purple">Fast Company #4 2025</span>
+    </div>
+    <div class="row">
+      <span class="tag">Ex-8200 Head of Cyber</span>
+      <span class="tag">ARC/Sheba Origin</span>
+      <span class="tag">Mayo Clinic + Stanford</span>
+    </div>
+  </div>
+
+  <div class="connections">
+    <h4>נקודות ממשק</h4>
+    <div class="conn-item"><span class="dot hot"></span>Cardiac AI — CathWorks = אותו תחום בדיוק (AI diagnostics ללב, FDA, קרדיולוגים)</div>
+    <div class="conn-item"><span class="dot hot"></span>ARC/Sheba — AISAP נולד ב-ARC. CathWorks באקוסיסטם Triventures/ARC</div>
+    <div class="conn-item"><span class="dot warm"></span>8200 → Orchestra — אדיאל ראש סייבר 8200, Orchestra = NSO/8200 alumni</div>
+    <div class="conn-item"><span class="dot hot"></span>אותו אתגר UX: לגרום ל-AI להיות readable לקרדיולוג תחת לחץ</div>
+  </div>
+
+  <div class="msg-body">
+    <div class="platform">📨 LINKEDIN DM (Cold — Connection Request + Note)</div>
+    <div class="msg-text">עדיאל, שלום.
+
+מעולם ה-cardiac AI — עשיתי product ל-FFRangio של CathWorks (FDA, $585M exit ל-Medtronic, 100K patients). שנינו מהאקו-סיסטם של שיבא.
+
+ראיתי את ה-Fast Company recognition ואת מה ש-AISAP בונה. עולמות קרובים מאוד.
+
+אשמח להחליף ניסיון.</div>
+  </div>
+
+  <div class="msg-footer">
+    <span>Est. Deal: ₪60-120K</span>
+    <span>Proof Case: CathWorks FFRangio ($585M) — EXACT MATCH</span>
+  </div>
+</div>
+
+<!-- MESSAGE 3: Gal Yanuka -->
+<div class="msg-card">
+  <div class="msg-header">
+    <div class="target-info">
+      <h2>3. Gal Yanuka</h2>
+      <div class="company">Feminai — Co-Founder & CPO | $6M Seed (Jan 2026) | AI Breast Cancer Screening</div>
+    </div>
+    <span class="badge draft">DRAFT</span>
+  </div>
+
+  <div class="msg-intel">
+    <div class="row">
+      <span class="tag green">9 DMs דו-כיווניים — הכי warm</span>
+      <span class="tag">$6M Seed (ינואר 2026!)</span>
+      <span class="tag green">96% Sensitivity</span>
+    </div>
+    <div class="row">
+      <span class="tag purple">Vertex Ventures = גם CathWorks</span>
+      <span class="tag">BME Technion</span>
+      <span class="tag">Sheba Clinical Trial</span>
+      <span class="tag">FDA Prep</span>
+    </div>
+  </div>
+
+  <div class="connections">
+    <h4>נקודות ממשק</h4>
+    <div class="conn-item"><span class="dot hot"></span>Vertex Ventures — הוביל את Feminai וגם השקיע ב-CathWorks. מכירים את הסיפור</div>
+    <div class="conn-item"><span class="dot hot"></span>Sheba — ניסוי קליני ב-Sheba. CathWorks = אקוסיסטם Sheba/ARC</div>
+    <div class="conn-item"><span class="dot hot"></span>גל = CPO — בן אדם של מוצר, יבין מיד מה UX architecture שווה</div>
+    <div class="conn-item"><span class="dot warm"></span>Technion — גל BME, Ifat Lavi (CathWorks CTO) = MSc Technion</div>
+    <div class="conn-item"><span class="dot hot"></span>WHY NOW: רק גייסו + FDA prep + US launch = הרגע שה-UX קריטי</div>
+  </div>
+
+  <div class="msg-body">
+    <div class="platform">📨 LINKEDIN DM (Warm — 9 הודעות קיימות)</div>
+    <div class="msg-text">גל היי,
+
+מזל טוב על הסבב! FDA prep אחרי $6M — שלב שאני מכיר היטב מ-CathWorks (cardiac AI, FDA, exit $585M).
+
+הרבה דמיון. אשמח לקפה.</div>
+  </div>
+
+  <div class="msg-footer">
+    <span>Est. Deal: ₪50-100K</span>
+    <span>Proof Case: CathWorks ($585M) — same investor (Vertex), same domain (medical AI)</span>
+  </div>
+</div>
+
+<!-- PIPELINE STATUS -->
+<div class="pipeline">
+  <h3>Scout Week 1 — Status</h3>
+  <div class="pipeline-row">
+    <span class="name">1. Ron Peled — Sola Security</span>
+    <span class="status badge draft">DRAFT ✍️</span>
+  </div>
+  <div class="pipeline-row">
+    <span class="name">2. Adiel Am-Shalom — AISAP</span>
+    <span class="status badge draft">DRAFT ✍️</span>
+  </div>
+  <div class="pipeline-row">
+    <span class="name">3. Gal Yanuka — Feminai</span>
+    <span class="status badge draft">DRAFT ✍️</span>
+  </div>
+</div>
+
+<div class="pipeline" style="margin-top:16px;">
+  <h3>Week 2 + 3 — Queue</h3>
+  <div class="pipeline-row"><span class="name">4. Sagi Ben Moshe — Lumana</span><span class="status" style="color:#ccc;">WEEK 2</span></div>
+  <div class="pipeline-row"><span class="name">5. Guy Vinograd — BioT Medical</span><span class="status" style="color:#ccc;">WEEK 2</span></div>
+  <div class="pipeline-row"><span class="name">6. Eran Atlas — DreaMed Diabetes</span><span class="status" style="color:#ccc;">WEEK 2</span></div>
+  <div class="pipeline-row"><span class="name">7. Gal Ben Galim — Gini-Apps</span><span class="status" style="color:#ccc;">WEEK 3</span></div>
+  <div class="pipeline-row"><span class="name">8. Shany Kovrovsky — Innovista AI</span><span class="status" style="color:#ccc;">WEEK 3</span></div>
+  <div class="pipeline-row"><span class="name">9. Raphael Zwecker — Grand Medical</span><span class="status" style="color:#ccc;">WEEK 3</span></div>
+</div>
+
+<div class="footer">PRIMO Intelligence | Scout Outreach Hub v2 | 22.02.2026 | Recalibrated to Founder & CPO positioning</div>
+
+</body>
+</html>

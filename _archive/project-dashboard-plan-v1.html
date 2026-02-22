@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Dashboard — תוכנית עבודה סופית — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; max-width: 900px; margin: 0 auto; padding: 0 20px 60px; line-height: 1.6; }
+
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 28px 32px; border-bottom: 3px solid #4dff88; border-radius: 0 0 12px 12px; margin-bottom: 24px; }
+  .header h1 { font-size: 24px; color: #fff; margin-bottom: 4px; }
+  .header .sub { font-size: 13px; color: #888; }
+  .version { float: left; font-size: 11px; color: #4dff88; border: 1px solid #4dff88; padding: 2px 8px; border-radius: 4px; }
+
+  h2 { font-size: 18px; color: #e94560; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #2a2a3e; }
+  h3 { font-size: 14px; color: #4da6ff; margin: 14px 0 6px; }
+
+  .decision-box { background: #0a1a0a; border: 2px solid #4dff88; border-radius: 10px; padding: 16px 20px; margin: 16px 0; }
+  .decision-box h3 { color: #4dff88; margin-top: 0; }
+
+  .section { background: #141422; border: 1px solid #2a2a3e; border-radius: 10px; padding: 16px 20px; margin: 12px 0; }
+  .section.warn { border-color: #4a3a1a; background: #1a1508; }
+
+  .iron { background: linear-gradient(135deg, #2a0a0a, #1a0a0a); border: 2px solid #e94560; border-radius: 8px; padding: 12px 16px; margin: 16px 0; font-size: 14px; color: #ff6b6b; font-weight: 600; text-align: center; }
+
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13px; }
+  th { background: #1a1a2e; color: #4da6ff; padding: 8px 12px; text-align: right; font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1a1a2e; color: #ccc; }
+  td:first-child { font-weight: 600; color: #fff; }
+
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .badge.green { background: #0a2a0a; color: #4dff88; }
+  .badge.red { background: #2a0a0a; color: #ff4444; }
+  .badge.blue { background: #0a0a2a; color: #4da6ff; }
+  .badge.yellow { background: #2a2a0a; color: #ffc107; }
+  .badge.gray { background: #1a1a1a; color: #888; }
+
+  .step { display: flex; gap: 12px; margin: 8px 0; align-items: flex-start; }
+  .step-num { background: #e94560; color: #fff; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: #ccc; }
+  .step-text strong { color: #fff; }
+
+  .mockup { background: #0d0d18; border: 1px solid #2a2a3e; border-radius: 8px; padding: 16px; margin: 12px 0; font-family: 'SF Mono', Menlo, monospace; font-size: 11px; color: #888; white-space: pre; direction: ltr; text-align: left; overflow-x: auto; }
+
+  ul { margin: 6px 0 6px 20px; }
+  li { font-size: 13px; color: #ccc; margin: 3px 0; }
+  li strong { color: #fff; }
+
+  .footer { text-align: center; font-size: 11px; color: #444; margin-top: 40px; padding-top: 16px; border-top: 1px solid #1a1a2e; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="version">v1</span>
+  <h1>Project Dashboard — החלטה סופית + תוכנית עבודה</h1>
+  <div class="sub">סינתזה של 5 מומחים: ארכיטקט מידע, אסטרטג מכירות, מומחה UX/ADHD, מומחה אוטומציה, ומיפוי inventory</div>
+</div>
+
+<!-- ═══════════════════════ DECISION ═══════════════════════ -->
+<div class="decision-box">
+  <h3>ההחלטה הסופית</h3>
+  <p style="font-size:15px; color:#fff; margin: 8px 0;"><strong>HTML per-project dashboards</strong> — קובץ אחד לכל פרויקט, ב-<code>_REPORTS/projects/</code>.</p>
+  <p style="font-size:13px; color:#ccc;">לא Word, לא Google Doc. HTML מקומי עם לינקים, ויזואלי, נטען מיידית, עובד מהטלפון.</p>
+</div>
+
+<!-- ═══════════════════════ STRUCTURE ═══════════════════════ -->
+<h2>1. מבנה קבצים</h2>
+
+<div class="mockup">_REPORTS/
+├── index.html                  ← Hub ראשי (קיים, מתעדכן)
+├── projects/
+│   ├── ica-kc.html             ← ICA Knowledge Center
+│   ├── icando.html             ← IcanDo retainer
+│   ├── scout-outreach.html     ← Scout Outreach mission
+│   ├── arc-innovation.html     ← ARC Innovation pipeline
+│   ├── adventure-ai.html       ← [CLOSED]
+│   ├── bigy.html               ← [CLOSED]
+│   ├── momentick.html          ← [EXIT]
+│   └── bow.html                ← [CLOSED]
+├── strategic-synthesis-v2.html ← דוחות (כמו היום)
+├── market-intelligence-v1.html
+└── daily-score/                ← LeCun scores</div>
+
+<!-- ═══════════════════════ PAGE TEMPLATE ═══════════════════════ -->
+<h2>2. מה בכל עמוד פרויקט</h2>
+
+<p style="font-size:13px; color:#888; margin-bottom:12px;">עיקרון ADHD: העין רואה קודם סטטוס ← פעולה הבאה ← מספרים ← פרטים</p>
+
+<div class="section">
+<h3>A. Header — מה שנראה מיד (0.5 שניות)</h3>
+<table>
+  <tr><td>שם פרויקט</td><td>ICA Knowledge Center</td></tr>
+  <tr><td>סטטוס badge</td><td><span class="badge yellow">PAUSED</span> / <span class="badge green">ACTIVE</span> / <span class="badge red">AT RISK</span> / <span class="badge gray">CLOSED</span></td></tr>
+  <tr><td>Health score</td><td>68/100 + פס צבעוני למעלה (ירוק/צהוב/אדום)</td></tr>
+  <tr><td>עדכון אחרון</td><td>18.02.2026</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>B. הפעולה הבאה — THE ONE THING</h3>
+<p style="font-size:13px; color:#ccc;">תיבה אדומה בולטת עם פעולה אחת בלבד. מה יניב צריך לעשות עכשיו כדי לקדם את הפרויקט.</p>
+<div class="mockup" style="color:#ff6b6b; border-color:#4a2a2a;">┌─────────────────────────────────────────────┐
+│  עכשיו: עדכן את דנה וקרן — לא מגישים       │
+│  הצעה בשלב הזה. מייל קצר.                   │
+│  ⏱️ 5 דקות  |  📅 deadline: היום              │
+└─────────────────────────────────────────────┘</div>
+</div>
+
+<div class="section">
+<h3>C. מספרים — 3-4 KPIs</h3>
+<table>
+  <tr><th>מטריקה</th><th>דוגמה ICA KC</th></tr>
+  <tr><td>שווי עסקה</td><td>₪550K + 15K/חודש</td></tr>
+  <tr><td>GM%</td><td>49.2% (מתחת ל-60% — <span class="badge red">RED</span>)</td></tr>
+  <tr><td>הסתברות</td><td>30-40%</td></tr>
+  <tr><td>ימים מאז מגע אחרון</td><td>1 יום</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>D. אנשי קשר</h3>
+<p style="font-size:12px; color:#888;">כרטיסים קומפקטיים, 2 בשורה. כל כרטיס: שם, תפקיד, tag (PRIMARY/CHAMPION/GATEKEEPER), טלפון/מייל, last touch, נקודה צבעונית (חם/קר).</p>
+<table>
+  <tr><th>שם</th><th>תפקיד</th><th>Tag</th><th>חום</th><th>מגע אחרון</th></tr>
+  <tr><td>ענבל דור-קרבל</td><td>מנכ"לית ICA</td><td><span class="badge green">DECISION MAKER</span></td><td style="color:#ff4444;">●</td><td>אין מגע ישיר</td></tr>
+  <tr><td>איה אשדת</td><td>יועצת</td><td><span class="badge blue">PRIMARY</span></td><td style="color:#4dff88;">●</td><td>17.02 — הודעה קולית</td></tr>
+  <tr><td>דנה + קרן</td><td>קשר לארגון</td><td><span class="badge yellow">OPERATORS</span></td><td style="color:#ffc107;">●</td><td>ממתין לעדכון</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>E. קבצים ותוצרים</h3>
+<p style="font-size:12px; color:#888;">טבלה ממוינת לפי תאריך (חדש למעלה). סוג קובץ כ-badge צבעוני. לינק ישיר.</p>
+<table>
+  <tr><th>תוצר</th><th>סוג</th><th>גרסה</th><th>תאריך</th></tr>
+  <tr><td>ICA Design System</td><td><span class="badge" style="background:#2a1a3a;color:#b84dff;">HTML</span></td><td>v2.0</td><td>18.02</td></tr>
+  <tr><td>הצעת מחיר KC</td><td><span class="badge" style="background:#1a3a5c;color:#4da6ff;">DOC</span></td><td>v3</td><td>15.02</td></tr>
+  <tr><td>מפרט שירות</td><td><span class="badge" style="background:#1a3a5c;color:#4da6ff;">DOC</span></td><td>v1</td><td>14.02</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>F. ציר זמן — מה קרה מתי</h3>
+<p style="font-size:12px; color:#888;">מקסימום 10 אירועים. חדש למעלה. כל אירוע: תאריך + סוג (DECISION/MEETING/DELIVERABLE/EMAIL) + שורה אחת.</p>
+<div class="mockup" style="font-size:11px;">18.02  ● DECISION   EXIT — Yaniv sent professional exit
+17.02  ● EMAIL      Aya: "not off-the-shelf, let's talk next week"
+17.02  ● DECISION   Budget gap 700K vs 175-210K — PAUSED
+15.02  ● DELIVERABLE Proposal v3 + Service v1 ready
+14.02  ● MEETING    Screen alignment call with SAM</div>
+</div>
+
+<!-- ═══════════════════════ TRIGGERS ═══════════════════════ -->
+<h2>3. התראות אוטומטיות</h2>
+
+<div class="section warn">
+<h3>מה ה-Dashboard מסמן בלי שתבקש</h3>
+<table>
+  <tr><th>trigger</th><th>תנאי</th><th>הודעה</th></tr>
+  <tr><td><span class="badge red">חשבונית</span></td><td>חשבונית שלא שולמה אחרי deadline</td><td>"Momentick 3,744 — 3 ימים"</td></tr>
+  <tr><td><span class="badge red">שתיקה</span></td><td>7+ ימים בלי מגע על deal פעיל</td><td>"רון פלד — 12 ימים שתיקה"</td></tr>
+  <tr><td><span class="badge yellow">סטייל</span></td><td>14+ ימים באותו stage</td><td>"IcanDo תקוע ב-NEGOTIATION 18 יום"</td></tr>
+  <tr><td><span class="badge yellow">deliverable</span></td><td>תוצר שהובטח ולא סופק</td><td>"סיכום תיקונים IcanDo — due 20.02"</td></tr>
+  <tr><td><span class="badge green">הזדמנות</span></td><td>target גייס כסף לאחרונה</td><td>"Feminai $6M ינואר 2026 — תזמון מושלם"</td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════ MAINTENANCE ═══════════════════════ -->
+<h2>4. תחזוקה — איך זה חי</h2>
+
+<div class="iron">
+  תקציב תחזוקה: 90 שניות לסשן. יותר מזה = פרוקרסטינציה.
+</div>
+
+<div class="section">
+<h3>מתי PRIMO מעדכן</h3>
+<table>
+  <tr><th>trigger</th><th>פעולה</th><th>זמן</th></tr>
+  <tr><td>יניב מדווח תוצאת שיחה/מייל</td><td>aim_memory_add_facts — זה הכל</td><td>5 שניות</td></tr>
+  <tr><td>סטטוס deal משתנה</td><td>AIM Brain update</td><td>10 שניות</td></tr>
+  <tr><td>PRIMO יוצר HTML חדש</td><td>שמירה + רישום ב-AIM Brain</td><td>10 שניות</td></tr>
+  <tr><td>סוף סשן</td><td>עדכון batch ל-index.html</td><td>15 שניות</td></tr>
+</table>
+</div>
+
+<div class="section">
+<h3>חלוקת אחריות: AIM Brain vs HTML</h3>
+<table>
+  <tr><th>סוג מידע</th><th>חי ב-</th></tr>
+  <tr><td>סטטוס, אנשי קשר, החלטות, תמחור</td><td><span class="badge blue">AIM Brain בלבד</span></td></tr>
+  <tr><td>דוחות, ויזואליזציות, ניתוחים</td><td><span class="badge" style="background:#2a1a3a;color:#b84dff;">HTML בלבד</span></td></tr>
+  <tr><td>נתיבי קבצים + גרסאות</td><td><span class="badge blue">AIM Brain</span></td></tr>
+  <tr><td>לוג סשנים</td><td><span class="badge blue">AIM Brain בלבד</span></td></tr>
+</table>
+</div>
+
+<!-- ═══════════════════════ WORK PLAN ═══════════════════════ -->
+<h2>5. תוכנית עבודה — סדר ביצוע</h2>
+
+<div class="iron">
+  עיקרון: לא בונים את כל המערכת. בונים Template אחד, יניב מאשר, משכפלים.
+</div>
+
+<div class="step"><span class="step-num">1</span><div class="step-text"><strong>בניית Template</strong> — עמוד אחד (Scout Outreach) כ-template reference. כולל את כל 6 הסקשנים. PRIMO בונה עכשיו.<br><span class="badge green">30 דקות</span></div></div>
+
+<div class="step"><span class="step-num">2</span><div class="step-text"><strong>אישור יניב</strong> — יניב פותח, בודק שהמבנה עובד, מאשר או מבקש שינויים.<br><span class="badge yellow">5 דקות</span></div></div>
+
+<div class="step"><span class="step-num">3</span><div class="step-text"><strong>שכפול ל-7 פרויקטים</strong> — PRIMO ממלא מ-AIM Brain + inventory. פרויקטים: ICA KC, IcanDo, ARC Innovation, Scout Outreach, Adventure AI, BIGY, Momentick, BoW.<br><span class="badge green">45 דקות</span></div></div>
+
+<div class="step"><span class="step-num">4</span><div class="step-text"><strong>עדכון index.html</strong> — הוספת סקשן "פרויקטים" בראש ה-Hub עם כרטיסים לכל פרויקט.<br><span class="badge green">10 דקות</span></div></div>
+
+<div class="step"><span class="step-num">5</span><div class="step-text"><strong>רישום ב-AIM Brain</strong> — כל עמוד פרויקט מתועד כ-deliverable entity עם path + version.<br><span class="badge green">5 דקות</span></div></div>
+
+<!-- ═══════════════════════ INVENTORY ═══════════════════════ -->
+<h2>6. Inventory — מה כבר קיים (49 קבצים)</h2>
+
+<div class="section">
+<table>
+  <tr><th>פרויקט</th><th>קבצים</th><th>סוגים</th></tr>
+  <tr><td>Scout / Pipeline</td><td>7</td><td>HTML reports</td></tr>
+  <tr><td>ARC Innovation</td><td>5</td><td>HTML + MD + DOCX</td></tr>
+  <tr><td>Adventure AI</td><td>1</td><td>HTML brief</td></tr>
+  <tr><td>ICA KC</td><td>1</td><td>HTML design system</td></tr>
+  <tr><td>LeCun Paper</td><td>9</td><td>Markdown</td></tr>
+  <tr><td>Portfolio Site</td><td>10</td><td>HTML pages</td></tr>
+  <tr><td>PRIMO Daily</td><td>2</td><td>HTML hub + score</td></tr>
+  <tr><td>Internal/Ops</td><td>5</td><td>MD + Python</td></tr>
+  <tr><td>Data Exports</td><td>4</td><td>JSON</td></tr>
+  <tr><td>Memory/Config</td><td>5</td><td>MD config</td></tr>
+</table>
+<p style="font-size:12px; color:#888; margin-top:8px;">חסרים קבצים מקומיים ל: IcanDo, BIGY, Momentick, BoW — קיימים רק ב-Google Drive או ב-AIM Brain.</p>
+</div>
+
+<!-- ═══════════════════════ EXPERT CREDITS ═══════════════════════ -->
+<h2>7. צוות המומחים</h2>
+
+<div class="section">
+<table>
+  <tr><th>מומחה</th><th>תרומה עיקרית</th></tr>
+  <tr><td>Inventory Specialist</td><td>מיפוי 49 קבצים ב-10 פרויקטים. זיהוי חורים (IcanDo, BIGY ללא קבצים מקומיים)</td></tr>
+  <tr><td>Information Architect</td><td>מבנה קבצים, CSS variables, 9 סקשנים, ניווט breadcrumb, file registry</td></tr>
+  <tr><td>Sales Strategist</td><td>pre-call prep, relationship warmth score, quick-action triggers, gateway tracking</td></tr>
+  <tr><td>Automation Expert</td><td>90-sec maintenance budget, AIM Brain vs HTML separation, staleness detection</td></tr>
+  <tr><td>UX Expert (ADHD)</td><td>Visual hierarchy (status→action→numbers→details), "ONE THING" box, anti-patterns</td></tr>
+</table>
+</div>
+
+<div class="footer">
+  PRIMO | 5-Expert Synthesis | Project Dashboard Plan v1 | 18.02.2026
+</div>
+
+</body>
+</html>

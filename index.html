@@ -1,32 +1,518 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Primak Reports</title>
+<title>PRIMO Intelligence Hub — v3</title>
 <style>
-  body { font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; color: #1a1a1a; }
-  h1 { font-size: 20px; border-bottom: 2px solid #1a1a1a; padding-bottom: 12px; margin-bottom: 20px; }
-  a { color: #1565c0; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .item { padding: 12px 0; border-bottom: 1px solid #eee; }
-  .item:last-child { border-bottom: none; }
-  .meta { font-size: 12px; color: #888; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; background: #ffffff; color: #37352f; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+  .header { padding: 32px 40px 24px; border-bottom: 1px solid #e9e9e7; }
+  .header h1 { font-size: 32px; font-weight: 700; color: #37352f; margin-bottom: 4px; letter-spacing: -0.5px; }
+  .header .sub { font-size: 14px; color: #9b9a97; }
+  .version { float: left; font-size: 11px; color: #9b9a97; border: 1px solid #e9e9e7; padding: 2px 8px; border-radius: 3px; }
+  .timestamp { float: left; font-size: 11px; color: #9b9a97; padding: 2px 8px; margin-left: 8px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; padding: 16px 40px; }
+  .card { background: #ffffff; border: 1px solid #e9e9e7; border-radius: 8px; padding: 16px 20px; transition: all 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+  a.card:hover { border-color: #37352f; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transform: translateY(-1px); }
+  div.card { cursor: default; }
+  .card .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 3px; margin-bottom: 8px; font-weight: 500; }
+
+  .tag.strategy { background: #d3e5ef; color: #2e6e9e; }
+  .tag.daily { background: #fbe4e4; color: #c4314b; }
+  .tag.intel { background: #dbeddb; color: #1e6b3a; }
+  .tag.client { background: #fdecc8; color: #9a6700; }
+  .tag.design { background: #e8deee; color: #6940a5; }
+  .tag.project { background: #f7f6f3; color: #37352f; }
+  .tag.brand { background: #fce5cd; color: #8b5e34; }
+  .tag.system { background: #e3e2e0; color: #555; }
+
+  .card h3 { font-size: 15px; color: #37352f; margin-bottom: 4px; line-height: 1.3; font-weight: 600; }
+  .card .desc { font-size: 13px; color: #9b9a97; line-height: 1.4; }
+  .card .date { font-size: 11px; color: #c8c7c5; margin-top: 8px; }
+
+  .section-title { padding: 24px 40px 0; font-size: 14px; font-weight: 600; color: #9b9a97; text-transform: uppercase; letter-spacing: 0.5px; border-top: 1px solid #e9e9e7; margin-top: 12px; }
+
+  .status { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; margin-right: 6px; }
+  .status.active { background: #dbeddb; color: #1e6b3a; }
+  .status.paused { background: #fdecc8; color: #9a6700; }
+  .status.waiting { background: #d3e5ef; color: #2e6e9e; }
+  .status.negotiating { background: #fdecc8; color: #9a6700; }
+  .status.closed { background: #e3e2e0; color: #787774; }
+  .status.new { background: #dbeddb; color: #1e6b3a; }
+
+  .footer { padding: 24px 40px; border-top: 1px solid #e9e9e7; margin-top: 24px; font-size: 12px; color: #c8c7c5; text-align: center; }
 </style>
 </head>
 <body>
-<h1>Go / No Go Report</h1>
-<div class="item">
-  <a href="venture-trackmodel-exec-memo-v1.html">Track Model — Executive Memo v1</a>
-  <div class="meta">Full venture evaluation | 21.02.2026</div>
+
+<div class="header">
+  <span class="version">v8</span>
+  <span class="timestamp">עדכון אחרון: 23.02.2026</span>
+  <h1>PRIMO Intelligence Hub</h1>
+  <div class="sub">כל הפרויקטים, הדוחות והמסמכים — מקום אחד | Fractional CPO for high-stakes AI</div>
 </div>
-<div class="item">
-  <a href="venture-trackmodel-gonogo-v1.html">Track Model — Go/No-Go Report v1</a>
-  <div class="meta">Research synthesis | 21.02.2026</div>
+
+<!-- ═══════════ OPEN TASKS — WAR ROOM ═══════════ -->
+<h2 class="section-title" style="margin-top:0; border-top:none; color:#e03e3e;">משימות פתוחות — חדר מלחמה</h2>
+<div class="grid">
+  <div class="card" style="border-color:#e03e3e; border-width:2px; background:#fff5f5; cursor:default;">
+    <span class="status" style="background:#fce4e4; color:#e03e3e;">URGENT</span><span class="tag project">pipeline</span>
+    <h3>Scout W1 — שליחת הודעות</h3>
+    <div class="desc">3 הודעות מכוילות (Ron/Sola, Adiel/AISAP, Gal/Feminai). <strong>מוכן — דורש החלטה + שליחה.</strong> Yaniv אמר "plan change coming". Pipeline ₪470-960K</div>
+    <div class="date">דדליין: 22-23.02 | תקוע מ-19.02</div>
+  </div>
+  <div class="card" style="border-color:#e03e3e; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">5 דק</span><span class="tag brand">brand</span>
+    <h3>LinkedIn v3 — Copy-Paste</h3>
+    <div class="desc">קובץ מוכן. 5 חלקים: Headline, About, Experience, Volunteering, Skills. פשוט להעתיק.</div>
+    <div class="date">מוכן מ-19.02 | <a href="linkedin-update-v3.html">פתח קובץ</a></div>
+  </div>
+  <div class="card" style="border-color:#fdecc8; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">5 דק</span><span class="tag client">פיננסי</span>
+    <h3>חגית שמש — שובר מקדמה</h3>
+    <div class="desc">תגובה ל-nylon.co.il. שובר מקדמה דצמבר 2025. צריך לבדוק מייל + לענות.</div>
+    <div class="date">תקוע מ-18.02</div>
+  </div>
+  <div class="card" style="border-color:#fdecc8; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">5 דק</span><span class="tag client">פיננסי</span>
+    <h3>חשבונית רם 40013</h3>
+    <div class="desc">לבדוק חשבונית PM. צריך אישור / התאמה.</div>
+    <div class="date">תקוע</div>
+  </div>
+  <div class="card" style="border-color:#fdecc8; cursor:default;">
+    <span class="status waiting">PENDING</span><span class="tag project">outreach</span>
+    <h3>Omri Peleg — Brief מוכן</h3>
+    <div class="desc">Brief עם targets: Feminai, Sola Security, BioT Medical. צריך שיחה / שליחה.</div>
+    <div class="date">22.02.2026 | חדש</div>
+  </div>
+  <div class="card" style="border-color:#fdecc8; cursor:default;">
+    <span class="status waiting">PENDING</span><span class="tag project">outreach</span>
+    <h3>Dario Reichman — יצירת קשר</h3>
+    <div class="desc">פתיחת ערוץ. צריך הודעה ראשונה.</div>
+    <div class="date">תקוע מ-21.02</div>
+  </div>
+  <div class="card" style="border-color:#fdecc8; cursor:default;">
+    <span class="status waiting">PENDING</span><span class="tag project">partnership</span>
+    <h3>Micha Risling — תיאום שיחה</h3>
+    <div class="desc">צריך לקבוע שיחה. פרטי קשר ב-Brain.</div>
+    <div class="date">תקוע מ-21.02</div>
+  </div>
+  <div class="card" style="border-color:#d3e5ef; cursor:default;">
+    <span class="status waiting">DECISION</span><span class="tag brand">brand</span>
+    <h3>Brand Reset — Decision #3 Services</h3>
+    <div class="desc">DEFERRED. כיוון: 3 packages (לא שעות). צריך דיון נפרד וסגירה.</div>
+    <div class="date">נדחה מ-19.02</div>
+  </div>
+  <div class="card" style="border-color:#d3e5ef; cursor:default;">
+    <span class="status waiting">PARKED</span><span class="tag strategy">system</span>
+    <h3>Proof Pack Interview — 1/5</h3>
+    <div class="desc">שאלה ראשונה (CathWorks) בלבד. 4 שאלות נותרו. Go/No-Go needed.</div>
+    <div class="date">נעצר ב-17.02</div>
+  </div>
+  <div class="card" style="border-color:#d3e5ef; cursor:default;">
+    <span class="status waiting">PARKED</span><span class="tag system">system</span>
+    <h3>RAG/Vector Store ל-PRIMO</h3>
+    <div class="desc">תוכנית מוכנה (LanceDB + Nomic + EMLX). ממתין לאור ירוק.</div>
+    <div class="date">נעצר ב-19.02</div>
+  </div>
 </div>
-<div class="item">
-  <a href="venture-trackmodel-legal-v1.html">Track Model — Legal & IP Layer v1</a>
-  <div class="meta">IP strategy | 21.02.2026</div>
+
+<!-- ═══════════ DONE TODAY ═══════════ -->
+<h2 class="section-title" style="color:#1e6b3a;">הושלם היום — 22.02</h2>
+<div class="grid">
+  <div class="card" style="opacity:0.7; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">DONE</span><span class="tag brand">CV</span>
+    <h3>CV Web — עיצוב Pentagram (v5)</h3>
+    <div class="desc">5 גרסאות. Voice rewrite, Pentagram designer polish, תמונה, dark bookend, 4 גדלי טקסט. מוכן לפרסום.</div>
+    <div class="date">22.02.2026 ✅</div>
+  </div>
+  <div class="card" style="opacity:0.7; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">DONE</span><span class="tag project">partnership</span>
+    <h3>Didi → Zimlichman Email</h3>
+    <div class="desc">נשלח + הועבר. ARC deal progressing.</div>
+    <div class="date">22.02.2026 ✅</div>
+  </div>
+  <div class="card" style="opacity:0.7; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">DONE</span><span class="tag client">meeting</span>
+    <h3>Momentick — פגישה עם Daniel</h3>
+    <div class="desc">12:00 היום. Yaniv מעוניין בדיל חדש (לא שעתי).</div>
+    <div class="date">22.02.2026 ✅</div>
+  </div>
+  <div class="card" style="opacity:0.7; cursor:default;">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">DONE</span><span class="tag project">podcast</span>
+    <h3>Shira Simmonds — Podcast</h3>
+    <div class="desc">מאשר רביעי 14:30. PRIMO מכין תגובה.</div>
+    <div class="date">22.02.2026 ✅</div>
+  </div>
 </div>
+
+<!-- ═══════════ THIS WEEK ═══════════ -->
+<h2 class="section-title">יומן השבוע</h2>
+<div class="grid">
+  <div class="card" style="cursor:default;">
+    <span class="tag daily">לוח זמנים</span>
+    <h3>דדליינים קריטיים</h3>
+    <div class="desc">
+      <strong>א-ב 22-23.02</strong> — Scout W1 send<br>
+      <strong>ב 23.02</strong> — IcanDo Aya follow-up<br>
+      <strong>ד 25.02</strong> — Shira Simmonds podcast 14:30<br>
+      <strong>ה 26.02</strong> — Guy Assif Accelerator, Jaffa<br>
+      <strong>ה 26.02</strong> — PRIMO War Room 09:00
+    </div>
+    <div class="date">שבוע 22-28.02.2026</div>
+  </div>
+</div>
+
+<!-- ═══════════ DASHBOARD + BRIEF ═══════════ -->
+<div class="grid" style="padding-top:24px;">
+  <a class="card" href="sunday-brief-22-02-v1.html" style="border-color:#e03e3e; background:linear-gradient(135deg,#fff5f5,#ffffff);">
+    <span class="status active">NEW</span><span class="tag daily">weekly</span>
+    <h3>Sunday Brief — 22.02.2026</h3>
+    <div class="desc">3 Money Moves: Scout W1, ARC/Didi email, IcanDo close. Quick wins + יומן השבוע.</div>
+    <div class="date">22.02.2026 | v1</div>
+  </a>
+  <a class="card" href="http://localhost:8787" style="border-color:#1a73e8; background:linear-gradient(135deg,#f0f7ff,#ffffff);">
+    <span class="status active">LIVE</span><span class="tag strategy">dashboard</span>
+    <h3>Pipeline Intelligence Dashboard</h3>
+    <div class="desc">דשבורד חי — כל הפרויקטים, סטטוס, הכנסות, דדליינים. localhost:8787</div>
+    <div class="date">19.02.2026 | Live Server</div>
+  </a>
+  <a class="card" href="https://primakdigital.github.io/primak-reports/" target="_blank" style="border-color:#4daa57; background:linear-gradient(135deg,#f0fff4,#ffffff);">
+    <span class="status active">PUBLIC</span><span class="tag system">sharing</span>
+    <h3>Primak Reports — GitHub Pages</h3>
+    <div class="desc">דוחות HTML לשיתוף חיצוני. primakdigital.github.io/primak-reports</div>
+    <div class="date">21.02.2026 | Public</div>
+  </a>
+</div>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<h2 class="section-title">פרויקטים פעילים</h2>
+<div class="grid">
+  <a class="card" href="projects/scout-outreach.html">
+    <span class="status active">ACTIVE</span><span class="tag project">pipeline</span>
+    <h3>Scout Outreach Mission</h3>
+    <div class="desc">9 targets, pipeline ₪470-960K. W1 recalibrated: Ron/Sola, Adiel/AISAP, Gal/Feminai. מוכן לשליחה.</div>
+    <div class="date">Score: 72 | 22.02.2026</div>
+  </a>
+  <a class="card" href="projects/arc-innovation.html">
+    <span class="status active">SENT</span><span class="tag project">partnership</span>
+    <h3>ARC Innovation — Design Partner</h3>
+    <div class="desc">120+ startups, $5.8B portfolio. מייל נשלח — דידי העביר לזימליכמן. ממתין לתגובה.</div>
+    <div class="date">Score: 75 | נשלח 22.02.2026</div>
+  </a>
+  <a class="card" href="projects/ica-kc.html">
+    <span class="status paused">PAUSED</span><span class="tag project">build</span>
+    <h3>ICA Knowledge Center</h3>
+    <div class="desc">₪550K+15K/mo. פער תקציב 700K vs 175-210K. דלת פתוחה ₪500K+. סיכוי 30-40%</div>
+    <div class="date">Score: 68 | 17.02.2026</div>
+  </a>
+  <a class="card" href="projects/icando.html">
+    <span class="status negotiating">CONTRACT</span><span class="tag project">retainer</span>
+    <h3>IcanDo</h3>
+    <div class="desc">Retainer ₪430/hr. חוזה + 3 תיקונים, ממתין לחתימה. Close target 28.02</div>
+    <div class="date">Score: 68 | 18.02.2026</div>
+  </a>
+</div>
+
+<!-- ═══════════ PENTAGRAM BRAND RESET — FULL PROCESS ═══════════ -->
+<h2 class="section-title" style="color:#8b5e34;">Pentagram Brand Reset — תהליך מלא</h2>
+
+<!-- STATUS OVERVIEW -->
+<div style="padding: 12px 40px 0;">
+  <div style="background:#fef9f0; border:2px solid #e8c87a; border-radius:8px; padding:20px 24px; font-size:14px; line-height:1.8;">
+    <strong style="font-size:15px;">סטטוס תהליך — 22.02.2026</strong><br>
+    <span style="color:#1e6b3a;">✅</span> Part 1 — OpenView Case (אושר) &nbsp;|&nbsp;
+    <span style="color:#1e6b3a;">✅</span> Part 2 — Why It Worked (אושר + תיקון) &nbsp;|&nbsp;
+    <span style="color:#1e6b3a;">✅</span> Part 3 — Methodology (אושר)<br>
+    <span style="color:#1e6b3a;">✅</span> Part 4 — Discovery + 6 Models (אושר) &nbsp;|&nbsp;
+    <span style="color:#e8a020;">✅</span> Part 4 — Challenge Definition (תוקן — differentiation gap) &nbsp;|&nbsp;
+    <span style="color:#e8a020;">🔄</span> Part 4 — Brand Principles (הוצג לדיון)<br>
+    <span style="color:#c4314b;">⏳</span> Phase 4 — System Design (6 components, הוצג) &nbsp;|&nbsp;
+    <span style="color:#c4314b;">⏳</span> Phase 5 — Implementation &nbsp;|&nbsp;
+    <span style="color:#c4314b;">⏳</span> Phase 6 — Validation<br>
+    <strong style="margin-top:8px; display:inline-block;">ציון צוות: 7.5/10 — חומר גלם 9.5, ביצוע 3/10 (אפס נוכחות חיה)</strong>
+  </div>
+</div>
+
+<!-- PENTAGRAM DOCUMENTS -->
+<div class="grid">
+  <!-- METHODOLOGY — THE MAIN DOCUMENT -->
+  <a class="card" href="pentagram-methodology-primak-v1.html" style="border-color:#8b5e34; border-width:2px; background:linear-gradient(135deg,#fef9f0,#ffffff); grid-column: 1 / -1;">
+    <span class="status" style="background:#fce5cd; color:#8b5e34;">REVIEW</span><span class="tag brand">methodology</span>
+    <h3 style="font-size:17px;">📖 Pentagram Methodology — Applied to Primak (המסמך המרכזי)</h3>
+    <div class="desc">
+      6 Phases של Pentagram מיושמים על Primak. כולל: OpenView case study, למה עבד (5 decisions),
+      Discovery (6 business models: Mironov, VC OP, SVPG, Deloitte, Biddle, McKinsey),
+      Challenge Definition (3 gaps: identity, visibility, differentiation),
+      5 Brand Principles, System Design (6 components), Implementation Plan, Validation.<br>
+      <strong>זה המסמך לקריאה מעמיקה ולהחלטות.</strong>
+    </div>
+    <div class="date">22.02.2026 | v1 (updated with corrections)</div>
+  </a>
+
+  <!-- CORE IDENTITY -->
+  <div class="card" style="border-color:#8b5e34; cursor:default; background:#fef9f0;">
+    <span class="tag brand">identity</span>
+    <h3>זהות שהתגלתה בתהליך</h3>
+    <div class="desc">
+      <strong>"I turn stuck technology into product."</strong><br>
+      5 companies, 5 domains, 0 failures<br>
+      Not a designer — a simplifier/executor<br>
+      "Founders and VC victims"<br>
+      Enters when stuck, exits when it works<br><br>
+      <strong>Open question:</strong> Broad (versatile) vs. Narrow (AI) — lead with truth, AI as sharpest proof
+    </div>
+    <div class="date">Confirmed by Yaniv in session</div>
+  </div>
+
+  <!-- 5 BRAND PRINCIPLES -->
+  <div class="card" style="border-color:#8b5e34; cursor:default; background:#fef9f0;">
+    <span class="status" style="background:#fce5cd; color:#8b5e34;">REVIEW</span><span class="tag brand">principles</span>
+    <h3>5 Brand Principles</h3>
+    <div class="desc">
+      <strong>1. Direct</strong> — "מהבטן." Simplify → execute<br>
+      <strong>2. Versatile</strong> — 5 domains, skill transfers<br>
+      <strong>3. Relentless</strong> — 5/5, 0 failures<br>
+      <strong>4. Founder-native</strong> — founder language, not consultant<br>
+      <strong>5. Commercial</strong> — revenue, not wireframes<br><br>
+      <em>Test: every decision filtered against these 5.</em>
+    </div>
+    <div class="date">Pending Yaniv approval</div>
+  </div>
+
+  <!-- 6 SYSTEM DESIGN COMPONENTS -->
+  <div class="card" style="border-color:#8b5e34; cursor:default; background:#fef9f0;">
+    <span class="status" style="background:#fce5cd; color:#8b5e34;">REVIEW</span><span class="tag brand">system</span>
+    <h3>System Design — 6 Components</h3>
+    <div class="desc">
+      <strong>1. Positioning:</strong> "I turn stuck technology into product"<br>
+      <strong>2. Messaging:</strong> Core / Proof / Referral (3 messages)<br>
+      <strong>3. Value Prop:</strong> outcome-for-investment, not time-for-money<br>
+      <strong>4. Services:</strong> Diagnose $15K / Build $22K+ / Lead $13K/mo<br>
+      <strong>5. Proof:</strong> 5 published case studies (currently 0)<br>
+      <strong>6. Title:</strong> CPO, Primak (no "Fractional" in headline)
+    </div>
+    <div class="date">Pending Yaniv approval</div>
+  </div>
+
+  <!-- TEAM REPORTS -->
+  <a class="card" href="pentagram-brand-reset-v1.html">
+    <span class="status" style="background:#e8deee; color:#6940a5;">TEAM A</span><span class="tag brand">creative</span>
+    <h3>Team A — Creative Proposals</h3>
+    <div class="desc">Natasha Jen + Paula Scher. Full redesign of 7 decisions. Yaniv liked design language, not content.</div>
+    <div class="date">22.02.2026 | v1</div>
+  </a>
+  <a class="card" href="pentagram-brand-reset-counter-v1.html">
+    <span class="status" style="background:#d3e5ef; color:#2e6e9e;">TEAM B</span><span class="tag brand">counter</span>
+    <h3>Team B — Counter-Brief</h3>
+    <div class="desc">Michael Bierut. "Team A built a dashboard. Primak needs a signal." One of each, not three.</div>
+    <div class="date">22.02.2026 | v1</div>
+  </a>
+  <a class="card" href="pentagram-market-research-v1.html">
+    <span class="status" style="background:#dbeddb; color:#1e6b3a;">TEAM C</span><span class="tag intel">research</span>
+    <h3>Team C — Market Research</h3>
+    <div class="desc">Giorgia Lupi. 5 workstreams: 13 competitors, buyer language, AI retrieval (0 results), opinion leaders, $90B TAM.</div>
+    <div class="date">22.02.2026 | v1</div>
+  </a>
+  <a class="card" href="pentagram-cv-rewrite-v1.html">
+    <span class="status" style="background:#fce5cd; color:#8b5e34;">REVIEW</span><span class="tag brand">CV</span>
+    <h3>CV Strategic Rewrite — Analysis</h3>
+    <div class="desc">ניתוח + שכתוב + כיוון עיצוב. Impact-first, proof bar ($585M|FDA|100K+|5 Domains|0 Failures). Executive Editorial.</div>
+    <div class="date">22.02.2026 | v1</div>
+  </a>
+  <a class="card" href="cv-yaniv-primak.html" style="border-color:#1e6b3a; border-width:2px;">
+    <span class="status active">v5 FINAL</span><span class="tag brand">CV</span>
+    <h3>CV Web — Yaniv Primak</h3>
+    <div class="desc">קו"ח רספונסיבי — Pentagram polish. Dark hero עם תמונה, voice rewrite, Healthcare first, dark bookend. 5 גרסאות (v1-v5). ממתין לפרסום ב-GitHub Pages.</div>
+    <div class="date">22.02.2026 | v5 — cv-yaniv-primak.html</div>
+  </a>
+
+  <!-- RESEARCH FINDINGS -->
+  <div class="card" style="cursor:default;">
+    <span class="tag intel">findings</span>
+    <h3>Key Research Findings</h3>
+    <div class="desc">
+      <strong>Competitor landscape:</strong> 13 mapped, nobody owns "high-stakes AI"<br>
+      <strong>Buyer language:</strong> buyers search symptoms, not titles<br>
+      <strong>AI retrieval:</strong> 8 queries, 0 results for Primak<br>
+      <strong>Category:</strong> Interim/Embedded CPO EXISTS (Harpal Singh, Mironov, Prodify)<br>
+      <strong>Market:</strong> $90B+ TAM, EU AI Act Aug 2026 = demand trigger<br>
+      <strong>White space:</strong> "Product Turnaround" — nobody does turnaround for product
+    </div>
+    <div class="date">From Team C + dialogue sessions</div>
+  </div>
+
+  <!-- OPINION LEADERS -->
+  <div class="card" style="cursor:default;">
+    <span class="tag intel">landscape</span>
+    <h3>Opinion Leaders & Category Map</h3>
+    <div class="desc">
+      <strong>Tier 1:</strong> Cagan/SVPG, Melissa Perri, Rich Mironov<br>
+      <strong>Tier 2:</strong> Harpal Singh (13+ CPO roles), Petra Wille, Gibson Biddle, Jason Knight<br>
+      <strong>Tier 3:</strong> Prodify, CPO Club, Reforge, Toptal<br>
+      <strong>Yaniv's differentiators:</strong> cross-domain (5/5), $585M exit, craft+strategy+execution
+    </div>
+    <div class="date">Research 22.02.2026</div>
+  </div>
+
+  <!-- CORRECTIONS LOG -->
+  <div class="card" style="cursor:default;">
+    <span class="tag brand">corrections</span>
+    <h3>תיקונים שבוצעו</h3>
+    <div class="desc">
+      1. Decision 3: distinctiveness <strong>AND</strong> beauty (Moog principle)<br>
+      2. Pricing (₪450) הוסר מנרטיב — מסתכלים קדימה<br>
+      3. "Category gap" → <strong>Differentiation gap</strong> — הקטגוריה קיימת<br>
+      4. 6 business models נוספו ל-Discovery
+    </div>
+    <div class="date">תוקן 22.02.2026</div>
+  </div>
+</div>
+
+<!-- ═══════════ BRAND RESET — LOCKED DECISIONS 19.02 ═══════════ -->
+<h2 class="section-title">Brand Reset — החלטות נעולות (19.02)</h2>
+<div class="grid">
+  <a class="card" href="brand-reset-decisions-v1.html">
+    <span class="status new">LOCKED</span><span class="tag brand">brand</span>
+    <h3>6/7 החלטות נעולות</h3>
+    <div class="desc">One-liner, Title, Vertical, Voice, Deal Gates, Proof Cases. Services = DEFERRED.<br><strong>Note:</strong> Pentagram process may update some of these.</div>
+    <div class="date">19.02.2026 | v1</div>
+  </a>
+  <a class="card" href="one-liner-simulation-v1.html">
+    <span class="tag brand">simulation</span>
+    <h3>Buyer Simulation — 9 Targets</h3>
+    <div class="desc">סימולציית קונים — "High-stakes AI" captured 9/9. תגובות רגשיות + industry tips</div>
+    <div class="date">19.02.2026 | v1</div>
+  </a>
+  <a class="card" href="linkedin-update-v3.html">
+    <span class="status active">APPROVED</span><span class="tag brand">linkedin</span>
+    <h3>LinkedIn Update — v3</h3>
+    <div class="desc">פרופיל LinkedIn מעודכן — Fractional CPO positioning. אושר, ממתין ל-copy-paste</div>
+    <div class="date">19.02.2026 | v3</div>
+  </a>
+  <a class="card" href="paradigm-shift-v1.html">
+    <span class="tag brand">strategy</span>
+    <h3>Paradigm Shift 2026</h3>
+    <div class="desc">Einstein Framework — UX Studio → Fractional CPO. 6 cognitive biases, anti-bias tools</div>
+    <div class="date">19.02.2026 | v1</div>
+  </a>
+</div>
+
+<!-- ═══════════ STRATEGY & INTEL ═══════════ -->
+<h2 class="section-title">אסטרטגיה ומודיעין</h2>
+<div class="grid">
+  <a class="card" href="strategic-synthesis-v2.html">
+    <span class="tag strategy">אסטרטגיה</span>
+    <h3>Strategic Intelligence Synthesis</h3>
+    <div class="desc">סינתזה אסטרטגית — 5 סוכני מחקר, 3 שאלות אסטרטגיות, תמונת מצב מלאה</div>
+    <div class="date">18.02.2026 | v2</div>
+  </a>
+  <a class="card" href="strategic-analysis-v1.html">
+    <span class="tag strategy">אסטרטגיה</span>
+    <h3>ניתוח אסטרטגי</h3>
+    <div class="desc">ניתוח פוזיציה, חוזקות, הזדמנויות ואיומים</div>
+    <div class="date">18.02.2026 | v1</div>
+  </a>
+  <a class="card" href="market-intelligence-v1.html">
+    <span class="tag intel">מודיעין</span>
+    <h3>Market Intelligence — Startups Q4/Q1</h3>
+    <div class="desc">22 חברות חדשות, $915M+ גיוסים, ₪2.2-3.8M pipeline פוטנציאלי</div>
+    <div class="date">18.02.2026 | v1</div>
+  </a>
+  <a class="card" href="reality-check-2026-v2.html">
+    <span class="tag strategy">reality check</span>
+    <h3>Reality Check 2026</h3>
+    <div class="desc">בדיקת מציאות — הנחות vs נתונים, פערים, צעדים הבאים</div>
+    <div class="date">19.02.2026 | v2</div>
+  </a>
+</div>
+
+<!-- ═══════════ CONTACTS & OUTREACH ═══════════ -->
+<h2 class="section-title">אנשי קשר ו-Outreach</h2>
+<div class="grid">
+  <a class="card" href="scout-outreach-hub-v1.html">
+    <span class="status active">RECALIBRATED</span><span class="tag intel">outreach</span>
+    <h3>Scout Outreach Hub — הודעות</h3>
+    <div class="desc">W1: 3 הודעות מכוילות לפוזישנינג חדש (Founder & CPO). מוכנות לשליחה. Pipeline ₪470-960K</div>
+    <div class="date">22.02.2026 | v2</div>
+  </a>
+  <a class="card" href="arc-innovation-deep-dive-v1.html">
+    <span class="tag intel">ARC</span>
+    <h3>ARC Innovation — Deep Dive</h3>
+    <div class="desc">Sheba ecosystem, $5.8B portfolio, 120+ startups. Didi Fabian = warm intro</div>
+    <div class="date">18.02.2026 | v1</div>
+  </a>
+  <a class="card" href="connection-map-v1.html">
+    <span class="tag intel">מודיעין</span>
+    <h3>Connection Map — מפת חיבורים</h3>
+    <div class="desc">9 יעדים, שרשראות חיבור, warm paths, proof cases per target</div>
+    <div class="date">18.02.2026 | v1</div>
+  </a>
+  <a class="card" href="network-intelligence-v1.html">
+    <span class="tag intel">gateway</span>
+    <h3>Network Intelligence — 12 Gateways</h3>
+    <div class="desc">12 gateway contacts — VCs, accelerators, אקוסיסטם. Rafi Chen, Eyal Lifschitz, Roy Heldshtein</div>
+    <div class="date">18.02.2026 | v1</div>
+  </a>
+</div>
+
+<!-- ═══════════ SALES ═══════════ -->
+<h2 class="section-title">מכירות ולקוחות</h2>
+<div class="grid">
+  <a class="card" href="proof-pack-v1.html">
+    <span class="tag client">מכירות</span>
+    <h3>Primak Proof Pack</h3>
+    <div class="desc">תיק הוכחות — CathWorks $585M, FDA, track record מוכח. Flex by audience</div>
+    <div class="date">18.02.2026 | v1</div>
+  </a>
+</div>
+
+<!-- ═══════════ SYSTEM & OPERATIONS ═══════════ -->
+<h2 class="section-title">מערכת ותפעול</h2>
+<div class="grid">
+  <a class="card" href="skills-audit/2026-02-21_skills-audit.md">
+    <span class="status active">AUTO</span><span class="tag system">system</span>
+    <h3>Skills Audit — אוטומטי</h3>
+    <div class="desc">8/8 checks PASS. רץ כל שבת 08:00 באופן אוטונומי. CLI + Drive + LeCun + PPL</div>
+    <div class="date">21.02.2026 | v1.1</div>
+  </a>
+</div>
+
+<!-- ═══════════ ARCHIVE ═══════════ -->
+<h2 class="section-title">ארכיון — פרויקטים סגורים</h2>
+<div class="grid">
+  <a class="card" href="projects/momentick.html" style="opacity:0.55;">
+    <span class="status closed">EXIT</span>
+    <h3>Momentick</h3>
+    <div class="desc">₪3,744 שולם. EXIT complete.</div>
+    <div class="date">21.02.2026</div>
+  </a>
+  <a class="card" href="_archive/adventure-ai.html" style="opacity:0.55;">
+    <span class="status closed">EXIT</span>
+    <h3>Adventure AI</h3>
+    <div class="desc">EXIT 18.02. דרור → עומרי.</div>
+    <div class="date">18.02.2026</div>
+  </a>
+  <a class="card" href="_archive/bigy.html" style="opacity:0.55;">
+    <span class="status closed">EXIT</span>
+    <h3>BIGI / RGE</h3>
+    <div class="desc">EXIT complete. עומרי ממשיך סושיאל.</div>
+    <div class="date">18.02.2026</div>
+  </a>
+  <a class="card" href="_archive/bow.html" style="opacity:0.55;">
+    <span class="status closed">CLOSED</span>
+    <h3>BoW — Billions of Words</h3>
+    <div class="desc">סגור 16.02. עומרי פלג = gateway contact.</div>
+    <div class="date">16.02.2026</div>
+  </a>
+</div>
+
+<div class="footer">
+  PRIMO Intelligence Hub v8 | עדכון אחרון: 23.02.2026 | Fractional CPO for high-stakes AI
+</div>
+
 </body>
 </html>

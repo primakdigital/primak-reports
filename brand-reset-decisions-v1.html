@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Reset — Decisions Locked — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #37352f; padding: 40px 32px; max-width: 860px; margin: 0 auto; line-height: 1.7; }
+  .header { margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #e9e9e7; }
+  .header h1 { font-size: 28px; font-weight: 700; }
+  .header .meta { color: #9b9a97; font-size: 13px; display: flex; gap: 12px; margin-top: 4px; flex-wrap: wrap; }
+  .header .meta span { background: #f1f1ef; padding: 2px 8px; border-radius: 3px; }
+
+  .status-bar { display: flex; gap: 0; margin-bottom: 24px; border-radius: 4px; overflow: hidden; height: 8px; }
+  .status-bar .done { background: #0f7b6c; }
+  .status-bar .deferred { background: #d9730d; }
+
+  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
+  .summary-card { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 4px; padding: 14px; text-align: center; }
+  .summary-card .num { font-size: 24px; font-weight: 700; color: #0f7b6c; }
+  .summary-card .num.orange { color: #d9730d; }
+  .summary-card .desc { font-size: 11px; color: #9b9a97; }
+
+  h2 { font-size: 18px; font-weight: 700; margin: 28px 0 12px; padding-bottom: 4px; border-bottom: 1px solid #e9e9e7; }
+
+  .decision { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; }
+  .decision .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .decision .num { font-size: 12px; font-weight: 700; color: #9b9a97; }
+  .decision .tag { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
+  .tag-locked { background: #dbeddb; color: #0f7b6c; }
+  .tag-deferred { background: #fadec9; color: #d9730d; }
+  .decision .title { font-size: 15px; font-weight: 700; color: #37352f; margin-bottom: 6px; }
+  .decision .value { font-size: 14px; color: #37352f; padding: 10px 14px; background: #f7f6f3; border-radius: 4px; border-right: 3px solid #0f7b6c; margin-bottom: 8px; }
+  .decision .value.deferred { border-right-color: #d9730d; background: #fef6ee; }
+  .decision .context { font-size: 12px; color: #6b6b6b; }
+
+  .oneliner-hero { background: #f7f6f3; border: 2px solid #e9e9e7; border-radius: 8px; padding: 28px; text-align: center; margin-bottom: 28px; }
+  .oneliner-hero .label { font-size: 11px; color: #9b9a97; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .oneliner-hero .text { font-size: 20px; font-weight: 700; color: #37352f; }
+  .oneliner-hero .sub { font-size: 14px; color: #6b6b6b; margin-top: 12px; }
+
+  .proof-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 12px 0; }
+  .proof-item { background: #f7f6f3; border-radius: 4px; padding: 10px; text-align: center; }
+  .proof-item .audience { font-size: 10px; font-weight: 700; color: #9b9a97; }
+  .proof-item .name { font-size: 12px; font-weight: 600; color: #37352f; margin-top: 2px; }
+
+  .gate { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f1f1ef; }
+  .gate:last-child { border: none; }
+  .gate .gnum { width: 24px; height: 24px; background: #0f7b6c; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .gate .gtitle { font-size: 13px; font-weight: 600; }
+  .gate .grule { font-size: 12px; color: #6b6b6b; }
+
+  .footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid #e9e9e7; font-size: 12px; color: #9b9a97; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Brand Reset — Decisions Locked</h1>
+  <div class="meta">
+    <span>v1</span>
+    <span>19.02.2026</span>
+    <span>6/7 locked</span>
+    <span>1 deferred</span>
+    <span>Reference Document</span>
+  </div>
+</div>
+
+<div class="status-bar">
+  <div class="done" style="flex:6;"></div>
+  <div class="deferred" style="flex:1;"></div>
+</div>
+
+<div class="summary">
+  <div class="summary-card">
+    <div class="num">6</div>
+    <div class="desc">DECISIONS LOCKED</div>
+  </div>
+  <div class="summary-card">
+    <div class="num orange">1</div>
+    <div class="desc">DEFERRED (Services)</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">19.02</div>
+    <div class="desc">DECISION DATE</div>
+  </div>
+</div>
+
+<!-- HERO ONE-LINER -->
+<div class="oneliner-hero">
+  <div class="label">THE ONE-LINER</div>
+  <div class="text" dir="ltr">Fractional CPO for high-stakes AI.<br>We ship the products humans need to trust.</div>
+  <div class="sub">14 words. Tested against 9 buyers. 9/9 fit. Chill.</div>
+</div>
+
+<!-- DECISION 1 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#1 — ONE-LINER</div>
+    <span class="tag tag-locked">LOCKED</span>
+  </div>
+  <div class="value" dir="ltr" style="text-align:left;">Fractional CPO for high-stakes AI. We ship the products humans need to trust.</div>
+  <div class="context">
+    Buyer simulation: 9 targets tested. "MedTech & Cyber" too narrow (4/9). "High-stakes AI" captures 9/9.<br>
+    $585M not in one-liner — comes naturally in conversation. "We" = company, not freelancer.
+  </div>
+</div>
+
+<!-- DECISION 2 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#2 — TITLE & ROLE</div>
+    <span class="tag tag-locked">LOCKED</span>
+  </div>
+  <div class="value" dir="ltr" style="text-align:left;">Fractional CPO, Primak</div>
+  <div class="context">
+    Ultra minimal. No "Founder" — no ego. "Fractional CPO" = whitespace in Israel (near-zero results).<br>
+    Used in: LinkedIn headline, email signature, meeting intros, proposals.
+  </div>
+</div>
+
+<!-- DECISION 3 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#3 — SERVICES / PACKAGES</div>
+    <span class="tag tag-deferred">DEFERRED</span>
+  </div>
+  <div class="value deferred">דורש דיון נפרד. הכיוון: 3 מוצרים (Sprint / Retainer / Review), לא שעות. תמחור ב-$.</div>
+  <div class="context">
+    Research ready: S1 Sprint $22K, S2 Fractional CPO $13K/mo, S3 AI Trust Review $15K.<br>
+    Floor: ₪450/hr (IL), $275/hr (Global). Retainer 60-70% target mix.
+  </div>
+</div>
+
+<!-- DECISION 4 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#4 — PROOF CASES</div>
+    <span class="tag tag-locked">LOCKED</span>
+  </div>
+  <div class="value">Flex by audience — no fixed trio. PRIMO preps the right proof case per target.</div>
+  <div class="context">
+    <div class="proof-grid">
+      <div class="proof-item">
+        <div class="audience">MEDTECH</div>
+        <div class="name">CathWorks</div>
+      </div>
+      <div class="proof-item">
+        <div class="audience">CYBER</div>
+        <div class="name">Orchestra</div>
+      </div>
+      <div class="proof-item">
+        <div class="audience">SCALE</div>
+        <div class="name">Haaretz</div>
+      </div>
+      <div class="proof-item">
+        <div class="audience">CPO PROOF</div>
+        <div class="name">Queue</div>
+      </div>
+      <div class="proof-item">
+        <div class="audience">STARTUP</div>
+        <div class="name">Selina</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DECISION 5 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#5 — TARGET VERTICALS</div>
+    <span class="tag tag-locked">LOCKED</span>
+  </div>
+  <div class="value">"High-stakes AI" IS the vertical. No list.</div>
+  <div class="context">
+    Qualification test: "If your AI fails, does someone get hurt or does a deal die?" Yes = Primak's people.<br>
+    Self-qualifying. Captures MedTech, Cyber, Defense, Enterprise AI — without listing them.
+  </div>
+</div>
+
+<!-- DECISION 6 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#6 — VOICE & LANGUAGE</div>
+    <span class="tag tag-locked">LOCKED</span>
+  </div>
+  <div class="value">English-first. Chill authority. Numbers > adjectives. Never first person in pitches.</div>
+  <div class="context">
+    LinkedIn profile + posts: English. Israeli DMs: Hebrew. Proposals: match client language.<br>
+    Website: English (Hebrew toggle). No "Passionate about..." No buzzwords without receipts.
+  </div>
+</div>
+
+<!-- DECISION 7 -->
+<div class="decision">
+  <div class="top">
+    <div class="num">#7 — DEAL GATES</div>
+    <span class="tag tag-locked">LOCKED</span>
+  </div>
+  <div class="value">5 mandatory gates. No exceptions. From analysis of 5 dead deals.</div>
+  <div style="padding: 8px 0;">
+    <div class="gate">
+      <div class="gnum">G1</div>
+      <div><span class="gtitle">Budget Check</span> — <span class="grule">מה התקציב? אין תשובה = לא ממשיכים</span></div>
+    </div>
+    <div class="gate">
+      <div class="gnum">G2</div>
+      <div><span class="gtitle">Decision Maker ID</span> — <span class="grule">מי חותם? לא יועצים, לא פקידים</span></div>
+    </div>
+    <div class="gate">
+      <div class="gnum">G3</div>
+      <div><span class="gtitle">Scope Lock</span> — <span class="grule">נעול לפני תמחור. שינוי = שינוי מחיר. בכתב</span></div>
+    </div>
+    <div class="gate">
+      <div class="gnum">G4</div>
+      <div><span class="gtitle">Floor Price</span> — <span class="grule">₪450/hr (IL) | $275/hr (Global) — אין חריגים</span></div>
+    </div>
+    <div class="gate">
+      <div class="gnum">G5</div>
+      <div><span class="gtitle">Exit Trigger</span> — <span class="grule">6 חודשים בלי data = exit. לא 9, לא 12. שישה.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div>Brand Reset Decisions v1 — PRIMO for Primak Digital</div>
+  <div>19.02.2026 | Reference: _REPORTS/brand-reset-decisions-v1.html</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeCun Execution Report — v1 — 18.02.2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #0a0a0f;
+    color: #dde1ea;
+    line-height: 1.55;
+    padding: 28px 20px 40px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ── TOP HEADER ── */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e9456033;
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .top-bar .title { font-size: 18px; font-weight: 700; color: #fff; }
+  .top-bar .meta { font-size: 12px; color: #666; text-align: left; }
+  .version-badge {
+    display: inline-block;
+    background: #e94560;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    margin-right: 8px;
+  }
+
+  /* ── HERO SCORE ── */
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: center;
+    background: #100a0d;
+    border: 1px solid #e9456055;
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .hero-score { text-align: center; }
+  .score-number {
+    font-size: 88px;
+    font-weight: 900;
+    color: #e94560;
+    line-height: 1;
+    letter-spacing: -4px;
+  }
+  .score-denom { font-size: 22px; color: #8b1a2e; font-weight: 700; }
+  .emergency-label {
+    display: inline-block;
+    background: #e94560;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .hero-text { direction: rtl; }
+  .hero-text h2 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+  .hero-text p { font-size: 14px; color: #bbb; margin-bottom: 6px; }
+  .hero-text .gap-stat {
+    font-size: 22px;
+    font-weight: 800;
+    color: #e94560;
+    margin: 10px 0 4px;
+  }
+  .hero-text .gap-label { font-size: 12px; color: #888; }
+
+  /* ── TWO-COL LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  /* ── SECTION CARD ── */
+  .card {
+    background: #0f0f18;
+    border: 1px solid #1e1e2e;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .card.red-border  { border-right: 3px solid #e94560; }
+  .card.yellow-border { border-right: 3px solid #f5a623; }
+  .card.green-border  { border-right: 3px solid #27c05a; }
+  .card.blue-border   { border-right: 3px solid #4d8ef0; }
+  .card.full { grid-column: 1 / -1; }
+
+  .card-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  /* ── METRICS ── */
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #1a1a28;
+    font-size: 13px;
+  }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-val { font-weight: 700; }
+  .c-red    { color: #e94560; }
+  .c-yellow { color: #f5a623; }
+  .c-green  { color: #27c05a; }
+  .c-blue   { color: #4d8ef0; }
+  .c-gray   { color: #666; }
+  .c-white  { color: #fff; }
+
+  /* ── BLIND SPOTS ── */
+  .blind-list { list-style: none; }
+  .blind-list li {
+    padding: 7px 0;
+    border-bottom: 1px solid #1a1a28;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .blind-list li:last-child { border-bottom: none; }
+  .blind-num {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    background: #e94560;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  /* ── PRIORITY STACK ── */
+  .priority-list { list-style: none; }
+  .priority-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #1a1a28;
+    font-size: 13px;
+  }
+  .priority-list li:last-child { border-bottom: none; }
+  .p-badge {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 28px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .p-today   { background: #e94560; }
+  .p-urgent  { background: #c0392b; }
+  .p-this-wk { background: #8b4513; }
+  .p-soon    { background: #2c3e50; }
+  .p-text { flex: 1; }
+  .p-date { font-size: 11px; color: #555; margin-top: 2px; }
+  .p-name-en { font-style: italic; color: #aaa; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin-top: 8px;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .tl-item {
+    flex: 1;
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 11px;
+    border-left: 1px solid #0a0a0f;
+    position: relative;
+  }
+  .tl-item:last-child { border-left: none; }
+  .tl-item .tl-date { font-weight: 800; font-size: 12px; margin-bottom: 3px; }
+  .tl-item .tl-desc { color: #aaa; font-size: 10px; line-height: 1.4; }
+  .tl-today  { background: #1a0810; }
+  .tl-20     { background: #12120a; }
+  .tl-21     { background: #0f1208; }
+  .tl-23     { background: #0a1010; }
+  .tl-28     { background: #0a0f10; }
+  .tl-march  { background: #0d0a14; }
+
+  /* ── REPORT SCORES ── */
+  .report-score-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #1a1a28;
+    font-size: 13px;
+  }
+  .report-score-row:last-child { border-bottom: none; }
+  .rs-name { flex: 1; }
+  .rs-score-num { width: 36px; text-align: right; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+  .rs-bar-wrap {
+    width: 100px;
+    height: 8px;
+    background: #1a1a28;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .rs-bar { height: 100%; border-radius: 4px; }
+  .rs-bar.s9  { width: 90%; background: #27c05a; }
+  .rs-bar.s8  { width: 80%; background: #27c05a; }
+  .rs-bar.s7  { width: 70%; background: #f5a623; }
+  .rs-bar.s6  { width: 60%; background: #f5a623; }
+  .rs-bar.s5  { width: 50%; background: #e94560; }
+
+  /* ── PREDICTION BOX ── */
+  .pred-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .pred-box {
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .pred-box.good {
+    background: #071410;
+    border: 1px solid #27c05a44;
+  }
+  .pred-box.bad {
+    background: #10070a;
+    border: 1px solid #e9456044;
+  }
+  .pred-box .pred-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .pred-box.good .pred-label { color: #27c05a; }
+  .pred-box.bad .pred-label  { color: #e94560; }
+  .pred-item {
+    padding: 3px 0;
+    border-bottom: 1px solid #ffffff08;
+  }
+  .pred-item:last-child { border-bottom: none; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: #0d0508;
+    border: 1px solid #e94560;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .callout .call-label {
+    font-size: 10px;
+    color: #e94560;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .callout p { font-size: 15px; color: #fff; font-weight: 600; line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  .footer-cta {
+    background: #e94560;
+    color: #fff;
+    border-radius: 10px;
+    padding: 18px 24px;
+    text-align: center;
+    margin-top: 18px;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+  .footer-meta {
+    text-align: center;
+    font-size: 11px;
+    color: #444;
+    margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="title">
+    <span class="version-badge">v1</span>
+    LeCun Execution Report
+  </div>
+  <div class="meta">
+    18.02.2026 | PRIMAK<br>
+    סינתזה של 8 דוחות מודיעין
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-score">
+    <div class="score-number">28<span class="score-denom">/100</span></div>
+    <div class="emergency-label">EMERGENCY</div>
+  </div>
+  <div class="hero-text">
+    <h2>פער הביצוע: ₪3.5-6.5M מול 0 הודעות</h2>
+    <p>8 דוחות. ₪3.5M+ פוטנציאל ממופה. Scout לא התחיל.</p>
+    <p>הבעיה אינה אסטרטגיה — הבעיה היא שיתוק ביצוע.</p>
+    <div class="gap-stat">₪15-30K</div>
+    <div class="gap-label">עלות הזדמנות לכל יום של דיחוי</div>
+  </div>
+</div>
+
+<!-- ROW 1: CURRENT STATE + PREDICTIONS -->
+<div class="two-col">
+
+  <div class="card red-border">
+    <div class="card-title">מצב נוכחי — עכשיו</div>
+    <div class="metric-row">
+      <span>לקוחות פעילים</span>
+      <span class="metric-val c-red">1 (Open University)</span>
+    </div>
+    <div class="metric-row">
+      <span>הכנסה חוזרת חודשית</span>
+      <span class="metric-val c-red">~₪0</span>
+    </div>
+    <div class="metric-row">
+      <span>גבייה ממתינה</span>
+      <span class="metric-val c-yellow">₪5,244</span>
+    </div>
+    <div class="metric-row">
+      <span>Scout — הודעות שנשלחו</span>
+      <span class="metric-val c-red">0 מתוך 9</span>
+    </div>
+    <div class="metric-row">
+      <span>Pipeline מלא ממופה</span>
+      <span class="metric-val c-blue">₪3.5-6.5M</span>
+    </div>
+    <div class="metric-row">
+      <span>Guy Lavi מופעל?</span>
+      <span class="metric-val c-red">לא</span>
+    </div>
+    <div class="metric-row">
+      <span>Dritan Xhemalce מופעל?</span>
+      <span class="metric-val c-red">לא</span>
+    </div>
+    <div class="metric-row">
+      <span>Didi Fabian — שיחה?</span>
+      <span class="metric-val c-red">לא</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">תחזית LeCun</div>
+    <div class="pred-grid">
+      <div class="pred-box good">
+        <div class="pred-label">אם Scout מתחיל השבוע</div>
+        <div class="pred-item">שבוע 1: 3 הודעות</div>
+        <div class="pred-item">שיעור תגובה: 30-40%</div>
+        <div class="pred-item">Pipeline פעיל: 2-3 שבועות</div>
+        <div class="pred-item">עסקה ראשונה: 4-6 שב'</div>
+        <div class="pred-item c-green" style="font-weight:700; margin-top:4px;">₪50-150K</div>
+      </div>
+      <div class="pred-box bad">
+        <div class="pred-label">אם לא משתנה כלום</div>
+        <div class="pred-item">מרץ = הכנסה אפס</div>
+        <div class="pred-item">אפריל = מצב הישרדות</div>
+        <div class="pred-item">אנשי קשר מתקררים</div>
+        <div class="pred-item">סבבי מימון נסגרים</div>
+        <div class="pred-item c-red" style="font-weight:700; margin-top:4px;">Pipeline פג תוקף</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ROW 2: BLIND SPOTS + PRIORITY STACK -->
+<div class="two-col">
+
+  <div class="card red-border">
+    <div class="card-title">5 נקודות עיוורון — מכל הדוחות</div>
+    <ul class="blind-list">
+      <li>
+        <span class="blind-num">1</span>
+        <span><strong class="c-red">Guy Lavi</strong> (CathWorks/Medtronic) — הקונטקט הגלובלי הכי חשוב. מופה ב-3 דוחות. אפס פעולה.</span>
+      </li>
+      <li>
+        <span class="blind-num">2</span>
+        <span><strong class="c-red">Dritan Xhemalce</strong> (Poctoc) — 16 הודעות משותפות, הכי חם מבחינת engagement. מתעלמים לחלוטין.</span>
+      </li>
+      <li>
+        <span class="blind-num">3</span>
+        <span><strong class="c-red">שיחה עם Didi Fabian</strong> — intro לAngel Rabinovich (ARC, 120+ סטארטאפים). מופה ב-4 דוחות כקריטי. לא בוצע.</span>
+      </li>
+      <li>
+        <span class="blind-num">4</span>
+        <span><strong class="c-yellow">IcanDo</strong> — ה-ONLY near-term revenue. סיכום תיקון חוזה חייב להיות מוכן עד 20.02. לא הוכן.</span>
+      </li>
+      <li>
+        <span class="blind-num">5</span>
+        <span><strong class="c-yellow">Profile Interview T032</strong> — 5 שאלות לא ענו עליהן, חוסמות את Scout Proof Pack.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card yellow-border">
+    <div class="card-title">סדר עדיפויות ביצוע — ממוספר, לא אופציונלי</div>
+    <ul class="priority-list">
+      <li>
+        <span class="p-badge p-today">1</span>
+        <div class="p-text">
+          <div>התקשר לDidi Fabian ← intro לAngel Rabinovich</div>
+          <div class="p-date c-red">היום, 18.02</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-today">2</span>
+        <div class="p-text">
+          <div>שלח הודעה ראשונה ל<span class="p-name-en">Ron Peled</span> (Sola, Tier 1 הכי חם)</div>
+          <div class="p-date c-red">היום, 18.02</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-urgent">3</span>
+        <div class="p-text">
+          <div>הכן סיכום תיקון חוזה IcanDo (הכסף הכי קרוב)</div>
+          <div class="p-date c-yellow">עד 20.02</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-urgent">4</span>
+        <div class="p-text">
+          <div>אמת קבלת תשלום Momentick (₪3,744)</div>
+          <div class="p-date c-yellow">עד 21.02</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-urgent">5</span>
+        <div class="p-text">
+          <div>שלח עוד 2 הודעות Scout — <span class="p-name-en">Adiel</span> + <span class="p-name-en">Gal Yanuka</span></div>
+          <div class="p-date c-yellow">עד 23.02</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-urgent">6</span>
+        <div class="p-text">
+          <div>חתימה IcanDo או הסלמה</div>
+          <div class="p-date c-yellow">עד 28.02</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-this-wk">7</span>
+        <div class="p-text">
+          <div>שלח הודעה ל<span class="p-name-en">Dritan Xhemalce</span> — 16 הודעות משותפות</div>
+          <div class="p-date">השבוע</div>
+        </div>
+      </li>
+      <li>
+        <span class="p-badge p-this-wk">8</span>
+        <div class="p-text">
+          <div>הפעל שיחה עם <span class="p-name-en">Guy Lavi</span> (שוק גלובלי $275/hr)</div>
+          <div class="p-date">השבוע</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- TIMELINE -->
+<div class="card full" style="margin-bottom:14px;">
+  <div class="card-title">ציר זמן קריטי — 10 ימים הקרובים</div>
+  <div class="timeline">
+    <div class="tl-item tl-today">
+      <div class="tl-date c-red">18.02</div>
+      <div class="tl-desc">היום<br>Didi + Ron Peled</div>
+    </div>
+    <div class="tl-item tl-20">
+      <div class="tl-date c-yellow">20.02</div>
+      <div class="tl-desc">IcanDo<br>סיכום תיקון</div>
+    </div>
+    <div class="tl-item tl-21">
+      <div class="tl-date c-yellow">21.02</div>
+      <div class="tl-desc">Momentick<br>אמת תשלום</div>
+    </div>
+    <div class="tl-item tl-23">
+      <div class="tl-date c-yellow">23.02</div>
+      <div class="tl-desc">Scout x2<br>Adiel + Gal</div>
+    </div>
+    <div class="tl-item tl-28">
+      <div class="tl-date c-blue">28.02</div>
+      <div class="tl-desc">IcanDo<br>חתימה / הסלמה</div>
+    </div>
+    <div class="tl-item tl-march">
+      <div class="tl-date c-blue">מרץ 2026</div>
+      <div class="tl-desc">embARC Boston<br>ARC opportunity</div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT SCORES -->
+<div class="card full" style="margin-bottom:14px;">
+  <div class="card-title">ציון LeCun לכל דוח</div>
+  <div class="report-score-row">
+    <span class="rs-name">Strategic Synthesis v2</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s9"></div></div>
+    <span class="rs-score-num c-green">9/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">Network Intelligence v1</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s8"></div></div>
+    <span class="rs-score-num c-green">8/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">ARC Deep Dive v1</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s8"></div></div>
+    <span class="rs-score-num c-green">8/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">Market Intelligence v1</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s7"></div></div>
+    <span class="rs-score-num c-yellow">7/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">Strategic Analysis v1</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s7"></div></div>
+    <span class="rs-score-num c-yellow">7/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">LeCun Daily Score</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s7"></div></div>
+    <span class="rs-score-num c-yellow">7/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">Proof Pack v1</span>
+    <div class="rs-bar-wrap"><div class="rs-bar s6"></div></div>
+    <span class="rs-score-num c-yellow">6/10</span>
+  </div>
+  <div class="report-score-row">
+    <span class="rs-name">Adventure AI Brief <span style="color:#555; font-size:11px;">(עסקה מתה 18.02)</span></span>
+    <div class="rs-bar-wrap"><div class="rs-bar s5"></div></div>
+    <span class="rs-score-num c-red">5/10</span>
+  </div>
+</div>
+
+<!-- ONE DECISIVE REC -->
+<div class="callout">
+  <div class="call-label">המלצה אחת מכרעת — LeCun Layer</div>
+  <p>
+    הפסק לבנות דוחות. התחל לשלוח הודעות.<br>
+    CathWorks — $585M acquisition — זה מספיק proof.<br>
+    הודעה ראשונה לRon Peled (Sola, $65M) יוצאת <strong>היום</strong>.<br>
+    כל יום נוסף = ₪15-30K עלות הזדמנות.
+  </p>
+</div>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  הצעד הבא: תשלח הודעה לרון פלד. עכשיו.
+</div>
+
+<div class="footer-meta">
+  LeCun Execution Report | v1 | 18.02.2026 | PRIMAK Intelligence
+</div>
+
+</body>
+</html>

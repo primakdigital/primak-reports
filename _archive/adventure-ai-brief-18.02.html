@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventure AI — בריף לפגישה 18.02</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0c0c0c; color: #e0e0e0; padding: 24px; max-width: 720px; margin: 0 auto; }
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #2a2a2a; }
+  .top-bar h1 { font-size: 22px; color: #fff; }
+  .top-bar .meta { font-size: 12px; color: #666; text-align: left; }
+  .meeting-info { background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 12px; padding: 16px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .meeting-info .time { font-size: 32px; font-weight: 800; color: #4fc3f7; }
+  .meeting-info .details { font-size: 13px; color: #aaa; line-height: 1.6; text-align: left; }
+  .section { background: #111; border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .section h2 { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .nums { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .num-card { background: #1a1a1a; border-radius: 8px; padding: 10px; text-align: center; }
+  .num-card .big { font-size: 20px; font-weight: 800; color: #4fc3f7; }
+  .num-card .sub { font-size: 11px; color: #777; margin-top: 2px; }
+  .num-card .explain { font-size: 10px; color: #555; margin-top: 4px; line-height: 1.3; }
+  .highlight { background: #1a1a1a; border-radius: 8px; padding: 10px 12px; text-align: center; margin-top: 8px; }
+  .highlight .big { font-size: 18px; font-weight: 800; color: #ff6b6b; }
+  .highlight .sub { font-size: 11px; color: #777; }
+  .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .role { background: #1a1a1a; border-radius: 8px; padding: 12px; }
+  .role .name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .role .desc { font-size: 12px; color: #aaa; line-height: 1.5; }
+  .gates { list-style: none; }
+  .gates li { padding: 8px 0; border-bottom: 1px solid #1a1a1a; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .gates li:last-child { border-bottom: none; }
+  .gate-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+  .gate-now { background: #4fc3f7; color: #000; }
+  .gate-later { background: #333; color: #888; }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .rule { background: #1a1a1a; border-radius: 6px; padding: 8px 10px; font-size: 12px; color: #ccc; }
+  .rule strong { color: #ffaa00; }
+  .seg-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+  .seg-table th { text-align: right; padding: 6px 8px; color: #888; border-bottom: 1px solid #2a2a2a; font-weight: 600; font-size: 11px; }
+  .seg-table td { padding: 6px 8px; border-bottom: 1px solid #1a1a1a; }
+  .seg-table .seg-name { color: #4fc3f7; font-weight: 600; }
+  .timeline { list-style: none; position: relative; padding-right: 20px; }
+  .timeline::before { content: ''; position: absolute; right: 6px; top: 4px; bottom: 4px; width: 2px; background: #2a2a2a; }
+  .timeline li { padding: 8px 0; font-size: 12px; position: relative; }
+  .timeline li::before { content: ''; position: absolute; right: -20px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: #333; border: 2px solid #555; }
+  .timeline li.active::before { background: #4fc3f7; border-color: #4fc3f7; }
+  .timeline .month { color: #4fc3f7; font-weight: 700; display: inline-block; min-width: 32px; }
+  .timeline .target { color: #ffaa00; font-size: 11px; }
+  .invest-row { display: flex; gap: 6px; margin-top: 6px; }
+  .invest-card { flex: 1; background: #1a1a1a; border-radius: 8px; padding: 10px; text-align: center; }
+  .invest-card .amt { font-size: 18px; font-weight: 800; color: #4fc3f7; }
+  .invest-card .label { font-size: 11px; color: #888; margin-top: 2px; }
+  .invest-card .gate { font-size: 10px; color: #ffaa00; margin-top: 4px; }
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .do-box { background: #0a1a0a; border: 1px solid #2a4a2a; border-radius: 8px; padding: 10px; }
+  .dont-box { background: #1a0a0a; border: 1px solid #4a2a2a; border-radius: 8px; padding: 10px; }
+  .do-box h3 { font-size: 12px; color: #44ff88; margin-bottom: 6px; }
+  .dont-box h3 { font-size: 12px; color: #ff4444; margin-bottom: 6px; }
+  .do-box ul, .dont-box ul { list-style: none; font-size: 12px; line-height: 1.8; color: #ccc; }
+  .opener { background: linear-gradient(135deg, #1a1a2e, #1a2a1a); border-radius: 10px; padding: 14px 16px; margin-top: 10px; font-size: 14px; color: #fff; line-height: 1.6; text-align: center; font-style: italic; border: 1px solid #333; }
+  .moats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+  .moat { background: #1a1a1a; border-radius: 6px; padding: 8px 10px; font-size: 12px; }
+  .moat strong { color: #44ff88; }
+  .footer { text-align: center; font-size: 10px; color: #444; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Adventure AI — בריף פגישה</h1>
+  <div class="meta">18.02.2026 | v2<br>Confidential</div>
+</div>
+
+<div class="meeting-info">
+  <div class="time">14:00</div>
+  <div class="details">
+    <div><strong>Yaniv + Guy</strong> → <strong>Dror Krauss</strong></div>
+    <div>חזון שותפות | לא פיץ' מכירה</div>
+  </div>
+</div>
+
+<!-- NUMBERS WITH CONTEXT -->
+<div class="section">
+  <h2>השוק — למה עכשיו</h2>
+  <div class="nums">
+    <div class="num-card">
+      <div class="big">₪3.9B</div>
+      <div class="sub">TAM — שוק כולל</div>
+      <div class="explain">ילדים ₪3.0B + תאגידי ₪810M + מוניציפאלי ₪102M</div>
+    </div>
+    <div class="num-card">
+      <div class="big">₪780M</div>
+      <div class="sub">SAM — נגיש</div>
+      <div class="explain">20% מה-TAM — קטגוריה מתפתחת</div>
+    </div>
+    <div class="num-card">
+      <div class="big">₪12M</div>
+      <div class="sub">SOM שנה 3</div>
+      <div class="explain">1.54% נתח שוק = מוביל קטגוריה</div>
+    </div>
+  </div>
+  <div class="nums" style="margin-top: 8px;">
+    <div class="num-card">
+      <div class="big">₪5.3B</div>
+      <div class="sub">ממשלה → AI</div>
+      <div class="explain">תוכנית לאומית רב-שנתית</div>
+    </div>
+    <div class="num-card">
+      <div class="big">1.5M</div>
+      <div class="sub">משקי בית RGE</div>
+      <div class="explain">הפצה מובנית + BIGI streaming</div>
+    </div>
+    <div class="num-card">
+      <div class="big">30%+</div>
+      <div class="sub">CAGR</div>
+      <div class="explain">AI-in-Ed: $7B → $112B עד 2034</div>
+    </div>
+  </div>
+  <div class="highlight">
+    <div class="big">אפס מתחרים בחינוך AI חוויתי</div>
+    <div class="sub">14 שחקנים נבדקו (Let's AI, John Bryce ועוד) — כולם מסך בלבד. אף אחד לא חוויתי.</div>
+  </div>
+</div>
+
+<!-- MOATS -->
+<div class="section">
+  <h2>חפירי ההגנה של RGE — למה רק הם</h2>
+  <div class="moats">
+    <div class="moat"><strong>הפצה</strong> — 1.5M בתים + BIGI = קהל מובנה שאף סטארטאפ לא ישיג</div>
+    <div class="moat"><strong>DNA תוכן</strong> — 30 שנה של תוכן עברי = אמון תרבותי</div>
+    <div class="moat"><strong>מכונת תוכן</strong> — פרויקטים של תלמידים הופכים ל-IP במרג'ין אפס</div>
+    <div class="moat"><strong>מנעול עברית</strong> — 18 חודשים עד שמתחרה גלובלי ילוקליז</div>
+  </div>
+</div>
+
+<!-- SEGMENTS -->
+<div class="section">
+  <h2>3 סגמנטים — Beachhead Strategy</h2>
+  <table class="seg-table">
+    <tr><th>סגמנט</th><th>תזמון</th><th>מחיר</th><th>הכנסה Y3</th><th>LTV:CAC</th></tr>
+    <tr><td class="seg-name">B2B Tech (ראשון)</td><td>חודש 1-6</td><td>₪2,400/עובד/שנה</td><td>₪3.6M</td><td>6.9:1</td></tr>
+    <tr><td class="seg-name">מוניציפאלי</td><td>חודש 7-12</td><td>₪800/תלמיד/שנה</td><td>₪4.8M</td><td>5.2:1</td></tr>
+    <tr><td class="seg-name">B2C משפחות</td><td>חודש 9-18</td><td>₪149/חודש</td><td>₪3.6M</td><td>4.1:1</td></tr>
+  </table>
+</div>
+
+<!-- WORK PLAN TIMELINE -->
+<div class="section">
+  <h2>תוכנית עבודה — 18 חודשים</h2>
+  <ul class="timeline">
+    <li class="active"><span class="month">M1</span> Head of Adventure AI מתחיל, רישום מותג</li>
+    <li><span class="month">M4</span> פיילוט B2B ראשון (חברת RGE Ventures) <span class="target">₪50K מצטבר</span></li>
+    <li><span class="month">M6</span> <strong>GATE 1</strong> — 4/6 גיוסים, 3+ פיילוטים, NPS&gt;50, תוכנית B2C מוכנה <span class="target">₪200K</span></li>
+    <li><span class="month">M7</span> קבוצת B2C ראשונה (20 ילדים)</li>
+    <li><span class="month">M8</span> חוזה מוניציפאלי ראשון <span class="target">₪400K</span></li>
+    <li><span class="month">M12</span> <strong>GATE 2</strong> — הכנסות ₪1M+, 5+ case studies, 15 לקוחות B2B <span class="target">₪1.5M</span></li>
+    <li><span class="month">M22</span> EBITDA breakeven <span class="target">₪850K/חודש</span></li>
+  </ul>
+</div>
+
+<!-- INVESTMENT -->
+<div class="section">
+  <h2>השקעה — ₪3.5M ב-3 שלבים עם שערים</h2>
+  <div class="invest-row">
+    <div class="invest-card">
+      <div class="amt">₪2.0M</div>
+      <div class="label">Build — M1-6</div>
+      <div class="gate">צוות + תוכניות + פיילוטים</div>
+    </div>
+    <div class="invest-card">
+      <div class="amt">₪1.0M</div>
+      <div class="label">Launch — M7-12</div>
+      <div class="gate">Gate: 4/6 hires, 3+ pilots, NPS&gt;50</div>
+    </div>
+    <div class="invest-card">
+      <div class="amt">₪0.5M</div>
+      <div class="label">Scale — M13-18</div>
+      <div class="gate">Gate: ₪1M revenue, 3+ case studies</div>
+    </div>
+  </div>
+</div>
+
+<!-- FINANCIALS -->
+<div class="section">
+  <h2>פיננסים — מסלול הכנסות</h2>
+  <div class="nums">
+    <div class="num-card">
+      <div class="big">₪1.5M</div>
+      <div class="sub">שנה 1</div>
+      <div class="explain">GM 48%</div>
+    </div>
+    <div class="num-card">
+      <div class="big">₪5.2M</div>
+      <div class="sub">שנה 2</div>
+      <div class="explain">EBITDA breakeven M22</div>
+    </div>
+    <div class="num-card">
+      <div class="big">₪12M</div>
+      <div class="sub">שנה 3</div>
+      <div class="explain">GM 64% | EBITDA 21%</div>
+    </div>
+  </div>
+  <div class="highlight" style="margin-top: 8px;">
+    <div class="big">Exit: ₪48-72M</div>
+    <div class="sub">4-6x revenue שנה 3 | או rev-share 20-30% שוטף</div>
+  </div>
+</div>
+
+<!-- ROLES -->
+<div class="section">
+  <h2>חלוקת תפקידים בפגישה</h2>
+  <div class="roles">
+    <div class="role"><div class="name">יניב</div><div class="desc">חזון, מספרים, מבנה שותפות, UX/Product, אסטרטגיה</div></div>
+    <div class="role"><div class="name">גיא</div><div class="desc">תוכן, חוויית המשתתפים, עומק חינוכי, מה הילדים חווים</div></div>
+  </div>
+</div>
+
+<!-- GATES FOR MEETING -->
+<div class="section">
+  <h2>מה רוצים מהפגישה</h2>
+  <ul class="gates">
+    <li><span class="gate-num gate-now">1</span><strong>היום:</strong>&nbsp; דרור מקבל את הכיוון, מתלהב, מבקש את ה-Strategic Paper</li>
+    <li><span class="gate-num gate-later">2</span>24.02–09.03: שולחים Paper מלא (78 עמודים), פיץ' מובנה</li>
+    <li><span class="gate-num gate-later">3</span>10.03–31.03: מבנה שותפות — Equity 2-5% + Rev-share 10-15%</li>
+  </ul>
+</div>
+
+<!-- DROR RULES -->
+<div class="section">
+  <h2>כללי דרור</h2>
+  <div class="rules-grid">
+    <div class="rule"><strong>Data-first</strong> — מספרים לפני חלומות</div>
+    <div class="rule"><strong>דחוס</strong> — 150 מילים לנקודה, ישיר</div>
+    <div class="rule"><strong>מנוף</strong> — "ידית", לא "עוד פרויקט"</div>
+    <div class="rule"><strong>Option-to-scale</strong> — רדיוס פגיעה קטן, הפיך</div>
+    <div class="rule"><strong>אפס הפתעות</strong> — Gates = ביטחון פוליטי</div>
+    <div class="rule"><strong>Tinkerer</strong> — פרוטוטייפ > מצגת</div>
+  </div>
+</div>
+
+<!-- DO / DON'T -->
+<div class="section">
+  <h2>כן / לא</h2>
+  <div class="do-dont">
+    <div class="do-box">
+      <h3>כן</h3>
+      <ul>
+        <li>חזון שותפות — שני צדדים מרוויחים</li>
+        <li>מספרים מהמסמך האסטרטגי</li>
+        <li>צוות שלם — Product + Content</li>
+        <li>הוא לא צריך לנהל כלום</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h3>לא</h3>
+      <ul>
+        <li>לא להזכיר BIGY — שיחה נפרדת</li>
+        <li>לא לסגור עסקה היום</li>
+        <li>לא להתנצל או להקטין</li>
+        <li>לא להפתיע — Gate approach</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="opener">
+  "דרור, אני רוצה לשתף אותך בהזדמנות.<br>שוק של ₪3.9 מיליארד, אפס מתחרים, ו-RGE יושב בדיוק במקום הנכון."
+</div>
+
+<div class="footer">PRIMO | Primak Digital | Adventure AI Meeting Brief | 18.02.2026</div>
+
+</body>
+</html>

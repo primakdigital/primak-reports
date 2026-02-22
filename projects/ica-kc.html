@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICA Knowledge Center — Primak Project Dashboard — v1</title>
+<link rel="stylesheet" href="project-style.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; background: #ffffff; color: #37352f; max-width: 860px; margin: 0 auto; padding: 0 24px 60px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+.breadcrumb { padding: 14px 0 0; font-size: 13px; color: #9b9a97; }
+.breadcrumb a { color: #9b9a97; text-decoration: none; }
+.breadcrumb a:hover { color: #37352f; }
+.breadcrumb span { margin: 0 6px; }
+.page-header { padding: 20px 0 16px; border-bottom: 1px solid #e9e9e7; margin-bottom: 28px; }
+.page-header h1 { font-size: 32px; font-weight: 700; color: #37352f; margin-bottom: 6px; letter-spacing: -0.5px; }
+.header-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; font-size: 13px; color: #9b9a97; }
+.badge { display: inline-flex; align-items: center; font-size: 12px; padding: 2px 8px; border-radius: 3px; font-weight: 500; white-space: nowrap; }
+.badge.active { background: #dbeddb; color: #1e6b3a; }
+.badge.paused { background: #fdecc8; color: #9a6700; }
+.badge.risk { background: #fbe4e4; color: #c4314b; }
+.badge.closed { background: #e3e2e0; color: #787774; }
+.badge.waiting { background: #d3e5ef; color: #2e6e9e; }
+.health-bar { height: 4px; border-radius: 2px; background: #e9e9e7; margin-top: 12px; overflow: hidden; }
+.health-bar .fill { height: 100%; border-radius: 2px; }
+.fill.green { background: #4daa57; }
+.fill.yellow { background: #cb912f; }
+.fill.red { background: #e03e3e; }
+.version-tag { font-size: 11px; color: #9b9a97; border: 1px solid #e9e9e7; padding: 1px 6px; border-radius: 3px; }
+.one-thing { background: #fff8f0; border: 1px solid #fdecc8; border-radius: 6px; padding: 16px 20px; margin-bottom: 28px; }
+.one-thing-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #cb912f; margin-bottom: 6px; }
+.one-thing-text { font-size: 15px; font-weight: 600; color: #37352f; margin-bottom: 6px; }
+.one-thing-meta { font-size: 12px; color: #9b9a97; }
+h2 { font-size: 16px; font-weight: 600; color: #37352f; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #e9e9e7; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.kpi-card { background: #f7f6f3; border-radius: 6px; padding: 14px 16px; }
+.kpi-label { font-size: 12px; color: #9b9a97; margin-bottom: 4px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: #37352f; }
+.kpi-value.green { color: #1e6b3a; }
+.kpi-value.red { color: #c4314b; }
+.kpi-value.yellow { color: #9a6700; }
+table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 13px; }
+thead th { text-align: right; padding: 8px 12px; font-weight: 500; color: #9b9a97; font-size: 12px; border-bottom: 1px solid #e9e9e7; background: #f7f6f3; }
+tbody td { padding: 10px 12px; border-bottom: 1px solid #f0f0ef; color: #37352f; }
+tbody tr:hover { background: #fafaf9; }
+.contacts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin: 8px 0 16px; }
+.contact-card { background: #f7f6f3; border-radius: 6px; padding: 12px 16px; }
+.contact-name { font-weight: 600; font-size: 14px; color: #37352f; margin-bottom: 2px; }
+.contact-role { font-size: 12px; color: #9b9a97; margin-bottom: 6px; }
+.contact-meta { font-size: 12px; color: #787774; display: flex; gap: 10px; flex-wrap: wrap; }
+.dot { font-size: 14px; }
+.dot.hot { color: #e03e3e; }
+.dot.warm { color: #cb912f; }
+.dot.cold { color: #9b9a97; }
+.dot.new { color: #4daa57; }
+.file-type { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+.file-type.html { background: #e8deee; color: #6940a5; }
+.file-type.doc { background: #d3e5ef; color: #2e6e9e; }
+.timeline-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0ef; font-size: 13px; align-items: baseline; }
+.timeline-item:last-child { border-bottom: none; }
+.tl-date { color: #9b9a97; font-size: 12px; min-width: 52px; flex-shrink: 0; }
+.tl-type { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; }
+.tl-type.decision { background: #fbe4e4; color: #c4314b; }
+.tl-type.meeting { background: #d3e5ef; color: #2e6e9e; }
+.tl-type.deliverable { background: #e8deee; color: #6940a5; }
+.tl-type.email { background: #dbeddb; color: #1e6b3a; }
+.tl-type.research { background: #fdecc8; color: #9a6700; }
+.tl-text { color: #37352f; }
+a { color: #2e6e9e; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.info-box { background: #f7f6f3; border-radius: 6px; padding: 16px 20px; font-size: 13px; color: #37352f; margin-bottom: 16px; }
+.footer { text-align: center; font-size: 11px; color: #c8c7c5; margin-top: 40px; padding-top: 16px; border-top: 1px solid #e9e9e7; }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb">
+  <a href="../index.html">PRIMO Hub</a><span>/</span><span>ICA Knowledge Center</span>
+</div>
+
+<div class="page-header">
+  <h1>ICA Knowledge Center</h1>
+  <div class="header-meta">
+    <span class="badge paused">PAUSED</span>
+    <span>Health: 68/100</span>
+    <span class="version-tag">v1</span>
+    <span>עדכון אחרון: 18.02.2026</span>
+  </div>
+  <div class="health-bar"><div class="fill yellow" style="width: 68%;"></div></div>
+</div>
+
+<div class="one-thing">
+  <div class="one-thing-label">הפעולה הבאה</div>
+  <div class="one-thing-text">המתן לשיחה עם איה — יום ראשון. הכן lever מענקים (UJA + רשות חדשנות)</div>
+  <div class="one-thing-meta">⏱ שיחה ~15 דקות &nbsp;|&nbsp; 📅 יום ראשון 23.02 &nbsp;|&nbsp; Deal: ₪550K+</div>
+</div>
+
+<h2>מספרים</h2>
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">שווי עסקה</div>
+    <div class="kpi-value">₪550K + 15K/חודש</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">GM%</div>
+    <div class="kpi-value yellow">49.2%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">הסתברות</div>
+    <div class="kpi-value yellow">30-40%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">תקציב לקוח</div>
+    <div class="kpi-value red">₪175-210K</div>
+  </div>
+</div>
+
+<h2>אנשי קשר</h2>
+<div class="contacts-grid">
+  <div class="contact-card">
+    <div class="contact-name">ענבל דור-קרבל</div>
+    <div class="contact-role">מנכ"לית ICA — DECISION MAKER</div>
+    <div class="contact-meta">
+      <span class="badge risk">NO CONTACT</span>
+      <span class="dot cold">●</span> אין מגע ישיר
+    </div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-name">איה אשדת</div>
+    <div class="contact-role">יועצת — PRIMARY (לא מחליטה!)</div>
+    <div class="contact-meta">
+      <span class="badge active">WARM</span>
+      <span class="dot new">●</span> 17.02 — הודעה קולית
+    </div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-name">SAM</div>
+    <div class="contact-role">Backend + AI — ₪350/hr target</div>
+    <div class="contact-meta">
+      <span class="badge waiting">SUPPLIER</span>
+    </div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-name">איתי</div>
+    <div class="contact-role">Frontend — ₪300/hr</div>
+    <div class="contact-meta">
+      <span class="badge waiting">SUPPLIER</span>
+    </div>
+  </div>
+</div>
+
+<h2>קבצים ותוצרים</h2>
+<table>
+  <thead><tr><th>תוצר</th><th>סוג</th><th>גרסה</th><th>תאריך</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><a href="/Users/yaniv/ica-design-system.html">ICA Design System</a></td>
+      <td><span class="file-type html">HTML</span></td>
+      <td>v1</td>
+      <td>18.02</td>
+    </tr>
+    <tr>
+      <td>הצעת מחיר KC</td>
+      <td><span class="file-type doc">DOC</span></td>
+      <td>v3</td>
+      <td>15.02</td>
+    </tr>
+    <tr>
+      <td>מפרט שירות</td>
+      <td><span class="file-type doc">DOC</span></td>
+      <td>v1</td>
+      <td>14.02</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>ציר זמן</h2>
+<div>
+  <div class="timeline-item">
+    <span class="tl-date">18.02</span>
+    <span class="tl-type research">RESEARCH</span>
+    <span class="tl-text">מענקים: UJA ₪200K + רשות חדשנות ₪350K + ICA ₪150K = ₪700K</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">17.02</span>
+    <span class="tl-type decision">DECISION</span>
+    <span class="tl-text">PAUSED — פער תקציבי 700K vs 175-210K. יניב שלח EXIT מקצועי</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">17.02</span>
+    <span class="tl-type email">EMAIL</span>
+    <span class="tl-text">איה: "לא בדיוק off-the-shelf כמו שאני מתכוונת, אבל בואו נדבר השבוע הבא"</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">17.02</span>
+    <span class="tl-type email">VOICE</span>
+    <span class="tl-text">איה שלחה הודעה קולית 1:35 — תוכן לא ידוע</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">15.02</span>
+    <span class="tl-type deliverable">DELIVERABLE</span>
+    <span class="tl-text">Proposal v3 + Service Spec v1 מוכנים (לא נשלחו)</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">14.02</span>
+    <span class="tl-type meeting">MEETING</span>
+    <span class="tl-text">Screen alignment call with SAM — scope גדל מ-13 ל-24 מסכים</span>
+  </div>
+</div>
+
+<h2>תובנות אסטרטגיות</h2>
+<div class="info-box">
+  <p style="margin-bottom: 8px;"><strong>פער מרכזי:</strong> ₪700K vs ₪175-210K. איה = יועצת, לא מחליטה. ענבל דור-קרבל = הכתובת.</p>
+  <p style="margin-bottom: 8px;"><strong>Lever:</strong> מענקים — UJA Federation (כבר נתנו $150K ל-ICA), רשות חדשנות GovTech (75% לעמותות).</p>
+  <p style="margin-bottom: 8px;"><strong>סיכון ריכוז:</strong> אם ICA KC + IcanDo סוגרים = 75% מיעד ₪800K. Tripwire >40%.</p>
+  <p><strong>לקח:</strong> 4 כישלונות קודמים. 6 כשלי תהליך ב-17.02. Scope lock חובה לפני תמחור.</p>
+</div>
+
+<div class="footer">PRIMO | ICA Knowledge Center Dashboard v1 | 18.02.2026</div>
+</body>
+</html>

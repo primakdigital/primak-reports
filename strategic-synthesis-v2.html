@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIMAK — Strategic Intelligence Synthesis v2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, #161b22 0%, #1a1f2e 100%);
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f97316, #ef4444, #ec4899);
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  .header .sub {
+    font-size: 14px;
+    color: #8b949e;
+    margin-bottom: 16px;
+  }
+
+  .verdict {
+    background: rgba(249, 115, 22, 0.08);
+    border: 1px solid rgba(249, 115, 22, 0.25);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 16px;
+    text-align: right;
+  }
+
+  .verdict h3 {
+    color: #f97316;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .verdict p {
+    font-size: 14px;
+    color: #c9d1d9;
+    line-height: 1.7;
+  }
+
+  .question-block {
+    margin-bottom: 40px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .q-header {
+    padding: 24px 28px 16px;
+    border-bottom: 1px solid #21262d;
+  }
+
+  .q-num {
+    display: inline-block;
+    background: #f97316;
+    color: #000;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .q-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f0f6fc;
+    margin-bottom: 4px;
+  }
+
+  .q-answer {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f97316;
+    margin-top: 8px;
+  }
+
+  .q-body { padding: 20px 28px 28px; }
+
+  .gateway-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .gateway-card:hover { border-color: #f97316; }
+
+  .gateway-card.highlight {
+    border-color: #f97316;
+    background: rgba(249, 115, 22, 0.04);
+  }
+
+  .gw-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .gw-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f0f6fc;
+  }
+
+  .gw-pool {
+    font-size: 12px;
+    font-weight: 600;
+    color: #f97316;
+    background: rgba(249, 115, 22, 0.12);
+    padding: 2px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+
+  .gw-role {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 8px;
+  }
+
+  .gw-why {
+    font-size: 13px;
+    color: #c9d1d9;
+    line-height: 1.6;
+  }
+
+  .gw-action {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #58a6ff;
+    font-weight: 500;
+  }
+
+  .gw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  .gw-field {
+    padding: 8px 0;
+    border-bottom: 1px solid #21262d;
+  }
+
+  .gw-field.full { grid-column: 1 / -1; }
+
+  .gw-field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8b949e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  .gw-field-value {
+    color: #c9d1d9;
+    line-height: 1.5;
+  }
+
+  .gw-timing {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: rgba(249, 115, 22, 0.06);
+    border: 1px solid rgba(249, 115, 22, 0.15);
+    border-radius: 8px;
+    font-size: 13px;
+    color: #c9d1d9;
+  }
+
+  .gw-timing strong { color: #f97316; }
+
+  .gw-pct {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .pct-bar {
+    width: 100px;
+    height: 8px;
+    background: #21262d;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .pct-fill {
+    height: 100%;
+    border-radius: 4px;
+  }
+
+  .pct-high { background: #3fb950; }
+  .pct-med { background: #f97316; }
+  .pct-low { background: #f85149; }
+
+  .pct-label {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .pct-reason {
+    font-size: 12px;
+    color: #8b949e;
+    margin-right: 8px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+
+  .tag-new { background: #1f6feb22; color: #58a6ff; border: 1px solid #1f6feb44; }
+  .tag-warm { background: #f9731622; color: #f97316; border: 1px solid #f9731644; }
+  .tag-hot { background: #ef444422; color: #ef4444; border: 1px solid #ef444444; }
+  .tag-yaniv { background: #a855f722; color: #c084fc; border: 1px solid #a855f744; }
+
+  .rec-box {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.06), rgba(239, 68, 68, 0.06));
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .rec-box h4 {
+    color: #f97316;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .rec-box p, .rec-box li {
+    font-size: 13px;
+    color: #c9d1d9;
+    line-height: 1.7;
+  }
+
+  .rec-box ul {
+    padding-right: 20px;
+    margin-top: 8px;
+  }
+
+  .rec-box li { margin-bottom: 6px; }
+
+  .path-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 14px 18px;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: #f97316;
+    color: #000;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .step-content h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f0f6fc;
+    margin-bottom: 4px;
+  }
+
+  .step-content p {
+    font-size: 13px;
+    color: #8b949e;
+  }
+
+  .connector {
+    width: 2px;
+    height: 16px;
+    background: #30363d;
+    margin: -8px auto 0;
+    position: relative;
+  }
+
+  .number-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .num-card {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .num-card .big {
+    font-size: 24px;
+    font-weight: 800;
+    color: #f97316;
+  }
+
+  .num-card .label {
+    font-size: 11px;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 12px 0;
+  }
+
+  .comp-table th {
+    text-align: right;
+    padding: 8px 12px;
+    background: #0d1117;
+    color: #8b949e;
+    font-weight: 600;
+    border-bottom: 1px solid #30363d;
+  }
+
+  .comp-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #21262d;
+    color: #c9d1d9;
+  }
+
+  .comp-table tr:hover td { background: rgba(249, 115, 22, 0.03); }
+
+  .check { color: #3fb950; }
+  .cross { color: #f85149; }
+
+  .bottom-line {
+    background: linear-gradient(135deg, #161b22, #1a1f2e);
+    border: 1px solid #f9731644;
+    border-radius: 16px;
+    padding: 28px;
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .bottom-line h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #f97316;
+    margin-bottom: 12px;
+  }
+
+  .bottom-line p {
+    font-size: 14px;
+    color: #c9d1d9;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: #484f58;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #21262d;
+  }
+
+  .section-divider {
+    height: 1px;
+    background: #21262d;
+    margin: 20px 0;
+  }
+
+  .small-note {
+    font-size: 12px;
+    color: #6e7681;
+    font-style: italic;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+  <h1>PRIMAK STRATEGIC INTELLIGENCE</h1>
+  <div class="sub">סינתזה של 5 סוכני מחקר | 18 פברואר 2026 | v3</div>
+
+  <div class="verdict">
+    <h3>המסקנה המרכזית של הצוות</h3>
+    <p>
+      <strong>אף אחד בישראל לא תופס את הפוזיציה "Fractional CPO + Regulatory UX + AI".</strong>
+      Triolla (65 מעצבים) הכי קרוב — אבל הם מפעל, לא מוח.
+      <strong>CathWorks ($585M) הוא proof case שאין לאף מתחרה בישראל.</strong>
+      יש 120+ סטארטאפים ב-ARC בלי שותף עיצוב.
+      177 חברות קיבלו מענקים מרשות החדשנות ב-2025.
+      22 חברות חדשות גייסו $915M+ ב-6 חודשים אחרונים.
+      <strong>הפייפליין הריאלי: ₪3.5-6.5M.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- QUESTION 1 -->
+<div class="question-block">
+  <div class="q-header">
+    <div class="q-num">שאלה 1</div>
+    <div class="q-title">יש עוד שערים שאני לא רואה?</div>
+    <div class="q-answer">כן. הצוות מצא 12 שערים חדשים שאתה לא הזכרת — מעבר לדידי ועומרי</div>
+  </div>
+  <div class="q-body">
+
+    <div class="number-row">
+      <div class="num-card">
+        <div class="big">12</div>
+        <div class="label">שערים חדשים</div>
+      </div>
+      <div class="num-card">
+        <div class="big">350+</div>
+        <div class="label">חברות נגישות דרכם</div>
+      </div>
+      <div class="num-card">
+        <div class="big">3</div>
+        <div class="label">עם 7+ הודעות חמות</div>
+      </div>
+    </div>
+
+    <!-- TOP 5 NEW GATEWAYS — 9-field format -->
+    <h4 style="color: #f97316; font-size: 14px; margin: 20px 0 12px;">TOP 5 — שערים שהצוות גילה (לא שלך)</h4>
+
+    <!-- 1. RAFI CHEN -->
+    <div class="gateway-card highlight">
+      <div class="gw-top">
+        <span class="gw-name">1. Refael (Rafi) Chen <span class="tag tag-hot">7 הודעות הדדיות</span></span>
+        <span class="gw-pool">10-30 חברות</span>
+      </div>
+      <div class="gw-grid">
+        <div class="gw-field">
+          <div class="gw-field-label">מה החברה עושה</div>
+          <div class="gw-field-value">TONBO Ventures — קרן הון סיכון. משקיעה בסטארטאפים ומלווה אותם מ-seed עד growth. כל חברת פורטפוליו צריכה מוצר → צריכה UX.</div>
+        </div>
+        <div class="gw-field">
+          <div class="gw-field-label">כמה חברות פותח</div>
+          <div class="gw-field-value">10-30 חברות פורטפוליו</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איך אני מכיר אותו</div>
+          <div class="gw-field-value">7 הודעות הדדיות בלינקדאין — הקשר האמיתי החם ביותר בכל 1,226 הקשרים. לא vendor, לא ספאם. שיחה אמיתית.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">מה הוא מרוויח מלעזור לי</div>
+          <div class="gw-field-value">VCs מחפשים value-add לפורטפוליו מעבר לכסף. "אנחנו מחברים את החברות שלנו ל-UX/product design ברמה של $585M exit" = differentiator לקרן. רפי נראה טוב בפני founders.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איזה proof case מתאים</div>
+          <div class="gw-field-value"><strong>CathWorks ($585M)</strong> — "עיצבתי מוצר שנרכש על ידי Medtronic. את מי מהפורטפוליו שלך אני יכול לעזור להגיע לשם?"</div>
+        </div>
+      </div>
+      <div class="gw-timing"><strong>למה עכשיו:</strong> קרנות VC ב-2026 תחת לחץ להוכיח value-add — לא רק כסף. חברות שגייסו ב-2025 נמצאות עכשיו בשלב בניית מוצר. הקשר חם אבל יתקרר — חלון 30 יום.</div>
+      <div class="gw-action">משפט פתיחה: "רפי, שאלה מהירה — כשחברות הפורטפוליו שלך צריכות product design, איך הן מוצאות? בניתי מודל ספציפי לפורטפוליו VC, מבוסס על ניסיון עם CathWorks. אשמח לשתף."</div>
+      <div class="gw-pct">
+        <div class="pct-bar"><div class="pct-fill pct-high" style="width: 70%"></div></div>
+        <span class="pct-label" style="color: #3fb950;">70%</span>
+        <span class="pct-reason">7 הודעות חמות + VC שצריך value-add + אין מתחרה על הפוזיציה</span>
+      </div>
+    </div>
+
+    <!-- 2. ANGEL RABINOVICH -->
+    <div class="gateway-card highlight">
+      <div class="gw-top">
+        <span class="gw-name">2. Angel W. Rabinovich <span class="tag tag-new">גילוי חדש</span></span>
+        <span class="gw-pool">120+ סטארטאפים</span>
+      </div>
+      <div class="gw-grid">
+        <div class="gw-field">
+          <div class="gw-field-label">מה הארגון עושה</div>
+          <div class="gw-field-value">ARC Innovation — הזרוע של שיבא. 120+ סטארטאפים healthtech. $5.8B שווי פורטפוליו. $800M exits ב-2024 (Belkin $466M, Innovalve $300M).</div>
+        </div>
+        <div class="gw-field">
+          <div class="gw-field-label">כמה חברות פותח</div>
+          <div class="gw-field-value">120+ קיימות + 20 חדשות/שנה + embARC קוהורט כל 3 חודשים</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איך אני מגיע אליו</div>
+          <div class="gw-field-value">דרך דידי פביאן (חבר טוב, Director ב-Sheba Global Ophthalmology). דידי בתוך שיבא → intro טבעי ל-Angel. אין קשר ישיר עדיין.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">מה הוא מרוויח מלעזור לי</div>
+          <div class="gw-field-value">ARC מספקת קליניקה, רגולציה, הון, מנטורינג — אבל אפס עיצוב. שותף UX = ערך מוסף לכל סטארטאפ בתוכנית. Angel בא ממכון היצוא (800+ חברות) — הוא מבין partnerships.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איזה proof case מתאים</div>
+          <div class="gw-field-value"><strong>CathWorks ($585M)</strong> — perfect match. AI קרדיולוגי, FDA cleared, נרכש ע"י Medtronic. זה בדיוק הדומיין של ARC. אין proof case חזק מזה בכל שוק ה-UX הישראלי.</div>
+        </div>
+      </div>
+      <div class="gw-timing"><strong>למה עכשיו:</strong> embARC Boston hub נפתח מרץ 2026 — קוהורט ראשון של 6-8 חברות צריך design support. Angel בונה את רשימת השותפים עכשיו. חלון הזדמנות לפני שהמקום תפוס.</div>
+      <div class="gw-action">משפט פתיחה (דרך דידי): "דידי, אני רוצה להכיר את Angel Rabinovich מ-ARC. עיצבתי את CathWorks שנמכרה ב-$585M — יש לי הצעה ספציפית לאקוסיסטם שלהם."</div>
+      <div class="gw-pct">
+        <div class="pct-bar"><div class="pct-fill pct-high" style="width: 60%"></div></div>
+        <span class="pct-label" style="color: #3fb950;">60%</span>
+        <span class="pct-reason">אין מתחרה + proof case מושלם + דידי = warm intro. מינוס: צריך 2 צעדים, לא ישיר</span>
+      </div>
+    </div>
+
+    <!-- 3. DAN SHWARZMAN -->
+    <div class="gateway-card highlight">
+      <div class="gw-top">
+        <span class="gw-name">3. Dan Shwarzman <span class="tag tag-new">גילוי חדש</span></span>
+        <span class="gw-pool">5-10 כל 3 חודשים</span>
+      </div>
+      <div class="gw-grid">
+        <div class="gw-field">
+          <div class="gw-field-label">מה הארגון עושה</div>
+          <div class="gw-field-value">embARC Ventures — אקסלרטור של ARC. $250K לכל סטארטאפ, קוהורט כל 3 חודשים. בונה חברות healthtech מאפס.</div>
+        </div>
+        <div class="gw-field">
+          <div class="gw-field-label">כמה חברות פותח</div>
+          <div class="gw-field-value">5-10 חברות כל קוהורט = 20-40 חברות/שנה</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איך אני מגיע אליו</div>
+          <div class="gw-field-value">דרך Angel Rabinovich (CBO) או דרך דידי → Angel → דן. אין קשר ישיר. אפשר גם cold — הפרופיל שלו ב-embARC פתוח, ex-Medtronic = מבין את הערך של UX.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">מה הוא מרוויח מלעזור לי</div>
+          <div class="gw-field-value">כמנהל אקסלרטור, הוא רוצה שהחברות שלו יצליחו. UX גרוע = מוצר נכשל = embARC נראה רע. שותף design = הצלחה גבוהה יותר לקוהורט = embARC נראה טוב. דן בא מ-MindUP (Medtronic+IBM) — הוא יודע מה UX שווה ב-medical.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איזה proof case מתאים</div>
+          <div class="gw-field-value"><strong>CathWorks ($585M)</strong> + <strong>IcanDo</strong> (mental health app בחנויות). שילוב של medical device + digital health = רוחב שרלוונטי ל-embARC.</div>
+        </div>
+      </div>
+      <div class="gw-timing"><strong>למה עכשיו:</strong> Hub בוסטון — קוהורט ראשון מרץ 2026. דן בונה את התוכנית עכשיו. סטארטאפים מוקדמים צריכים design from day 1. אם לא נכנסים עכשיו — מישהו אחר ייכנס.</div>
+      <div class="gw-action">משפט פתיחה: "דן, ראיתי ש-embARC פותח hub בבוסטון. עיצבתי את FFRangio של CathWorks ($585M exit) — מעוניין להציע design sprint חינמי לסטארטאפ אחד בקוהורט הראשון כ-proof of concept."</div>
+      <div class="gw-pct">
+        <div class="pct-bar"><div class="pct-fill pct-med" style="width: 50%"></div></div>
+        <span class="pct-label" style="color: #f97316;">50%</span>
+        <span class="pct-reason">3 צעדים לשם + cold contact. אבל: אפס מתחרים + Boston timing + CathWorks match</span>
+      </div>
+    </div>
+
+    <!-- 4. EYAL LIFSCHITZ -->
+    <div class="gateway-card">
+      <div class="gw-top">
+        <span class="gw-name">4. Eyal Lifschitz <span class="tag tag-new">גילוי חדש</span></span>
+        <span class="gw-pool">15-25 חברות</span>
+      </div>
+      <div class="gw-grid">
+        <div class="gw-field">
+          <div class="gw-field-label">מה החברה עושה</div>
+          <div class="gw-field-value">Peregrine Ventures — קרן VC ל-Life Sciences. משקיעה ב-medical devices, biopharma, diagnostics. הקרן היחידה ברשת שמתאימה בדיוק לנישה של פרימק.</div>
+        </div>
+        <div class="gw-field">
+          <div class="gw-field-label">כמה חברות פותח</div>
+          <div class="gw-field-value">15-25 חברות פורטפוליו (medical devices, biopharma)</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איך אני מכיר אותו</div>
+          <div class="gw-field-value">קשר LinkedIn חדש (גל VC, פברואר 2026). אין היסטוריית DM. Cold but connected.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">מה הוא מרוויח מלעזור לי</div>
+          <div class="gw-field-value">חברות life sciences שלו מתמודדות עם FDA human factors ו-usability testing — זה bottleneck ידוע. שותף UX שכבר עבר FDA (CathWorks) = חיסכון חודשים וכסף לחברות הפורטפוליו.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איזה proof case מתאים</div>
+          <div class="gw-field-value"><strong>CathWorks ($585M)</strong> — perfect domain match. FDA cleared AI medical device. אייל חי את העולם הזה, הוא יבין מיד.</div>
+        </div>
+      </div>
+      <div class="gw-timing"><strong>למה עכשיו:</strong> MedTech funding ישראלי בשיא. FDA מחמירים דרישות usability (IEC 62366). חברות medical devices צריכות UX מקצועי יותר מאי פעם. אין ספק UX ישראלי שמתמחה ב-regulatory.</div>
+      <div class="gw-action">משפט פתיחה: "אייל, עיצבתי את ה-UI של CathWorks FFRangio — $585M exit ל-Medtronic, FDA cleared, 100K patients. חברות הפורטפוליו שלך מתמודדות עם אותם אתגרי human factors? אשמח לשתף איך פתרנו את זה."</div>
+      <div class="gw-pct">
+        <div class="pct-bar"><div class="pct-fill pct-med" style="width: 45%"></div></div>
+        <span class="pct-label" style="color: #f97316;">45%</span>
+        <span class="pct-reason">Cold contact + VC = hard to reach. אבל: domain match מושלם + proof case חזק + אין מתחרה ישראלי</span>
+      </div>
+    </div>
+
+    <!-- 5. EYAL KABIR -->
+    <div class="gateway-card">
+      <div class="gw-top">
+        <span class="gw-name">5. Eyal Kabir <span class="tag tag-warm">3 הודעות הדדיות</span></span>
+        <span class="gw-pool">50-200+ חברות</span>
+      </div>
+      <div class="gw-grid">
+        <div class="gw-field">
+          <div class="gw-field-label">מה הארגון עושה</div>
+          <div class="gw-field-value">FICC (התאחדות לשכות המסחר) — גוף גג שמייצג את כל לשכות המסחר בישראל. מארגן משלחות יצוא, business matching, תוכניות חדשנות. אלפי חברות חברות.</div>
+        </div>
+        <div class="gw-field">
+          <div class="gw-field-label">כמה חברות פותח</div>
+          <div class="gw-field-value">50-200+ חברות (משלחות יצוא, תוכניות חברים, אירועים)</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איך אני מכיר אותו</div>
+          <div class="gw-field-value">3 הודעות הדדיות — <strong>הוא פנה לינב</strong>. רצה למכור שירותי יצוא. הדוחות הקודמים דחו אותו כ-"NOT BUYER" — אבל כ-gateway הוא שווה הרבה יותר.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">מה הוא מרוויח מלעזור לי</div>
+          <div class="gw-field-value">FICC רוצה לתת ערך מוסף לחברות חברות. "יש לנו שותף UX/product שעבד על מוצר ש-Medtronic רכשה" = value add לתוכניות FICC. הוא מציג את עצמו כ-connector — זה התפקיד שלו.</div>
+        </div>
+        <div class="gw-field full">
+          <div class="gw-field-label">איזה proof case מתאים</div>
+          <div class="gw-field-value"><strong>CathWorks ($585M)</strong> = הוכחה לשוק בינלאומי. <strong>Haaretz</strong> = חברה ישראלית גדולה, 70 איש. שילוב של global exit + local enterprise.</div>
+        </div>
+      </div>
+      <div class="gw-timing"><strong>למה עכשיו:</strong> חברות ישראליות דוחפות expansion בינלאומי post-מלחמה. FICC מגייס משלחות. חברות שמתכוננות לשוק האמריקאי/אירופי צריכות UX ברמה בינלאומית. הקשר חם — הוא יזם אותו.</div>
+      <div class="gw-action">משפט פתיחה: "אייל, הזכרת את תוכניות היצוא של FICC — אני עובד עם חברות שמתכוננות לשוק הבינלאומי (CathWorks = $585M exit ל-Medtronic). יש fit שאני אתמוך בחברות FICC עם product readiness לפני שהן יוצאות?"</div>
+      <div class="gw-pct">
+        <div class="pct-bar"><div class="pct-fill pct-med" style="width: 40%"></div></div>
+        <span class="pct-label" style="color: #f97316;">40%</span>
+        <span class="pct-reason">חם (הוא פנה) אבל: FICC = ביורוקרטיה, תהליך ארוך. עדיף כערוץ משני, לא ראשי</span>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h4 style="color: #8b949e; font-size: 13px; margin-bottom: 12px;">עוד 7 שערים שזוהו:</h4>
+
+    <table class="comp-table">
+      <tr>
+        <th>שם</th>
+        <th>ארגון</th>
+        <th>בריכה</th>
+        <th>חום</th>
+      </tr>
+      <tr>
+        <td><strong>Dekel Yakobovich</strong></td>
+        <td>Genesis Accelerator</td>
+        <td>30-60/שנה</td>
+        <td>Cold but fresh</td>
+      </tr>
+      <tr>
+        <td><strong>Hila Rom</strong></td>
+        <td>FutureFirst (ex-RUNI Ventures)</td>
+        <td>10-30</td>
+        <td>Connected</td>
+      </tr>
+      <tr>
+        <td><strong>Ruti Donag</strong></td>
+        <td>CEO, Technion Alumni Association</td>
+        <td>50-100+</td>
+        <td>Connected</td>
+      </tr>
+      <tr>
+        <td><strong>Ariel Cohen</strong></td>
+        <td>AnD Ventures (Co-founder)</td>
+        <td>10-25</td>
+        <td>4 הודעות</td>
+      </tr>
+      <tr>
+        <td><strong>Ariel Rabin</strong></td>
+        <td>CEO, MedTech Commercialization Institute</td>
+        <td>15-30/שנה</td>
+        <td>New connection</td>
+      </tr>
+      <tr>
+        <td><strong>Hanan Brand</strong></td>
+        <td>VP Startup Division, רשות החדשנות</td>
+        <td>177 חברות/שנה</td>
+        <td>Institutional</td>
+      </tr>
+      <tr>
+        <td><strong>Roy Heldshtein</strong></td>
+        <td>Team8 (Managing Partner & COO)</td>
+        <td>20-30</td>
+        <td>New VC wave</td>
+      </tr>
+    </table>
+
+    <div class="rec-box">
+      <h4>ההמלצה: 3 שערים לפתוח השבוע</h4>
+      <ul>
+        <li><strong>רפי צ'ן (TONBO)</strong> — הכי חם, 7 הודעות, שיחה אחת = הפניות</li>
+        <li><strong>דידי → Angel Rabinovich (ARC)</strong> — 120+ סטארטאפים, אפס מתחרים</li>
+        <li><strong>אייל ליפשיץ (Peregrine)</strong> — Life Sciences VC, perfect match לנישה</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- QUESTION 2 -->
+<div class="question-block">
+  <div class="q-header">
+    <div class="q-num">שאלה 2</div>
+    <div class="q-title">איזה סוג לקוח הכי נכון?</div>
+    <div class="q-answer">סטארטאפים post-funding שבונים AI/MedTech/Cyber — אבל דרך שערים, לא ישירות</div>
+  </div>
+  <div class="q-body">
+
+    <div class="rec-box">
+      <h4>למה דווקא הם? ניתוח תחרותי של הצוות</h4>
+      <p>
+        סרקנו את כל שוק ה-UX בישראל. <strong>אף אחד לא תופס 3 פוזיציות:</strong>
+      </p>
+    </div>
+
+    <table class="comp-table">
+      <tr>
+        <th>פוזיציה</th>
+        <th>Triolla (65 מעצבים)</th>
+        <th>Muze</th>
+        <th>Hello.</th>
+        <th>PRIMAK</th>
+      </tr>
+      <tr>
+        <td>AI UX</td>
+        <td class="cross">מוזכר, לא core</td>
+        <td class="cross">"AI Architecture"</td>
+        <td class="cross">לא</td>
+        <td class="check"><strong>פתוח</strong></td>
+      </tr>
+      <tr>
+        <td>Regulatory UX (FDA)</td>
+        <td class="cross">לקוחות medical, לא positioning</td>
+        <td class="cross">לא</td>
+        <td class="cross">לא</td>
+        <td class="check"><strong>CathWorks = הוכחה</strong></td>
+      </tr>
+      <tr>
+        <td>Fractional CPO + Design</td>
+        <td class="cross">מפעל execution</td>
+        <td class="cross">execution</td>
+        <td class="cross">execution</td>
+        <td class="check"><strong>אין מתחרה בישראל</strong></td>
+      </tr>
+      <tr>
+        <td>Exit proof ($100M+)</td>
+        <td class="cross">אין</td>
+        <td class="cross">Cipia IPO</td>
+        <td class="cross">follow-on rounds</td>
+        <td class="check"><strong>$585M Medtronic</strong></td>
+      </tr>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h4 style="color: #f97316; font-size: 14px; margin-bottom: 12px;">3 סוגי לקוח — מדורג לפי ROI</h4>
+
+    <div class="gateway-card highlight">
+      <div class="gw-top">
+        <span class="gw-name">#1: חממות ואקוסיסטמים (שותף עיצוב)</span>
+        <span class="gw-pool">₪500K-2M/שנה</span>
+      </div>
+      <div class="gw-why">
+        <strong>ARC Innovation (120+ סטארטאפים, אפס שותף עיצוב), Edge Medical Ventures (Boston Scientific+Sheba+Cornell), embARC (קוהורט כל 3 חודשים).</strong>
+        <br><br>
+        למה #1: יחס הפניות אחד = אינסוף deal flow. לא צריך outreach חדש כל חודש. רשות החדשנות מממנת 85% מהתקציב של חברות חממה = יש כסף.
+        <br><br>
+        <strong>הממצא המכריע:</strong> בכל המחקר — אתר, פרסומים, כנסים — אין שום אזכור של שותף עיצוב ב-ARC. השטח פתוח לגמרי.
+      </div>
+    </div>
+
+    <div class="gateway-card">
+      <div class="gw-top">
+        <span class="gw-name">#2: Post-funding AI/Cyber/MedTech (direct)</span>
+        <span class="gw-pool">₪2.2-3.8M pipeline</span>
+      </div>
+      <div class="gw-why">
+        22 חברות ישראליות שגייסו $915M+ ב-6 חודשים אחרונים. 18 מתוך 22 בונות enterprise dashboards — <strong>בדיוק ה-sweet spot של פרימק.</strong>
+        <br><br>
+        HOT targets (הצוות מצא, לא ממך):
+        <strong>Imper.ai</strong> ($28M, anti-deepfake),
+        <strong>Novee</strong> ($51.5M, AI pentesting),
+        <strong>Factify</strong> ($73M seed!, AI documents),
+        <strong>Act Security</strong> ($60M, ex-Medigate founders),
+        <strong>WINN.AI</strong> ($18M, sales coaching),
+        <strong>Kela</strong> ($100M, battlefield OS — Sequoia+CIA)
+      </div>
+    </div>
+
+    <div class="gateway-card">
+      <div class="gw-top">
+        <span class="gw-name">#3: VC Portfolio Design Partner</span>
+        <span class="gw-pool">₪300K-1M/שנה per fund</span>
+      </div>
+      <div class="gw-why">
+        15+ קשרים חדשים עם VCs ברשת. כל קרן = 10-30 חברות פורטפוליו.
+        <br><br>
+        אסטרטגיה: "UX Audit as a Service" לקרנות. הקרן מוסיפה ערך לפורטפוליו, פרימק מקבל deal flow.
+        <br>
+        Peregrine (Life Sciences), TONBO, AnD Ventures, Team8 — כולם ברשת.
+      </div>
+    </div>
+
+    <div class="rec-box">
+      <h4>One-liner לפרימק (מהצוות התחרותי)</h4>
+      <p style="font-size: 15px; font-weight: 600; color: #f0f6fc;">
+        "פרימק זה לא סטודיו עיצוב. פרימק זה המקום שבו מוצרי AI הופכים לשווים $500M. אסטרטגיה + Regulatory UX + המוח מאחורי CathWorks ($585M). Fractional CPO לחברות שלא יכולות להרשות לעצמן לטעות במוצר."
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- QUESTION 3 -->
+<div class="question-block">
+  <div class="q-header">
+    <div class="q-num">שאלה 3</div>
+    <div class="q-title">דידי — כמה קרוב ל-ARC?</div>
+    <div class="q-answer">2 צעדים. דידי → Angel Rabinovich (CBO). אין חסם. המסלול ברור.</div>
+  </div>
+  <div class="q-body">
+
+    <div class="number-row">
+      <div class="num-card">
+        <div class="big">120+</div>
+        <div class="label">סטארטאפים ב-ARC</div>
+      </div>
+      <div class="num-card">
+        <div class="big">$800M</div>
+        <div class="label">exits ב-2024</div>
+      </div>
+      <div class="num-card">
+        <div class="big">0</div>
+        <div class="label">שותפי עיצוב</div>
+      </div>
+    </div>
+
+    <div class="path-step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h5>דידי פביאן → Angel W. Rabinovich</h5>
+        <p>דידי = Director & Co-Founder, Sheba Global Ophthalmology. רופא בכיר בשיבא. חבר טוב. הקשר שלו לעולם העיניים חופף ל-Belkin Vision ($466M exit מ-ARC). הוא יכול לחבר ישירות ל-Angel (CBO) שאחראי על כל השותפויות.</p>
+      </div>
+    </div>
+
+    <div class="path-step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h5>Angel Rabinovich → Partnership Pitch</h5>
+        <p>Angel = CBO של ARC. בעבר Director במכון היצוא (800+ חברות). הוא מבין ecosystem partnerships. הפיצ': "פרימק = שותף עיצוב לכל אקוסיסטם ARC. עיצבתי מוצר AI קרדיולוגי שנמכר ב-$585M ל-Medtronic. זה בדיוק מה שחברות ARC צריכות."</p>
+      </div>
+    </div>
+
+    <div class="path-step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h5>Dan Shwarzman → embARC Design Sprint</h5>
+        <p>דן מנהל את האקסלרטור. Ex-CEO MindUP (Medtronic+IBM). הוא יודע מה UX טוב שווה ב-medical. הצע Design Sprint חינמי לסטארטאפ embARC אחד. תוצאה מצוינת = case study פנימי שמתפשט באקוסיסטם.</p>
+      </div>
+    </div>
+
+    <div class="path-step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h5>ARC Summit 2026 → Thought Leadership</h5>
+        <p>הכנס השנתי של ARC (ספטמבר). בקש הזמנה כ-design thought leader. CathWorks case study על הבמה. 120+ סטארטאפים בקהל.</p>
+      </div>
+    </div>
+
+    <div class="path-step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h5>Retainer Model → ₪500K-2M/שנה</h5>
+        <p>מודל: Ecosystem Design Partner (350 ₪/שעה לחברות פורטפוליו, 450 ₪/שעה ישיר). 5-10 פרויקטים/רבעון. אופציה: equity-for-design (0.5-1%) בסטארטאפים מוקדמים — אם exit אחד כמו Belkin = $2-4M.</p>
+      </div>
+    </div>
+
+    <div class="rec-box">
+      <h4>10 סטארטאפים ב-ARC עם UX need גבוה (גילוי חדש)</h4>
+      <ul>
+        <li><strong>Aidoc</strong> — $250M+ raised, 1,400 בתי חולים, AI radiology dashboards</li>
+        <li><strong>AISAP</strong> — $13M seed, FDA cleared, AI ultrasound</li>
+        <li><strong>TytoCare</strong> — remote exam, patient + provider apps</li>
+        <li><strong>MDClone</strong> — $104M, data visualization for researchers</li>
+        <li><strong>QuantHealth</strong> — $15M+, clinical trial simulator</li>
+        <li><strong>LIV/Mentaily</strong> — $3M, AI mental health screening</li>
+        <li><strong>XRHealth</strong> — VR rehabilitation, immersive therapy</li>
+        <li><strong>CoPilotMD</strong> — healthcare data navigation</li>
+        <li><strong>FeelBetter</strong> — preventive care risk dashboards</li>
+        <li><strong>Nuri BrainTech</strong> — brain-computer interface for PTSD</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- BOTTOM LINE -->
+<div class="bottom-line">
+  <h3>השורה התחתונה</h3>
+  <p>
+    ינב, הפייפליין הריאלי הוא <strong>₪3.5-6.5M</strong>:
+    ARC ecosystem (₪500K-2M) + 22 חברות post-funding (₪2.2-3.8M) + Scout 9 targets (₪470-960K) + VC portfolio deals (₪300K-1M).
+    <br><br>
+    <strong>הצעד הראשון: תתקשר לדידי.</strong> לא outreach. לא cold email. לא אסטרטגיה. פשוט תתקשר לחבר ותבקש intro ל-Angel Rabinovich. השאר יזרום.
+    <br><br>
+    במקביל: הודעה אחת לרפי צ'ן (TONBO). 7 הודעות הדדיות = השיחה הכי קלה שיש לך.
+  </p>
+</div>
+
+<div class="footer">
+  PRIMAK Strategic Intelligence Synthesis v2 | 18.02.2026 | 5 סוכני מחקר: Network Intelligence, Market Research, ARC Deep Dive, Competitive Landscape, Innovation Authority
+  <br>
+  דוחות מפורטים: market-intelligence-v1.html | arc-innovation-deep-dive-v1.html | network-intelligence-v1.html
+</div>
+
+</div>
+</body>
+</html>

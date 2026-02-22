@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIMO Paradigm Shift v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; padding: 32px; max-width: 900px; margin: 0 auto; }
+
+  .header { text-align: center; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 2px solid #ff3b3b; }
+  .header h1 { font-size: 28px; color: #fff; margin-bottom: 8px; }
+  .header .version { color: #ff3b3b; font-size: 14px; font-weight: 600; }
+  .header .subtitle { color: #888; font-size: 14px; margin-top: 8px; }
+
+  .alert-box { background: linear-gradient(135deg, #1a0a0a, #2a0a0a); border: 1px solid #ff3b3b; border-radius: 12px; padding: 20px; margin-bottom: 32px; text-align: center; }
+  .alert-box .number { font-size: 48px; font-weight: 800; color: #ff3b3b; }
+  .alert-box .label { font-size: 16px; color: #ff6b6b; margin-top: 4px; }
+  .alert-stats { display: flex; gap: 16px; justify-content: center; margin-top: 16px; }
+  .alert-stat { background: #1a1a2e; border-radius: 8px; padding: 10px 16px; }
+  .alert-stat .val { font-size: 20px; font-weight: 700; color: #fff; }
+  .alert-stat .lbl { font-size: 11px; color: #888; }
+
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 16px; padding-right: 12px; border-right: 4px solid #ff3b3b; }
+  .section-title span { color: #ff3b3b; }
+
+  .pattern-grid { display: grid; gap: 12px; }
+  .pattern { background: #12121a; border: 1px solid #222; border-radius: 10px; padding: 16px; display: flex; gap: 14px; align-items: flex-start; }
+  .pattern .icon { font-size: 24px; min-width: 36px; text-align: center; }
+  .pattern .content h3 { font-size: 15px; color: #fff; margin-bottom: 4px; }
+  .pattern .content p { font-size: 13px; color: #999; line-height: 1.5; }
+  .pattern .evidence { font-size: 12px; color: #ff6b6b; margin-top: 6px; font-weight: 600; }
+
+  .shift-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; margin-bottom: 12px; }
+  .shift-old { background: #1a0a0a; border: 1px solid #ff3b3b33; border-radius: 10px; padding: 14px; text-align: center; }
+  .shift-arrow { color: #00ff88; font-size: 24px; font-weight: 800; }
+  .shift-new { background: #0a1a0a; border: 1px solid #00ff8833; border-radius: 10px; padding: 14px; text-align: center; }
+  .shift-old h4 { color: #ff6b6b; font-size: 13px; margin-bottom: 4px; }
+  .shift-new h4 { color: #00ff88; font-size: 13px; margin-bottom: 4px; }
+  .shift-old p, .shift-new p { font-size: 14px; color: #ddd; }
+
+  .money-card { background: linear-gradient(135deg, #0a1a0a, #0a2a0a); border: 1px solid #00ff88; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .money-card .info h3 { color: #fff; font-size: 16px; margin-bottom: 4px; }
+  .money-card .info p { color: #999; font-size: 13px; }
+  .money-card .amount { font-size: 22px; font-weight: 800; color: #00ff88; }
+  .money-card .speed { font-size: 11px; color: #00ff88; background: #00ff8815; padding: 3px 8px; border-radius: 4px; margin-top: 4px; display: inline-block; }
+  .money-card.warm { border-color: #ffaa00; }
+  .money-card.warm .amount { color: #ffaa00; }
+  .money-card.warm .speed { color: #ffaa00; background: #ffaa0015; }
+
+  .rule-box { background: #12121a; border: 1px solid #444; border-radius: 10px; padding: 16px; margin-bottom: 10px; }
+  .rule-box h4 { color: #fff; font-size: 14px; margin-bottom: 6px; }
+  .rule-box p { color: #999; font-size: 13px; line-height: 1.5; }
+  .rule-box .gate { color: #ff3b3b; font-weight: 700; }
+
+  .action-box { background: linear-gradient(135deg, #1a1a0a, #2a2a0a); border: 2px solid #ffaa00; border-radius: 12px; padding: 24px; text-align: center; margin-top: 32px; }
+  .action-box h3 { color: #ffaa00; font-size: 18px; margin-bottom: 12px; }
+  .action-list { list-style: none; text-align: right; }
+  .action-list li { padding: 8px 0; border-bottom: 1px solid #333; font-size: 14px; color: #ddd; }
+  .action-list li:last-child { border: none; }
+  .action-list .tag { font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-weight: 600; }
+  .tag-now { background: #ff3b3b25; color: #ff3b3b; }
+  .tag-week { background: #ffaa0025; color: #ffaa00; }
+  .tag-month { background: #00ff8825; color: #00ff88; }
+
+  .timestamp { text-align: center; color: #555; font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>PRIMO PARADIGM SHIFT</h1>
+  <div class="version">v1 | 19.02.2026</div>
+  <div class="subtitle">מבוסס על 66 entities ב-AIM Brain + 5 עסקאות שמתו ב-60 יום</div>
+</div>
+
+<div class="alert-box">
+  <div class="number">5 / 5</div>
+  <div class="label">עסקאות שנפלו ב-60 יום. 100% failure rate.</div>
+  <div class="alert-stats">
+    <div class="alert-stat"><div class="val">~0</div><div class="lbl">הכנסה פעילה</div></div>
+    <div class="alert-stat"><div class="val">3.5-6.5M</div><div class="lbl">pipeline לא מנוצל</div></div>
+    <div class="alert-stat"><div class="val">0</div><div class="lbl">הודעות outreach שנשלחו</div></div>
+  </div>
+</div>
+
+<!-- SECTION 1: WHY DEALS DIE -->
+<div class="section">
+  <div class="section-title"><span>01</span> למה עסקאות מתות — 5 דפוסים</div>
+  <div class="pattern-grid">
+    <div class="pattern">
+      <div class="icon">🚫</div>
+      <div class="content">
+        <h3>אין Budget Gate בכניסה</h3>
+        <p>נכנסים עמוק לפרויקט לפני שמגלים שאין תקציב. השקעה של 40-55 שעות לפני שמתגלה פער של x3.</p>
+        <div class="evidence">ICA KC: 40-55h sunk cost (18-25K) → פער 700K vs 175-210K</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="icon">👤</div>
+      <div class="content">
+        <h3>מזהים את האדם הלא נכון כ-Decision Maker</h3>
+        <p>מנהלים משא ומתן עם מי שלא מחליט על תקציב. בזבוז זמן על gatekeepers.</p>
+        <div class="evidence">איה = יועצת לא מחליטה | BoW = dual veto gridlock | דרור = מתחמק</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="icon">📐</div>
+      <div class="content">
+        <h3>Scope Creep בלי Price Lock</h3>
+        <p>היקף גדל +85% בלי עדכון מחיר. הלקוח מקבל יותר, פרימק סופג.</p>
+        <div class="evidence">ICA: 13→24 מסכים. BoW: איטרציות עיצוב בלי תשלום</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="icon">💸</div>
+      <div name="content" class="content">
+        <h3>תמחור מתחת לעלות</h3>
+        <p>מחיר שנסגר נמוך מעלות שעה בפועל. מרגע הסגירה — כל שעה = הפסד.</p>
+        <div class="evidence">Momentick 400₪/שעה כשעלות = 450₪ = margin שלילי</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="icon">⏰</div>
+      <div class="content">
+        <h3>אין Exit Trigger</h3>
+        <p>ממשיכים עם לקוח שלא מספק נתונים/החלטות חודשים ארוכים. שוחקים אנרגיה.</p>
+        <div class="evidence">BIGY: 9 חודשים בלי data. הכלל: 6 חודשים = EXIT</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: WHAT CLOSES -->
+<div class="section">
+  <div class="section-title"><span>02</span> מה כן סוגר — DNA של הצלחה</div>
+  <div class="pattern-grid">
+    <div class="pattern">
+      <div class="icon">🏥</div>
+      <div class="content">
+        <h3>מערכות מורכבות + רגולציה</h3>
+        <p>CathWorks (FDA), Orchestra (cyber compliance), Haaretz (deadlines). ככל שהמערכת יותר מורכבת ויש יותר לחץ רגולטורי — פרימק יותר בלתי ניתן להחלפה.</p>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="icon">🎯</div>
+      <div class="content">
+        <h3>גישה ל-C-Level + engagement ארוך</h3>
+        <p>CPO ב-Queue, Lead Designer ב-Haaretz, Product Architect ב-CathWorks. לא freelancer שעושה מסכים — שותף אסטרטגי שבונה מוצר.</p>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="icon">✅</div>
+      <div class="content">
+        <h3>המוצר חי, בייצור, עובד</h3>
+        <p>FFRangio UI = LIVE על 100K+ חולים. לא mockup בתיק עבודות — מוצר אמיתי שמציל חיים. זה מה שסוגר.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: THE SHIFT -->
+<div class="section">
+  <div class="section-title"><span>03</span> השינוי — ישן vs. חדש</div>
+
+  <div class="shift-row">
+    <div class="shift-old"><h4>עד היום</h4><p>מחכה שלידים יגיעו</p></div>
+    <div class="shift-arrow">&larr;</div>
+    <div class="shift-new"><h4>מהיום</h4><p>ציד ממוקד: 3 הודעות/שבוע ל-targets מזוהים</p></div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-old"><h4>עד היום</h4><p>מתמחר לפי שעות</p></div>
+    <div class="shift-arrow">&larr;</div>
+    <div class="shift-new"><h4>מהיום</h4><p>Sprint packages: S1 $22K, S2 $13K/חודש, Review $15K</p></div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-old"><h4>עד היום</h4><p>כל מי שפונה = לקוח פוטנציאלי</p></div>
+    <div class="shift-arrow">&larr;</div>
+    <div class="shift-new"><h4>מהיום</h4><p>רק: תקציב + דחיפות + decision maker מזוהה</p></div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-old"><h4>עד היום</h4><p>בונה תשתיות, protocols, frameworks</p></div>
+    <div class="shift-arrow">&larr;</div>
+    <div class="shift-new"><h4>מהיום</h4><p>שולח הודעות, מתקשר, נפגש. Revenue first.</p></div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-old"><h4>עד היום</h4><p>מציג UX/UI כשירות</p></div>
+    <div class="shift-arrow">&larr;</div>
+    <div class="shift-new"><h4>מהיום</h4><p>Fractional CPO למדטק + AI. אף אחד בישראל לא שם.</p></div>
+  </div>
+</div>
+
+<!-- SECTION 4: WHERE'S THE MONEY -->
+<div class="section">
+  <div class="section-title"><span>04</span> מאיפה 100K הבאים</div>
+
+  <div class="money-card">
+    <div class="info">
+      <h3>IcanDo — חתימת חוזה</h3>
+      <p>Retainer 430₪/שעה. חוזה + 3 תיקונים מוכן. ממתין לחתימה.</p>
+      <div class="speed">הסתברות גבוהה | 2-4 שבועות</div>
+    </div>
+    <div class="amount">55K/שנה</div>
+  </div>
+
+  <div class="money-card">
+    <div class="info">
+      <h3>Gal Yanuka / Feminai</h3>
+      <p>הכי חם — 9 DMs. גייסה $6M בינואר. מכינה FDA. צריכה UX עכשיו.</p>
+      <div class="speed">הודעה מוכנה | לשלוח היום</div>
+    </div>
+    <div class="amount">50-100K</div>
+  </div>
+
+  <div class="money-card warm">
+    <div class="info">
+      <h3>Ron Peled / Sola Security</h3>
+      <p>$65M גיוס. "Design has Canva, Security has Sola" — UX IS the product. 4 DMs.</p>
+      <div class="speed">הודעה מוכנה | לשלוח היום</div>
+    </div>
+    <div class="amount">80-150K</div>
+  </div>
+
+  <div class="money-card warm">
+    <div class="info">
+      <h3>ARC / Didi Fabian</h3>
+      <p>120+ סטארטאפים, 0 מעצב שותף, $5.8B portfolio. שיחה נקבעה.</p>
+      <div class="speed">תלוי בשיחה | 30-60 יום עד עסקה ראשונה</div>
+    </div>
+    <div class="amount">?? (ecosystem)</div>
+  </div>
+</div>
+
+<!-- SECTION 5: DEAL GATES -->
+<div class="section">
+  <div class="section-title"><span>05</span> 5 Gates — כל עסקה חייבת לעבור</div>
+
+  <div class="rule-box">
+    <h4>Gate 1: <span class="gate">Budget Check</span></h4>
+    <p>לפני כל עבודה — "מה התקציב?" אם אין תשובה ברורה תוך פגישה אחת → STOP.</p>
+  </div>
+
+  <div class="rule-box">
+    <h4>Gate 2: <span class="gate">Decision Maker ID</span></h4>
+    <p>מי חותם על צ'ק? אם לא ברור → לא ממשיכים. איה (יועצת), עמרי+ענת (gridlock), דרור (מתחמק) = שיעורים יקרים.</p>
+  </div>
+
+  <div class="rule-box">
+    <h4>Gate 3: <span class="gate">Scope Lock</span></h4>
+    <p>היקף ננעל לפני תמחור. כל שינוי scope = Change Order + מחיר חדש. אין "נוסיף עוד 11 מסכים".</p>
+  </div>
+
+  <div class="rule-box">
+    <h4>Gate 4: <span class="gate">Floor Price</span></h4>
+    <p>450₪/שעה minimum. Sprint packages preferred: S1 $22K, S2 $13K/mo. אין חריגות.</p>
+  </div>
+
+  <div class="rule-box">
+    <h4>Gate 5: <span class="gate">Exit Trigger</span></h4>
+    <p>6 חודשים בלי data/החלטות/תשלום = EXIT אוטומטי. לא 9. לא 12. 6.</p>
+  </div>
+</div>
+
+<!-- ACTION BOX -->
+<div class="action-box">
+  <h3>3 פעולות — עכשיו</h3>
+  <ul class="action-list">
+    <li>שלח הודעה ל-Gal Yanuka (Feminai) בלינקדאין <span class="tag tag-now">היום</span></li>
+    <li>שלח הודעה ל-Ron Peled (Sola) בלינקדאין <span class="tag tag-now">היום</span></li>
+    <li>שלח הודעה ל-Adiel Am-Shalom (AISAP) בלינקדאין <span class="tag tag-now">היום</span></li>
+    <li>שיחה עם דידי פביאן — ARC ecosystem <span class="tag tag-week">השבוע</span></li>
+    <li>לדחוף חתימת IcanDo (סיכום תיקונים עד 20.02) <span class="tag tag-week">מחר</span></li>
+    <li>Paradigm shift round 2: חתוך הצעת ערך → Fractional CPO positioning <span class="tag tag-month">שבוע הבא</span></li>
+  </ul>
+</div>
+
+<div class="timestamp">PRIMO Paradigm Shift v1 | 19.02.2026 | מבוסס על AIM Brain 66 entities + ניתוח 5 עסקאות</div>
+
+</body>
+</html>

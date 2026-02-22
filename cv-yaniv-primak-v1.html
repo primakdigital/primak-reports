@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaniv Primak - CPO</title>
+<meta name="description" content="Yaniv Primak - CPO, Primak. Turns stuck technology into working product. $585M exit, FDA cleared, 5 domains, 0 failures.">
+<meta property="og:title" content="Yaniv Primak - CPO, Primak">
+<meta property="og:description" content="Turns stuck technology into working product. $585M exit, FDA cleared, 5 domains, 0 failures.">
+<meta property="og:type" content="profile">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f7f7f7; --white: #fff;
+    --accent: #111; --red: #dc2626; --green: #059669;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* HERO - CV HEADER */
+  .hero { padding: 80px 60px 60px; border-bottom: 1px solid var(--black); }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 40px; }
+  .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.08; letter-spacing: -2px; max-width: 780px; margin-bottom: 8px; }
+  .hero .title { font-size: 16px; font-weight: 500; color: var(--mid); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 20px; }
+  .hero .sub { font-size: 17px; color: var(--mid); max-width: 640px; line-height: 1.7; }
+  .hero .contact { margin-top: 40px; font-size: 13px; color: var(--light); }
+  .hero .contact a { color: var(--mid); text-decoration: none; transition: color 0.15s; }
+  .hero .contact a:hover { color: var(--black); }
+  .hero .contact .sep { color: #ccc; margin: 0 6px; }
+
+  /* SECTIONS */
+  section { padding: 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
+  section.black { background: var(--black); color: var(--white); }
+
+  .sn { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 12px; }
+  .dark .sn, .black .sn { color: #555; }
+  h2 { font-size: 34px; font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 24px; }
+  h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+  p { max-width: 640px; margin-bottom: 14px; }
+
+  /* KEY ENGAGEMENT CARDS */
+  .entry-card { border: 1px solid var(--border); margin-bottom: 20px; }
+  .entry-card-header { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border); background: var(--bg); }
+  .entry-card-company { font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+  .entry-card-company a { color: var(--black); text-decoration: none; }
+  .entry-card-company a:hover { text-decoration: underline; }
+  .entry-card-domain { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+  .entry-card-body { padding: 20px; }
+  .entry-card-role { font-size: 13px; font-weight: 600; color: var(--mid); margin-bottom: 8px; }
+  .entry-card-desc { font-size: 14px; line-height: 1.7; color: #444; max-width: 640px; margin-bottom: 0; }
+  .entry-card-outcome { font-size: 14px; font-weight: 700; color: var(--black); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); letter-spacing: -0.2px; }
+
+  /* INSIGHT */
+  .insight { background: var(--bg); border-left: 4px solid var(--black); padding: 32px; margin: 24px 0; max-width: 700px; }
+  .insight blockquote { font-size: 18px; font-weight: 600; line-height: 1.5; letter-spacing: -0.3px; }
+  .insight .attr { margin-top: 12px; font-size: 13px; color: var(--mid); }
+
+  /* FOOTER */
+  .footer { padding: 40px 60px; font-size: 11px; color: var(--light); display: flex; justify-content: space-between; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px; }
+    .hero h1 { font-size: 32px; letter-spacing: -1.5px; }
+    .hero .title { font-size: 13px; }
+    section { padding: 40px 24px; }
+    h2 { font-size: 24px; }
+    .entry-card-header { grid-template-columns: 1fr; gap: 4px; }
+    .footer { padding: 40px 24px; flex-direction: column; gap: 4px; }
+  }
+
+  @media print {
+    .hero { padding: 40px 40px 30px; }
+    section { padding: 40px; }
+    .entry-card { break-inside: avoid; }
+    a { color: var(--black); text-decoration: none; }
+    .footer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO - CV HEADER -->
+<div class="hero">
+  <div class="tag">Curriculum Vitae</div>
+  <h1>Yaniv Primak</h1>
+  <div class="title">CPO, Primak</div>
+  <p class="sub">I turn stuck technology into working product. The domain changes - healthcare, cybersecurity, media, B2B platforms - the problem doesn't: organizations with funding and talent, but no product that ships. I find what's broken, build what's missing, and leave when it runs.</p>
+  <div class="contact">
+    <a href="mailto:yaniv@primak.co">yaniv@primak.co</a>
+    <span class="sep">&middot;</span>
+    <a href="https://primak.co" target="_blank" rel="noopener">primak.co</a>
+    <span class="sep">&middot;</span>
+    <a href="https://linkedin.com/in/yanivprimak" target="_blank" rel="noopener">LinkedIn</a>
+    <span class="sep">&middot;</span>
+    Tel Aviv
+  </div>
+</div>
+
+
+<!-- KEY ENGAGEMENTS -->
+<section>
+  <div class="sn">Key Engagements</div>
+  <h2>Where stuck technology became working product</h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.medtronic.com/us-en/about/news/cathworks.html" target="_blank" rel="noopener">CathWorks</a></div>
+      <div class="entry-card-domain">MedTech AI</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead - FFRangio Clinical Platform</div>
+      <p class="entry-card-desc">AI that reads coronary arteries - but no interface for cardiologists to actually use it. Built the complete clinical product from concept through FDA 510(k) clearance. Deployed in cardiac catheterization labs worldwide.</p>
+      <div class="entry-card-outcome">$585M - Acquired by Medtronic (2026) &middot; 100,000+ patients &middot; FDA cleared</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- HEALTHCARE PORTFOLIO -->
+<section>
+  <div class="sn">Portfolio</div>
+  <h2>Healthcare & Health-Tech</h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.ica.org.il" target="_blank" rel="noopener">ICA - Israel Center for Addictions</a></div>
+      <div class="entry-card-domain">Behavioral Health</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc"><strong>IcanDo App</strong> - Product design for behavioral health platform. Garmin biosensor integration. Live in production.<br><strong>National Knowledge Center</strong> - Design and product architecture for Israel's national addiction research knowledge center.</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.neurobrave.com" target="_blank" rel="noopener">NeuroBrave</a></div>
+      <div class="entry-card-domain">Neuroscience AI</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Brand and product design for neuroscience AI platform - cognitive insights from wearable biosensors.</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://clubd.fund" target="_blank" rel="noopener">eHealth Ventures / ClubD</a></div>
+      <div class="entry-card-domain">Health-Tech Investment</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Brand identity and design system for health-tech investor club, with the Israeli Medical Association.</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.ngthealthcare.com" target="_blank" rel="noopener">NGT Healthcare</a></div>
+      <div class="entry-card-domain">Pharma</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Product and brand for EMRIS Pharma and Slate Therapeutics portfolio companies.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ADDITIONAL KEY ENGAGEMENTS -->
+<section>
+  <div class="sn">Key Engagements</div>
+  <h2>Cyber, media, scale</h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Orchestra Group</div>
+      <div class="entry-card-domain">Cybersecurity</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead</div>
+      <p class="entry-card-desc">NSO Group alumni. Funding. Talent. No product. Built the cyber analytics platform from zero - end-to-end product design for CISOs and forensic analysts.</p>
+      <div class="entry-card-outcome">Bank of America pilot &middot; Cisco strategic partnership</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.haaretz.co.il" target="_blank" rel="noopener">Haaretz - TheMarker Group</a></div>
+      <div class="entry-card-domain">Enterprise Scale</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Head of Product</div>
+      <p class="entry-card-desc">Israel's leading newspaper group needed to go digital. No product team, no digital infrastructure. Built the department - 70 people - and shipped every product over three years.</p>
+      <div class="entry-card-outcome">70-person department &middot; 3-year transformation &middot; Full digital product suite</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.selina.com" target="_blank" rel="noopener">Selina Hotels</a></div>
+      <div class="entry-card-domain">Hospitality Tech</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead - Mobile & Web</div>
+      <p class="entry-card-desc">Unicorn hospitality company bleeding mobile users at checkout. Redesigned the booking experience, fixed the acquisition funnel across mobile and web.</p>
+      <div class="entry-card-outcome">Unicorn-stage &middot; Mobile acquisition turnaround</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://zimventures.zim.com" target="_blank" rel="noopener">ZIM Ventures</a></div>
+      <div class="entry-card-domain">Shipping &amp; Logistics</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product &amp; Design Lead</div>
+      <p class="entry-card-desc">ZIM's investment arm needed a platform for their logistics-tech portfolio. Product definition and design for the publicly traded global shipping company's innovation division.</p>
+      <div class="entry-card-outcome">ZIM (NYSE: ZIM) &middot; Global shipping &middot; Innovation arm</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- EDUCATION & ADVISORY -->
+<section>
+  <div class="sn">Education & Advisory</div>
+  <h2>Teaching & mentoring</h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Open University of Israel</div>
+      <div class="entry-card-domain">Academia</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">AI Lecturer & Faculty Coordinator</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Reichman University</div>
+      <div class="entry-card-domain">Academia</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Lecturer - Entrepreneurship & Economics</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Techstars</div>
+      <div class="entry-card-domain">Accelerator</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Product Expert</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="footer">
+  <div>Yaniv Primak &middot; CPO, Primak &middot; Tel Aviv</div>
+  <div>yaniv@primak.co</div>
+</div>
+
+</body>
+</html>

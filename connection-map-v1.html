@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connection Map — Scout Targets × Portfolio — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 28px 36px; border-bottom: 2px solid #e94560; }
+  .header h1 { font-size: 24px; color: #fff; margin-bottom: 4px; }
+  .header .sub { font-size: 13px; color: #888; }
+  .version { float: left; font-size: 11px; color: #e94560; border: 1px solid #e94560; padding: 2px 8px; border-radius: 4px; }
+
+  /* Central node */
+  .central { background: linear-gradient(135deg, #1a1a2e, #0f3460); border: 2px solid #e94560; border-radius: 16px; margin: 24px 36px 8px; padding: 20px 28px; text-align: center; }
+  .central h2 { font-size: 20px; color: #e94560; margin-bottom: 6px; }
+  .central .stat { font-size: 14px; color: #ccc; }
+  .central .stat strong { color: #4da6ff; }
+
+  /* Legend */
+  .legend { display: flex; gap: 20px; justify-content: center; padding: 12px 36px 4px; font-size: 12px; color: #888; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-left: 6px; vertical-align: middle; }
+  .dot.high { background: #00e676; }
+  .dot.med { background: #ffc107; }
+  .dot.low { background: #ff5252; }
+
+  /* Section */
+  .section-label { padding: 18px 36px 6px; font-size: 15px; font-weight: 700; }
+  .section-label.high-label { color: #00e676; }
+  .section-label.med-label { color: #ffc107; }
+  .section-label.low-label { color: #ff5252; }
+
+  /* Cards grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; padding: 6px 36px 16px; }
+
+  .card { background: #141422; border-radius: 12px; padding: 18px 20px; border-right: 4px solid transparent; }
+  .card.high { border-right-color: #00e676; }
+  .card.med { border-right-color: #ffc107; }
+  .card.low { border-right-color: #ff5252; }
+
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .card-top h3 { font-size: 16px; color: #fff; line-height: 1.3; }
+  .card-top .company { font-size: 13px; color: #4da6ff; margin-top: 2px; }
+  .badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 700; white-space: nowrap; }
+  .badge.high { background: rgba(0,230,118,0.15); color: #00e676; }
+  .badge.med { background: rgba(255,193,7,0.15); color: #ffc107; }
+  .badge.low { background: rgba(255,82,82,0.15); color: #ff5252; }
+
+  .chains { list-style: none; margin: 0; padding: 0; }
+  .chains li { font-size: 13px; color: #bbb; padding: 5px 0; border-bottom: 1px solid #1a1a2e; line-height: 1.5; }
+  .chains li:last-child { border-bottom: none; }
+  .chain-label { font-weight: 600; color: #fff; }
+  .arrow { color: #e94560; margin: 0 4px; }
+
+  .pitch { font-size: 12px; color: #888; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #2a2a3e; font-style: italic; line-height: 1.5; }
+  .pitch strong { color: #ccc; font-style: normal; }
+
+  /* Nodes summary */
+  .nodes { background: #141422; border-radius: 12px; margin: 16px 36px 24px; padding: 20px 24px; border: 1px solid #2a2a3e; }
+  .nodes h3 { font-size: 15px; color: #fff; margin-bottom: 12px; }
+  .node-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1a2e; font-size: 13px; }
+  .node-row:last-child { border-bottom: none; }
+  .node-name { color: #e94560; font-weight: 600; }
+  .node-targets { color: #ccc; }
+  .node-count { color: #4da6ff; font-weight: 700; font-size: 15px; }
+
+  .footer { text-align: center; padding: 16px; font-size: 11px; color: #444; border-top: 1px solid #1a1a2e; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="version">v1</span>
+  <h1>Connection Map — Scout Targets x Portfolio</h1>
+  <div class="sub">OSINT Intelligence | 9 מטרות x 8 פרויקטים | 18.02.2026</div>
+</div>
+
+<div class="central">
+  <h2>CathWorks FFRangio = Master Key</h2>
+  <div class="stat">מחבר את יניב ל-<strong>6 מתוך 9</strong> מטרות דרך: Medtronic, Vertex, ARC/Sheba, Technion, Intel, FDA</div>
+  <div class="stat" style="margin-top:4px;">Acquired by Medtronic | <strong>$585M</strong> | FDA Cleared | 100K patients</div>
+</div>
+
+<div class="legend">
+  <span><span class="dot high"></span> HIGH — משקיע/מוסד משותף מאומת</span>
+  <span><span class="dot med"></span> MEDIUM — אקוסיסטם / alumni / domain</span>
+  <span><span class="dot low"></span> LOW — צריך עוד מודיעין</span>
+</div>
+
+<!-- HIGH CONFIDENCE -->
+<div class="section-label high-label">HIGH CONFIDENCE — 3 מטרות</div>
+<div class="grid">
+
+  <div class="card high">
+    <div class="card-top">
+      <div>
+        <h3>Eran Atlas</h3>
+        <div class="company">DreaMed Diabetes — 5 FDA, AI Diabetes</div>
+      </div>
+      <span class="badge high">HIGH</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">Medtronic</span><span class="arrow">&larr;</span>משקיע ב-DreaMed ($2M, 2015)<span class="arrow">+</span>משקיע ב-CathWorks (2018, רוכש $585M)</li>
+      <li><span class="chain-label">ARC Sheba</span><span class="arrow">&larr;</span>משקיע ב-DreaMed<span class="arrow">+</span>Triventures ARC = שותף CathWorks</li>
+      <li><span class="chain-label">FDA Community</span><span class="arrow">&larr;</span>5 FDA clearances<span class="arrow">+</span>CathWorks FDA cleared. אותם עורכי דין, אותם יועצים</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "שתי חברות ה-AI Medical Device הישראליות הגדולות — שתיהן בתיק של Medtronic. עיצבתי את ה-UX של CathWorks. אני יודע מה זה לבנות מוצר שרוכשים ב-$585M."</div>
+  </div>
+
+  <div class="card high">
+    <div class="card-top">
+      <div>
+        <h3>Adiel Am-Shalom</h3>
+        <div class="company">AISAP — AI Cardiac Ultrasound, $13M, Fast Company #4</div>
+      </div>
+      <span class="badge high">HIGH</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">Sheba ARC</span><span class="arrow">&larr;</span>AISAP נולד ב-ARC. CathWorks באקוסיסטם של ARC/Triventures</li>
+      <li><span class="chain-label">FDA Cardiac AI</span><span class="arrow">&larr;</span>שתי החברות = AI diagnostics ללב. אותו cath lab, אותו אתגר UX</li>
+      <li><span class="chain-label">8200 → Orchestra</span><span class="arrow">&larr;</span>ראש סייבר 8200 (2015-21). Orchestra = NSO/8200 alumni</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "בניתי את ה-interaction model של FFRangio — אני יודע מה זה לגרום ל-AI להיות readable לקרדיולוג תחת לחץ. זה בדיוק האתגר של AISAP."</div>
+  </div>
+
+  <div class="card high">
+    <div class="card-top">
+      <div>
+        <h3>Gal Yanuka</h3>
+        <div class="company">Feminai — AI Breast Cancer Screening, $6M Seed</div>
+      </div>
+      <span class="badge high">HIGH</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">Vertex Ventures IL</span><span class="arrow">&larr;</span>הוביל את סבב $6M של Feminai<span class="arrow">+</span>CathWorks בתיק של Vertex</li>
+      <li><span class="chain-label">Technion</span><span class="arrow">&larr;</span>גל = BME Technion. Ifat Lavi (CathWorks CTO) = MSc Technion</li>
+      <li><span class="chain-label">Sheba Clinical</span><span class="arrow">&larr;</span>Feminai עשתה first-in-human trial ב-Sheba. CathWorks = Sheba ecosystem</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "Vertex Ventures מכירים היטב את סיפור CathWorks — עיצבתי את ה-UX שלהם. זו הקרדיביליות שאני מביא לאתגר המוצר של Feminai."</div>
+  </div>
+
+</div>
+
+<!-- MEDIUM CONFIDENCE -->
+<div class="section-label med-label">MEDIUM CONFIDENCE — 4 מטרות</div>
+<div class="grid">
+
+  <div class="card med">
+    <div class="card-top">
+      <div>
+        <h3>Sagi Ben Moshe</h3>
+        <div class="company">Lumana — AI Video Security, $64M, Ex-Intel VP</div>
+      </div>
+      <span class="badge med">MEDIUM</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">Technion Alumni</span><span class="arrow">&larr;</span>BSc+MSc Technion. Ifat Lavi (CathWorks) = MSc Technion. Ukelson (Orchestra) = DSc Technion</li>
+      <li><span class="chain-label">Intel Israel</span><span class="arrow">&larr;</span>Intel VP (2012-21). Ifat Lavi = Intel Process Engineer. אותו מעגל</li>
+      <li><span class="chain-label">S Capital</span><span class="arrow">&larr;</span>S Capital (משקיע Lumana) = cyber/deep-tech. Orchestra = same space</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "אותו מעגל Intel/Technion. בעיית ה-visual intelligence של Lumana = אותו אתגר עיצוב כמו AI diagnostic systems."</div>
+  </div>
+
+  <div class="card med">
+    <div class="card-top">
+      <div>
+        <h3>Guy Vinograd</h3>
+        <div class="company">BioT Medical — Medical Device Cloud, 100K+ Devices</div>
+      </div>
+      <span class="badge med">MEDIUM</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">SaMD/FDA</span><span class="arrow">&larr;</span>כותב תקנים AAMI ל-SaMD. CathWorks = FDA-cleared SaMD. אותו עולם רגולטורי</li>
+      <li><span class="chain-label">DVTel→FLIR</span><span class="arrow">&larr;</span>מייסד DVTel Israel. Lumana (סגי) = AI video. אותו תחום vision</li>
+      <li><span class="chain-label">Intel chain</span><span class="arrow">&larr;</span>Boaz Vaizler (שותף) = Intel intern. Ifat Lavi = Intel. חוט דק אבל אמיתי</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "CathWorks צריך היה להיות FDA-cleared SaMD. עיצבתי UX שעומד בביקורת רגולטורית. BioT בונה את שכבת התשתית לאתגר הזה."</div>
+  </div>
+
+  <div class="card med">
+    <div class="card-top">
+      <div>
+        <h3>Ron Peled</h3>
+        <div class="company">Sola Security — $65M Series B, AI Cyber</div>
+      </div>
+      <span class="badge med">MEDIUM</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">ProtectOps</span><span class="arrow">&larr;</span>5 שנים, מאות סטארטאפים. "קופסה שחורה" — אולי ייעץ ל-Orchestra?</li>
+      <li><span class="chain-label">LivePerson</span><span class="arrow">&larr;</span>רון = Global CISO. Guy Flechter (Sola CEO) = גם LivePerson alumni</li>
+      <li><span class="chain-label">4 DMs</span><span class="arrow">&larr;</span>יניב ורון כבר בקשר ישיר בלינקדאין (4 הודעות דו-כיווניות)</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "עיצבתי מוצרי סייבר כמו Orchestra. ProtectOps ו-Primak = אותו אקוסיסטם. 4 DMs קיימים = המשך שיחה, לא cold outreach."</div>
+  </div>
+
+  <div class="card med">
+    <div class="card-top">
+      <div>
+        <h3>Raphael Zwecker</h3>
+        <div class="company">Grand Medical — 30 שנה נוירופיזיולוגיה, Neurosoft Israel</div>
+      </div>
+      <span class="badge med">MEDIUM</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">NeuroBrave</span><span class="arrow">&larr;</span>Labs/02 השקיע ב-NeuroBrave (brain wearable). Grand Medical = EEG/EMG לאותם בתי חולים</li>
+      <li><span class="chain-label">Hospital Network</span><span class="arrow">&larr;</span>Grand Medical מוכר לכל מחלקות הנוירולוגיה. שותפות הפצה פוטנציאלית</li>
+    </ul>
+    <div class="pitch"><strong>פיצ':</strong> "Grand Medical מכיר כל מחלקת נוירולוגיה בארץ. NeuroBrave (תיק Labs/02) צריך בדיוק את הערוץ הזה. שותפות הפצה."</div>
+  </div>
+
+</div>
+
+<!-- LOW CONFIDENCE -->
+<div class="section-label low-label">LOW — צריך עוד מודיעין — 2 מטרות</div>
+<div class="grid">
+
+  <div class="card low">
+    <div class="card-top">
+      <div>
+        <h3>Shany Kovrovsky</h3>
+        <div class="company">Innovista AI — Stealth, Healthcare AI</div>
+      </div>
+      <span class="badge low">LOW</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">Stealth</span><span class="arrow">&larr;</span>מעט מידע ציבורי. LinkedIn = "CEO — Stealth Startup". תחום: digital health</li>
+      <li><span class="chain-label">Labs/02 adjacent</span><span class="arrow">&larr;</span>אם health AI → Labs/02 + NeuroBrave = גשר אפשרי. לא מאומת</li>
+    </ul>
+    <div class="pitch"><strong>המלצה:</strong> לחכות לאות ציבורי (אירוע, גיוס, OurCrowd Summit) לפני outreach</div>
+  </div>
+
+  <div class="card low">
+    <div class="card-top">
+      <div>
+        <h3>Gal Ben Galim</h3>
+        <div class="company">Gini-Apps — AI Dev Services, ~48 employees</div>
+      </div>
+      <span class="badge low">LOW</span>
+    </div>
+    <ul class="chains">
+      <li><span class="chain-label">CRO, לא founder</span><span class="arrow">&larr;</span>הפיצ' צריך להיות ל-Shay Somech (CEO). גל = opener בלבד</li>
+      <li><span class="chain-label">Services overlap</span><span class="arrow">&larr;</span>Gini-Apps = app dev. Primak = UX/product. שותפות או הפניות, לא client</li>
+    </ul>
+    <div class="pitch"><strong>המלצה:</strong> לשקול פנייה ל-CEO (Shay Somech) במקום ל-CRO. Gini-Apps = שותף/referral, לא לקוח</div>
+  </div>
+
+</div>
+
+<!-- Shared nodes summary -->
+<div class="nodes">
+  <h3>צמתים משותפים — Shared Nodes</h3>
+  <div class="node-row">
+    <span class="node-name">Medtronic (משקיע)</span>
+    <span class="node-targets">Eran Atlas (DreaMed) ↔ CathWorks</span>
+    <span class="node-count">HIGH</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">ARC / Sheba Medical</span>
+    <span class="node-targets">Adiel (AISAP) + Eran (DreaMed) + Gal (Feminai clinical) ↔ CathWorks</span>
+    <span class="node-count">HIGH</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">Vertex Ventures Israel</span>
+    <span class="node-targets">Gal Yanuka (Feminai) ↔ CathWorks</span>
+    <span class="node-count">HIGH</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">Technion Alumni</span>
+    <span class="node-targets">Gal Yanuka + Sagi + Boaz (BioT) + Ukelson (Orchestra)</span>
+    <span class="node-count">MED</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">Intel Israel Alumni</span>
+    <span class="node-targets">Sagi + Boaz (BioT intern) + Ifat Lavi (CathWorks)</span>
+    <span class="node-count">MED</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">FDA/SaMD Community</span>
+    <span class="node-targets">Adiel (AISAP) + Guy (BioT AAMI) + Eran (DreaMed 5 FDA)</span>
+    <span class="node-count">MED</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">Unit 8200 / Cyber</span>
+    <span class="node-targets">Adiel (AISAP) + Orchestra founders</span>
+    <span class="node-count">MED</span>
+  </div>
+  <div class="node-row">
+    <span class="node-name">Labs/02 → NeuroBrave</span>
+    <span class="node-targets">Raphael (Grand Medical domain) + Shany (adjacent)</span>
+    <span class="node-count">LOW</span>
+  </div>
+</div>
+
+<div class="footer">PRIMO Intelligence | Connection Map v1 | 18.02.2026 | OSINT — Public Sources Only</div>
+
+</body>
+</html>

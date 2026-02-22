@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentagram × Primak — Counter-Brief v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #111;
+    --dark: #1a1a1a;
+    --mid: #555;
+    --light: #888;
+    --border: #e0e0e0;
+    --bg: #fafafa;
+    --white: #fff;
+    --accent: #1d4ed8;
+    --accent-light: #eff6ff;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --green: #059669;
+    --green-light: #ecfdf5;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 60px 60px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .hero .pentagram-mark {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 40px;
+    font-weight: 700;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    max-width: 750px;
+    margin-bottom: 20px;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    color: var(--mid);
+    font-weight: 400;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+  .hero .meta {
+    margin-top: 40px;
+    font-size: 12px;
+    color: var(--light);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  section.dark-section {
+    background: var(--dark);
+    color: var(--white);
+    border-bottom: 1px solid #333;
+  }
+  section.accent-section {
+    background: var(--accent);
+    color: var(--white);
+    border-bottom: none;
+  }
+
+  .section-number {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .dark-section .section-number { color: #5b7fc7; }
+
+  h2 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 32px;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    color: var(--light);
+  }
+
+  p { max-width: 640px; margin-bottom: 16px; }
+  p.large { font-size: 18px; line-height: 1.7; }
+
+  /* TEAM GRID */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-top: 32px;
+  }
+  .team-card {
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .team-card:nth-child(4n) { border-right: none; }
+  .team-card:nth-child(n+5) { border-bottom: none; }
+  .team-card .role-tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .team-card .name {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .team-card .focus {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.5;
+  }
+  .team-card .ref {
+    font-size: 11px;
+    color: var(--light);
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  /* ATTACK CARDS */
+  .attack-card {
+    border: 2px solid var(--border);
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .attack-header {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .attack-num {
+    background: var(--accent);
+    color: var(--white);
+    font-size: 20px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .attack-title-block {
+    padding: 20px 24px;
+  }
+  .attack-title-block .decision-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--light);
+    font-weight: 600;
+  }
+  .attack-title-block h3 {
+    margin-bottom: 0;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  .attack-body {
+    padding: 32px;
+  }
+
+  /* CRITIQUE BOX */
+  .critique {
+    background: var(--red-light);
+    border-left: 4px solid var(--red);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .critique .critique-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .critique p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 0;
+    color: var(--black);
+  }
+
+  /* COUNTER-PROPOSAL BOX */
+  .counter {
+    background: var(--accent-light);
+    border-left: 4px solid var(--accent);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .counter .counter-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .counter .counter-text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .counter .counter-rationale {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+    max-width: 580px;
+  }
+
+  /* VOICE QUOTES */
+  .voice {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 24px;
+    margin: 20px 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+  }
+  .dark-section .voice { border-top-color: #333; }
+  .voice .voice-name {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .voice .voice-role {
+    font-size: 11px;
+    color: var(--light);
+    margin-top: 2px;
+  }
+  .voice .voice-text {
+    font-size: 15px;
+    line-height: 1.7;
+    font-style: italic;
+    color: var(--mid);
+  }
+  .dark-section .voice .voice-text { color: #aaa; }
+
+  /* INSIGHT BOX */
+  .insight-box {
+    background: var(--bg);
+    border-left: 4px solid var(--black);
+    padding: 40px;
+    margin: 32px 0;
+    max-width: 700px;
+  }
+  .insight-box blockquote {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+  }
+  .insight-box .attribution {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--mid);
+    font-weight: 500;
+  }
+  .accent-section .insight-box {
+    background: rgba(255,255,255,0.15);
+    border-left-color: rgba(255,255,255,0.5);
+  }
+  .accent-section .insight-box .attribution {
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* SERVICES ALT */
+  .single-service {
+    border: 2px solid var(--black);
+    padding: 40px;
+    margin: 24px 0;
+    max-width: 640px;
+  }
+  .single-service .service-name {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .single-service .service-sub {
+    font-size: 16px;
+    color: var(--mid);
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    font-style: italic;
+  }
+  .scope-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 100px;
+    gap: 0;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .scope-row:last-child { border-bottom: none; }
+  .scope-row .scope-name {
+    font-weight: 700;
+  }
+  .scope-row .scope-desc {
+    color: var(--mid);
+  }
+  .scope-row .scope-price {
+    font-weight: 700;
+    text-align: right;
+  }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+  .compare-table th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--light);
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--black);
+  }
+  .compare-table th.team-a { color: #dc2626; }
+  .compare-table th.team-b { color: var(--accent); }
+  .compare-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .num-col {
+    font-weight: 800;
+    width: 40px;
+    text-align: center;
+  }
+  .compare-table .team-a-col {
+    background: var(--red-light);
+    color: var(--mid);
+    font-size: 13px;
+  }
+  .compare-table .team-b-col {
+    background: var(--accent-light);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  /* VERDICT */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 32px;
+  }
+  .verdict-box {
+    padding: 32px;
+    border: 2px solid;
+  }
+  .verdict-box.a { border-color: #dc2626; }
+  .verdict-box.b { border-color: var(--accent); }
+  .verdict-box h4 { margin-bottom: 16px; }
+  .verdict-box .v-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .verdict-box.a .v-label { color: #dc2626; }
+  .verdict-box.b .v-label { color: var(--accent); }
+  .verdict-box p { font-size: 14px; line-height: 1.7; }
+
+  /* FOOTER */
+  .footer {
+    padding: 40px 60px;
+    font-size: 11px;
+    color: var(--light);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px; }
+    .hero h1 { font-size: 32px; }
+    section { padding: 40px 24px; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
+    .voice { grid-template-columns: 1fr; gap: 8px; }
+    .verdict-grid { grid-template-columns: 1fr; }
+    .scope-row { grid-template-columns: 1fr; gap: 4px; }
+    .attack-header { grid-template-columns: 40px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="pentagram-mark">Pentagram × Primak &mdash; Team B / Counter-Brief</div>
+  <h1>We disagree.</h1>
+  <p class="subtitle">Team A built a system. We think the system is the problem. Primak doesn't need more tools — it needs one clear signal that cuts through everything.</p>
+  <div class="meta">February 2026 &nbsp;·&nbsp; Internal Review &nbsp;·&nbsp; v1</div>
+</div>
+
+<!-- ============ 01 — TEAM B ============ -->
+<section>
+  <div class="section-number">01 — Team B</div>
+  <h2>The opposition</h2>
+  <p class="large">Team A added structure. We question whether structure is what Primak needs — or whether it's what's holding it back. Four partners, one thesis: simplify until it hurts.</p>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="role-tag">Lead Partner</div>
+      <div class="name">Michael Bierut</div>
+      <div class="focus">The simplifier. 40 years of proving that the most powerful brands say one thing, not seven. Relentless about removing what doesn't earn its place.</div>
+      <div class="ref">Led: Mastercard, Saks Fifth Avenue, MIT Media Lab</div>
+    </div>
+    <div class="team-card">
+      <div class="role-tag">Digital & Systems</div>
+      <div class="name">Eddie Opara</div>
+      <div class="focus">Brand identity in digital contexts. Custom typefaces. How brands function across screens, search, and AI surfaces.</div>
+      <div class="ref">Led: IBM Watson, Wired, Esquire</div>
+    </div>
+    <div class="team-card">
+      <div class="role-tag">Technology & Context</div>
+      <div class="name">Jody Hudson-Powell</div>
+      <div class="focus">Anti-moodboard. Refuses to design from trends. Everything must emerge from the specific client's context, not borrowed aesthetics.</div>
+      <div class="ref">Led: Channel 4, Google DeepMind</div>
+    </div>
+    <div class="team-card">
+      <div class="role-tag">Strategy & Naming</div>
+      <div class="name">Domenic Lippa</div>
+      <div class="focus">Typographic rigor. Naming architecture. Believes the name should do 80% of the work — if it needs explanation, it's wrong.</div>
+      <div class="ref">Led: London Design Festival, Harrods</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 — CORE COUNTER-THESIS ============ -->
+<section class="accent-section">
+  <div class="section-number" style="color: rgba(255,255,255,0.5);">02 — Counter-Thesis</div>
+  <h2 style="color: #fff;">Team A built a dashboard.<br>Primak needs a signal.</h2>
+
+  <div class="insight-box">
+    <blockquote style="color: #fff;">"Three assets for a one-liner. Two titles. Branded product names. Proof matrices. Voice tests. That's not a brand — that's a bureaucracy. McKinsey doesn't have a 'brand line' and a 'positioning statement' and a 'proof line.' McKinsey has a name. The name does the work."</blockquote>
+    <div class="attribution">— Michael Bierut, Lead Partner</div>
+  </div>
+
+  <p style="color: rgba(255,255,255,0.85); margin-top: 32px; font-size: 16px; max-width: 620px;">
+    Team A's instinct was right — "Fractional" is a ceiling. But their solution was to build more rooms around it. We think the answer is to <strong>knock down the ceiling entirely</strong>.
+  </p>
+  <p style="color: rgba(255,255,255,0.85); font-size: 16px; max-width: 620px;">
+    Primak is one person, one company, one promise. It should be expressible in <strong>one breath</strong>. If you need a system to introduce yourself — you don't know who you are yet.
+  </p>
+
+  <div style="margin-top: 40px;">
+    <div class="voice" style="border-top-color: rgba(255,255,255,0.15);">
+      <div>
+        <div class="voice-name" style="color: #fff;">Jody H-P</div>
+        <div class="voice-role" style="color: rgba(255,255,255,0.4);">Technology</div>
+      </div>
+      <div class="voice-text" style="color: rgba(255,255,255,0.8);">
+        "Team A researched how other Fractional CPOs position themselves and then tried to do it better. That's the wrong starting point. Primak isn't competing with Fractional CPOs — Primak is competing with the idea of hiring a full-time CPO. The benchmark is the real thing, not the other freelancers."
+      </div>
+    </div>
+    <div class="voice" style="border-top-color: rgba(255,255,255,0.15);">
+      <div>
+        <div class="voice-name" style="color: #fff;">Eddie Opara</div>
+        <div class="voice-role" style="color: rgba(255,255,255,0.4);">Digital</div>
+      </div>
+      <div class="voice-text" style="color: rgba(255,255,255,0.8);">
+        "When a CEO asks an AI assistant for help — the query isn't 'find me a fractional CPO.' It's 'who led the product behind the $585M Medtronic deal?' If the answer is Yaniv Primak, you don't need a positioning statement. You need the story to be findable."
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 — DECISION-BY-DECISION ATTACK ============ -->
+<section>
+  <div class="section-number">03 — Decision by Decision</div>
+  <h2>Where Team A went wrong — and what we'd do instead</h2>
+
+  <!-- ===== #1 ===== -->
+  <div class="attack-card" style="margin-top: 40px;">
+    <div class="attack-header">
+      <div class="attack-num">1</div>
+      <div class="attack-title-block">
+        <div class="decision-label">One-Liner</div>
+        <h3>Team A split it into 3 assets. We say: one line or nothing.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>"Product leadership for AI that can't fail" is built on <strong>fear</strong>. "Can't fail" is a negative. Nobody wakes up excited to hire the person who prevents failure — they hire the person who creates success. Fear sells insurance. Ambition sells partnerships. And "Product leadership" is a <em>category description</em>, not a brand. That's like Porsche saying "Automotive engineering for roads that are fast."</p>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Domenic Lippa</div>
+          <div class="voice-role">Naming</div>
+        </div>
+        <div class="voice-text">"Also — three assets for one introduction? A brand line, a positioning statement, AND a proof line? Yaniv has ADHD. His clients are busy CEOs. This system will collapse after the first week. One line. One thing. Memorizable by anyone who hears it once."</div>
+      </div>
+
+      <h4 style="margin-top: 32px;">Our Counter</h4>
+      <p style="font-size: 13px; color: var(--light); margin-bottom: 16px;">One line that does everything — positions, differentiates, and sticks. No system required.</p>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal — Recommended</div>
+        <div class="counter-text">Primak builds the AI products that need to get it right the first time.</div>
+        <div class="counter-rationale">
+          15 words. <strong>"Builds"</strong> = active, constructive (not "leads" or "manages"). <strong>"AI products"</strong> = category. <strong>"Need to get it right the first time"</strong> = implies stakes WITHOUT fear. It's about <strong>precision</strong>, not avoidance. "First time" implies efficiency and confidence — not anxiety. And "Primak" is the subject — the name IS the brand.
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal — Alternative</div>
+        <div class="counter-text">The product mind behind $585M in AI exits. Now available.</div>
+        <div class="counter-rationale">
+          Proof-first. The number does everything — credibility, scale, stakes. "Now available" is deliberately casual — chill authority. Implies scarcity. Risk: ties identity to one exit forever.
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal — Radical</div>
+        <div class="counter-text">Primak. Your AI deserves a CPO.</div>
+        <div class="counter-rationale">
+          6 words. Reframes the conversation entirely: the question isn't "do I need a fractional CPO" — it's "does my AI product deserve real product leadership?" The answer is always yes. Shortest possible distance between hearing it and wanting a meeting.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== #2 ===== -->
+  <div class="attack-card">
+    <div class="attack-header">
+      <div class="attack-num">2</div>
+      <div class="attack-title-block">
+        <div class="decision-label">Title</div>
+        <h3>Team A created two identities. We say: that's schizophrenia.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>A "dual system" where LinkedIn says one thing and your business card says another. What happens when a prospect sees your LinkedIn, then gets your proposal, and the title is different? That's not a system — that's <strong>inconsistency disguised as strategy</strong>. And putting "$585M Medtronic" in a LinkedIn headline is the opposite of chill. It's a billboard on your forehead.</p>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Michael Bierut</div>
+          <div class="voice-role">Lead Partner</div>
+        </div>
+        <div class="voice-text">"Mastercard didn't have one logo for business cards and another for digital. We made ONE mark that works everywhere. That's the job. If your title doesn't work in every context, it's not a title — it's a costume change."</div>
+      </div>
+
+      <h4 style="margin-top: 32px;">Our Counter</h4>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal — One Title Everywhere</div>
+        <div class="counter-text">CPO, Primak</div>
+        <div class="counter-rationale">
+          Two words. Works on LinkedIn, business cards, email signatures, proposals, introductions. "CPO" = what you do. "Primak" = who you are. No "Founder" (ego). No "Fractional" (ceiling). No "$585M" (billboard). The credibility comes from the CONVERSATION, not the headline. Let the title open the door — the track record walks through it.
+        </div>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Eddie Opara</div>
+          <div class="voice-role">Digital</div>
+        </div>
+        <div class="voice-text">"But what about LinkedIn search? CEOs don't search for 'CPO' — they search for 'Fractional CPO.' Solution: put 'Fractional CPO' in the LinkedIn ABOUT section and EXPERIENCE titles, where search indexes it. The headline stays clean. SEO doesn't require you to uglify your title."</div>
+      </div>
+
+      <div style="background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 32px; max-width: 480px; margin: 24px 0;">
+        <div style="font-size: 22px; font-weight: 700;">Yaniv Primak</div>
+        <div style="font-size: 15px; color: var(--mid); margin-top: 6px;">CPO, Primak</div>
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--light);">
+          Same title on LinkedIn, email sig, proposals, business cards, podcast intros.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== #3 ===== -->
+  <div class="attack-card">
+    <div class="attack-header">
+      <div class="attack-num">3</div>
+      <div class="attack-title-block">
+        <div class="decision-label">Services</div>
+        <h3>Team A branded 3 products. We say: you're not a menu — you're a chef.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>"Primak Scan. Primak Sprint. Primak Residency." This is <strong>consulting-firm cosplay</strong>. McKinsey has named products because they have 45,000 consultants delivering them at scale. Primak is Yaniv. The product IS Yaniv. Packaging his time into branded tiers creates the illusion of scale where the value is actually <strong>intimacy</strong>. A CEO doesn't want to buy a "Scan" — they want to talk to the person who shipped CathWorks.</p>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Jody H-P</div>
+          <div class="voice-role">Technology</div>
+        </div>
+        <div class="voice-text">"Also — the names are generic. 'Scan,' 'Sprint,' 'Residency' — I've seen these exact names on 20 other fractional exec websites. Put 'Primak' in front and it's still the same commodity menu. The names should be unnecessary. The conversation should determine the scope."</div>
+      </div>
+
+      <h4 style="margin-top: 32px;">Our Counter</h4>
+      <p style="font-size: 14px; color: var(--mid); margin-bottom: 20px;">One offering. Three scopes. No branded names. The prospect defines what they need — Yaniv defines how.</p>
+
+      <div class="single-service">
+        <div style="font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 8px;">The Offering</div>
+        <div class="service-name">Product Leadership by Primak</div>
+        <div class="service-sub">"Tell me what you're building. I'll tell you what it needs."</div>
+
+        <div class="scope-row" style="border-bottom: 2px solid var(--black); padding-bottom: 12px;">
+          <div class="scope-name" style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--light);">Scope</div>
+          <div class="scope-desc" style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--light);">What Happens</div>
+          <div class="scope-price" style="font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--light);">Starts At</div>
+        </div>
+        <div class="scope-row">
+          <div class="scope-name">Deep Dive</div>
+          <div class="scope-desc">2–3 weeks. Product audit, strategy, roadmap. Walk away with clarity.</div>
+          <div class="scope-price">$15K</div>
+        </div>
+        <div class="scope-row">
+          <div class="scope-name">Intensive</div>
+          <div class="scope-desc">6–12 weeks. Embedded leadership for one critical milestone. Ship it right.</div>
+          <div class="scope-price">$22K</div>
+        </div>
+        <div class="scope-row">
+          <div class="scope-name">Ongoing</div>
+          <div class="scope-desc">Quarterly retainer. Weekly cadence. Real CPO, not a consultant.</div>
+          <div class="scope-price">$13K/mo</div>
+        </div>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Domenic Lippa</div>
+          <div class="voice-role">Naming</div>
+        </div>
+        <div class="voice-text">"'Deep Dive,' 'Intensive,' 'Ongoing' — these are descriptions, not brands. That's the point. The BRAND is Primak. Everything else is just scope. Don't brand the parts — brand the whole."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== #4 ===== -->
+  <div class="attack-card">
+    <div class="attack-header">
+      <div class="attack-num">4</div>
+      <div class="attack-title-block">
+        <div class="decision-label">Proof Cases</div>
+        <h3>Team A built a matrix. We say: matrices feel rehearsed.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>A "Proof Matrix" with signals, cases, and hooks. It's smart operationally — but if a prospect senses Yaniv is <strong>running a playbook</strong>, they lose trust immediately. The best proof is the one that feels <strong>spontaneous</strong> — like Yaniv just happened to mention the most relevant thing. Systems are for CRM notes, not for human conversation.</p>
+      </div>
+
+      <h4 style="margin-top: 24px;">Our Counter</h4>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal</div>
+        <div class="counter-text">One universal story. Five endings.</div>
+        <div class="counter-rationale">
+          Start every proof the same way: <strong>"I've built AI products across medical devices, cybersecurity, and media."</strong> One sentence, three worlds. Then let the prospect's REACTION guide which story you go deeper on. They lean forward at "medical devices" → CathWorks. They ask about "cybersecurity" → Orchestra. The prospect picks the case. You just tell the story they asked for. Feels spontaneous. Is actually systematic.
+        </div>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Michael Bierut</div>
+          <div class="voice-role">Lead Partner</div>
+        </div>
+        <div class="voice-text">"The Saks identity works because it's one idea — a grid — with infinite expressions. Same here. One opening line, infinite endings. The system is invisible. The conversation feels natural."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== #5 ===== -->
+  <div class="attack-card">
+    <div class="attack-header">
+      <div class="attack-num">5</div>
+      <div class="attack-title-block">
+        <div class="decision-label">Verticals</div>
+        <h3>Team A added a third trigger. We say: two was sharper.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>The original razor: "If your AI fails, does someone get hurt or does a deal die?" Two triggers. Binary. Sharp. Team A added "or does a regulator call" — which dilutes it. Regulation is a <strong>symptom</strong> of the first two. If someone gets hurt → regulators call. If a deal dies → compliance was probably the reason. The third trigger adds a category without adding clarity.</p>
+      </div>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal</div>
+        <div class="counter-text">Keep the original razor. Two triggers. Don't touch it.</div>
+        <div class="counter-rationale">
+          "Does someone get hurt or does a deal die?" — this is already perfect. It's binary, visceral, and self-qualifying. Adding a third option makes it a checklist instead of a gut check. Two triggers = one second to answer. Three triggers = thinking about it. You want the gut reaction, not the analysis.
+        </div>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Eddie Opara</div>
+          <div class="voice-role">Digital</div>
+        </div>
+        <div class="voice-text">"Every word you add to a filter reduces its power. The best search queries are short. The best qualifiers are binary."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== #6 ===== -->
+  <div class="attack-card">
+    <div class="attack-header">
+      <div class="attack-num">6</div>
+      <div class="attack-title-block">
+        <div class="decision-label">Voice</div>
+        <h3>Team A added three tests. We say: one test rules them all.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>Forward Test. Number Test. Chill Test. Three checkpoints before every piece of content. For someone with ADHD who needs to move fast, that's three reasons to skip the whole process. Tests work when there's ONE. The moment you have three, you're back to a quality manual nobody reads.</p>
+      </div>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal — The Only Test</div>
+        <div class="counter-text">"Would I send this if I had 10 other clients waiting?"</div>
+        <div class="counter-rationale">
+          One question. Captures everything. If you'd send it with 10 clients waiting — it's sharp, it's not trying too hard, and it's worth the reader's time. If you wouldn't — it's either too long, too needy, or too weak. The scarcity mindset produces the same results as Forward + Number + Chill combined. One question. One second.
+        </div>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Jody H-P</div>
+          <div class="voice-role">Technology</div>
+        </div>
+        <div class="voice-text">"Channel 4's brand system works because we gave them principles, not checklists. Principles are flexible. Checklists break under pressure. One principle: scarcity. Everything else follows."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== #7 ===== -->
+  <div class="attack-card">
+    <div class="attack-header">
+      <div class="attack-num">7</div>
+      <div class="attack-title-block">
+        <div class="decision-label">Deal Gates</div>
+        <h3>Team A renamed them. We say: the client never sees these names.</h3>
+      </div>
+    </div>
+    <div class="attack-body">
+      <div class="critique">
+        <div class="critique-label">The Problem with Team A</div>
+        <p>"Investment Fit" instead of "Budget Check." "Authority Map" instead of "Decision Maker ID." These names are <strong>internal tools</strong>. The client will never hear them. Renaming internal processes as "brand language" is decoration — it costs time and adds zero value. Save the naming energy for things the market actually sees.</p>
+      </div>
+
+      <div class="counter">
+        <div class="counter-label">Counter-Proposal</div>
+        <div class="counter-text">Keep the original names. They're operational tools, not brand assets.</div>
+        <div class="counter-rationale">
+          Budget Check. Decision Maker ID. Scope Lock. Floor Price. Exit Trigger. These are blunt, clear, and functional. They work because Yaniv uses them internally. Rebranding internal processes is the same impulse that made corporations rename "HR" to "People & Culture" — the department didn't change, just the door sign.
+        </div>
+      </div>
+
+      <div class="voice">
+        <div>
+          <div class="voice-name">Domenic Lippa</div>
+          <div class="voice-role">Naming</div>
+        </div>
+        <div class="voice-text">"A name earns its place when someone outside the company says it. If only Yaniv says these words, they don't need to be branded. Save the naming calories."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 — HEAD TO HEAD ============ -->
+<section class="dark-section">
+  <div class="section-number">04 — Head to Head</div>
+  <h2 style="color: #fff;">Team A vs Team B</h2>
+
+  <table class="compare-table" style="border-color: #333; margin-top: 32px;">
+    <thead>
+      <tr>
+        <th style="border-bottom-color: #555;">#</th>
+        <th class="team-a" style="border-bottom-color: #555;">Team A (Jen, Scher, Trabucco-C, Lupi)</th>
+        <th class="team-b" style="border-bottom-color: #555;">Team B (Bierut, Opara, Hudson-Powell, Lippa)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="num-col" style="color: #fff; border-bottom-color: #333;">1</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999; border-bottom-color: #333;">3 assets: Brand line + Positioning + Proof line<br><em>"Product leadership for AI that can't fail"</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc; border-bottom-color: #333;">1 line, period<br><em>"Primak builds the AI products that need to get it right the first time"</em></td>
+      </tr>
+      <tr>
+        <td class="num-col" style="color: #fff; border-bottom-color: #333;">2</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999; border-bottom-color: #333;">Dual system: LinkedIn headline ≠ Brand title<br><em>Fractional CPO · AI Product Leadership · $585M</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc; border-bottom-color: #333;">One title everywhere<br><em>CPO, Primak</em></td>
+      </tr>
+      <tr>
+        <td class="num-col" style="color: #fff; border-bottom-color: #333;">3</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999; border-bottom-color: #333;">3 branded products<br><em>Primak Scan / Sprint / Residency</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc; border-bottom-color: #333;">1 offering, 3 scopes<br><em>Product Leadership by Primak (Deep Dive / Intensive / Ongoing)</em></td>
+      </tr>
+      <tr>
+        <td class="num-col" style="color: #fff; border-bottom-color: #333;">4</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999; border-bottom-color: #333;">Proof Matrix: signal → case → hook<br><em>Max 2 per conversation</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc; border-bottom-color: #333;">One universal story, five endings<br><em>Prospect picks the case</em></td>
+      </tr>
+      <tr>
+        <td class="num-col" style="color: #fff; border-bottom-color: #333;">5</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999; border-bottom-color: #333;">3 triggers<br><em>+ "or does a regulator call"</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc; border-bottom-color: #333;">2 triggers<br><em>Keep original. Don't touch.</em></td>
+      </tr>
+      <tr>
+        <td class="num-col" style="color: #fff; border-bottom-color: #333;">6</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999; border-bottom-color: #333;">3 voice tests<br><em>Forward + Number + Chill</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc; border-bottom-color: #333;">1 voice test<br><em>"Would I send this if I had 10 other clients waiting?"</em></td>
+      </tr>
+      <tr>
+        <td class="num-col" style="color: #fff;">7</td>
+        <td class="team-a-col" style="background: #2a1a1a; color: #999;">Renamed gates<br><em>Investment Fit, Authority Map, Rate Standard…</em></td>
+        <td class="team-b-col" style="background: #1a2040; color: #ccc;">Keep originals<br><em>Internal tools don't need branding</em></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="verdict-grid" style="margin-top: 48px;">
+    <div class="verdict-box a" style="border-color: #dc2626; background: #2a1a1a;">
+      <div class="v-label" style="color: #dc2626;">Team A Philosophy</div>
+      <p style="color: #ccc; font-size: 15px; font-weight: 600; margin-bottom: 12px;">Build a system. Every context gets the right tool.</p>
+      <p style="color: #888;">Strength: flexibility, search optimization, thoroughness.<br>Risk: complexity. Yaniv has to remember which asset goes where. The system depends on perfect execution.</p>
+    </div>
+    <div class="verdict-box b" style="border-color: var(--accent); background: #1a2040;">
+      <div class="v-label" style="color: #6b8cff;">Team B Philosophy</div>
+      <p style="color: #ccc; font-size: 15px; font-weight: 600; margin-bottom: 12px;">Be one thing. Say one thing. Say it everywhere.</p>
+      <p style="color: #888;">Strength: simplicity, consistency, zero maintenance.<br>Risk: less optimized for LinkedIn search. May sacrifice some findability for purity.</p>
+    </div>
+  </div>
+
+  <div style="background: #222; border-left: 4px solid var(--accent); padding: 40px; margin-top: 48px; max-width: 700px;">
+    <blockquote style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #fff; letter-spacing: -0.3px;">The real question for Yaniv: do you want a <strong>toolkit</strong> you deploy differently in each context? Or do you want a <strong>signal</strong> that's the same everywhere and lets the conversation do the rest?</blockquote>
+    <div style="margin-top: 16px; font-size: 13px; color: #666; font-weight: 500;">— Michael Bierut, Lead Partner, Team B</div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<div class="footer" style="border-top: 3px solid var(--accent);">
+  <div>Pentagram × Primak &nbsp;·&nbsp; Counter-Brief v1 &nbsp;·&nbsp; Team B (Bierut, Opara, Hudson-Powell, Lippa)</div>
+  <div>February 2026 &nbsp;·&nbsp; Internal Review</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ניתוח אסטרטגי — v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #fff; color: #37352f; line-height: 1.7;
+    max-width: 900px; margin: 0 auto; padding: 60px 96px 80px;
+  }
+  .page-icon { font-size: 48px; margin-bottom: 12px; }
+  .page-title { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 4px; }
+  .page-subtitle { font-size: 15px; color: #9b9a97; margin-bottom: 8px; }
+  .page-meta {
+    display: flex; gap: 24px; font-size: 13px; color: #9b9a97;
+    margin-bottom: 40px; padding-bottom: 16px; border-bottom: 1px solid #e9e9e7;
+  }
+  .page-meta strong { color: #37352f; font-weight: 500; }
+
+  h2 { font-size: 24px; font-weight: 700; margin: 48px 0 16px; }
+  h3 { font-size: 18px; font-weight: 600; margin: 32px 0 10px; }
+  p { margin: 10px 0; font-size: 15px; }
+
+  .callout {
+    border-radius: 4px; padding: 16px 18px; margin: 20px 0;
+    display: flex; gap: 12px; align-items: flex-start; font-size: 14px;
+  }
+  .callout.gray { background: #f1f1ef; }
+  .callout.yellow { background: #fdecc8; }
+  .callout.green { background: #dbeddb; }
+  .callout.red { background: #fce4e4; }
+  .callout.dark { background: #37352f; color: #e9e9e7; }
+  .callout-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+  .callout-body { flex: 1; }
+  .callout-body strong { font-weight: 600; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; margin: 24px 0;
+  }
+  .stat-card {
+    background: #f7f6f3; border-radius: 6px; padding: 18px; text-align: center;
+  }
+  .stat-num { font-size: 26px; font-weight: 800; line-height: 1.2; }
+  .stat-label {
+    font-size: 11px; color: #9b9a97; margin-top: 4px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .stat-src { font-size: 10px; color: #c4c4c0; margin-top: 2px; }
+
+  .ntable {
+    width: 100%; border-collapse: collapse; font-size: 14px; margin: 16px 0;
+  }
+  .ntable th {
+    text-align: right; font-weight: 500; font-size: 12px; color: #9b9a97;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 8px 12px; border-bottom: 1px solid #e9e9e7; background: #fafaf8;
+  }
+  .ntable td { padding: 10px 12px; border-bottom: 1px solid #f1f1ef; vertical-align: top; }
+  .ntable tr:hover td { background: #f7f6f3; }
+
+  .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 4px;
+    font-size: 12px; font-weight: 500; white-space: nowrap;
+  }
+  .tag-green { background: #dbeddb; color: #2b593f; }
+  .tag-yellow { background: #fdecc8; color: #7c5c00; }
+  .tag-red { background: #fce4e4; color: #8b2500; }
+  .tag-blue { background: #d3e5ef; color: #24548c; }
+  .tag-purple { background: #e8deee; color: #6b3fa0; }
+
+  /* Emphasis block */
+  .emphasis {
+    background: linear-gradient(135deg, #37352f 0%, #4a4a45 100%);
+    color: #fff; border-radius: 8px; padding: 28px 32px; margin: 24px 0;
+  }
+  .emphasis-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .emphasis-body { font-size: 15px; color: #d4d4d0; line-height: 1.7; }
+  .emphasis-body strong { color: #fff; }
+
+  /* Gateway card */
+  .gateway {
+    border: 2px solid #37352f; border-radius: 8px; margin: 20px 0; overflow: hidden;
+  }
+  .gateway-header {
+    background: #37352f; color: #fff; padding: 14px 20px;
+    font-weight: 700; font-size: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .gateway-badge {
+    background: rgba(255,255,255,0.2); padding: 3px 10px;
+    border-radius: 4px; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .gateway-body { padding: 18px 20px; }
+  .gateway-row { margin: 6px 0; font-size: 14px; }
+  .gateway-row strong { font-weight: 600; }
+  .gateway-arrow {
+    display: flex; align-items: center; gap: 8px; margin: 12px 0;
+    font-size: 14px; color: #6b6b6b;
+  }
+  .gateway-arrow .arrow { color: #37352f; font-weight: 700; font-size: 18px; }
+  .gateway-value {
+    background: #dbeddb; padding: 10px 16px; border-radius: 4px;
+    font-size: 14px; margin-top: 12px;
+  }
+
+  .divider { height: 1px; background: #e9e9e7; margin: 40px 0; }
+
+  .footer {
+    font-size: 12px; color: #b4b4b0; margin-top: 48px;
+    padding-top: 16px; border-top: 1px solid #e9e9e7; text-align: center;
+  }
+  .source-link { color: #9b9a97; text-decoration: underline; font-size: 12px; }
+
+  @media (max-width: 768px) {
+    body { padding: 24px 20px 40px; }
+    .stats { grid-template-columns: 1fr; }
+    .page-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-icon">🔭</div>
+<div class="page-title">מי הלקוחות החדשים של פרימק?</div>
+<div class="page-subtitle">ניתוח אסטרטגי — מהמציאות של פברואר 2026 לטאקטיקה</div>
+<div class="page-meta">
+  <span><strong>תאריך:</strong> 18.02.2026</span>
+  <span><strong>מקורות:</strong> Calcalist, VC Cafe, Tracxn, Sheba ARC, Innovation Authority</span>
+  <span><strong>גרסה:</strong> v1</span>
+</div>
+
+<!-- SECTION 1: THE REALITY -->
+<h2>I. המציאות — פברואר 2026</h2>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-num">$1B+</div>
+    <div class="stat-label">גיוסים ינואר 2026</div>
+    <div class="stat-src">הכי טוב מאז 2022</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">₪500M+</div>
+    <div class="stat-label">רשות החדשנות / שנה</div>
+    <div class="stat-src">Seed, Pre-seed, Series A</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">1,240</div>
+    <div class="stat-label">חברות HealthTech בישראל</div>
+    <div class="stat-src">$4B+ total raised</div>
+  </div>
+</div>
+
+<div class="callout yellow">
+  <div class="callout-icon">⚡</div>
+  <div class="callout-body">
+    <strong>סייבר שולט:</strong> ינואר 2026 — Cyera $9B, Upwind $1.5B, Claroty $3B, Torq $1.2B. סטארטאפי סייבר ישראליים מגייסים מאות מיליונים. זה לא רק "תחום מעניין" — זה הכסף הכי גדול בישראל.
+  </div>
+</div>
+
+<div class="callout gray">
+  <div class="callout-icon">🤖</div>
+  <div class="callout-body">
+    <strong>AI = תשתית, לא תחום:</strong> כל חברה מוסיפה AI. לא "AI startups" — כל חברה. מה שאומר: כל חברה צריכה <strong>לעצב מחדש את המוצר שלה</strong>. 82% מהחברות אומרות שהביקוש למעצבים <strong>עלה</strong>. 79% רוצים מעצבים שיודעים לעצב מוצרי AI.
+  </div>
+</div>
+
+<div class="callout gray">
+  <div class="callout-icon">🏥</div>
+  <div class="callout-body">
+    <strong>Sheba ARC = מפלצת:</strong> 100+ סטארטאפים, 3 חד-קרנים, $1B+ השקעות, 2-3 exits בשנה (כולל $800M ב-2024). עכשיו פתחו האב בבוסטון ל-6-12 סטארטאפים חדשים בשנה. <strong>דידי פביאן = דלת ישירה לשם.</strong>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 2: WHAT I MISSED -->
+<h2>II. מה שפספסתי — שני הנכסים הנסתרים</h2>
+
+<div class="gateway">
+  <div class="gateway-header">
+    <span>דידי פביאן — סגן מנהל מחלקה, שיבא</span>
+    <span class="gateway-badge">חבר טוב</span>
+  </div>
+  <div class="gateway-body">
+    <div class="gateway-row"><strong>יחס:</strong> חברים טובים — לא "קשר לינקדאין", קשר אמיתי</div>
+    <div class="gateway-row"><strong>תפקיד:</strong> סגן מנהל מחלקה בבית החולים שיבא</div>
+    <div class="gateway-arrow">
+      דידי <span class="arrow">←</span> שיבא <span class="arrow">←</span> ARC Innovation
+    </div>
+    <div class="gateway-value">
+      <strong>ARC = 100+ סטארטאפים, $1B+, 3 unicorns, 2-3 exits/year.</strong><br>
+      פתחו האב בבוסטון ינואר 2026. מתמקדים ב-AI diagnostics, digital health platforms, workforce support.<br><br>
+      <strong>למה דידי > אילת גבע:</strong> אילת כבר לא שם. דידי = פנימי + חבר. Warm intro ישיר למנהל ARC הנוכחי. לא צריך לחפש מי החליף את אילת — דידי יכול לעשות את זה מחר.
+    </div>
+  </div>
+</div>
+
+<div class="gateway">
+  <div class="gateway-header">
+    <span>עומרי פלג — רשות החדשנות</span>
+    <span class="gateway-badge">קשר קיים</span>
+  </div>
+  <div class="gateway-body">
+    <div class="gateway-row"><strong>גישה:</strong> רשות החדשנות = ₪500M+/שנה לסטארטאפים ישראליים</div>
+    <div class="gateway-row"><strong>סוג חברות:</strong> Pre-seed, Seed, Series A — בדיוק אלה שצריכים UX/Product</div>
+    <div class="gateway-arrow">
+      עומרי <span class="arrow">←</span> רשות החדשנות <span class="arrow">←</span> מאות סטארטאפים ממומנים
+    </div>
+    <div class="gateway-value">
+      <strong>תוכניות 2026:</strong><br>
+      — קרן סטארטאפים מהפכנית: חצי מיליארד ₪/שנה ל-seed / pre-seed / A<br>
+      — YOZMA 2.0: $300M ל-deeptech<br>
+      — 1,000 GPU של Nvidia B200 לחברות AI<br><br>
+      <strong>ההזדמנות:</strong> חברות שמקבלות כסף מהרשות צריכות להוכיח progress. הן צריכות UX/Product. עומרי יכול לחבר את פרימק <strong>לצד הביקוש</strong> — לא לחפש לקוחות, אלא שהם יגיעו דרך עומרי.
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 3: THE STRATEGIC QUESTION -->
+<h2>III. השאלה האסטרטגית</h2>
+
+<div class="emphasis">
+  <div class="emphasis-title">מי הלקוח החדש של פרימק ב-2026?</div>
+  <div class="emphasis-body">
+    לא "סטארטאפ שצריך אתר". לא "חברה שצריכה לוגו". <br><br>
+    <strong>חברה שמוסיפה AI למוצר קיים, או בונה מוצר AI חדש, ולא יודעת איך לעצב את החוויה כדי שמשתמשים יסמכו על זה.</strong><br><br>
+    זה מה שקורה עכשיו: כל חברה מוסיפה AI. רוב החברות לא יודעות איך. ויניב — שבנה UI ל-AI cardiac diagnostics שמציל חיים — יודע בדיוק איך.
+  </div>
+</div>
+
+<h3>3 סוגי לקוחות חדשים</h3>
+
+<table class="ntable">
+  <thead>
+    <tr>
+      <th>סוג</th>
+      <th>מה הם</th>
+      <th>למה עכשיו</th>
+      <th>מה פרימק נותן</th>
+      <th>ערך דיל</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>AI-First Product</strong></td>
+      <td>סטארטאפ שבנה AI ועכשיו צריך ממשק שמשתמשים סומכים עליו</td>
+      <td>82% מהחברות מגדילות ביקוש למעצבים. 79% רוצים מעצבי AI products.</td>
+      <td>CathWorks = הוכחה שיניב יודע לעצב AI trust interface. FDA cleared.</td>
+      <td><span class="tag tag-green">₪60-150K</span></td>
+    </tr>
+    <tr>
+      <td><strong>Post-Funding Series A</strong></td>
+      <td>חברה שגייסה $5-50M ועכשיו בונה צוות מוצר ראשון</td>
+      <td>$1B+ גיוסים בינואר 2026 לבד. מאות חברות עם כסף חדש.</td>
+      <td>Fractional CPO / Product Sprint. Queue = הוכחה ל-C-level product.</td>
+      <td><span class="tag tag-green">₪80-200K</span></td>
+    </tr>
+    <tr>
+      <td><strong>Regulated AI (MedTech, Cyber)</strong></td>
+      <td>חברה שצריכה Human Factors / regulatory UX</td>
+      <td>FDA מחמיר AI/ML requirements. סייבר = $9B valuations. שניהם צריכים UX מדויק.</td>
+      <td>Regulatory UX niche שאף אחד לא מחזיק. CathWorks + Orchestra = double proof.</td>
+      <td><span class="tag tag-green">₪70-200K</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="divider"></div>
+
+<!-- SECTION 4: HIDDEN NETWORK VALUE -->
+<h2>IV. ערך נסתר ברשת — Gateway Map</h2>
+
+<p>הניתוח הקודם התייחס לקשרים כ-"מטרות" — קונים ישירים. אבל הערך הגדול הוא ב-<strong>שערים</strong> — אנשים שנותנים גישה ל-10-100 לקוחות פוטנציאליים בבת אחת.</p>
+
+<table class="ntable">
+  <thead>
+    <tr>
+      <th>שער</th>
+      <th>מי</th>
+      <th>גישה ל...</th>
+      <th>כמה לקוחות פוטנציאליים</th>
+      <th>חום הקשר</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="tag tag-purple">בי"ח שיבא</span></td>
+      <td><strong>דידי פביאן</strong></td>
+      <td>ARC Innovation — 100+ סטארטאפים, בוסטון האב, שותפויות Microsoft/Novartis/NVIDIA</td>
+      <td>10-30 בשנה</td>
+      <td><span class="tag tag-green">חבר טוב</span></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-purple">רשות החדשנות</span></td>
+      <td><strong>עומרי פלג</strong></td>
+      <td>מאות סטארטאפים ממומנים, ₪500M+/שנה, deeptech + AI</td>
+      <td>50-100 בשנה</td>
+      <td><span class="tag tag-yellow">קשר קיים</span></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-purple">Medtronic</span></td>
+      <td><strong>Guy Lavi</strong> (CathWorks)</td>
+      <td>רשת MedTech גלובלית, $275/hr market, case study</td>
+      <td>Global reach</td>
+      <td><span class="tag tag-yellow">לא הופעל</span></td>
+    </tr>
+    <tr>
+      <td><span class="tag tag-purple">VCs (15+)</span></td>
+      <td>Team8, Grove, Viola, Peregrine, SOMV</td>
+      <td>10-30 portfolio companies כל אחד</td>
+      <td>150-450 חברות</td>
+      <td><span class="tag tag-yellow">קשר לינקדאין</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout red">
+  <div class="callout-icon">🔴</div>
+  <div class="callout-body">
+    <strong>מה שעשיתי לא נכון:</strong> ניתחתי 1,226 קשרים כ-"מי קונה ישירות". התשובה: 12 (1%). אבל ניתוח נכון = מי הם ה-4-5 <strong>שערים</strong> שפותחים גישה ל-<strong>מאות</strong>. דידי ועומרי לבד = גישה ל-60-130 לקוחות פוטנציאליים בשנה.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 5: REVOLUTION OPPORTUNITIES -->
+<h2>V. המהפכה — מה ההזדמנויות?</h2>
+
+<h3>מגמה 1: כל חברה מוסיפה AI</h3>
+<p>לא AI startups. <strong>כל</strong> חברה. בנק, חברת ביטוח, חברת logistics, בית חולים. כולם מוסיפים AI לתוך המוצר הקיים. ורובם לא יודעים איך לעצב את החוויה.</p>
+<div class="callout green">
+  <div class="callout-icon">💰</div>
+  <div class="callout-body"><strong>הזדמנות:</strong> "AI UX Audit" — שירות שבודק את חווית ה-AI במוצר קיים ונותן מפת דרכים. ₪15-30K per audit. Scalable.</div>
+</div>
+
+<h3>מגמה 2: סייבר ישראלי = gold rush</h3>
+<p>$9B Cyera, $3B Claroty, $1.5B Upwind, $1.2B Torq — רק בינואר. חברות סייבר ישראליות מגייסות מאות מיליונים. כולן צריכות enterprise dashboards. יניב עיצב ל-Orchestra (בעלי NSO). זה proof case ברמה הכי גבוהה.</p>
+<div class="callout green">
+  <div class="callout-icon">💰</div>
+  <div class="callout-body"><strong>הזדמנות:</strong> סייבר enterprise UX. 18 קשרים ברשת. Orchestra = proof case. Ron Peled/Sola ($65M) כבר ב-pipeline. אבל יש עוד 10+ חברות שלא ניגענו בהן.</div>
+</div>
+
+<h3>מגמה 3: Digital Health מתפוצץ</h3>
+<p>1,240 חברות HealthTech בישראל. $4B+ raised total. Sheba ARC = 100+ startups, 3 unicorns. ודידי פביאן = דלת ישירה. בנוסף: IcanDo + NeuroBrave + CathWorks = שלושה proof cases חיים.</p>
+<div class="callout green">
+  <div class="callout-icon">💰</div>
+  <div class="callout-body"><strong>הזדמנות:</strong> דידי → ARC → 10-30 סטארטאפים/שנה שצריכים UX. עומרי → רשות החדשנות → חברות health-tech ממומנות שצריכות progress. Guy Lavi → Medtronic → גלובלי.</div>
+</div>
+
+<h3>מגמה 4: רשות החדשנות שופכת כסף</h3>
+<p>₪500M+/שנה. קרן מהפכנית. YOZMA 2.0 ($300M). 1,000 GPU. חברות שמקבלות כסף ממשלתי <strong>חייבות להראות progress</strong> — צריכות prototype, UX, product demo. הן לא יכולות לשבת על הכסף.</p>
+<div class="callout green">
+  <div class="callout-icon">💰</div>
+  <div class="callout-body"><strong>הזדמנות:</strong> עומרי = שער ישיר. "פרימק כ-product partner לסטארטאפים ממומנים" — לא ספק, שותף שעוזר להם להראות progress לרשות.</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SECTION 6: SO WHAT -->
+<h2>VI. שורה תחתונה — מהאסטרטגי לטאקטי</h2>
+
+<div class="emphasis">
+  <div class="emphasis-title">שינוי גישה</div>
+  <div class="emphasis-body">
+    <strong>לא:</strong> "מי מ-1,226 קשרים קונה ישירות?"<br>
+    <strong>כן:</strong> "מי מהקשרים שלי פותח דלת ל-<strong>מאגר לקוחות</strong>, ומה ההזדמנות הגדולה עכשיו?"<br><br>
+    <strong>4 שערים × 3 סוגי לקוחות = שטח הזדמנויות חדש</strong><br><br>
+    שערים: דידי (שיבא/ARC), עומרי (רשות החדשנות), Guy Lavi (Medtronic/Global), VCs (150-450 portfolio companies)<br>
+    סוגי לקוחות: AI-First Product, Post-Funding Series A, Regulated AI
+  </div>
+</div>
+
+<h3>השאלה הבאה — לדיון:</h3>
+
+<div class="callout dark">
+  <div class="callout-icon" style="filter: invert(1);">🎯</div>
+  <div class="callout-body">
+    <strong style="color: #fff;">1.</strong> <span style="color: #d4d4d0;">יש עוד שערים שאני לא רואה? מי עוד ברשת שלך פותח גישה למאגר — לא קונה יחיד?</span><br><br>
+    <strong style="color: #fff;">2.</strong> <span style="color: #d4d4d0;">איזה מ-3 סוגי הלקוחות מרגיש הכי נכון? AI-First / Post-Funding / Regulated?</span><br><br>
+    <strong style="color: #fff;">3.</strong> <span style="color: #d4d4d0;">דידי — כמה קרוב אתה ל-ARC? זה פגישה אחת או תהליך?</span>
+  </div>
+</div>
+
+<div class="footer">
+  PRIMO Strategic Analysis — Primak Digital | 18.02.2026 | v1<br>
+  Sources: <a class="source-link" href="https://www.calcalistech.com/ctechnews/article/rjihxsnl11g">Calcalist</a> |
+  <a class="source-link" href="https://www.vccafe.com/2026/02/13/reasons-to-be-optimistic-about-israeli-tech-in-2026/">VC Cafe</a> |
+  <a class="source-link" href="https://arcinnovation.org/">ARC Innovation</a> |
+  <a class="source-link" href="https://innovationisrael.org.il/en/">Innovation Authority</a> |
+  <a class="source-link" href="https://www.figma.com/blog/why-demand-for-designers-is-on-the-rise/">Figma Blog</a>
+</div>
+
+</body>
+</html>

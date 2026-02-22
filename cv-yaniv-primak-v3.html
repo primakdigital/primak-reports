@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaniv Primak - CPO</title>
+<meta name="description" content="Yaniv Primak - CPO, Primak. Turns stuck technology into working product. $585M exit, FDA cleared, 5 domains, 0 failures.">
+<meta property="og:title" content="Yaniv Primak - CPO, Primak">
+<meta property="og:description" content="Turns stuck technology into working product. $585M exit, FDA cleared, 5 domains, 0 failures.">
+<meta property="og:type" content="profile">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f5f5f4; --white: #fff;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* ═══════════ HERO — RESTRAINED, VALUE PROP LEADS ═══════════ */
+  .hero {
+    background: var(--black);
+    color: #fff;
+    padding: 80px 60px 64px;
+  }
+  .hero .tag {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #444;
+    font-weight: 500;
+    margin-bottom: 48px;
+  }
+  .hero .value-prop {
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -2px;
+    max-width: 680px;
+    margin-bottom: 32px;
+  }
+  .hero .name-line {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 6px;
+  }
+  .hero .title {
+    font-size: 12px;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+  }
+  .hero .contact {
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 0.5px;
+  }
+  .hero .contact a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .hero .contact a:hover { color: #fff; }
+  .hero .contact .sep { color: #333; margin: 0 8px; }
+
+  /* ═══════════ SECTIONS ═══════════ */
+  section { padding: 60px; border-bottom: 1px solid var(--border); }
+
+  .sn {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--light);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+
+  /* ═══════════ FLAGSHIP — CATHWORKS ═══════════ */
+  .flagship {
+    background: var(--white);
+    padding: 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .flagship .sn { color: var(--light); }
+  .flagship .company-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 16px;
+  }
+  .flagship .company-name a {
+    color: var(--light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .flagship .company-name a:hover { color: var(--black); }
+  .flagship h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+  .flagship .role {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--light);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .flagship .desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--mid);
+    max-width: 600px;
+    margin-bottom: 28px;
+  }
+  .flagship .outcome {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    max-width: 600px;
+    letter-spacing: -0.2px;
+  }
+
+  /* ═══════════ ENGAGEMENT CARDS ═══════════ */
+  .entry-card { border: 1px solid var(--border); margin-bottom: 16px; }
+  .entry-card-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .entry-card-company { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; }
+  .entry-card-company a { color: var(--black); text-decoration: none; }
+  .entry-card-company a:hover { text-decoration: underline; }
+  .entry-card-domain {
+    font-size: 10px;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+  }
+  .entry-card-body { padding: 18px 20px; }
+  .entry-card-role {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--light);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .entry-card-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #444;
+    max-width: 600px;
+    margin-bottom: 0;
+  }
+  .entry-card-outcome {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    letter-spacing: -0.2px;
+  }
+
+  /* ═══════════ COMPACT PORTFOLIO ═══════════ */
+  .portfolio-section {
+    padding: 60px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .portfolio-section .sn { color: #999; }
+
+  .compact-entry {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    gap: 16px;
+    align-items: start;
+  }
+  .compact-entry:last-child { border-bottom: none; }
+  .compact-entry .ce-company {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -0.2px;
+  }
+  .compact-entry .ce-company a { color: var(--black); text-decoration: none; }
+  .compact-entry .ce-company a:hover { text-decoration: underline; }
+  .compact-entry .ce-domain {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-top: 3px;
+  }
+  .compact-entry .ce-desc {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  /* ═══════════ CREDENTIALS — DARK FOOTER SECTION ═══════════ */
+  .credentials-section {
+    background: var(--black);
+    color: #fff;
+    padding: 60px;
+    border-bottom: none;
+  }
+  .credentials-section .sn { color: #444; }
+  .credentials-section h2 { color: #fff; }
+
+  .credential {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    padding: 14px 0;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 14px;
+    gap: 16px;
+  }
+  .credential:last-child { border-bottom: none; }
+  .credential .cr-org { font-weight: 600; color: #ccc; }
+  .credential .cr-role { color: #666; }
+
+  /* ═══════════ FOOTER ═══════════ */
+  .footer {
+    background: var(--black);
+    padding: 24px 60px;
+    font-size: 11px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.5px;
+    border-top: 1px solid #222;
+  }
+
+  /* ═══════════ RESPONSIVE ═══════════ */
+  @media (max-width: 768px) {
+    .hero { padding: 48px 24px 40px; }
+    .hero .tag { margin-bottom: 28px; }
+    .hero .value-prop {
+      font-size: 30px;
+      letter-spacing: -1.5px;
+    }
+    .hero .name-line { font-size: 13px; letter-spacing: 3px; }
+    .flagship { padding: 40px 24px; }
+    .flagship h2 { font-size: 22px; }
+    section { padding: 40px 24px; }
+    .portfolio-section { padding: 40px 24px; }
+    .credentials-section { padding: 40px 24px; }
+    h2 { font-size: 22px; }
+    .entry-card-header { grid-template-columns: 1fr; gap: 4px; }
+    .compact-entry { grid-template-columns: 1fr; gap: 6px; }
+    .credential { grid-template-columns: 1fr; gap: 4px; }
+    .footer { padding: 24px; flex-direction: column; gap: 4px; }
+  }
+
+  @media print {
+    .hero { padding: 40px; min-height: auto; background: #111; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .flagship { padding: 40px; }
+    section { padding: 40px; }
+    .portfolio-section { padding: 40px; }
+    .credentials-section { padding: 40px; background: #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .entry-card { break-inside: avoid; }
+    a { text-decoration: none; }
+    .footer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="tag">Curriculum Vitae</div>
+  <div class="value-prop">I turn stuck technology into working product.</div>
+  <div class="name-line">Yaniv Primak</div>
+  <div class="title">CPO, Primak</div>
+  <div class="contact">
+    <a href="mailto:yaniv@primak.co">yaniv@primak.co</a>
+    <span class="sep">&middot;</span>
+    <a href="https://primak.co" target="_blank" rel="noopener">primak.co</a>
+    <span class="sep">&middot;</span>
+    <a href="https://linkedin.com/in/yanivprimak" target="_blank" rel="noopener">LinkedIn</a>
+    <span class="sep">&middot;</span>
+    Tel Aviv
+  </div>
+</div>
+
+<!-- ═══════════ FLAGSHIP — CATHWORKS ═══════════ -->
+<section class="flagship">
+  <div class="sn">Signature Engagement</div>
+  <div class="company-name"><a href="https://www.medtronic.com/us-en/about/news/cathworks.html" target="_blank" rel="noopener">CathWorks &mdash; MedTech AI</a></div>
+  <div class="role">Product Lead &mdash; FFRangio Clinical Platform</div>
+  <p class="desc">AI that reads coronary arteries - but no interface for cardiologists to actually use it. Built the complete clinical product from concept through FDA 510(k) clearance. Deployed in cardiac catheterization labs worldwide.</p>
+  <div class="outcome">Acquired by Medtronic for $585M &middot; 100,000+ patients &middot; FDA cleared</div>
+</section>
+
+<!-- ═══════════ HEALTHCARE PORTFOLIO ═══════════ -->
+<section class="portfolio-section">
+  <div class="sn">Portfolio</div>
+  <h2>Healthcare & Health-Tech</h2>
+
+  <div class="compact-entry">
+    <div>
+      <div class="ce-company"><a href="https://www.ica.org.il" target="_blank" rel="noopener">ICA - Israel Center for Addictions</a></div>
+      <div class="ce-domain">Behavioral Health</div>
+    </div>
+    <div class="ce-desc"><strong>IcanDo App</strong> - Behavioral health platform. Garmin biosensor integration. Live in production.<br><strong>National Knowledge Center</strong> - Product architecture for Israel's national addiction research center.</div>
+  </div>
+
+  <div class="compact-entry">
+    <div>
+      <div class="ce-company"><a href="https://www.neurobrave.com" target="_blank" rel="noopener">NeuroBrave</a></div>
+      <div class="ce-domain">Neuroscience AI</div>
+    </div>
+    <div class="ce-desc">Brand and product design for neuroscience AI platform - cognitive insights from wearable biosensors.</div>
+  </div>
+
+  <div class="compact-entry">
+    <div>
+      <div class="ce-company"><a href="https://clubd.fund" target="_blank" rel="noopener">eHealth Ventures / ClubD</a></div>
+      <div class="ce-domain">Health-Tech Investment</div>
+    </div>
+    <div class="ce-desc">Brand identity and design system for health-tech investor club, with the Israeli Medical Association.</div>
+  </div>
+
+  <div class="compact-entry">
+    <div>
+      <div class="ce-company"><a href="https://www.ngthealthcare.com" target="_blank" rel="noopener">NGT Healthcare</a></div>
+      <div class="ce-domain">Pharma</div>
+    </div>
+    <div class="ce-desc">Product and brand for EMRIS Pharma and Slate Therapeutics portfolio companies.</div>
+  </div>
+</section>
+
+<!-- ═══════════ KEY ENGAGEMENTS ═══════════ -->
+<section>
+  <div class="sn">Key Engagements</div>
+  <h2>Cyber, media, scale</h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Orchestra Group</div>
+      <div class="entry-card-domain">Cybersecurity</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead</div>
+      <p class="entry-card-desc">NSO Group alumni. Funding. Talent. No product. Built the cyber analytics platform from zero - end-to-end product design for CISOs and forensic analysts.</p>
+      <div class="entry-card-outcome">Bank of America pilot &middot; Cisco strategic partnership</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.haaretz.co.il" target="_blank" rel="noopener">Haaretz - TheMarker Group</a></div>
+      <div class="entry-card-domain">Enterprise Scale</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Head of Product</div>
+      <p class="entry-card-desc">Israel's leading newspaper group needed to go digital. No product team, no digital infrastructure. Built the department - 70 people - and shipped every product over three years.</p>
+      <div class="entry-card-outcome">70-person department &middot; 3-year transformation &middot; Full digital product suite</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.selina.com" target="_blank" rel="noopener">Selina Hotels</a></div>
+      <div class="entry-card-domain">Hospitality Tech</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead - Mobile & Web</div>
+      <p class="entry-card-desc">Unicorn hospitality company bleeding mobile users at checkout. Redesigned the booking experience, fixed the acquisition funnel across mobile and web.</p>
+      <div class="entry-card-outcome">Unicorn-stage &middot; Mobile acquisition turnaround</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://zimventures.zim.com" target="_blank" rel="noopener">ZIM Ventures</a></div>
+      <div class="entry-card-domain">Shipping &amp; Logistics</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product &amp; Design Lead</div>
+      <p class="entry-card-desc">ZIM's investment arm needed a platform for their logistics-tech portfolio. Product definition and design for the publicly traded global shipping company's innovation division.</p>
+      <div class="entry-card-outcome">ZIM (NYSE: ZIM) &middot; Global shipping &middot; Innovation arm</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EDUCATION — DARK CLOSING ═══════════ -->
+<section class="credentials-section">
+  <div class="sn">Education & Advisory</div>
+  <h2>Teaching & mentoring</h2>
+
+  <div class="credential">
+    <div class="cr-org">Open University of Israel</div>
+    <div class="cr-role">AI Lecturer & Faculty Coordinator</div>
+  </div>
+  <div class="credential">
+    <div class="cr-org">Reichman University</div>
+    <div class="cr-role">Lecturer - Entrepreneurship & Economics</div>
+  </div>
+  <div class="credential">
+    <div class="cr-org">Techstars</div>
+    <div class="cr-role">Product Expert</div>
+  </div>
+</section>
+
+<div class="footer">
+  <div>Yaniv Primak &middot; CPO, Primak &middot; Tel Aviv</div>
+  <div>yaniv@primak.co</div>
+</div>
+
+</body>
+</html>

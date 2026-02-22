@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reality Check 2026 — v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #37352f; padding: 40px 32px; max-width: 860px; margin: 0 auto; line-height: 1.7; }
+
+  /* Notion-style */
+  .header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #e9e9e7; }
+  .header h1 { font-size: 32px; font-weight: 700; color: #37352f; margin-bottom: 4px; }
+  .header .meta { color: #9b9a97; font-size: 13px; display: flex; gap: 16px; }
+  .header .meta span { background: #f1f1ef; padding: 2px 8px; border-radius: 3px; }
+
+  .callout { background: #f1f7f1; border-radius: 4px; padding: 16px 20px; margin-bottom: 28px; display: flex; gap: 12px; align-items: flex-start; border-right: 3px solid #0f7b6c; }
+  .callout .icon { font-size: 22px; }
+  .callout .text h3 { font-size: 15px; font-weight: 700; color: #37352f; margin-bottom: 4px; }
+  .callout .text p { font-size: 14px; color: #55534e; }
+
+  .callout-warn { background: #fef6ee; border-right-color: #d9730d; }
+  .callout-red { background: #fef0ef; border-right-color: #e03e3e; }
+  .callout-blue { background: #f0f4ff; border-right-color: #2f80ed; }
+  .callout-purple { background: #f6f3ff; border-right-color: #6940a5; }
+
+  h2 { font-size: 22px; font-weight: 700; color: #37352f; margin: 32px 0 16px; padding-bottom: 6px; border-bottom: 1px solid #e9e9e7; }
+  h2 .num { color: #9b9a97; font-size: 14px; margin-left: 8px; }
+
+  .card { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 4px; padding: 16px; margin-bottom: 10px; }
+  .card h3 { font-size: 14px; font-weight: 600; color: #37352f; margin-bottom: 6px; }
+  .card p { font-size: 13px; color: #6b6b6b; }
+  .card .tag { display: inline-block; font-size: 11px; padding: 2px 6px; border-radius: 3px; font-weight: 600; margin-top: 6px; }
+  .tag-green { background: #dbeddb; color: #0f7b6c; }
+  .tag-red { background: #ffe2dd; color: #e03e3e; }
+  .tag-blue { background: #d3e5ef; color: #2f80ed; }
+  .tag-orange { background: #fadec9; color: #d9730d; }
+  .tag-purple { background: #e8deee; color: #6940a5; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+
+  .bar-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f1f1ef; }
+  .bar-row:last-child { border: none; }
+  .bar-row .name { min-width: 110px; font-size: 13px; font-weight: 600; color: #37352f; }
+  .bar-row .bar { flex: 1; height: 16px; background: #f1f1ef; border-radius: 3px; overflow: hidden; }
+  .bar-row .fill { height: 100%; border-radius: 3px; }
+  .bar-row .val { font-size: 12px; color: #6b6b6b; min-width: 90px; text-align: left; }
+  .f-cyber { background: #0f7b6c; }
+  .f-ai { background: #6940a5; }
+  .f-def { background: #d9730d; }
+  .f-health { background: #e03e3e; opacity: 0.5; }
+  .f-fin { background: #e03e3e; opacity: 0.4; }
+
+  .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+  .model-box { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 4px; padding: 14px; text-align: center; }
+  .model-box h4 { font-size: 14px; color: #37352f; margin-bottom: 4px; }
+  .model-box .big { font-size: 22px; font-weight: 800; margin: 4px 0; }
+  .model-box p { font-size: 11px; color: #9b9a97; }
+  .model-box.best { border-color: #0f7b6c; border-width: 2px; }
+  .model-box.best .big { color: #0f7b6c; }
+
+  .quote { background: #fbfbfa; border-right: 3px solid #37352f; padding: 14px 20px; margin: 12px 0; font-style: italic; color: #55534e; font-size: 14px; }
+  .quote .src { font-style: normal; font-size: 12px; color: #9b9a97; margin-top: 6px; display: block; }
+
+  .step { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid #f1f1ef; }
+  .step:last-child { border: none; }
+  .step .snum { min-width: 32px; height: 32px; background: #6940a5; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+  .step .scontent h4 { font-size: 14px; font-weight: 700; color: #37352f; margin-bottom: 3px; }
+  .step .scontent p { font-size: 13px; color: #6b6b6b; }
+  .step .scontent .applied { font-size: 12px; color: #6940a5; font-weight: 600; margin-top: 4px; }
+
+  .bias { display: flex; gap: 14px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid #f1f1ef; }
+  .bias:last-child { border: none; }
+  .bias .bicon { font-size: 18px; min-width: 28px; }
+  .bias h4 { font-size: 13px; font-weight: 600; color: #37352f; }
+  .bias p { font-size: 12px; color: #6b6b6b; }
+  .bias .example { font-size: 12px; color: #e03e3e; }
+
+  .action-list { list-style: none; counter-reset: act; }
+  .action-list li { padding: 10px 0; border-bottom: 1px solid #f1f1ef; font-size: 14px; color: #37352f; display: flex; align-items: center; gap: 10px; }
+  .action-list li:last-child { border: none; }
+  .action-list li::before { counter-increment: act; content: counter(act); min-width: 24px; height: 24px; background: #37352f; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .action-list .atag { font-size: 11px; padding: 2px 6px; border-radius: 3px; font-weight: 600; margin-right: auto; }
+
+  .sources { margin-top: 28px; padding-top: 16px; border-top: 1px solid #e9e9e7; }
+  .sources h4 { color: #9b9a97; font-size: 12px; margin-bottom: 8px; }
+  .sources a { color: #2f80ed; font-size: 11px; text-decoration: none; display: block; margin-bottom: 3px; }
+  .sources a:hover { text-decoration: underline; }
+
+  .ts { text-align: center; color: #c4c4c0; font-size: 11px; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Reality Check 2026</h1>
+  <div class="meta">
+    <span>v2</span>
+    <span>19.02.2026</span>
+    <span>מודיעין שוק + Einstein Framework</span>
+    <span>25+ מקורות</span>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="icon">&#9889;</div>
+  <div class="text">
+    <h3>הפסיקה: פרימק בצד הנכון — אם יזוז</h3>
+    <p>AI הורג execution designers. Fractional CPO צומח. סייבר ישראלי בשיא כל הזמנים. MedTech regulatory UX = חפיר. הנתונים מאשרים: הכיוון נכון, הבעיה = תנועה.</p>
+  </div>
+</div>
+
+<!-- EINSTEIN FRAMEWORK -->
+<h2>Einstein Framework <span class="num">חשיבה חדשה לבעיות ישנות</span></h2>
+
+<div class="quote">
+"A new type of thinking is essential if mankind is to survive and move toward higher levels."
+<span class="src">Albert Einstein, New York Times, 25 May 1946 — הציטוט האמיתי (לא "Insanity is doing the same thing...")</span>
+</div>
+
+<div class="callout callout-purple">
+  <div class="icon">&#128218;</div>
+  <div class="text">
+    <h3>הציטוט המפורסם הוא לא של איינשטיין</h3>
+    <p>"טירוף זה לעשות את אותו הדבר ולצפות לתוצאה שונה" — מקורו ב-Narcotics Anonymous (1981), לא באיינשטיין. אבל מה שאיינשטיין כן אמר — חזק יותר: "סוג חשיבה חדש הכרחי."</p>
+  </div>
+</div>
+
+<div class="quote">
+"The formulation of a problem is often more essential than its solution, which may be merely a matter of mathematical or experimental skill. To raise new questions, new possibilities, to regard old problems from a new angle requires creative imagination and marks real advances."
+<span class="src">Einstein & Infeld, The Evolution of Physics, 1938</span>
+</div>
+
+<p style="font-size:14px; color:#55534e; margin-bottom:16px;">איינשטיין לא פתר בעיות טוב יותר — הוא <strong>ניסח אותן אחרת</strong>. הנה 6 הכלים שלו, מחוברים לפרימק:</p>
+
+<div class="step">
+  <div class="snum">1</div>
+  <div class="scontent">
+    <h4>Question the Paradigm — הטל ספק בפרדיגמה עצמה</h4>
+    <p>איינשטיין לא שיפר את הפיזיקה הקלאסית — הוא שאל "מה אם הזמן עצמו לא מוחלט?" ובזה שינה הכל.</p>
+    <div class="applied">פרימק: אל תשאל "איך למכור יותר עיצוב UX?" — תשאל "למה אני מוכר עיצוב בכלל?"</div>
+  </div>
+</div>
+<div class="step">
+  <div class="snum">2</div>
+  <div class="scontent">
+    <h4>Formulate the Real Problem — נסח את הבעיה האמיתית</h4>
+    <p>"ניסוח הבעיה חשוב יותר מהפתרון." ברגע שהבעיה מנוסחת נכון, הפתרון עשוי להיות פשוט.</p>
+    <div class="applied">פרימק: הבעיה היא לא "אין לקוחות." הבעיה: "לקוחות שמגיעים — עוזבים בלי לשלם." 5 עסקאות מתו ב-60 יום.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="snum">3</div>
+  <div class="scontent">
+    <h4>Gedankenexperiment — רכב על קרן האור</h4>
+    <p>בגיל 16 איינשטיין דמיין את עצמו רוכב לצד קרן אור. "מה היה רואה?" הסתירה הובילה ליחסות. הוא נכנס לתוך הבעיה פיזית.</p>
+    <div class="applied">פרימק: תרכב לצד CEO של סטארטאפ MedTech שגייס $6M ומכין FDA. מה הוא מחפש? לא "מעצב UX" — שותף מוצר שעבר את זה כבר.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="snum">4</div>
+  <div class="scontent">
+    <h4>Combinatory Play — שחק בשילובים</h4>
+    <p>"Combinatory play seems to be the essential feature in productive thought." (מכתב להדמר, 1945). איינשטיין חשב בתמונות, לא במילים. שילב מושגים לא קשורים.</p>
+    <div class="applied">פרימק: Regulatory UX + Fractional CPO + AI augmentation + $585M proof case. אף אחד בישראל לא שילב את ה-4 האלה. זה השילוב.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="snum">5</div>
+  <div class="scontent">
+    <h4>First Principles — פרק לחלקים בסיסיים</h4>
+    <p>Elon Musk (SpaceX): "רקטות עולות $65M? ממה הן עשויות? אלומיניום, טיטניום, פחמן. עלות חומרים = 2% ממחיר השיגור." ← בנה רקטות בעצמו.</p>
+    <div class="applied">פרימק: מה באמת מוכרים? לא מסכים. Product architecture שעובר FDA ונרכש ב-$585M. זה מה שעובד — ככה צריך למכור.</div>
+  </div>
+</div>
+<div class="step">
+  <div class="snum">6</div>
+  <div class="scontent">
+    <h4>Kill the Sunk Cost — הרוג את ההשקעה השקועה</h4>
+    <p>"אם היה לך את אותו תקציב/זמן היום ללא היסטוריה — היית בוחר באותו מסלול?" אם לא, הסיבה היחידה להמשיך היא sunk cost — וזה לא רציונלי.</p>
+    <div class="applied">פרימק: ICA KC (40-55h sunk), BIGY (9 חודשים), BoW (6,750₪) — כולם המשיכו בגלל sunk cost. ה-5 Gates מונעים את זה.</div>
+  </div>
+</div>
+
+<!-- BIASES -->
+<h2>למה חוזרים על אותה טעות <span class="num">6 הטיות קוגניטיביות</span></h2>
+
+<div class="bias">
+  <div class="bicon">&#128176;</div>
+  <div>
+    <h4>Sunk Cost Fallacy</h4>
+    <p>"כבר השקענו 300K, אי אפשר לעצור עכשיו." השקעה עבר שלא ניתנת להחזרה מצדיקה המשך השקעה.</p>
+    <div class="example">פרימק: ICA KC — 40-55 שעות (₪18-25K) לפני שהתגלה פער x3 בתקציב.</div>
+  </div>
+</div>
+<div class="bias">
+  <div class="bicon">&#9899;</div>
+  <div>
+    <h4>Status Quo Bias</h4>
+    <p>ברירת המחדל = "ממשיכים מה שעושים." שינוי דורש אנרגיה אקטיבית. המשך = פאסיבי.</p>
+    <div class="example">פרימק: ממשיכים להציג כ-"UX studio" למרות ש-5 עסקאות נפלו בחודשיים.</div>
+  </div>
+</div>
+<div class="bias">
+  <div class="bicon">&#128528;</div>
+  <div>
+    <h4>Loss Aversion</h4>
+    <p>נטישת אסטרטגיה = הודאה בהפסד. המשך = אשליה שההשקעה עוד תשתלם. כאב הפסד = x2 מהנאת רווח.</p>
+    <div class="example">פרימק: BIGY — 9 חודשים בלי data כי "אולי עוד יחזרו."</div>
+  </div>
+</div>
+<div class="bias">
+  <div class="bicon">&#128269;</div>
+  <div>
+    <h4>Confirmation Bias</h4>
+    <p>"הפגישה עברה טוב" מתחזק. "לא ענו 3 שבועות" נמחק. שומעים רק מה שתומך בהחלטה.</p>
+    <div class="example">פרימק: איה "רוצה לדבר בשבוע הבא" → אופטימיות. 4 כישלונות קודמים → נשכחו.</div>
+  </div>
+</div>
+<div class="bias">
+  <div class="bicon">&#128200;</div>
+  <div>
+    <h4>Escalation of Commitment</h4>
+    <p>"אנחנו כל כך קרובים, רק צריך לדחוף עוד קצת." ככל שנכשלים יותר — משקיעים יותר.</p>
+    <div class="example">פרימק: ICA 13→24 מסכים בלי עדכון מחיר. "עוד קצת ונסגור."</div>
+  </div>
+</div>
+<div class="bias">
+  <div class="bicon">&#127917;</div>
+  <div>
+    <h4>Consistency Bias</h4>
+    <p>לשנות כיוון = להודות שטעית. האגו מגן על עצמו. עדיף לטעות באופן עקבי מאשר לצדוק אחרי שינוי.</p>
+    <div class="example">פרימק: "אני מעצב UX" כבר 12 שנה. לשנות ל-"Fractional CPO" מרגיש כמו ויתור על זהות.</div>
+  </div>
+</div>
+
+<div class="callout callout-warn">
+  <div class="icon">&#128161;</div>
+  <div class="text">
+    <h3>הפתרון של איינשטיין: Pre-Mortem + Kill Criteria</h3>
+    <p><strong>לפני</strong> שמתחילים עסקה: "היא נכשלה. למה?" + קריטריונים ברורים לעצירה. לא מחליטים ברגע — מחליטים מראש. זה בדיוק ה-5 Deal Gates.</p>
+  </div>
+</div>
+
+<!-- MARKET DATA -->
+<h2>מי מת, מי חי <span class="num">UX 2026</span></h2>
+
+<div class="split">
+  <div class="card">
+    <h3>&#10060; מתים</h3>
+    <p>Pixel pushers. Dark mode designers. Component library builders. מי שמוכר "מסכים." סטודיואים גדולים (DDB, FCB, MullenLowe — retired 2026). 45% מיחסי agency-client במשבר.</p>
+    <span class="tag tag-red">AI עושה את זה</span>
+  </div>
+  <div class="card">
+    <h3>&#9989; חיים</h3>
+    <p>Systems thinkers. Strategic generalists. מומחי רגולציה (FDA, cyber). מי שמחבר business + product + UX. One-person unicorns עם AI. בוטיקים ממוקדי נישה.</p>
+    <span class="tag tag-green">AI לא יכול לעשות את זה</span>
+  </div>
+</div>
+
+<div class="card">
+  <h3>61% מחברות מתחת ל-10 עובדים אומרות AI = "קריטי" ליתרון תחרותי</h3>
+  <p>Figma 2025 Report. חברות קטנות מרוויחות <strong>יותר</strong> מ-AI מגדולות. One-man + AI = מודל 2026.</p>
+  <span class="tag tag-purple">פרימק = one-man + PRIMO + Claude + Figma MCP = בדיוק זה</span>
+</div>
+
+<!-- FRACTIONAL CPO -->
+<h2>Fractional CPO <span class="num">הזדמנות פתוחה</span></h2>
+
+<div class="card">
+  <h3>2,000 → 110,000 פרופילים בלינקדאין תוך שנתיים</h3>
+  <p>25% מהחברות בארה"ב כבר משתמשות (צפי 35% עד סוף 2025). 78% fractional executives צופים עלייה. תמחור US: $150-400/שעה | Retainer: $5K-20K/חודש | Sprint: $15K+.</p>
+  <span class="tag tag-green">בישראל: כמעט אפס = WHITESPACE</span>
+</div>
+
+<div class="card">
+  <h3>תעשיות שקונות Fractional CPO</h3>
+  <p>SaaS (#1) → FinTech → HealthTech → Cybersecurity → PE Portfolio Companies</p>
+  <span class="tag tag-purple">פרימק = HealthTech + Cyber + AI. בול 3 מתוך 5.</span>
+</div>
+
+<!-- MONEY MAP -->
+<h2>איפה הכסף בישראל <span class="num">2025-2026</span></h2>
+
+<div style="background:#fbfbfa; border:1px solid #e9e9e7; border-radius:4px; padding:16px; margin-bottom:12px;">
+  <div class="bar-row">
+    <div class="name">סייבר</div>
+    <div class="bar"><div class="fill f-cyber" style="width:100%"></div></div>
+    <div class="val"><strong>$8.27B</strong> גיוסים</div>
+  </div>
+  <div class="bar-row">
+    <div class="name">Enterprise AI</div>
+    <div class="bar"><div class="fill f-ai" style="width:54%"></div></div>
+    <div class="val"><strong>$4.5B</strong> גיוסים</div>
+  </div>
+  <div class="bar-row">
+    <div class="name">ביטחון/Gov</div>
+    <div class="bar"><div class="fill f-def" style="width:40%"></div></div>
+    <div class="val"><strong>&#8362;112B</strong> תקציב</div>
+  </div>
+  <div class="bar-row">
+    <div class="name">Digital Health</div>
+    <div class="bar"><div class="fill f-health" style="width:15%"></div></div>
+    <div class="val" style="color:#e03e3e;">סטגנציה</div>
+  </div>
+  <div class="bar-row">
+    <div class="name">FinTech</div>
+    <div class="bar"><div class="fill f-fin" style="width:12%"></div></div>
+    <div class="val" style="color:#e03e3e;">סטגנציה</div>
+  </div>
+</div>
+
+<div class="card">
+  <p>70% מהון ההשקעות הישראלי מרוכז בסייבר + AI. 717 סבבי גיוס ב-2025 — הנמוך בעשור. אבל median round = <strong>$10M (עלייה 67%)</strong>. פחות חברות, יותר כסף לכל אחת.</p>
+  <span class="tag tag-green">Orchestra + Sola + Defy = סייבר. CathWorks + AISAP + Feminai = MedTech. שני הצירים.</span>
+</div>
+
+<!-- MEDTECH MOAT -->
+<h2>MedTech Regulatory UX <span class="num">החפיר</span></h2>
+
+<div class="card">
+  <h3>למה AI לא יכול להחליף את זה</h3>
+  <p>FDA Human Factors (IEC 62366) = <strong>חובה רגולטורית</strong>. צריך Usability Engineering File, מחקרי formative/summative, וידע רגולטורי. QMSR מחליף QSR בפברואר 2026 = compliance חדש. EU AI Act = שכבה נוספת.</p>
+  <span class="tag tag-green">CathWorks FFRangio (FDA cleared, $585M exit) = הוכחה שאין לאף אחד בישראל</span>
+</div>
+
+<div class="card">
+  <h3>הפער בתחרות</h3>
+  <p>ענקיות: Emergo by UL, Veranex, RQM+. בינוניות: ClariMed, Cleio. Guidea (US) = benchmark עם 22 FDA clearances. <strong>אין שחקן ישראלי מקביל.</strong> בין ה-CROs הענקיים לסולנים — אין שכבת ביניים.</p>
+  <span class="tag tag-orange">מגרש פתוח לפרימק</span>
+</div>
+
+<!-- DOWNTURN MODELS -->
+<h2>מודל עסקי שמחזיק במשבר <span class="num">היסטוריה</span></h2>
+
+<div class="model-grid">
+  <div class="model-box best">
+    <h4>Retainer</h4>
+    <div class="big" style="color:#0f7b6c;">60-70%</div>
+    <p>$3K-16K/חודש. יציב, צפוי. המודל שמחזיק בירידות.</p>
+  </div>
+  <div class="model-box">
+    <h4>Projects</h4>
+    <div class="big" style="color:#d9730d;">30-40%</div>
+    <p>$40K-75K/פרויקט. ערך גבוה, לא צפוי.</p>
+  </div>
+  <div class="model-box">
+    <h4>Equity</h4>
+    <div class="big" style="color:#6940a5;">Select</div>
+    <p>2% equity + success fee. סיכון, אבל aligns incentives.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h3>80% מהכנסות שירותים מקצועיים = מלקוחות קיימים</h3>
+  <p>McKinsey, Bain — משברי 2008, 2020. במשבר = focus on existing clients, not acquisition. חברות שקיצצו באגרסיביות ב-2008 "נענשו" כשהשוק חזר.</p>
+  <span class="tag tag-green">IcanDo (retainer) = המודל הנכון. Scout = acquisition חדש. יחס 70/30.</span>
+</div>
+
+<!-- BOTTOM LINE -->
+<h2>שורה תחתונה <span class="num">Einstein + Data → 6 מהלכים</span></h2>
+
+<ol class="action-list">
+  <li>
+    <strong>שנה את ניסוח הבעיה</strong> (Einstein Step 2) — הבעיה = לא "אין לקוחות." הבעיה = "אין Deal Gates ואני מבזבז על מי שלא ישלם."
+    <span class="atag tag-red">שינוי מיידי</span>
+  </li>
+  <li>
+    <strong>תפסיק להיקרא UX studio</strong> (Einstein Step 1) — Fractional CPO for MedTech + Cyber. הישראלי הראשון. Whitespace.
+    <span class="atag tag-orange">השבוע</span>
+  </li>
+  <li>
+    <strong>Combinatory Play</strong> (Einstein Step 4) — Regulatory UX + Fractional CPO + AI augmentation + $585M proof. אף אחד לא שילב. זה המוצר.
+    <span class="atag tag-purple">positioning</span>
+  </li>
+  <li>
+    <strong>Kill the Sunk Cost</strong> (Einstein Step 6) — 5 Gates בכל עסקה: Budget, Decision Maker, Scope Lock, Floor Price, Exit Trigger. לא עוד ICA-style.
+    <span class="atag tag-red">מנדטורי</span>
+  </li>
+  <li>
+    <strong>Retainer 60-70% + Sprint 30-40%</strong> — לא שעות. $13K/mo או $22K sprint. מודל שמחזיק במשבר.
+    <span class="atag tag-green">מודל</span>
+  </li>
+  <li>
+    <strong>שלח 3 הודעות/שבוע</strong> — Pipeline &#8362;3.5-6.5M מחכה. 0 הודעות יצאו. כל המחקר הזה = 0 בלי תנועה.
+    <span class="atag tag-red">היום</span>
+  </li>
+</ol>
+
+<div class="callout callout-blue">
+  <div class="icon">&#128171;</div>
+  <div class="text">
+    <h3>"Imagination is more important than knowledge."</h3>
+    <p>Einstein, Saturday Evening Post, 1929. הידע כאן. 25+ מקורות, 66 entities, pipeline מזוהה. עכשיו צריך דמיון + תעוזה + תנועה. המעז מנצח.</p>
+  </div>
+</div>
+
+<div class="sources">
+  <h4>מקורות</h4>
+  <a href="https://www.nngroup.com/articles/state-of-ux-2026/">NN/g — State of UX 2026</a>
+  <a href="https://uxplaybook.org/articles/ux-designer-job-market-reality-2026">UX Playbook — Job Market Reality 2026</a>
+  <a href="https://columncontent.com/fractional-work-statistics/">Fractional Work Statistics 2026 (100+ trends)</a>
+  <a href="https://www.jpost.com/business-and-innovation/article-884460">JPost — Israeli Cyber $72.6B Exits 2025</a>
+  <a href="https://securityboulevard.com/2025/12/funding-of-israeli-cybersecurity-soars-to-record-levels/">Security Boulevard — Israeli Cyber $8.27B ATH</a>
+  <a href="https://startupnationcentral.org/hub/blog/israeli-tech-funding-2025/">SNC — Israeli Tech Funding 2025</a>
+  <a href="https://www.medicaldevice-network.com/features/what-2025-reveals-about-medtech-next-leap-in-2026/">Medical Device Network — MedTech 2026</a>
+  <a href="https://www.consultingsuccess.com/professional-services-recession-playbook">Consulting Success — Recession Playbook</a>
+  <a href="https://www.calcalistech.com/ctechnews/article/fgffufeb3">Calcalist — Tech Layoffs 2026</a>
+  <a href="https://jakobnielsenphd.substack.com/p/2026-predictions">Jakob Nielsen — 18 Predictions for 2026</a>
+  <a href="https://wist.info/einstein-albert/207/">Einstein NYT 1946 — "New type of thinking" verified quote</a>
+  <a href="https://quoteinvestigator.com/2017/03/23/same/">Quote Investigator — "Insanity" quote origin (NOT Einstein)</a>
+  <a href="https://www.themarginalian.org/2013/08/14/how-einstein-thought-combinatorial-creativity/">The Marginalian — Einstein's Combinatory Play</a>
+  <a href="https://fs.blog/einstein-productive-thought-combinatory-creativity/">Farnam Street — Einstein Combinatory Creativity</a>
+  <a href="https://sites.pitt.edu/~jdnorton/Goodies/Chasing_the_light/">U. Pittsburgh — Chasing the Light (thought experiment)</a>
+  <a href="https://jamesclear.com/first-principles">James Clear — First Principles (Elon Musk)</a>
+  <a href="https://www.mckinsey.com/capabilities/risk-and-resilience/our-insights/the-business-logic-in-debiasing">McKinsey — The Business Logic in Debiasing</a>
+  <a href="https://thedecisionlab.com/biases/the-sunk-cost-fallacy">The Decision Lab — Sunk Cost Fallacy</a>
+  <a href="https://www.saturdayeveningpost.com/2010/03/imagination-important-knowledge/">Saturday Evening Post — Einstein 1929 Interview</a>
+</div>
+
+<div class="ts">PRIMO Reality Check v2 | 19.02.2026 | Einstein Framework + Market Intelligence | 25+ מקורות</div>
+
+</body>
+</html>

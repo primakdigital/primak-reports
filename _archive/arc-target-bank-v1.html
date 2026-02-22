@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARC Target Bank — CathWorks Card — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; }
+
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); padding: 24px 32px; border-bottom: 2px solid #e94560; }
+  .header h1 { font-size: 22px; color: #fff; margin-bottom: 4px; }
+  .header .sub { font-size: 13px; color: #999; }
+  .version { float: left; font-size: 11px; color: #e94560; border: 1px solid #e94560; padding: 2px 8px; border-radius: 4px; }
+
+  /* CathWorks card */
+  .master-card { background: linear-gradient(135deg, #1a0a0a, #2a1020); border: 2px solid #e94560; border-radius: 14px; margin: 20px 32px 12px; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .master-card .text h2 { font-size: 18px; color: #e94560; margin-bottom: 4px; }
+  .master-card .text p { font-size: 13px; color: #bbb; line-height: 1.5; }
+  .master-card .stats { display: flex; gap: 16px; }
+  .stat-box { text-align: center; background: rgba(233,69,96,0.1); border-radius: 8px; padding: 10px 16px; }
+  .stat-box .num { font-size: 20px; font-weight: 800; color: #e94560; }
+  .stat-box .label { font-size: 10px; color: #888; margin-top: 2px; }
+
+  /* Gate keepers */
+  .gate { background: #141422; border: 1px solid #2a2a3e; border-radius: 12px; margin: 12px 32px; padding: 16px 20px; }
+  .gate h3 { font-size: 14px; color: #4da6ff; margin-bottom: 10px; }
+  .person { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1a1a2e; font-size: 13px; }
+  .person:last-child { border-bottom: none; }
+  .person .name { color: #fff; font-weight: 600; min-width: 160px; }
+  .person .role { color: #888; flex: 1; }
+  .person .why { color: #4da6ff; font-size: 12px; text-align: left; max-width: 280px; }
+
+  /* Section */
+  .section-title { padding: 18px 32px 6px; font-size: 15px; font-weight: 700; color: #e94560; }
+  .section-sub { padding: 0 32px 8px; font-size: 12px; color: #666; }
+
+  /* Target rows */
+  .targets { margin: 0 32px 12px; }
+  .target { background: #141422; border: 1px solid #1e1e30; border-radius: 10px; margin-bottom: 8px; padding: 14px 18px; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; }
+  .target:hover { border-color: #e94560; }
+  .target .top { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .target h4 { font-size: 15px; color: #fff; }
+  .target .co { font-size: 13px; color: #4da6ff; }
+  .target .desc { font-size: 12px; color: #999; line-height: 1.4; margin-bottom: 6px; }
+  .target .cathworks-angle { font-size: 12px; color: #e94560; line-height: 1.4; padding: 6px 10px; background: rgba(233,69,96,0.08); border-radius: 6px; border-right: 3px solid #e94560; }
+  .target .cathworks-angle strong { color: #fff; }
+  .target .meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; min-width: 100px; }
+  .tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; white-space: nowrap; }
+  .tag.fda { background: rgba(0,230,118,0.15); color: #00e676; }
+  .tag.seed { background: rgba(77,166,255,0.15); color: #4da6ff; }
+  .tag.pre { background: rgba(255,193,7,0.15); color: #ffc107; }
+  .tag.medtronic { background: rgba(233,69,96,0.15); color: #e94560; }
+  .tag.growth { background: rgba(156,39,176,0.15); color: #ce93d8; }
+  .money { font-size: 12px; color: #888; font-weight: 600; }
+
+  /* Entry strategy */
+  .strategy { background: linear-gradient(135deg, #0a1a0a, #142214); border: 1px solid #2a4a2a; border-radius: 12px; margin: 16px 32px; padding: 16px 20px; }
+  .strategy h3 { font-size: 14px; color: #00e676; margin-bottom: 10px; }
+  .step { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #1a2a1a; font-size: 13px; align-items: flex-start; }
+  .step:last-child { border-bottom: none; }
+  .step-num { background: #00e676; color: #000; font-weight: 800; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+  .step-text { color: #ccc; line-height: 1.5; }
+  .step-text strong { color: #fff; }
+
+  .footer { text-align: center; padding: 14px; font-size: 11px; color: #444; border-top: 1px solid #1a1a2e; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="version">v1</span>
+  <h1>ARC Target Bank — הקלף: CathWorks</h1>
+  <div class="sub">בנק מטרות | ARC Innovation × Sheba Medical | 18.02.2026</div>
+</div>
+
+<!-- Master card -->
+<div class="master-card">
+  <div class="text">
+    <h2>CathWorks FFRangio — הקלף של יניב</h2>
+    <p>יניב עיצב את ה-UX/Product. Triventures (משקיע CathWorks) = מפעיל קרן ARC. Zimlichman (מייסד ARC) = בורד Triventures.</p>
+  </div>
+  <div class="stats">
+    <div class="stat-box"><div class="num">$585M</div><div class="label">Medtronic Acq.</div></div>
+    <div class="stat-box"><div class="num">FDA</div><div class="label">Cleared</div></div>
+    <div class="stat-box"><div class="num">100K+</div><div class="label">Patients</div></div>
+  </div>
+</div>
+
+<!-- Gate keepers -->
+<div class="gate">
+  <h3>Gate Keepers — מי פותח את הדלת ב-ARC</h3>
+  <div class="person">
+    <span class="name">Angela Rabinovich</span>
+    <span class="role">Chief Business Officer, ARC</span>
+    <span class="why">מחליטה מי נכנס כ-design partner. לשעבר VP Strategy ב-Inovytec</span>
+  </div>
+  <div class="person">
+    <span class="name">Avner Halperin</span>
+    <span class="role">Deputy Director ARC, CEO Sheba Impact</span>
+    <span class="why">מסחור. מייסד-שותף EarlySense. שפת ה-exit של $585M מדברת אליו</span>
+  </div>
+  <div class="person">
+    <span class="name">Prof. Eyal Zimlichman</span>
+    <span class="role">Founder & Director ARC, CIAO Sheba</span>
+    <span class="why">הבוס. יושב בבורד Triventures. CathWorks = success story שלו</span>
+  </div>
+  <div class="person">
+    <span class="name">Dr. Ayelet Akselrod-Ballin</span>
+    <span class="role">Head & CTO, AI Center at ARC</span>
+    <span class="why">ראש AI. לשעבר Mobileye + Zebra Medical. שער לכל חברות ה-AI</span>
+  </div>
+</div>
+
+<!-- TIER 1 -->
+<div class="section-title">TIER 1 — מקבילה ישירה ל-CathWorks</div>
+<div class="section-sub">AI medical devices, FDA pathway, surgeon/clinician-facing UI — בדיוק מה שיניב עשה</div>
+<div class="targets">
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>AISAP</h4><span class="co">Adiel Am-Shalom, CEO</span></div>
+      <div class="desc">AI cardiac diagnostics via Point-of-Care Ultrasound. FDA cleared Aug 2024 (ראשון בעולם — CADx למחלות לב מבניות דרך POCUS). Fast Company #4 2025.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> אותו בית חולים (Sheba ARC), אותו תחום (AI cardiology), אותו אתגר (לגרום לרופא לסמוך על AI בזמן אמת). "בניתי את ה-UX של FFRangio — אני יודע מה זה physician trust בקרדיולוגיה."</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">FDA Cleared</span>
+      <span class="tag seed">Seed</span>
+      <span class="money">$13M</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>UltraSight</h4><span class="co">Davidi Vortman, CEO</span></div>
+      <div class="desc">AI-guided cardiac ultrasound — מנחה טכנאים לא מנוסים לבצע אקו לב ברמת מומחה. FDA cleared. ניסויים קליניים ב-Sheba.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> שוב AI cardiology + Sheba. CathWorks פתר "איך מראים FFR לקרדיולוג". UltraSight פותר "איך מנחים טכנאי לבצע אקו". אותו DNA של HMI design.</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">FDA Cleared</span>
+      <span class="tag growth">Series B</span>
+      <span class="money">$13M</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>TechsoMed</h4><span class="co">Yossi Abu, CEO</span></div>
+      <div class="desc">AI-based ultrasound monitoring for ablation procedures בזמן אמת. FDA cleared (De Novo). שותפות עם Medtronic.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> <strong>Medtronic = משקיע/שותף בשתי החברות.</strong> CathWorks = cath lab imaging. TechsoMed = ablation imaging. אותו OR, אותו Medtronic, אותו אתגר real-time visualization.</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">FDA Cleared</span>
+      <span class="tag medtronic">Medtronic Partner</span>
+      <span class="money">$9.6M</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>CustoMed</h4><span class="co">Dr. Amit Zabatani, CEO</span></div>
+      <div class="desc">AI + 3D printing for orthopedic surgery — מדריכים כירורגיים מותאמים אישית ושתלים. Spin-off ממעבדת ה-3D של Sheba. $6M seed אוקטובר 2025.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> surgeon-facing UI + 3D visualization of complex data. CathWorks = 3D coronary tree visualization. CustoMed = 3D surgical planning. אותו אתגר: להפוך data מורכב לממשק שמציל חיים.</div>
+    </div>
+    <div class="meta">
+      <span class="tag pre">Pre-FDA</span>
+      <span class="tag seed">Seed</span>
+      <span class="money">$6M</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>Exero Medical</h4><span class="co">Dr. Erez Shor, CEO</span></div>
+      <div class="desc">Smart biodegradable sensor for surgical leak detection. FDA Breakthrough Designation. חיישן שנספג בגוף ומתריע על דליפה אנסטומוטית אחרי ניתוח.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> IoT sensor → clinical dashboard. CathWorks = live physiological data → actionable UI. Exero = live sensor data → surgeon alerts. אותו pattern: data stream → clinical decision.</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">FDA Breakthrough</span>
+      <span class="tag seed">Pre-Series A</span>
+      <span class="money">$14M</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- TIER 2 -->
+<div class="section-title">TIER 2 — AI Health, Design-Intensive</div>
+<div class="section-sub">חברות שצריכות UX/Product ברמה גבוהה — CathWorks כ-proof case</div>
+<div class="targets">
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>Clew Medical</h4><span class="co">Gal Salomon, CEO</span></div>
+      <div class="desc">AI predictive analytics ל-ICU — חוזה deterioration של חולים. FDA cleared. 1,400+ מיטות ICU.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> real-time clinical dashboard, alert design, physician trust. CathWorks = cath lab alerts. Clew = ICU alerts. אותו אתגר: alert fatigue vs. actionable insight.</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">FDA Cleared</span>
+      <span class="tag growth">Growth</span>
+      <span class="money">$20.5M</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>Biobeat</h4><span class="co">Arik Ben Ishay, CEO</span></div>
+      <div class="desc">Wearable RPM — FDA-cleared cuffless blood pressure monitor. ניטור רציף מרחוק. $50M Series B דצמבר 2025.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> patient-facing + clinician dashboard. Biobeat scaling = UX makes or breaks adoption. "עיצבתי מוצר ש-100K patients השתמשו בו."</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">FDA Cleared</span>
+      <span class="tag growth">Series B</span>
+      <span class="money">$50M</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>DreaMed Diabetes</h4><span class="co">Eran Atlas, CEO</span></div>
+      <div class="desc">AI-based insulin management. 5 FDA clearances. Medtronic = משקיע + licensing deal.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> <strong>Medtronic משקיע בשתי החברות.</strong> "אנחנו בתיק Medtronic. עיצבתי את ה-exit הכי גדול שלהם בישראל."</div>
+    </div>
+    <div class="meta">
+      <span class="tag fda">5x FDA</span>
+      <span class="tag medtronic">Medtronic Investor</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>DeePathology</h4><span class="co">Dr. Chen Sagiv, Co-CEO</span></div>
+      <div class="desc">AI algorithms for digital pathology analytics. שלב מוקדם — $900K revenue.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> pathologist workflow UX. שלב מוקדם = ההשפעה של product design הכי גדולה. "נכנסתי ל-CathWorks כשהיו בשלב הזה."</div>
+    </div>
+    <div class="meta">
+      <span class="tag pre">Early Stage</span>
+      <span class="money">$900K Rev</span>
+    </div>
+  </div>
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>CopilotMD</h4><span class="co">—</span></div>
+      <div class="desc">Clinical decision support AI. השקעת Shoni Health Ventures (ARC). שלב מוקדם מאוד.</div>
+      <div class="cathworks-angle"><strong>קלף CathWorks:</strong> clinical decision support = core של CathWorks. "בניתי ממשק שעוזר לרופא להחליט — זה בדיוק מה שאתם בונים."</div>
+    </div>
+    <div class="meta">
+      <span class="tag pre">Early Stage</span>
+      <span class="tag seed">Shoni Fund</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- TIER 3: Earlier / Watch -->
+<div class="section-title">TIER 3 — מוקדם / לעקוב</div>
+<div class="section-sub">חברות ARC שצריך עוד מידע — פוטנציאל עתידי</div>
+<div class="targets">
+
+  <div class="target">
+    <div>
+      <div class="top"><h4>Syncath</h4><span class="co">—</span></div>
+      <div class="desc">Cardiovascular catheterization. ב-ARC. מעט מידע ציבורי — אבל catheterization = בדיוק עולם CathWorks.</div>
+    </div>
+    <div class="meta"><span class="tag pre">Unknown Stage</span></div>
+  </div>
+  <div class="target">
+    <div>
+      <div class="top"><h4>NovaPulse</h4><span class="co">—</span></div>
+      <div class="desc">Vascular medical device. ~שנה בפיתוח. מאוד מוקדם.</div>
+    </div>
+    <div class="meta"><span class="tag pre">~1 Year</span></div>
+  </div>
+  <div class="target">
+    <div>
+      <div class="top"><h4>Sonosphere</h4><span class="co">—</span></div>
+      <div class="desc">Ultrasound/imaging technology. ב-ARC. דומיין ultrasound = AISAP + UltraSight territory.</div>
+    </div>
+    <div class="meta"><span class="tag pre">Unknown Stage</span></div>
+  </div>
+  <div class="target">
+    <div>
+      <div class="top"><h4>Append Medical</h4><span class="co">—</span></div>
+      <div class="desc">Transcatheter LAA closure — מניעת שבץ. $7.6M. Shoni Health investment. קרדיולוגיה interventional.</div>
+    </div>
+    <div class="meta"><span class="tag seed">Seed</span><span class="money">$7.6M</span></div>
+  </div>
+</div>
+
+<!-- Entry strategy -->
+<div class="strategy">
+  <h3>אסטרטגיית כניסה — 4 צעדים</h3>
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-text"><strong>Angela Rabinovich (CBO)</strong> — פנייה ראשונה. "עיצבתי את ה-UX של CathWorks — ה-exit הגדול ביותר של Triventures ו-ARC. רוצה לעזור לחברות ARC הבאות לעשות את אותו מסע."</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-text"><strong>Design Partner in Residence</strong> — לא freelancer, לא agency. שותף עיצוב קבוע של ARC. גישה ל-120+ סטארטאפים. ARC מקבל: CathWorks-caliber product design. יניב מקבל: pipeline אינסופי.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-text"><strong>AISAP = proof point ראשון</strong> — Adiel Am-Shalom כבר ב-ARC, אותו תחום cardiac AI. הלקוח הראשון שמוכיח את המודל. 4 DMs קיימים עם יניב.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-text"><strong>ARC Summit TLV 2026</strong> (ספטמבר) — הרצאה: "How UX Design Drove a $585M Medtech Exit." 1,000+ משתתפים. כרטיס כניסה לכל האקוסיסטם.</div>
+  </div>
+</div>
+
+<div class="footer">PRIMO Intelligence | ARC Target Bank v1 | 18.02.2026 | CathWorks = Master Key</div>
+
+</body>
+</html>

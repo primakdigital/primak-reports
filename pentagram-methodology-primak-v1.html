@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentagram Methodology Applied to Primak v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f7f7f7; --white: #fff;
+    --accent: #111; --red: #dc2626; --green: #059669;
+    --blue: #1d4ed8; --blue-light: #eff6ff;
+    --amber: #d97706; --amber-light: #fffbeb;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .hero { padding: 80px 60px 60px; border-bottom: 1px solid var(--black); }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 40px; }
+  .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.08; letter-spacing: -2px; max-width: 780px; margin-bottom: 20px; }
+  .hero .sub { font-size: 17px; color: var(--mid); max-width: 600px; line-height: 1.7; }
+  .hero .meta { margin-top: 40px; font-size: 12px; color: var(--light); letter-spacing: 1px; text-transform: uppercase; }
+
+  section { padding: 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
+  section.black { background: var(--black); color: var(--white); }
+
+  .sn { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 12px; }
+  .dark .sn, .black .sn { color: #555; }
+  h2 { font-size: 34px; font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 24px; }
+  h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+  h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: var(--light); }
+  .dark h4, .black h4 { color: #555; }
+  p { max-width: 640px; margin-bottom: 14px; }
+
+  /* PHASE BLOCKS */
+  .phase { border: 2px solid var(--black); margin-bottom: 24px; }
+  .phase-header { display: grid; grid-template-columns: 60px 1fr; border-bottom: 1px solid var(--border); }
+  .phase-num { background: var(--black); color: var(--white); font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .phase-title { padding: 16px 20px; }
+  .phase-title h3 { margin-bottom: 2px; font-size: 18px; }
+  .phase-title .phase-sub { font-size: 13px; color: var(--light); }
+  .phase-body { padding: 24px; }
+  .phase-body p { font-size: 14px; line-height: 1.7; }
+
+  /* CASE STUDY */
+  .case-grid { display: grid; grid-template-columns: 200px 1fr; gap: 0; border: 1px solid var(--border); margin: 24px 0; }
+  .case-label { padding: 16px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--light); background: var(--bg); border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .case-value { padding: 16px; font-size: 14px; line-height: 1.6; border-bottom: 1px solid var(--border); }
+  .case-grid > div:nth-last-child(-n+2) { border-bottom: none; }
+
+  /* COMPARE BLOCKS */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--black); margin: 24px 0; }
+  .compare-col { padding: 28px; }
+  .compare-col:first-child { border-right: 1px solid var(--border); background: var(--bg); }
+  .compare-col h4 { margin-bottom: 16px; }
+  .compare-col p { font-size: 14px; }
+  .dark .compare { border-color: #444; }
+  .dark .compare-col:first-child { background: #222; border-right-color: #333; }
+
+  /* COMPONENT CARDS */
+  .comp-card { border: 1px solid var(--border); margin-bottom: 20px; }
+  .comp-card-header { display: grid; grid-template-columns: 40px 1fr; }
+  .comp-card-num { background: var(--black); color: var(--white); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .comp-card-title { padding: 14px 16px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 16px; }
+  .comp-card-body { padding: 20px; }
+  .comp-card-body .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .ba-col { padding: 16px; font-size: 13px; line-height: 1.7; }
+  .ba-col.before { background: #fef2f2; }
+  .ba-col.after { background: #ecfdf5; }
+  .ba-col .ba-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+  .ba-col.before .ba-label { color: var(--red); }
+  .ba-col.after .ba-label { color: var(--green); }
+
+  /* ACTION PLAN */
+  .action-row { display: grid; grid-template-columns: 80px 60px 1fr 140px; gap: 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .action-row.header { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600; border-bottom: 2px solid var(--black); }
+  .action-row > div { padding: 14px 12px; }
+  .action-row .week { font-weight: 800; background: var(--bg); border-right: 1px solid var(--border); text-align: center; }
+  .action-row .effort { border-right: 1px solid var(--border); text-align: center; color: var(--mid); font-size: 13px; }
+  .action-row .action { border-right: 1px solid var(--border); }
+  .action-row .output { font-size: 13px; color: var(--mid); }
+  .action-row:last-child { border-bottom: none; }
+
+  /* INSIGHT */
+  .insight { background: var(--bg); border-left: 4px solid var(--black); padding: 32px; margin: 24px 0; max-width: 700px; }
+  .insight blockquote { font-size: 18px; font-weight: 600; line-height: 1.5; letter-spacing: -0.3px; }
+  .insight .attr { margin-top: 12px; font-size: 13px; color: var(--mid); }
+  .dark .insight { background: #222; border-left-color: #666; }
+  .dark .insight blockquote { color: #fff; }
+  .black .insight { background: #222; border-left-color: #fff; }
+  .black .insight blockquote { color: #fff; }
+
+  /* VOICE */
+  .voice { display: grid; grid-template-columns: 130px 1fr; gap: 20px; margin: 16px 0; padding: 16px 0; border-top: 1px solid var(--border); }
+  .dark .voice, .black .voice { border-top-color: #333; }
+  .voice .vn { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .voice .vr { font-size: 11px; color: var(--light); margin-top: 2px; }
+  .voice .vt { font-size: 14px; line-height: 1.7; font-style: italic; color: var(--mid); }
+  .dark .voice .vt, .black .voice .vt { color: #aaa; }
+
+  .footer { padding: 40px 60px; font-size: 11px; color: var(--light); display: flex; justify-content: space-between; }
+
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px; } .hero h1 { font-size: 28px; }
+    section { padding: 40px 24px; }
+    .compare { grid-template-columns: 1fr; }
+    .compare-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    .case-grid { grid-template-columns: 1fr; }
+    .case-label { border-right: none; }
+    .comp-card-body .before-after { grid-template-columns: 1fr; }
+    .action-row { grid-template-columns: 1fr; }
+    .action-row .week, .action-row .effort { display: none; }
+    .voice { grid-template-columns: 1fr; gap: 6px; }
+    .phase-header { grid-template-columns: 40px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Pentagram — Methodology & Application</div>
+  <h1>How Pentagram repositions a brand in transition — and what it means for Primak</h1>
+  <p class="sub">A real case study, deconstructed into methodology, then applied as a strategic exercise to Primak. Not theory — a working blueprint.</p>
+  <div class="meta">22 February 2026 · v1</div>
+</div>
+
+<!-- ================================ -->
+<!-- PART 1: THE REFERENCE CASE       -->
+<!-- ================================ -->
+
+<section>
+  <div class="sn">Part 1 — Reference Case</div>
+  <h2>OpenView: How Natasha Jen repositioned a VC firm nobody remembered</h2>
+
+  <div class="case-grid">
+    <div class="case-label">Client</div>
+    <div class="case-value"><strong>OpenView</strong> — Boston-based VC specializing in expansion-stage software companies.</div>
+    <div class="case-label">Challenge</div>
+    <div class="case-value">VC branding is "typically over-polished, graphically conservative." OpenView looked like every other fund. Investors, founders, and portfolio companies couldn't explain what made OpenView different.</div>
+    <div class="case-label">Team</div>
+    <div class="case-value">Partner Natasha Jen, designers Jang Hyun Han and Jenny Hung.</div>
+    <div class="case-label">Scope</div>
+    <div class="case-value">Full rebrand: positioning, verbal identity, visual system, naming architecture, environmental graphics, digital.</div>
+  </div>
+
+  <h3 style="margin-top: 32px;">What Pentagram actually did — in 6 phases:</h3>
+
+  <div class="phase" style="margin-top: 20px;">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div class="phase-title">
+        <h3>Discovery</h3>
+        <div class="phase-sub">Weeks 1-3 · Research, not design</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p><strong>Leadership interviews</strong> — asked every partner: "What does OpenView do that no other VC does?" Found that every partner gave a different answer. The identity problem was internal before it was external.</p>
+      <p><strong>Employee research</strong> — asked team members the same question. Found one consistent thread everyone agreed on: OpenView is <strong>hands-on</strong>. They don't just fund — they embed operators.</p>
+      <p><strong>Competitive audit</strong> — mapped 20+ VC visual identities. Found near-identical patterns: blue/grey, serif fonts, abstract geometric marks. OpenView was indistinguishable.</p>
+      <p><strong>Key output:</strong> The real differentiator isn't money — it's mentorship. Every partner operates inside portfolio companies. That's the brand.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div class="phase-title">
+        <h3>Challenge Definition</h3>
+        <div class="phase-sub">Week 3 · One sentence that frames everything</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>Pentagram doesn't start with "redesign the logo." They start with: <strong>what is the one sentence that captures the gap between what this brand IS and what the market THINKS it is?</strong></p>
+      <p>For OpenView: <em>"OpenView operates like a hands-on partner inside every portfolio company — but their brand looks like every other check-writing VC."</em></p>
+      <p>The challenge became: <strong>make the hands-on operational identity visible in every brand touchpoint.</strong></p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div class="phase-title">
+        <h3>Brand Principles</h3>
+        <div class="phase-sub">Weeks 4-5 · Strategic foundation before any design</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>From discovery, Jen extracted <strong>5 brand attributes</strong> that every design decision must embody:</p>
+      <p><strong>Constructive · Agile · Honest · Rigorous · Personable</strong></p>
+      <p>These aren't aspirational — they're descriptive. Found in the interviews, validated by behavior. Every design choice gets tested: "Is this constructive? Is this honest?"</p>
+      <p><strong>Critical decision:</strong> no attribute says "prestigious," "elite," or "exclusive." OpenView's brand rejects VC vanity. The principles enforce it.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div class="phase-title">
+        <h3>System Design</h3>
+        <div class="phase-sub">Weeks 5-10 · Verbal + Visual + Naming architecture</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p><strong>Custom typeface:</strong> OpenView Stencil — a bespoke stencil font that evokes pragmatism, efficiency, construction. Not elegant — operational.</p>
+      <p><strong>Color:</strong> Deep blue (authority) + bright secondary palette (energy, not corporate).</p>
+      <p><strong>Naming architecture:</strong> Replaced generic sub-brand names with <strong>action verbs:</strong> OpenView Invest, OpenView Grow, OpenView Learn. The verbs say what happens — not what the department is called.</p>
+      <p><strong>Custom icons:</strong> Each icon represents a company characteristic or process stage — not decoration, but information.</p>
+      <p><strong>Critical decision:</strong> the stencil typeface. It's polarizing. Some people find it ugly. Jen chose it because <strong>it can't be confused with any other VC.</strong> Distinctiveness > beauty.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">5</div>
+      <div class="phase-title">
+        <h3>Implementation</h3>
+        <div class="phase-sub">Weeks 10-16 · Every touchpoint</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>Website, pitch decks, portfolio communications, event materials, Boston office environmental graphics (including neon signage), social media templates, email signatures.</p>
+      <p><strong>The "compliance = path of least resistance" principle:</strong> templates designed so the default output is on-brand. The team doesn't have to try to be consistent — the system makes inconsistency harder than consistency.</p>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">6</div>
+      <div class="phase-title">
+        <h3>Validation</h3>
+        <div class="phase-sub">Post-launch · Did it work?</div>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p><strong>Internal test:</strong> Ask every partner again: "What does OpenView do?" After rebrand — every partner gave the same answer.</p>
+      <p><strong>External test:</strong> Portfolio founders could now explain OpenView's value proposition to other founders in one sentence.</p>
+      <p><strong>Market test:</strong> OpenView became visually recognizable in a category where every brand looked identical.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- PART 2: WHY IT WORKED            -->
+<!-- ================================ -->
+
+<section class="dark">
+  <div class="sn">Part 2 — Why It Worked</div>
+  <h2 style="color:#fff;">Three critical decisions made the difference</h2>
+
+  <div class="insight" style="margin-top: 28px;">
+    <blockquote>Decision 1: They started with internal alignment, not external positioning.</blockquote>
+    <div class="attr">Every partner gave a different answer to "what makes us different." The rebrand started by creating ONE answer everyone agreed on. Without this — any external message is built on sand.</div>
+  </div>
+
+  <div class="insight">
+    <blockquote>Decision 2: They found the differentiator in behavior, not aspiration.</blockquote>
+    <div class="attr">"Hands-on mentorship" wasn't invented in a workshop. It was ALREADY happening. Pentagram's job was to make the invisible visible — not to invent a new story. The strongest brand messages describe what already exists.</div>
+  </div>
+
+  <div class="insight">
+    <blockquote>Decision 3: They chose distinctiveness AND beauty — not one over the other.</blockquote>
+    <div class="attr">Jen's OpenView used a polarizing stencil font — memorable but not beautiful. That's one path. But the strongest premium brands (Moog, Leica, Braun) prove the dichotomy is false: every touchpoint is both instantly recognizable AND impossible to let go of. For a premium brand built to scale, "ugly but memorable" is not the play. The standard is: distinctive enough to never be confused, beautiful enough to never be questioned.</div>
+  </div>
+
+  <div class="voice">
+    <div><div class="vn" style="color:#fff;">Natasha Jen</div><div class="vr">On OpenView</div></div>
+    <div class="vt">"The brand attributes — constructive, agile, honest, rigorous, personable — they weren't our invention. They were already in the culture. We just gave them a name and a shape. The best rebrand doesn't create identity — it reveals it."</div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- PART 3: THE METHODOLOGY          -->
+<!-- ================================ -->
+
+<section>
+  <div class="sn">Part 3 — The Methodology (Extracted)</div>
+  <h2>Six phases. Applicable to any brand in transition.</h2>
+
+  <div style="border: 2px solid var(--black); margin-top: 24px;">
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; border-bottom: 1px solid var(--border); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600;">
+      <div style="padding: 12px; background: var(--bg); border-right: 1px solid var(--border); text-align: center;">#</div>
+      <div style="padding: 12px; border-right: 1px solid var(--border);">Phase</div>
+      <div style="padding: 12px; border-right: 1px solid var(--border);">Core Question</div>
+      <div style="padding: 12px;">Output</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; border-bottom: 1px solid var(--border); font-size: 14px;">
+      <div style="padding: 14px; background: var(--bg); border-right: 1px solid var(--border); text-align: center; font-weight: 800;">1</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); font-weight: 600;">Discovery</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); color: var(--mid);">What do you ACTUALLY do — in the words of the people who experience it?</div>
+      <div style="padding: 14px; color: var(--mid); font-size: 13px;">Gap map: internal reality vs. external perception</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; border-bottom: 1px solid var(--border); font-size: 14px;">
+      <div style="padding: 14px; background: var(--bg); border-right: 1px solid var(--border); text-align: center; font-weight: 800;">2</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); font-weight: 600;">Challenge Definition</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); color: var(--mid);">What is the ONE gap between what you are and what the market thinks?</div>
+      <div style="padding: 14px; color: var(--mid); font-size: 13px;">One-sentence challenge statement</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; border-bottom: 1px solid var(--border); font-size: 14px;">
+      <div style="padding: 14px; background: var(--bg); border-right: 1px solid var(--border); text-align: center; font-weight: 800;">3</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); font-weight: 600;">Brand Principles</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); color: var(--mid);">What 3-5 attributes describe how you work — found in behavior, not aspiration?</div>
+      <div style="padding: 14px; color: var(--mid); font-size: 13px;">Attribute set that filters every decision</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; border-bottom: 1px solid var(--border); font-size: 14px;">
+      <div style="padding: 14px; background: var(--bg); border-right: 1px solid var(--border); text-align: center; font-weight: 800;">4</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); font-weight: 600;">System Design</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); color: var(--mid);">What verbal, visual, and structural system makes the principles tangible?</div>
+      <div style="padding: 14px; color: var(--mid); font-size: 13px;">Messaging, naming, service architecture, identity</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; border-bottom: 1px solid var(--border); font-size: 14px;">
+      <div style="padding: 14px; background: var(--bg); border-right: 1px solid var(--border); text-align: center; font-weight: 800;">5</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); font-weight: 600;">Implementation</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); color: var(--mid);">How does this live in every touchpoint — with minimum effort?</div>
+      <div style="padding: 14px; color: var(--mid); font-size: 13px;">Templates, content, profiles, website, proposals</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 60px 160px 1fr 1fr; font-size: 14px;">
+      <div style="padding: 14px; background: var(--bg); border-right: 1px solid var(--border); text-align: center; font-weight: 800;">6</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); font-weight: 600;">Validation</div>
+      <div style="padding: 14px; border-right: 1px solid var(--border); color: var(--mid);">Can someone who isn't you explain what you do in one sentence?</div>
+      <div style="padding: 14px; color: var(--mid); font-size: 13px;">Third-party repeatability test</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- PART 4: APPLIED TO PRIMAK        -->
+<!-- ================================ -->
+
+<section class="black">
+  <div class="sn">Part 4 — Applying the Methodology to Primak</div>
+  <h2 style="color:#fff;">Phase 1: Discovery — What we found</h2>
+
+  <p style="color: #999; margin-bottom: 32px;">We ran the Pentagram discovery process on Primak during this session. Here is what emerged — not from assumptions, but from Yaniv's own words and market data.</p>
+
+  <div class="compare" style="border-color: #444;">
+    <div class="compare-col" style="background: #222; border-right-color: #333;">
+      <h4 style="color: #666;">What the brand says</h4>
+      <p style="color: #999; font-size: 14px; line-height: 1.8;">
+        "Fractional CPO for high-stakes AI"<br>
+        "We ship the products humans need to trust"<br>
+        Title: Founder & CPO<br>
+        Category: Fractional executive<br>
+        Vertical: AI<br>
+        Tone: Global, English-first
+      </p>
+    </div>
+    <div class="compare-col">
+      <h4 style="color: #888;">What Yaniv actually says and does</h4>
+      <p style="color: #ddd; font-size: 14px; line-height: 1.8;">
+        "I turn technology into product"<br>
+        "I work with founders and VC victims"<br>
+        Not a designer — a simplifier<br>
+        Embeds business models into product<br>
+        Works across ALL verticals (medical, cyber, media, hospitality, B2B2C)<br>
+        5 companies, 5 domains, zero failures<br>
+        Enters when stuck, exits when it works
+      </p>
+    </div>
+  </div>
+
+  <div class="insight" style="background: #222; border-left-color: #fff; margin-top: 32px;">
+    <blockquote style="color: #fff;">The gap: Primak's brand describes a Fractional CPO for AI companies. Yaniv's actual practice is a domain-agnostic product problem solver who enters when organizations are stuck and have resources but no working product.</blockquote>
+    <div class="attr" style="color: #666;">Discovery synthesis — same methodology as OpenView Phase 1</div>
+  </div>
+</section>
+
+<!-- DISCOVERY PART 2: MARKET MODELS -->
+<section>
+  <div class="sn">Phase 1 (cont.) — Discovery: Existing Business Models</div>
+  <h2>Six models that match Yaniv's profile — and where each falls short</h2>
+  <p>Pentagram has worked with hundreds of professional services firms. These are the six established business models closest to what Primak does. None is an exact match — that's the opportunity.</p>
+
+  <!-- MODEL 1 -->
+  <div class="comp-card" style="margin-top: 28px;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">1</div>
+      <div class="comp-card-title">The Smokejumper — Rich Mironov</div>
+    </div>
+    <div class="comp-card-body">
+      <p style="font-size: 14px; line-height: 1.7;"><strong>What it is:</strong> One-person firm. Parachutes into companies as interim VP Product/CPO. 120+ clients, 15 interim placements. Authority built on one book ("The Art of Product Management") and decades of blog posts.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Pricing:</strong> $250-400/hr. Advisory + coaching.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Where it falls short for Primak:</strong> Mironov advises and coaches — he doesn't build. Yaniv <strong>executes</strong>: UX, product architecture, business model embedding. Mironov tells you what to do. Yaniv does it.</p>
+      <p style="font-size: 13px; color: var(--mid);">mironov.com</p>
+    </div>
+  </div>
+
+  <!-- MODEL 2 -->
+  <div class="comp-card">
+    <div class="comp-card-header">
+      <div class="comp-card-num">2</div>
+      <div class="comp-card-title">The Operating Partner — VC Model</div>
+    </div>
+    <div class="comp-card-body">
+      <p style="font-size: 14px; line-height: 1.7;"><strong>What it is:</strong> VC/PE firms hire senior operators who embed inside portfolio companies. Fix product-market fit, build teams, optimize go-to-market. Structurally identical to what Yaniv does for "founders and VC victims."</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Pricing:</strong> Salary + carry (equity). Typically $300-500K/yr + upside.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Where it falls short for Primak:</strong> Operating Partners are employed by the fund, not independent. Yaniv does the same mechanics — enters, fixes, exits — but as an independent. The value prop is identical, the business model is different.</p>
+      <p style="font-size: 13px; color: var(--mid);">Common at Andreessen Horowitz, OpenView, Bessemer</p>
+    </div>
+  </div>
+
+  <!-- MODEL 3 -->
+  <div class="comp-card">
+    <div class="comp-card-header">
+      <div class="comp-card-num">3</div>
+      <div class="comp-card-title">The Product Transformation — Marty Cagan / SVPG</div>
+    </div>
+    <div class="comp-card-body">
+      <p style="font-size: 14px; line-height: 1.7;"><strong>What it is:</strong> Team of ~8 partners, all ex-VP Product from top companies. Sell the "Product Operating Model" — teach organizations to work differently. Three books (Inspired, Empowered, Transformed). Absolute authority in the field.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Pricing:</strong> $15-50K/workshop. Corporate transformation engagements at $100K+.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Where it falls short for Primak:</strong> SVPG teaches and coaches — they never touch the product. Yaniv builds the product. SVPG changes how organizations think. Yaniv changes what organizations ship.</p>
+      <p style="font-size: 13px; color: var(--mid);">svpg.com</p>
+    </div>
+  </div>
+
+  <!-- MODEL 4 -->
+  <div class="comp-card">
+    <div class="comp-card-header">
+      <div class="comp-card-num">4</div>
+      <div class="comp-card-title">The Turnaround Manager — Deloitte / FTI Consulting</div>
+    </div>
+    <div class="comp-card-body">
+      <p style="font-size: 14px; line-height: 1.7;"><strong>What it is:</strong> $50B+ global industry. Interim executives parachute into broken companies. Fix operations, finance, strategy. Restructure. Leave when it works. The exact same pattern Yaniv follows — but for finance and operations, not product.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Pricing:</strong> $500-1,500/hr. Premium, non-negotiable. The "turnaround" label justifies it.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Where it falls short for Primak:</strong> They fix balance sheets and org charts. They don't understand product, UX, or technology. <strong>Nobody does turnaround for product.</strong> This is the white space.</p>
+      <p style="font-size: 13px; color: var(--mid);">Deloitte, FTI Consulting, AlixPartners, Alvarez & Marsal</p>
+    </div>
+  </div>
+
+  <!-- MODEL 5 -->
+  <div class="comp-card">
+    <div class="comp-card-header">
+      <div class="comp-card-num">5</div>
+      <div class="comp-card-title">The Thought Leader — Gibson Biddle / Reforge</div>
+    </div>
+    <div class="comp-card-body">
+      <p style="font-size: 14px; line-height: 1.7;"><strong>What it is:</strong> Ex-Netflix VP Product. 30K+ newsletter subscribers. Workshops, keynotes, courses. Monetizes expertise through education and content, not execution. Reforge's EIR program gives product leaders 6-12 month residencies to build authority.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Pricing:</strong> $10-25K/keynote. $5-15K/workshop. Courses at scale.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Where it falls short for Primak:</strong> Biddle sells knowledge. Yaniv sells results. But the authority-building mechanics — publishing, speaking, frameworks — are what Primak needs to adopt for visibility.</p>
+      <p style="font-size: 13px; color: var(--mid);">gibsonbiddle.com · reforge.com</p>
+    </div>
+  </div>
+
+  <!-- MODEL 6 -->
+  <div class="comp-card">
+    <div class="comp-card-header">
+      <div class="comp-card-num">6</div>
+      <div class="comp-card-title">The Experience Studio — McKinsey Digital</div>
+    </div>
+    <div class="comp-card-body">
+      <p style="font-size: 14px; line-height: 1.7;"><strong>What it is:</strong> Global network of immersive learning spaces. Business leaders experience digital transformation firsthand: rapid prototyping, design thinking, AI interaction, VR/AR. 3-day to 2-week programs. Not a lecture — an experience where leaders see and feel the change before committing.</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Pricing:</strong> $50-500K per engagement (bundled with McKinsey consulting).</p>
+      <p style="font-size: 14px; line-height: 1.7;"><strong>Where it falls short for Primak:</strong> Requires massive infrastructure and brand. But the principle is relevant: <strong>show, don't tell</strong>. The Diagnose phase in Primak's model should function like a mini Experience Studio — let the client experience the problem and the solution, not just hear about it.</p>
+      <p style="font-size: 13px; color: var(--mid);">mckinsey.com/experience-studio</p>
+    </div>
+  </div>
+
+  <!-- SYNTHESIS -->
+  <div style="border: 2px solid var(--black); margin-top: 32px; padding: 32px;">
+    <h3 style="margin-bottom: 16px;">The Positioning Map</h3>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; border-bottom: 2px solid var(--black); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 0;">
+      <div style="padding: 10px;">Model</div>
+      <div style="padding: 10px;">Sells</div>
+      <div style="padding: 10px;">Price Range</div>
+      <div style="padding: 10px;">What's Missing</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; border-bottom: 1px solid var(--border); font-size: 13px;">
+      <div style="padding: 10px; font-weight: 600;">Smokejumper</div>
+      <div style="padding: 10px; color: var(--mid);">Advice + coaching</div>
+      <div style="padding: 10px; color: var(--mid);">$250-400/hr</div>
+      <div style="padding: 10px; color: var(--mid);">Doesn't build</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; border-bottom: 1px solid var(--border); font-size: 13px;">
+      <div style="padding: 10px; font-weight: 600;">Operating Partner</div>
+      <div style="padding: 10px; color: var(--mid);">Fixing portfolio cos</div>
+      <div style="padding: 10px; color: var(--mid);">$300-500K/yr</div>
+      <div style="padding: 10px; color: var(--mid);">Tied to a fund</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; border-bottom: 1px solid var(--border); font-size: 13px;">
+      <div style="padding: 10px; font-weight: 600;">Transformation</div>
+      <div style="padding: 10px; color: var(--mid);">Method + training</div>
+      <div style="padding: 10px; color: var(--mid);">$15-50K/workshop</div>
+      <div style="padding: 10px; color: var(--mid);">Doesn't touch product</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; border-bottom: 1px solid var(--border); font-size: 13px;">
+      <div style="padding: 10px; font-weight: 600;">Turnaround Mgmt</div>
+      <div style="padding: 10px; color: var(--mid);">Rescue operations</div>
+      <div style="padding: 10px; color: var(--mid);">$500-1,500/hr</div>
+      <div style="padding: 10px; color: var(--mid);">Finance only, no product</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; border-bottom: 1px solid var(--border); font-size: 13px;">
+      <div style="padding: 10px; font-weight: 600;">Thought Leader</div>
+      <div style="padding: 10px; color: var(--mid);">Knowledge + brand</div>
+      <div style="padding: 10px; color: var(--mid);">$10-25K/keynote</div>
+      <div style="padding: 10px; color: var(--mid);">Doesn't execute</div>
+    </div>
+    <div style="display: grid; grid-template-columns: 160px 140px 140px 1fr; font-size: 13px;">
+      <div style="padding: 10px; font-weight: 600;">Experience Studio</div>
+      <div style="padding: 10px; color: var(--mid);">Immersive change</div>
+      <div style="padding: 10px; color: var(--mid);">$50-500K</div>
+      <div style="padding: 10px; color: var(--mid);">Needs massive infra</div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top: 28px;">
+    <blockquote>Primak sits at the intersection: executes like an Operating Partner, enters like a Turnaround Manager, builds authority like a Thought Leader, and creates "show don't tell" experiences like McKinsey's Studio. The category — Interim/Embedded CPO — exists, but nobody in it combines cross-domain versatility (5 industries, 0 failures), a $585M exit outcome, and craft-level execution depth. That's the white space.</blockquote>
+    <div class="attr">Discovery synthesis — business model mapping</div>
+  </div>
+</section>
+
+<section>
+  <div class="sn">Phase 2 — Challenge Definition</div>
+  <h2>The one-sentence challenge</h2>
+
+  <div style="background: var(--black); color: var(--white); padding: 40px; margin: 24px 0; max-width: 700px;">
+    <p style="font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.5px; color: #fff; margin-bottom: 0;">
+      "Yaniv turns stuck technology into working product across every domain he enters — but his brand sounds like one of 3,000 Fractional CPOs, none of his proof is published, and the market can't find him."
+    </p>
+  </div>
+
+  <p>Three sub-challenges:</p>
+  <p><strong>Identity gap</strong> — The brand says "Fractional CPO." The work says "problem solver who transforms technology into product."</p>
+  <p><strong>Visibility gap</strong> — Zero indexed content connects Yaniv to any of his 5 cases. Complete online invisibility.</p>
+  <p><strong>Differentiation gap</strong> — The category exists: Interim/Embedded CPO (Harpal Singh, Mironov, Prodify, CXO Partners). But Yaniv's differentiators aren't articulated: cross-domain (5 industries, 0 failures), $585M outcome, and craft + strategy + execution depth that most interim CPOs don't touch.</p>
+</section>
+
+<section>
+  <div class="sn">Phase 3 — Brand Principles</div>
+  <h2>Five attributes found in Yaniv's behavior</h2>
+  <p>Not aspirational. Found in the 5 case studies and in how Yaniv described his work during this session.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 2px solid var(--black); margin-top: 28px;">
+    <div style="padding: 24px 16px; border-right: 1px solid var(--border);">
+      <div style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Direct</div>
+      <div style="font-size: 13px; color: var(--mid); line-height: 1.6;">"מהבטן." No frameworks for the sake of frameworks. Simplifies, then executes. Said explicitly: "I'm not a designer — simplify / execute."</div>
+    </div>
+    <div style="padding: 24px 16px; border-right: 1px solid var(--border);">
+      <div style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Versatile</div>
+      <div style="font-size: 13px; color: var(--mid); line-height: 1.6;">Medical, cyber, media, hospitality, B2B2C. The skill transfers because it's not domain knowledge — it's the ability to see what's broken and build what's missing.</div>
+    </div>
+    <div style="padding: 24px 16px; border-right: 1px solid var(--border);">
+      <div style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Relentless</div>
+      <div style="font-size: 13px; color: var(--mid); line-height: 1.6;">5 companies. 0 failures. Doesn't leave until it works. CathWorks: from "doctors don't trust it" to FDA cleared, $585M. Orchestra: from nothing to Cisco partnership.</div>
+    </div>
+    <div style="padding: 24px 16px; border-right: 1px solid var(--border);">
+      <div style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Founder-native</div>
+      <div style="font-size: 13px; color: var(--mid); line-height: 1.6;">"Founders and VC victims." Speaks founder language, not consultant language. Understands the pressure of money, time, and board expectations from the inside.</div>
+    </div>
+    <div style="padding: 24px 16px;">
+      <div style="font-size: 24px; font-weight: 800; margin-bottom: 8px;">Commercial</div>
+      <div style="font-size: 13px; color: var(--mid); line-height: 1.6;">"Embed business models into product and improve ROI." Not just a craft leader — builds products that make money. The output is revenue, not wireframes.</div>
+    </div>
+  </div>
+
+  <div class="voice" style="margin-top: 24px;">
+    <div><div class="vn">The Test</div><div class="vr">OpenView method</div></div>
+    <div class="vt">Every brand decision from here gets filtered: "Is this direct? Is this versatile? Is this relentless? Is this founder-native? Is this commercial?" If not — it doesn't belong in Primak's brand.</div>
+  </div>
+</section>
+
+<!-- PHASE 4: SYSTEM DESIGN -->
+<section class="dark">
+  <div class="sn">Phase 4 — System Design: The Six Components</div>
+  <h2 style="color:#fff;">What needs to change — and to what</h2>
+
+  <!-- 1: POSITIONING -->
+  <div class="comp-card" style="border-color: #444; margin-top: 28px;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">1</div>
+      <div class="comp-card-title" style="color: #fff; border-bottom-color: #333;">Positioning</div>
+    </div>
+    <div class="comp-card-body" style="background: #222;">
+      <p style="color: #bbb; font-size: 14px;">Assumption validated in session: Yaniv confirmed "I turn technology into product" as accurate.</p>
+      <div class="before-after">
+        <div class="ba-col before" style="background: #2a1a1a;">
+          <div class="ba-label">Current</div>
+          <div style="color: #ccc;">"Fractional CPO for high-stakes AI. We ship the products humans need to trust."<br><br>Category: Fractional executive<br>Market: AI only<br>Promise: trust</div>
+        </div>
+        <div class="ba-col after" style="background: #1a2a1a;">
+          <div class="ba-label">Proposed</div>
+          <div style="color: #ccc;"><strong>"I turn stuck technology into product."</strong><br><br>Category: Product problem solver (new)<br>Market: Any company with resources but no working product<br>Promise: from stuck to working<br><br>AI as primary proof vertical, not a cage.</div>
+        </div>
+      </div>
+      <p style="color: #888; font-size: 13px; margin-top: 16px;"><strong>Open question:</strong> Should AI be in the one-liner or only in the proof cases? Data says AI = premium + zero competition. Yaniv's instinct says broader. The principles say: lead with what's TRUE (versatile), use AI as the sharpest proof.</p>
+    </div>
+  </div>
+
+  <!-- 2: MESSAGING -->
+  <div class="comp-card" style="border-color: #444;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">2</div>
+      <div class="comp-card-title" style="color: #fff; border-bottom-color: #333;">Messaging System</div>
+    </div>
+    <div class="comp-card-body" style="background: #222;">
+      <p style="color: #bbb; font-size: 14px;">OpenView used action verbs (Invest, Grow, Learn). Primak needs a similar verb-driven system.</p>
+      <div class="before-after">
+        <div class="ba-col before" style="background: #2a1a1a;">
+          <div class="ba-label">Current</div>
+          <div style="color: #ccc;">One one-liner used everywhere. No system. No adaptation per context.</div>
+        </div>
+        <div class="ba-col after" style="background: #1a2a1a;">
+          <div class="ba-label">Proposed</div>
+          <div style="color: #ccc;"><strong>Core message:</strong> "Turns stuck technology into product."<br><br><strong>Proof message (conversations):</strong> "5 companies, 5 industries, zero failures. From AI cardiac ($585M exit) to national newsroom transformation."<br><br><strong>Founder message (referrals):</strong> "The guy you call when you have money and tech but no product — and nobody knows why."<br><br>Three messages. Each has one job.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: VALUE PROPOSITION -->
+  <div class="comp-card" style="border-color: #444;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">3</div>
+      <div class="comp-card-title" style="color: #fff; border-bottom-color: #333;">Value Proposition</div>
+    </div>
+    <div class="comp-card-body" style="background: #222;">
+      <div class="before-after">
+        <div class="ba-col before" style="background: #2a1a1a;">
+          <div class="ba-label">Current</div>
+          <div style="color: #ccc;">Implicit: "I provide part-time CPO services."<br>Frame: time-for-money<br>Result: price comparison with other fractional CPOs ($3-15K/mo range)</div>
+        </div>
+        <div class="ba-col after" style="background: #1a2a1a;">
+          <div class="ba-label">Proposed</div>
+          <div style="color: #ccc;"><strong>"You have the technology, the funding, and the team — but no product that works. I come in, find what's stuck, build what's missing, and leave when it's running."</strong><br><br>Frame: outcome-for-investment<br>Result: no price comparison possible — nobody else does this</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4: SERVICE ARCHITECTURE -->
+  <div class="comp-card" style="border-color: #444;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">4</div>
+      <div class="comp-card-title" style="color: #fff; border-bottom-color: #333;">Service Architecture</div>
+    </div>
+    <div class="comp-card-body" style="background: #222;">
+      <p style="color: #bbb; font-size: 14px;">OpenView used action verbs. Primak services should describe <strong>what happens</strong>, not what the package is called.</p>
+      <div class="before-after">
+        <div class="ba-col before" style="background: #2a1a1a;">
+          <div class="ba-label">Current</div>
+          <div style="color: #ccc;">Deferred. Direction was 3 branded packages (Scan/Sprint/Residency). Generic consulting language.</div>
+        </div>
+        <div class="ba-col after" style="background: #1a2a1a;">
+          <div class="ba-label">Proposed</div>
+          <div style="color: #ccc;"><strong>One offering: "Product Intervention by Primak"</strong><br><br>Three scopes, described by what happens:<br>
+          · <strong>Diagnose</strong> — 2-3 weeks. Find what's stuck and why. [$15K]<br>
+          · <strong>Build</strong> — 6-12 weeks. Fix it, ship it. [$22K+]<br>
+          · <strong>Lead</strong> — ongoing. Stay until the function runs without me. [$13K/mo]<br><br>Diagnose is the paid entry gate. Free diagnosis = devalued thinking (Dunford/Enns principle).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: PROOF / EVIDENCE -->
+  <div class="comp-card" style="border-color: #444;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">5</div>
+      <div class="comp-card-title" style="color: #fff; border-bottom-color: #333;">Proof System</div>
+    </div>
+    <div class="comp-card-body" style="background: #222;">
+      <p style="color: #bbb; font-size: 14px;">This is where the biggest gap exists. All proof is currently private. Zero is indexed.</p>
+      <div class="before-after">
+        <div class="ba-col before" style="background: #2a1a1a;">
+          <div class="ba-label">Current</div>
+          <div style="color: #ccc;">5 cases exist in proposals and conversations. Zero published. Zero indexed. Zero findable by AI search.</div>
+        </div>
+        <div class="ba-col after" style="background: #1a2a1a;">
+          <div class="ba-label">Proposed</div>
+          <div style="color: #ccc;"><strong>5 elegantly written case studies.</strong> Paula Scher's format — state facts, never claim credit:<br><br>
+          "AI cardiac diagnostics. UX strategy from concept through FDA clearance. 100K patients. Acquired by Medtronic, $585M."<br><br>Each published as: LinkedIn article + website page + SEO-optimized vertical landing page.<br><br>The "5/5/0" proof line for conversations: <strong>"5 companies. 5 industries. Zero failures."</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6: IDENTITY -->
+  <div class="comp-card" style="border-color: #444;">
+    <div class="comp-card-header">
+      <div class="comp-card-num">6</div>
+      <div class="comp-card-title" style="color: #fff; border-bottom-color: #333;">Title & Identity</div>
+    </div>
+    <div class="comp-card-body" style="background: #222;">
+      <div class="before-after">
+        <div class="ba-col before" style="background: #2a1a1a;">
+          <div class="ba-label">Current</div>
+          <div style="color: #ccc;">Founder & CPO, Primak<br><br>"Fractional CPO" in one-liner</div>
+        </div>
+        <div class="ba-col after" style="background: #1a2a1a;">
+          <div class="ba-label">Proposed</div>
+          <div style="color: #ccc;"><strong>CPO, Primak</strong> — everywhere.<br><br>"Fractional CPO" appears only in LinkedIn About/Experience for search indexing. Never in headline, never in one-liner, never in conversation.<br><br>The OpenView principle: the title describes the function, not the arrangement. OpenView didn't call themselves "part-time mentors" — they just mentored.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASE 5: IMPLEMENTATION -->
+<section>
+  <div class="sn">Phase 5 — Implementation: Action Plan</div>
+  <h2>Eight weeks to a new Primak</h2>
+  <p>Ordered by impact and dependency. Week 1 is the foundation — everything else builds on it.</p>
+
+  <div style="border: 2px solid var(--black); margin-top: 28px;">
+    <div class="action-row header">
+      <div style="padding: 12px; background: var(--bg); border-right: 1px solid var(--border);">When</div>
+      <div style="padding: 12px; border-right: 1px solid var(--border);">Effort</div>
+      <div style="padding: 12px; border-right: 1px solid var(--border);">Action</div>
+      <div style="padding: 12px;">Output</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W1</div>
+      <div class="effort">3 hrs</div>
+      <div class="action"><strong>Publish CathWorks case</strong> — LinkedIn article. Elegant, fact-based. No "I did this" — let the numbers talk. Ride the live news cycle.</div>
+      <div class="output">1 indexed article linking Primak → CathWorks → $585M</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W1</div>
+      <div class="effort">1 hr</div>
+      <div class="action"><strong>Update LinkedIn headline</strong> — "CPO, Primak · I turn stuck technology into product" (or refined version). Add "Fractional CPO" only in About section.</div>
+      <div class="output">LinkedIn profile aligned with new positioning</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W2</div>
+      <div class="effort">4 hrs</div>
+      <div class="action"><strong>Write 4 remaining case studies</strong> — Orchestra, Haaretz, Queue, Selina. Same elegant format. Publish as LinkedIn articles, one per day.</div>
+      <div class="output">5 total indexed proof cases</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W3</div>
+      <div class="effort">4 hrs</div>
+      <div class="action"><strong>Rebuild primak.co</strong> — One page. New positioning. 5 case studies. Service architecture (Diagnose/Build/Lead). No "Fractional CPO" on homepage.</div>
+      <div class="output">Website aligned with new brand</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W3</div>
+      <div class="effort">2 hrs</div>
+      <div class="action"><strong>Create vertical landing pages</strong> — /medical, /cyber, /media. Each page uses domain-specific language for SEO. "Fractional CPO Israel" page for geographic SEO.</div>
+      <div class="output">4 SEO-optimized landing pages</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W4</div>
+      <div class="effort">2 hrs</div>
+      <div class="action"><strong>Write "The High-Stakes AI Problem" article</strong> — define the category. Reference EU AI Act, CathWorks, the trust gap. Position Primak as the person who named the problem.</div>
+      <div class="output">Category-defining content piece</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W5-6</div>
+      <div class="effort">2 hrs/wk</div>
+      <div class="action"><strong>Weekly LinkedIn content</strong> — short posts. "5 companies, 5 industries, zero failures" stories. One insight per post. Build authority.</div>
+      <div class="output">Content cadence established</div>
+    </div>
+    <div class="action-row">
+      <div class="week">W6-8</div>
+      <div class="effort">3 hrs</div>
+      <div class="action"><strong>Podcast placement</strong> — approach 3 product/tech podcasts. Pitch: "The person who designed the UX behind the $585M Medtronic acquisition." One placement = permanent indexed content.</div>
+      <div class="output">1+ podcast appearance, indexed transcript</div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top: 28px;">
+    <blockquote>Total effort weeks 1-8: approximately 25 hours. That's 3 hours per week. The CathWorks article in week 1 alone creates more brand equity than months of positioning work.</blockquote>
+    <div class="attr">Implementation estimate</div>
+  </div>
+</section>
+
+<!-- PHASE 6: VALIDATION -->
+<section class="dark">
+  <div class="sn">Phase 6 — Validation</div>
+  <h2 style="color:#fff;">How we know it worked</h2>
+
+  <p style="color: #999;">The OpenView test: can someone who isn't you explain what you do in one sentence?</p>
+
+  <div style="margin-top: 28px;">
+    <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin-bottom: 16px; max-width: 640px;">
+      <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Test 1 — Referral Test (Week 4)</div>
+      <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">Ask 3 people who know your work: "If someone asked you what I do, what would you say?" If they say something close to "he turns stuck technology into product" — the messaging works. If they say "he's a freelance designer" or "he does UX" — it doesn't.</p>
+    </div>
+    <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin-bottom: 16px; max-width: 640px;">
+      <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Test 2 — Search Test (Week 6)</div>
+      <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">Search "CathWorks product leader" and "fractional CPO Israel" — does Yaniv Primak appear? If yes after 5 case studies + vertical pages — the SEO works.</p>
+    </div>
+    <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin-bottom: 16px; max-width: 640px;">
+      <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Test 3 — Inbound Test (Week 8)</div>
+      <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">Did anyone reach out based on a published case study or LinkedIn post? One inbound lead from content = the system is working. Zero = content needs adjustment.</p>
+    </div>
+    <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; max-width: 640px;">
+      <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Test 4 — Price Test (Ongoing)</div>
+      <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">Does the new positioning allow charging ₪450+ without negotiation? If prospects discuss scope rather than rate — the value framing works.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section>
+  <div class="sn">Summary</div>
+  <h2>What changed from OpenView to Primak</h2>
+
+  <div class="compare" style="margin-top: 24px;">
+    <div class="compare-col">
+      <h4>OpenView (reference case)</h4>
+      <p style="font-size: 14px; line-height: 1.8;">
+        <strong>Discovery:</strong> Internal interviews → found "hands-on mentorship"<br>
+        <strong>Challenge:</strong> Looks like every other VC<br>
+        <strong>Principles:</strong> Constructive, Agile, Honest, Rigorous, Personable<br>
+        <strong>System:</strong> Stencil typeface + action-verb naming<br>
+        <strong>Key decision:</strong> Distinctiveness > beauty<br>
+        <strong>Result:</strong> Recognizable. Aligned. Clear.
+      </p>
+    </div>
+    <div class="compare-col">
+      <h4>Primak (application)</h4>
+      <p style="font-size: 14px; line-height: 1.8;">
+        <strong>Discovery:</strong> Session dialogue → found "turns stuck technology into product"<br>
+        <strong>Challenge:</strong> Sounds like 3,000 Fractional CPOs. Zero online presence.<br>
+        <strong>Principles:</strong> Direct, Versatile, Relentless, Founder-native, Commercial<br>
+        <strong>System:</strong> One offering (Diagnose/Build/Lead) + 5 vertical proof pages<br>
+        <strong>Key decision:</strong> Lead with what's TRUE (versatile), use AI as sharpest proof<br>
+        <strong>Result:</strong> TBD — action plan starts Week 1
+      </p>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top: 32px; border-left-color: var(--black);">
+    <blockquote>The Pentagram principle that governs everything: the strongest brand messages describe what already exists. "Turns stuck technology into product" wasn't invented in this session — it was revealed. It's what Yaniv has been doing for a decade across 5 companies and 5 industries. The rebrand doesn't create a new Primak. It makes the real Primak visible.</blockquote>
+  </div>
+</section>
+
+<div class="footer">
+  <div>Pentagram × Primak · Methodology & Application v1 · 22.02.2026</div>
+  <div>Confidential</div>
+</div>
+
+</body>
+</html>

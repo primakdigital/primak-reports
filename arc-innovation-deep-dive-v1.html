@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARC Innovation Deep Dive | Primak Intelligence Report v1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0e17; color: #e0e0e0; padding: 24px; line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .header { background: linear-gradient(135deg, #1a1f35, #0d1117); border: 1px solid #30363d; border-radius: 16px; padding: 32px; margin-bottom: 24px; text-align: center; }
+  .header h1 { font-size: 28px; color: #58a6ff; margin-bottom: 8px; }
+  .header .sub { color: #8b949e; font-size: 14px; }
+  .header .verdict { background: #1b4332; color: #52c41a; padding: 12px 20px; border-radius: 8px; margin-top: 16px; font-size: 16px; font-weight: 700; display: inline-block; }
+
+  .section { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .section h2 { color: #58a6ff; font-size: 20px; margin-bottom: 16px; border-bottom: 1px solid #21262d; padding-bottom: 8px; }
+  .section h3 { color: #d2a8ff; font-size: 16px; margin: 16px 0 8px; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .kpi { background: #0d1117; border: 1px solid #30363d; border-radius: 10px; padding: 16px; text-align: center; }
+  .kpi .num { font-size: 28px; font-weight: 800; color: #58a6ff; }
+  .kpi .label { font-size: 11px; color: #8b949e; margin-top: 4px; }
+
+  .person { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .person .name { color: #f0883e; font-weight: 700; font-size: 15px; }
+  .person .role { color: #8b949e; font-size: 13px; }
+  .person .note { color: #c9d1d9; font-size: 13px; margin-top: 4px; }
+
+  .startup { background: #0d1117; border-right: 3px solid #238636; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .startup.high-ux { border-right-color: #f85149; }
+  .startup.medium-ux { border-right-color: #d29922; }
+  .startup.low-ux { border-right-color: #30363d; }
+  .startup .sname { color: #58a6ff; font-weight: 700; font-size: 15px; }
+  .startup .swhat { color: #c9d1d9; font-size: 13px; margin-top: 2px; }
+  .startup .smeta { color: #8b949e; font-size: 12px; margin-top: 4px; }
+  .startup .ux-need { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-top: 6px; }
+  .ux-high { background: #3d1114; color: #f85149; }
+  .ux-med { background: #3d2e00; color: #d29922; }
+  .ux-low { background: #1c2128; color: #8b949e; }
+
+  .insight { background: #1b2332; border-right: 3px solid #58a6ff; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .insight strong { color: #58a6ff; }
+
+  .action { background: #1b4332; border: 1px solid #238636; border-radius: 8px; padding: 14px; margin-bottom: 10px; }
+  .action strong { color: #52c41a; }
+
+  .legend { display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #8b949e; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .legend-dot.high { background: #f85149; }
+  .legend-dot.med { background: #d29922; }
+  .legend-dot.low { background: #30363d; }
+
+  .gap-box { background: #2d1b1b; border: 1px solid #f85149; border-radius: 10px; padding: 20px; margin: 16px 0; }
+  .gap-box h3 { color: #f85149; margin-bottom: 12px; }
+  .gap-box ul { padding-right: 20px; }
+  .gap-box li { margin-bottom: 8px; color: #e0e0e0; font-size: 14px; }
+
+  .pitch-box { background: #0b2d1b; border: 1px solid #238636; border-radius: 10px; padding: 20px; margin: 16px 0; }
+  .pitch-box h3 { color: #52c41a; margin-bottom: 12px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  th { background: #21262d; color: #58a6ff; padding: 10px; text-align: right; font-size: 13px; }
+  td { padding: 10px; border-bottom: 1px solid #21262d; font-size: 13px; color: #c9d1d9; }
+
+  .footer { text-align: center; color: #484f58; font-size: 11px; margin-top: 24px; }
+
+  @media (max-width: 600px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>ARC Innovation @ Sheba Medical Center</h1>
+  <div class="sub">Deep Dive Intelligence Report | Primak Studio | 18.02.2026</div>
+  <div class="verdict">VERDICT: HIGH-VALUE OPPORTUNITY -- Didi Fabian = Direct Line In</div>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-grid">
+  <div class="kpi"><div class="num">120+</div><div class="label">Startups in Ecosystem</div></div>
+  <div class="kpi"><div class="num">$5.8B</div><div class="label">Portfolio Value</div></div>
+  <div class="kpi"><div class="num">$1B+</div><div class="label">Total Funding Raised</div></div>
+  <div class="kpi"><div class="num">$800M</div><div class="label">Exits in 2024</div></div>
+</div>
+
+<!-- WHAT IS ARC -->
+<div class="section">
+  <h2>What Is ARC Innovation?</h2>
+  <p>ARC = <strong>Accelerate, Redesign, Collaborate</strong>. Founded in 2019 by Prof. Eyal Zimlichman at Sheba Medical Center (Israel's largest hospital, top 10 globally). It's the innovation arm of Sheba -- not just an accelerator but an entire ecosystem.</p>
+
+  <h3>What ARC Provides to Startups:</h3>
+  <ul style="padding-right: 20px; margin-top: 8px;">
+    <li>Clinical validation + regulatory guidance</li>
+    <li>Access to Sheba's physician network for mentorship</li>
+    <li>Direct access to de-identified patient data (25 years of imaging, labs, genetics)</li>
+    <li>Pilot sites inside the hospital</li>
+    <li>Office space (up to 1 year)</li>
+    <li>Capital ($250K via embARC: $125K SAFE 7% + $125K MFN convertible)</li>
+    <li>Global market access via ARC centers worldwide</li>
+  </ul>
+
+  <h3>What ARC Does NOT Provide (The Gap):</h3>
+  <div class="gap-box">
+    <h3>NO In-House UX/Product Design Capability</h3>
+    <ul>
+      <li>ARC provides clinical, regulatory, data, and business mentorship</li>
+      <li>No mention of any design studio, UX team, or product design services anywhere in ARC's ecosystem</li>
+      <li>No design/UX agency listed as a partner</li>
+      <li>Startups are left to find their own UX/product design resources</li>
+      <li>120+ startups, most building digital health products -- all need UX</li>
+      <li>Early-stage startups (embARC cohort) have $250K -- tight budget, need efficient design partner</li>
+    </ul>
+  </div>
+</div>
+
+<!-- LEADERSHIP -->
+<div class="section">
+  <h2>Key Decision Makers</h2>
+
+  <div class="person">
+    <div class="name">Prof. Eyal Zimlichman, MD, MSc</div>
+    <div class="role">Founder & Director of ARC | Chief Transformation, Innovation & AI Officer at Sheba</div>
+    <div class="note">THE top decision maker. Founded ARC in 2019. Controls innovation strategy. Also CIO at Sheba + connected to TriVentures fund. In 2024, ARC spun out 20 companies -- unmatched by any hospital globally.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Angel W. Rabinovich</div>
+    <div class="role">Chief Business Officer, ARC Innovation</div>
+    <div class="note">Drives growth, connects startups with enterprises, insurance, and care providers. Previously VP Strategy at Inovytec, Director at Israel Export Institute (800+ companies). KEY person for partnership discussions.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Dan Shwarzman</div>
+    <div class="role">CEO, embARC Ventures (The Accelerator Arm)</div>
+    <div class="note">Runs the accelerator that invests $250K per startup. Ex-CEO of MindUP (Israel's first digital health incubator, JV of Medtronic + IBM + Pitango + Rambam). 13 years IDF intelligence officer. Previously at J&J, Hospira. DIRECT line to early-stage startups needing design.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Dr. Ayelet Akselrod-Ballin</div>
+    <div class="role">Director & CTO, ARC AI Center</div>
+    <div class="note">World-renowned AI expert. Leads the new AI Center launched March 2025. Technical decision maker for AI products.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Sam Glassenberg</div>
+    <div class="role">Head of Emerging HealthTech Initiatives, ARC</div>
+    <div class="note">Founder of Level Ex (medical gaming, 3M+ users, 1M+ clinicians). Advisory role. Focus: AI + gaming + immersive tech in clinical care. Multiple exits (Brainlab 2020, Relevate 2024).</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Avner Halperin</div>
+    <div class="role">CEO, Sheba Impact</div>
+    <div class="note">Part of ARC leadership team. Manages Sheba's impact initiatives.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Ayelet Geva</div>
+    <div class="role">Director, Innovation & Biz Development, Jusidman Cancer Center + ARC</div>
+    <div class="note">Still at Sheba (not left). Drives innovation specifically in oncology/cancer center. Also lectures at Open University on AI and Innovation. Manages portfolio of innovation projects in cancer care.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Dr. Ran Goshen + Sarah Greenberg</div>
+    <div class="role">Founders, Shoni Health Ventures (ARC-affiliated VC Fund)</div>
+    <div class="note">Pre-seed/seed stage fund. Already invested in AISAP, Quant Health, CoPilotMD, FeelBetter, Append Medical. Additional capital source for ARC startups.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">Prof. Yitshak Kreiss</div>
+    <div class="role">Director General, Sheba Medical Center</div>
+    <div class="note">Top of the hospital hierarchy. Ultimate authority on strategic partnerships.</div>
+  </div>
+</div>
+
+<!-- ECOSYSTEM STRUCTURE -->
+<div class="section">
+  <h2>ARC Ecosystem Structure</h2>
+  <table>
+    <tr><th>Layer</th><th>Entity</th><th>Function</th></tr>
+    <tr><td>Innovation Hub</td><td><strong>ARC Innovation Center</strong></td><td>120+ startups, clinical validation, data access, pilot sites</td></tr>
+    <tr><td>Accelerator</td><td><strong>embARC Ventures</strong></td><td>$250K investment, 3-month cycles, 5-10 startups per cohort</td></tr>
+    <tr><td>VC Fund (Seed)</td><td><strong>TriVentures ARC</strong></td><td>Seed-stage fund, exclusive collaboration with ARC</td></tr>
+    <tr><td>VC Fund (Pre-seed)</td><td><strong>Shoni Health Ventures</strong></td><td>Pre-seed/seed, digital health + medtech</td></tr>
+    <tr><td>US Hub</td><td><strong>ARC Boston Accelerator</strong></td><td>Opened Jan 2026, inaugural cohort March 2026, 6-8 companies</td></tr>
+    <tr><td>AI Center</td><td><strong>ARC AI Center</strong></td><td>Launched March 2025, led by Dr. Akselrod-Ballin</td></tr>
+    <tr><td>Global Network</td><td><strong>ARC Centers</strong></td><td>Chicago, Ottawa, London, Nantes, Melbourne, Singapore, Berlin, NZ</td></tr>
+    <tr><td>Industry Partners</td><td><strong>Microsoft, Novartis, Roche, AstraZeneca, MSD, Intel/Altera, KPMG</strong></td><td>Co-innovation, IP sharing, clinical trials</td></tr>
+  </table>
+</div>
+
+<!-- STARTUP PORTFOLIO -->
+<div class="section">
+  <h2>ARC Startup Portfolio (Identified Companies)</h2>
+  <p style="margin-bottom: 12px; font-size: 13px; color: #8b949e;">Border color = UX/Product Design need level</p>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot high"></div> HIGH UX Need (digital product, user-facing)</div>
+    <div class="legend-item"><div class="legend-dot med"></div> MEDIUM UX Need (clinical tool, dashboard)</div>
+    <div class="legend-item"><div class="legend-dot low"></div> LOW UX Need (hardware/device-first)</div>
+  </div>
+
+  <!-- HIGH UX NEED -->
+  <div class="startup high-ux">
+    <div class="sname">Aidoc</div>
+    <div class="swhat">AI radiology triage platform. Serves 1,400+ hospitals globally. Flags critical findings in CT scans.</div>
+    <div class="smeta">Raised $250M+ | Growth stage | FDA cleared</div>
+    <span class="ux-need ux-high">HIGH UX -- clinician dashboard, workflow integration, scaling to new specialties</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">AISAP</div>
+    <div class="swhat">AI-powered point-of-care ultrasound (POCAD). Turns any doctor into a cardiac diagnostician. FDA cleared Aug 2024.</div>
+    <div class="smeta">Raised $13M Seed | Early growth | Deploying to Africa, global markets</div>
+    <span class="ux-need ux-high">HIGH UX -- mobile/tablet UI for non-specialist physicians, real-time guided workflow</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">TytoCare</div>
+    <div class="swhat">Handheld device for remote medical exams at home. Telehealth enabler.</div>
+    <div class="smeta">Growth stage | Consumer + provider product</div>
+    <span class="ux-need ux-high">HIGH UX -- patient-facing app, doctor dashboard, device interaction design</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">MDClone</div>
+    <div class="swhat">Synthetic data platform. De-identified patient data analytics for research.</div>
+    <div class="smeta">Raised $104M | Growth stage</div>
+    <span class="ux-need ux-high">HIGH UX -- data visualization dashboards, researcher tools, complex query builders</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">QuantHealth</div>
+    <div class="swhat">AI clinical trial simulator. Predicts patient response to treatments. Used by top 50 pharma companies.</div>
+    <div class="smeta">Raised $15M+ | Growth stage | 350+ trials simulated at 85% accuracy</div>
+    <span class="ux-need ux-high">HIGH UX -- pharma decision-support platform, complex data viz, trial planning tools</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">LIV by Mentaily</div>
+    <div class="swhat">AI mental health platform. Voice/text psychiatric screening. 94% diagnostic accuracy. Co-developed with Microsoft + KPMG.</div>
+    <div class="smeta">Raised $3M | Early stage | In use at hospitals, HMOs, gov in Israel</div>
+    <span class="ux-need ux-high">HIGH UX -- patient-facing conversation UI, clinician dashboard, multilingual, sensitive design</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">XRHealth</div>
+    <div class="swhat">VR/XR therapeutic platform. Virtual reality rehabilitation clinics. FDA + CE registered.</div>
+    <div class="smeta">Growth stage | US market expansion</div>
+    <span class="ux-need ux-high">HIGH UX -- VR interfaces, patient journey, therapist tools, immersive experience design</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">CoPilotMD</div>
+    <div class="swhat">Healthcare data management and navigation system for providers.</div>
+    <div class="smeta">Pre-seed/Seed | Shoni portfolio</div>
+    <span class="ux-need ux-high">HIGH UX -- provider dashboard, data navigation, clinical workflow</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">FeelBetter</div>
+    <div class="swhat">Preventive care platform. Identifies high-risk patients using data analytics.</div>
+    <div class="smeta">Pre-seed/Seed | Shoni portfolio</div>
+    <span class="ux-need ux-high">HIGH UX -- patient risk dashboards, care team tools, patient engagement</span>
+  </div>
+
+  <div class="startup high-ux">
+    <div class="sname">Nuri BrainTech</div>
+    <div class="swhat">World's first emotional Brain-Computer Interface (eBCI). Treats severe PTSD. Licensed from Weizmann Institute.</div>
+    <div class="smeta">Early stage | embARC portfolio</div>
+    <span class="ux-need ux-high">HIGH UX -- brain-computer interface design, therapist dashboard, patient experience</span>
+  </div>
+
+  <!-- MEDIUM UX NEED -->
+  <div class="startup medium-ux">
+    <div class="sname">CustoMED</div>
+    <div class="swhat">AI-powered 3D printed patient-specific orthopedic implants. Surgeon-first platform.</div>
+    <div class="smeta">Raised $6M Seed | Early stage</div>
+    <span class="ux-need ux-med">MEDIUM UX -- surgeon planning tool, 3D visualization, surgical workflow</span>
+  </div>
+
+  <div class="startup medium-ux">
+    <div class="sname">Synchrony Medical</div>
+    <div class="swhat">LibAirty airway clearance system for home use. Next-gen respiratory device.</div>
+    <div class="smeta">Clinical stage</div>
+    <span class="ux-need ux-med">MEDIUM UX -- home-use device interface, patient compliance app</span>
+  </div>
+
+  <div class="startup medium-ux">
+    <div class="sname">Sanoculis</div>
+    <div class="swhat">Novel glaucoma treatment. Reduces intraocular pressure. Quality of life improvement.</div>
+    <div class="smeta">Founded 2012 | Clinical stage</div>
+    <span class="ux-need ux-med">MEDIUM UX -- treatment planning, physician interface</span>
+  </div>
+
+  <!-- LOW UX NEED -->
+  <div class="startup low-ux">
+    <div class="sname">Append Medical</div>
+    <div class="swhat">Minimally invasive implant to decrease stroke risk in atrial fibrillation patients.</div>
+    <div class="smeta">Early stage | Shoni portfolio | Medical device</div>
+    <span class="ux-need ux-low">LOW UX -- hardware/device focus, some procedural UI</span>
+  </div>
+
+  <div class="startup low-ux">
+    <div class="sname">Pylon Medical</div>
+    <div class="swhat">Carotid stenting medical device. Surgical devices.</div>
+    <div class="smeta">Raised $1.2M | 3 employees | Early stage | embARC portfolio</div>
+    <span class="ux-need ux-low">LOW UX -- hardware/device focus</span>
+  </div>
+
+  <div class="startup low-ux">
+    <div class="sname">Neshima Medical</div>
+    <div class="swhat">Liquid-foam therapy (LiFT) for respiratory drug delivery. Preclinical stage. COPD, pneumonia.</div>
+    <div class="smeta">Preclinical | Haifa-based | embARC portfolio</div>
+    <span class="ux-need ux-low">LOW UX -- drug delivery device, clinical focus</span>
+  </div>
+
+  <div class="startup low-ux">
+    <div class="sname">Innovalve (Exited)</div>
+    <div class="swhat">Transcatheter mitral valve replacement (TMVR). Founded 2017 at ARC. 50 employees.</div>
+    <div class="smeta">Acquired by Edwards Lifesciences for $300M | July 2024</div>
+    <span class="ux-need ux-low">EXITED -- but shows ARC track record</span>
+  </div>
+
+  <div class="startup low-ux">
+    <div class="sname">Belkin Vision (Exited)</div>
+    <div class="swhat">Non-invasive laser glaucoma treatment (DSLT Eagle). Joined ARC 2013.</div>
+    <div class="smeta">Acquired by Alcon for $466M | July 2024</div>
+    <span class="ux-need ux-low">EXITED -- 11 years in ecosystem before exit</span>
+  </div>
+
+  <p style="margin-top: 16px; color: #8b949e; font-size: 13px;"><strong>Note:</strong> This is 18 identified companies out of 120+ in the ecosystem. Additional known names: Starget, Well-Beat (treatment compliance). ~100 more startups exist in the portfolio that are not publicly listed.</p>
+</div>
+
+<!-- 2024 EXITS -->
+<div class="section">
+  <h2>2024 Exits -- $800M Total</h2>
+  <table>
+    <tr><th>Company</th><th>Acquirer</th><th>Amount</th><th>What</th></tr>
+    <tr><td>Belkin Vision</td><td>Alcon</td><td>$466M</td><td>Glaucoma laser (DSLT)</td></tr>
+    <tr><td>Innovalve</td><td>Edwards Lifesciences</td><td>$300M</td><td>Mitral valve replacement</td></tr>
+  </table>
+  <p style="margin-top: 8px; font-size: 13px; color: #c9d1d9;">ARC achieves 2-3 exits/year. These are real, large medical exits. This is not a toy accelerator.</p>
+</div>
+
+<!-- THE GAP & OPPORTUNITY -->
+<div class="section">
+  <h2>The Primak Opportunity</h2>
+
+  <div class="gap-box">
+    <h3>The Design Gap at ARC</h3>
+    <ul>
+      <li><strong>No in-house UX/product design team</strong> at ARC Innovation</li>
+      <li><strong>No design partner listed</strong> in any ARC documentation, website, or press</li>
+      <li>ARC provides: clinicians, data, capital, regulatory, business mentoring, office space</li>
+      <li>ARC does NOT provide: UX research, product design, UI design, design systems, usability testing</li>
+      <li>120+ startups building health products. At least 10 identified startups have HIGH UX needs</li>
+      <li>20 companies spun out in 2024 alone -- each needs product design</li>
+      <li>embARC cohorts (5-10 companies every 3 months) start from scratch -- need design from day 1</li>
+      <li>Boston hub launching March 2026 -- new cohort will need US-market-ready design</li>
+    </ul>
+  </div>
+
+  <div class="pitch-box">
+    <h3>Primak's Pitch Position</h3>
+    <ul style="padding-right: 20px;">
+      <li><strong>CathWorks FFRangio is the KILLER proof case.</strong> Yaniv did product spec + UX design for an AI cardiac diagnostic product that was acquired by Medtronic for $585M (up to $1B). FDA cleared. 100K patients. This is the EXACT domain ARC operates in.</li>
+      <li><strong>Pitch as "Design Partner for ARC Ecosystem"</strong> -- not a vendor, a partner. Become the recommended UX/product design resource for ARC startups.</li>
+      <li><strong>Volume play:</strong> Even at startup-friendly rates, 120+ companies = massive pipeline. 5-10 new every quarter via embARC.</li>
+      <li><strong>Proof of domain expertise:</strong> Primak designed an AI medical product that achieved FDA clearance AND a $585M exit. Nobody else in the Israeli design market can say that.</li>
+      <li><strong>Model:</strong> Retainer with ARC (discounted rate for portfolio companies) OR per-project with individual startups (higher rate)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- HOW TO GET IN -->
+<div class="section">
+  <h2>How To Get In (Action Plan)</h2>
+
+  <div class="action">
+    <strong>Step 1: Warm Intro via Didi Fabian</strong>
+    <p style="margin-top: 6px;">Didi (Ido) Fabian is at Sheba as Director of Sheba Global Ophthalmology. He's a senior physician, not a VP title per se, but he's well-connected inside Sheba. He can intro to the innovation side. Target intro: Angel W. Rabinovich (CBO) or Dan Shwarzman (embARC CEO).</p>
+  </div>
+
+  <div class="action">
+    <strong>Step 2: Target Angel W. Rabinovich First</strong>
+    <p style="margin-top: 6px;">As Chief Business Officer, Angel is the partnership gatekeeper. He came from Israel Export Institute (800+ companies). He understands ecosystem partnerships. Pitch: "Primak as official UX/Product Design partner for ARC ecosystem."</p>
+  </div>
+
+  <div class="action">
+    <strong>Step 3: Target Dan Shwarzman (embARC)</strong>
+    <p style="margin-top: 6px;">Dan runs the accelerator and sees every early-stage startup's gaps. He's ex-Medtronic, ex-J&J -- he understands the value of good UX in medical products. Pitch: "Design support for every embARC cohort."</p>
+  </div>
+
+  <div class="action">
+    <strong>Step 4: ARC Summit Presence</strong>
+    <p style="margin-top: 6px;">ARC Summit 2025 was in September at Sheba. The next one (2026) is the ideal stage. Get invited as a design thought leader. Use CathWorks case study.</p>
+  </div>
+
+  <div class="action">
+    <strong>Step 5: Quick Win -- Offer a Free Design Sprint</strong>
+    <p style="margin-top: 6px;">Offer one embARC startup a free 1-week design sprint. Deliver exceptional work. This becomes the internal case study that spreads through the ecosystem.</p>
+  </div>
+</div>
+
+<!-- DIDI FABIAN CLARIFICATION -->
+<div class="section">
+  <h2>Didi Fabian -- Clarification</h2>
+  <div class="person">
+    <div class="name">Dr. Ido "Didi" Fabian</div>
+    <div class="role">Director & Co-Founder, Sheba Global Ophthalmology | Senior Physician, Goldschleger Eye Institute</div>
+    <div class="note">Didi is at Sheba as a senior physician in ophthalmology and heads the global ophthalmology initiative. He's involved with international projects (Afghanistan, Africa). His title in public records is not "VP" but he is a senior figure at Sheba. He co-founded Sheba Global Ophthalmology which runs global programs. His connection to ARC is through the Sheba ecosystem -- Belkin Vision (glaucoma, acquired for $466M) was in the ophthalmology space too. Didi can bridge to innovation leadership via internal Sheba connections.</div>
+  </div>
+</div>
+
+<!-- PARTNERSHIP MODELS -->
+<div class="section">
+  <h2>Possible Partnership Models</h2>
+  <table>
+    <tr><th>Model</th><th>How It Works</th><th>Revenue Estimate</th></tr>
+    <tr><td><strong>Ecosystem Design Partner</strong></td><td>Official recommended UX studio for all ARC startups. Discounted rate for portfolio companies (350 ILS/hr). ARC refers startups.</td><td>20+ projects/year = 500K-1M ILS</td></tr>
+    <tr><td><strong>embARC Cohort Design Sprint</strong></td><td>Structured 2-week design sprint for every new embARC cohort startup. Part of program offering.</td><td>5-10 sprints/quarter x 15-25K ILS = 300-1M ILS/year</td></tr>
+    <tr><td><strong>Direct Startup Projects</strong></td><td>Individual projects with funded ARC startups (Aidoc, AISAP, QuantHealth etc.) at full rate (450 ILS/hr).</td><td>3-5 projects/year = 200-500K ILS</td></tr>
+    <tr><td><strong>Equity-for-Design</strong></td><td>Take equity stake (0.5-1%) in early-stage startups in exchange for design work. High risk, massive upside in this ecosystem.</td><td>If 1 exit like Belkin = $2-4M potential</td></tr>
+  </table>
+</div>
+
+<!-- COMPETITIVE LANDSCAPE -->
+<div class="section">
+  <h2>Who Else Is Playing This Space?</h2>
+  <div class="insight">
+    <strong>No identified design partner at ARC.</strong> In all research -- website, press releases, summit agendas, partnership announcements -- there is NO mention of a UX/product design partner. The field is OPEN. The 57 UX/UI agencies in Israel are not specifically positioned for healthtech accelerators. Nobody has taken this spot. First mover advantage is real.
+  </div>
+</div>
+
+<div class="footer">
+  Primak Intelligence Report | ARC Innovation Deep Dive | v1 | 18.02.2026
+</div>
+
+</div>
+</body>
+</html>

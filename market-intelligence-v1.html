@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Intelligence — Israeli Startups Q4 2025 / Q1 2026 | v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    padding: 20px;
+    direction: ltr;
+    text-align: left;
+  }
+  .header {
+    text-align: center;
+    padding: 30px 0 20px;
+    border-bottom: 2px solid #00ff88;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-size: 28px;
+    color: #00ff88;
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    font-size: 14px;
+    color: #888;
+  }
+  .header .version {
+    font-size: 11px;
+    color: #555;
+    margin-top: 4px;
+  }
+  .summary-bar {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+  .summary-card {
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .summary-card .number {
+    font-size: 28px;
+    font-weight: 800;
+    color: #00ff88;
+  }
+  .summary-card .label {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .tier-section {
+    margin-bottom: 35px;
+  }
+  .tier-title {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+  }
+  .tier-hot { background: #2d1a1a; color: #ff4444; border-left: 4px solid #ff4444; }
+  .tier-warm { background: #2d2a1a; color: #ffaa00; border-left: 4px solid #ffaa00; }
+  .tier-explore { background: #1a2d1a; color: #00cc66; border-left: 4px solid #00cc66; }
+  .company-card {
+    background: #111;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .company-card:hover {
+    border-color: #00ff88;
+  }
+  .company-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .company-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .company-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag-cyber { background: #1a1a3e; color: #6666ff; border: 1px solid #4444aa; }
+  .tag-ai { background: #1a2e1a; color: #44cc44; border: 1px solid #338833; }
+  .tag-defense { background: #2e1a1a; color: #cc4444; border: 1px solid #883333; }
+  .tag-fintech { background: #2e2e1a; color: #cccc44; border: 1px solid #888833; }
+  .tag-saas { background: #1a2e2e; color: #44cccc; border: 1px solid #338888; }
+  .tag-medtech { background: #2e1a2e; color: #cc44cc; border: 1px solid #883388; }
+  .tag-ecomm { background: #2e2a1a; color: #ccaa44; border: 1px solid #886633; }
+  .tag-martech { background: #1e2a2e; color: #66aacc; border: 1px solid #446688; }
+  .company-desc {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .company-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px;
+    font-size: 12px;
+  }
+  .meta-item {
+    background: #0a0a15;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border-left: 3px solid #333;
+  }
+  .meta-label {
+    color: #666;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .meta-value {
+    color: #ddd;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .ux-need {
+    border-left-color: #00ff88 !important;
+  }
+  .deal-estimate {
+    border-left-color: #ffaa00 !important;
+  }
+  .deal-value {
+    color: #ffaa00 !important;
+  }
+  .pipeline-total {
+    text-align: center;
+    padding: 25px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #1a1a2e, #0a0a15);
+    border: 1px solid #00ff88;
+    border-radius: 10px;
+  }
+  .pipeline-total .big-number {
+    font-size: 42px;
+    font-weight: 900;
+    color: #00ff88;
+  }
+  .pipeline-total .label {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+  }
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 11px;
+    color: #444;
+    padding-top: 15px;
+    border-top: 1px solid #222;
+  }
+  .action-box {
+    background: #1a1a2e;
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 25px;
+  }
+  .action-box h3 {
+    color: #00ff88;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .action-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .action-box li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: #ccc;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .action-box li:last-child { border-bottom: none; }
+  .action-box li::before {
+    content: ">> ";
+    color: #00ff88;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>MARKET INTELLIGENCE REPORT</h1>
+  <div class="subtitle">Israeli Startups — Post-Funding UX/Product Opportunities</div>
+  <div class="subtitle">Q4 2025 / Q1 2026 | Research Date: February 18, 2026</div>
+  <div class="version">v1</div>
+</div>
+
+<div class="summary-bar">
+  <div class="summary-card">
+    <div class="number">22</div>
+    <div class="label">Companies Identified</div>
+  </div>
+  <div class="summary-card">
+    <div class="number">$915M+</div>
+    <div class="label">Total Funding Tracked</div>
+  </div>
+  <div class="summary-card">
+    <div class="number">7</div>
+    <div class="label">Hot Targets</div>
+  </div>
+  <div class="summary-card">
+    <div class="number">$5M-$50M</div>
+    <div class="label">Sweet Spot Range</div>
+  </div>
+</div>
+
+<!-- ============ TIER 1: HOT — Best fit for Primak ============ -->
+<div class="tier-section">
+  <div class="tier-title tier-hot">TIER 1 — HOT TARGETS (Highest Primak fit — act now)</div>
+
+  <!-- 1. Imper.ai -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">1. Imper.ai</span>
+      <div class="company-tags">
+        <span class="tag tag-cyber">Cybersecurity</span>
+        <span class="tag tag-ai">AI</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Real-time defense against AI-driven impersonation — deepfakes, voice clones, social engineering. Works across Zoom, Teams, Slack, WhatsApp. Founded by Unit 8200 veterans during the war.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$28M (Seed + Series A)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Dec 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Redpoint, Battery, Maple VC</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Enterprise security dashboard + real-time alert UI. Just emerged from stealth — building first customer-facing product interface. Complex data visualization needed.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">120-200K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Malanta -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">2. Malanta</span>
+      <div class="company-tags">
+        <span class="tag tag-cyber">Cybersecurity</span>
+        <span class="tag tag-ai">AI</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      World's first AI-based Pre-Attack Prevention platform. Identifies and neutralizes attack infrastructure BEFORE intrusions occur. Founded by 4 ex-CyberArk executives. Working with Israel's National Cyber Directorate.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$10M Seed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Nov 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Cardumen Capital, TGV, Udi Mokady (CyberArk)</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Pre-attack intelligence dashboard. Threat visualization. Enterprise SOC integration. Completely new product category = needs defining UX from scratch. CathWorks-level complexity.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">100-180K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Opti -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">3. Opti</span>
+      <div class="company-tags">
+        <span class="tag tag-cyber">Cybersecurity</span>
+        <span class="tag tag-ai">AI / IAM</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI-native identity and access management (IAM). Automates complex permission relationships. Founded by Indegy founders (sold to Tenable). Talpiot graduates, 20+ years working together.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$20M Seed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Nov 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">YL Ventures, Mayfield, Hetz, Shlomo Kramer</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">IAM = one of the most UX-intensive enterprise products. Complex permission graphs, role hierarchies, compliance dashboards. Must visualize who has access to what across the entire org.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">120-200K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Onfire AI -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">4. Onfire AI</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">Sales Intelligence</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Contextual intelligence platform for IT revenue teams. Analyzes online activity across forums, blogs, dev communities to identify buyers. Unit 8200 alumni. Already drove $50M+ in closed deals for clients.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$20M (Seed + Series A)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Oct 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Grove Ventures, TLV Partners</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Intelligence dashboard — buyer signals, intent data, lead scoring. Complex data needs beautiful, actionable UI. 33 employees = no in-house design team yet. Growing from beta to enterprise product.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">100-160K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Reeco -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">5. Reeco</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">SaaS / Hospitality</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI-driven procure-to-pay platform for hospitality. Automates hotel procurement, inventory, invoicing. Smartphone app for receiving/auditing inventory. 800% growth in 2 years. Hundreds of hotels.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$15M Series A ($25M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Aleph VC, Net Capital, Joule</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Mobile app + web dashboard for hotel staff. Non-technical users in hospitality. Needs intuitive, fast UX. Expanding features (recipe management, inventory). Classic SaaS product design engagement.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">80-140K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. WINN.AI -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">6. WINN.AI</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">Sales Tech</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Real-time AI guidance for sales teams during live calls. Tripled ARR in 2025. 0% enterprise churn. Clients include Deel, Cyera, Intercom, Snyk. 40 employees across Israel + US.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$18M Series A ($35M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Feb 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Insight Partners, S Capital, Mangusta</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Real-time coaching overlay during calls = extreme UX challenge. Must be non-intrusive yet actionable. Expanding to enterprise = needs polished, scalable UI. Just raised — hiring and building now.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">100-180K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Safebooks -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">7. Safebooks</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-fintech">Fintech</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Agentic Revenue Integrity — sits on top of finance systems to ensure revenue data accuracy in real-time. Founded by Check co-founder (sold to Intuit for $360M). Already monitoring $40B+ in transactions.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$15M Seed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Dec 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">10D, Propel, Mensch Capital</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">CFO-facing product. Must visualize revenue discrepancies, reconciliation flows, audit trails. Finance users need crystal-clear dashboards. Just launched flagship product — needs design refinement.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">80-140K NIS</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TIER 2: WARM — Good fit, need outreach ============ -->
+<div class="tier-section">
+  <div class="tier-title tier-warm">TIER 2 — WARM TARGETS (Strong fit, slightly larger or earlier)</div>
+
+  <!-- 8. Sola Security -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">8. Sola Security</span>
+      <div class="company-tags">
+        <span class="tag tag-cyber">Cybersecurity</span>
+        <span class="tag tag-ai">AI / No-Code</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      "Stripe for Security" — no-code, AI-powered platform to democratize creation of cybersecurity tools. Founded by ex-Cider Security CEO (acquired by Palo Alto Networks) and ex-LivePerson CISO.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$30M Seed + $35M Series A</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Mar 2025 / Late 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">S Capital, Mike Moritz, Glilot</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">No-code platform for security = massive UX challenge. Must make complex security tools accessible to non-experts. Platform design, component systems, builder UX. Wix-like ambition for cyber.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">150-250K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Legato -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">9. Legato</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">SaaS Platform</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI-powered "vibe app creation" inside existing SaaS platforms. Non-technical users build custom workflows using natural language. Founded by women entrepreneurs. Working with CRMs, HR Tech platforms.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$7M Seed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">S Capital, Cerca Partners</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Building an embeddable AI builder for non-technical users. UX IS the product here. How do you make app creation feel simple? Needs product design expertise for their entire platform experience.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">60-100K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Act Security -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">10. Act Security</span>
+      <div class="company-tags">
+        <span class="tag tag-cyber">Cybersecurity</span>
+        <span class="tag tag-ai">Cloud Security</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Cloud infrastructure and data center security platform. Founded by Medigate founders (sold to Tenable for ~$400M). Rapid growth — Seed to Series A in 4 months. 30 employees.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$40M Series A ($60M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Late 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Notable Capital, Bessemer, Team8, Hetz</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Cloud security dashboard — threat maps, infrastructure visibility, real-time monitoring. Medigate founders know the value of good UX from their medical device security days. Building fast, need design.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">120-200K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. Novee -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">11. Novee</span>
+      <div class="company-tags">
+        <span class="tag tag-cyber">Cybersecurity</span>
+        <span class="tag tag-ai">AI Pentesting</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI penetration testing platform. Proprietary AI trained on offensive security data. Outperformed leading LLMs by 55% in web exploitation. 8 months old, already $51.5M raised. Tel Aviv based.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$51.5M (Seed + Series A)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">YL Ventures, Canaan, Zeev Ventures</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Pentest results visualization, attack path mapping, vulnerability reporting dashboard. Must make AI-generated findings actionable for security teams. Very young company — building everything now.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">120-200K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12. Jiga -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">12. Jiga</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">Manufacturing / Hardware</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI-powered manufacturing sourcing platform. Engineers source custom mechanical parts from vetted suppliers. Used by NASA, Siemens. Reduces 3-week procurement to 3 hours. YC graduate.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$12M Series A</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Aleph, Symbol, Y Combinator</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Complex sourcing platform for engineers — parts configuration, supplier matching, order tracking, quality checks. Expanding to enterprise = needs scalable UX. Engineers are picky users.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">80-120K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13. Brandlight -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">13. Brandlight</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-martech">MarTech</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI brand visibility platform for the agentic web. Monitors how AI models perceive brands. Used by Fortune 500 (Kimberly-Clark, Estee Lauder, LG). 35 employees.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$30M Series A ($36M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Feb 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Pelion, Cardumen, G20 Ventures</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">CMO-facing analytics dashboard. AI brand perception data visualization. Actionable recommendations UI for marketing teams. Just raised — scaling globally. 35 people = likely no dedicated design team.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">100-160K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14. Limy -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">14. Limy</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-ecomm">Commerce / Agentic Web</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Infrastructure platform for brand optimization on the agentic web. Sits between brand's domain and the internet. Tracks AI agent behavior. Fortune 100 clients (AstraZeneca, Samsung, KIA). a16z speedrun backed.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$10M Seed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Flybridge, a16z speedrun</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Agent behavior analytics dashboard. New product category — needs to define how brands interact with and optimize for AI agents. Novel UX challenge, no existing patterns to copy.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">80-120K NIS</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TIER 3: EXPLORE — Worth reaching out ============ -->
+<div class="tier-section">
+  <div class="tier-title tier-explore">TIER 3 — EXPLORE (Good potential, needs qualification)</div>
+
+  <!-- 15. Dazl -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">15. Dazl</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">Dev Tools / Platform</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI-powered app creation platform by Wix co-founder Nadav Abrahami + ex-TikTok gaming head. Turns "vibe coding" into production-ready software. ~30 ex-Wix employees joined. Spun out of Wix (like Monday.com).
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$10M Seed</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Sep 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">40RTY Fund, Wix</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">App builder = UX IS the product. Wix DNA means they value design, but may have internal capacity from ex-Wix team. Worth exploring for advisory/specialized product design work.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">60-100K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 16. PrettyDamnQuick (PDQ) -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">16. PrettyDamnQuick (PDQ)</span>
+      <div class="company-tags">
+        <span class="tag tag-ecomm">E-Commerce</span>
+        <span class="tag tag-ai">AI</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Personalized checkout optimization for D2C brands. Reduces cart abandonment. 200+ e-commerce brands, 30M orders/month, $4B annualized GMV. Founded by BeerBazaar founder.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$25M Series A ($38M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Peakspan Capital, TLV Partners</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Checkout = conversion optimization. Every pixel matters. They literally sell UX improvement. May need strategic UX partner for their data platform / analytics dashboard side.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">80-120K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 17. IO River -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">17. IO River</span>
+      <div class="company-tags">
+        <span class="tag tag-saas">Infrastructure</span>
+        <span class="tag tag-ai">Multi-Edge CDN</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Multi-edge platform disrupting legacy CDN market. Founded by ex-Akamai employees. Enables companies to use multiple edge networks at once. Challenging Akamai, Cloudflare, Fastly.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$20M Series A</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Venture Guides, New Era, S Capital</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Infrastructure management console. Multi-CDN orchestration dashboard. Enterprise ops teams need clear control plane UI. Technical product that needs UX to differentiate from legacy players.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">80-140K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 18. Unframe -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">18. Unframe</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">Enterprise AI</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Enterprise AI deployment in hours instead of months. Founded by Noname Security co-founder (major exit). Plug-and-play AI solutions. Dozens of enterprise clients. Millions in ARR.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$30M Series A ($50M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Apr 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Bessemer, TLV, Craft, Third Point</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">AI deployment platform. Configuration UI, model management, data pipeline visualization. Enterprise-grade yet must feel simple. "Hours not months" promise requires exceptional UX.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">100-180K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 19. Datarails -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">19. Datarails</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-fintech">Fintech / CFO</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      AI-powered financial planning platform for CFOs. Works within Excel. 70% revenue growth. 400+ employees (130 in Israel). Expanding across North America and EMEA.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$70M Series C ($175M total)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">One Peak, Vertex, Zeev, Qumra</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Larger company but expanding AI features rapidly. CFO dashboard, financial modeling UI, AI insights visualization. May need specialized UX for new product modules. 130 in Israel = accessible.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">100-200K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 20. Factify -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">20. Factify</span>
+      <div class="company-tags">
+        <span class="tag tag-ai">AI</span>
+        <span class="tag tag-saas">Document Infrastructure</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Replacing the PDF with an AI-native document standard. "Governed" documents for both humans and AI agents. Targeting banking, legal, insurance. Founded by Hebrew University CS professor.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$73M Seed (!)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Jan 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Valley Capital, John Giannandrea, Ken Moelis</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Reinventing the document = reinventing the interface. How do you make a "living document" feel intuitive? Document creation, viewing, permissions, AI interaction — entirely new UX paradigm needed.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">150-300K NIS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 21. Kela -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">21. Kela</span>
+      <div class="company-tags">
+        <span class="tag tag-defense">Defense Tech</span>
+        <span class="tag tag-ai">AI / Military</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Battlefield operating system for Western militaries. Integrates AI + commercial tech into military systems. Backed by Sequoia + CIA's IQT. $100M raised in first year. Talpiot founder.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$100M total (Seed + Series A)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">2024-2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">Sequoia, Lux Capital, IQT (CIA)</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Military command & control interface. Battlefield data visualization. Integration hub UX for connecting civilian tech to military systems. Highly specialized — potential for premium pricing.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">150-300K NIS (defense premium)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 22. Heven AeroTech -->
+  <div class="company-card">
+    <div class="company-top">
+      <span class="company-name">22. Heven AeroTech</span>
+      <div class="company-tags">
+        <span class="tag tag-defense">Defense Tech</span>
+        <span class="tag tag-ai">Drones</span>
+      </div>
+    </div>
+    <div class="company-desc">
+      Israel's first defense-tech unicorn. Hydrogen-powered drones with 1000+ km range. IDF + US DoD customers. Partnership with IonQ for quantum-enhanced capabilities.
+    </div>
+    <div class="company-meta">
+      <div class="meta-item">
+        <div class="meta-label">Raised</div>
+        <div class="meta-value">$100M Series B ($1B valuation)</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">When</div>
+        <div class="meta-value">Nov 2025</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Investors</div>
+        <div class="meta-value">IonQ</div>
+      </div>
+      <div class="meta-item ux-need">
+        <div class="meta-label">Why They Need UX</div>
+        <div class="meta-value">Drone mission control interface. Flight planning, fleet management, payload monitoring dashboards. Defense contracts require polished, compliance-ready interfaces. Growing US market presence.</div>
+      </div>
+      <div class="meta-item deal-estimate">
+        <div class="meta-label">Estimated Deal</div>
+        <div class="meta-value deal-value">150-300K NIS (defense premium)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Pipeline Total -->
+<div class="pipeline-total">
+  <div class="big-number">2.2M - 3.8M NIS</div>
+  <div class="label">Total Estimated Pipeline Value (22 companies)</div>
+</div>
+
+<!-- Action Plan -->
+<div class="action-box">
+  <h3>RECOMMENDED NEXT STEPS</h3>
+  <ul>
+    <li><strong>Week 1 (Feb 18-24):</strong> Research founders on LinkedIn for Tier 1 targets. Find 2nd-degree connections. Prepare hyper-personal outreach for Imper.ai, Malanta, Opti, WINN.AI.</li>
+    <li><strong>Week 2 (Feb 25-Mar 3):</strong> Send first outreach wave to Tier 1 (7 companies). Lead with CathWorks/$585M acquisition proof case. "We design the interfaces for companies that get acquired."</li>
+    <li><strong>Week 3 (Mar 4-10):</strong> Follow up Tier 1, begin Tier 2 outreach. Focus on cybersecurity cluster (Sola, Act, Novee) — Primak can position as "cyber dashboard specialists."</li>
+    <li><strong>Angle for Cyber companies:</strong> "We've designed mission-critical interfaces for FDA-cleared medical AI (CathWorks/Medtronic $585M). Security dashboards need the same level of precision."</li>
+    <li><strong>Angle for AI companies:</strong> "You're building AI that's smarter than humans. But if the interface can't communicate that intelligence clearly, it doesn't matter. We make AI understandable."</li>
+    <li><strong>Angle for Defense:</strong> "We designed interfaces where wrong decisions cost lives. CathWorks FFRangio = cardiac diagnostics used on 100K patients. We understand mission-critical UX."</li>
+    <li><strong>Key insight:</strong> 18 of these 22 companies are building enterprise dashboards or complex data interfaces — exactly Primak's sweet spot. This is not generic UX work, it's specialized intelligence visualization.</li>
+  </ul>
+</div>
+
+<div class="footer">
+  PRIMAK Market Intelligence Report | v1 | Generated: Feb 18, 2026 | Data: Aug 2025 - Feb 2026<br>
+  Sources: Calcalist/CTech, TechCrunch, YNet, JPost, Globes, SecurityWeek, VentureBeat, Axios, Fortune
+</div>
+
+</body>
+</html>

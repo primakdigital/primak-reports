@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reality Check 2026 — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #e0e0e0; padding: 32px; max-width: 920px; margin: 0 auto; line-height: 1.6; }
+
+  .header { text-align: center; margin-bottom: 36px; padding-bottom: 20px; border-bottom: 2px solid #6C5CE7; }
+  .header h1 { font-size: 26px; color: #fff; margin-bottom: 6px; }
+  .header .ver { color: #6C5CE7; font-size: 13px; font-weight: 600; }
+  .header .sub { color: #777; font-size: 13px; margin-top: 6px; }
+
+  .verdict { background: linear-gradient(135deg, #0a0f1a, #0a1a2a); border: 2px solid #00b894; border-radius: 14px; padding: 24px; margin-bottom: 32px; text-align: center; }
+  .verdict h2 { color: #00b894; font-size: 20px; margin-bottom: 10px; }
+  .verdict p { color: #ccc; font-size: 15px; max-width: 700px; margin: 0 auto; }
+
+  .section { margin-bottom: 30px; }
+  .stitle { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 14px; padding-right: 12px; border-right: 4px solid #6C5CE7; display: flex; align-items: center; gap: 8px; }
+  .stitle .num { color: #6C5CE7; font-size: 13px; background: #6C5CE720; padding: 2px 8px; border-radius: 4px; }
+
+  .insight { background: #12121a; border: 1px solid #222; border-radius: 10px; padding: 16px; margin-bottom: 10px; }
+  .insight h3 { font-size: 14px; color: #fff; margin-bottom: 6px; }
+  .insight p { font-size: 13px; color: #999; }
+  .insight .data { color: #00b894; font-weight: 700; font-size: 13px; }
+  .insight .warn { color: #ff6b6b; font-weight: 700; font-size: 13px; }
+  .insight .primak { color: #6C5CE7; font-size: 12px; font-weight: 600; margin-top: 8px; display: block; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+  .die-card { background: #1a0a0a; border: 1px solid #ff3b3b33; border-radius: 10px; padding: 14px; }
+  .die-card h4 { color: #ff6b6b; font-size: 13px; margin-bottom: 6px; }
+  .die-card p { color: #999; font-size: 12px; }
+  .live-card { background: #0a1a0a; border: 1px solid #00b89433; border-radius: 10px; padding: 14px; }
+  .live-card h4 { color: #00b894; font-size: 13px; margin-bottom: 6px; }
+  .live-card p { color: #999; font-size: 12px; }
+
+  .sector-bar { display: flex; align-items: center; gap: 10px; background: #12121a; border-radius: 8px; padding: 12px 16px; margin-bottom: 8px; }
+  .sector-bar .name { min-width: 120px; font-size: 13px; color: #ddd; font-weight: 600; }
+  .sector-bar .bar { flex: 1; height: 20px; background: #1a1a2e; border-radius: 4px; overflow: hidden; position: relative; }
+  .sector-bar .fill { height: 100%; border-radius: 4px; }
+  .sector-bar .val { font-size: 12px; color: #999; min-width: 80px; text-align: left; }
+  .fill-cyber { background: linear-gradient(90deg, #00b894, #00cec9); width: 100%; }
+  .fill-ai { background: linear-gradient(90deg, #6C5CE7, #a29bfe); width: 54%; }
+  .fill-defense { background: linear-gradient(90deg, #fdcb6e, #f39c12); width: 40%; }
+  .fill-health { background: linear-gradient(90deg, #ff6b6b, #e17055); width: 15%; }
+  .fill-fintech { background: linear-gradient(90deg, #ff6b6b, #e17055); width: 12%; }
+
+  .model-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 10px; }
+  .model { background: #12121a; border: 1px solid #333; border-radius: 10px; padding: 14px; text-align: center; }
+  .model h4 { color: #fff; font-size: 14px; margin-bottom: 4px; }
+  .model .pct { font-size: 24px; font-weight: 800; margin: 6px 0; }
+  .model p { font-size: 11px; color: #888; }
+  .model.best { border-color: #00b894; }
+  .model.best .pct { color: #00b894; }
+
+  .bottom-line { background: linear-gradient(135deg, #1a1a0a, #2a2a0a); border: 2px solid #fdcb6e; border-radius: 14px; padding: 24px; margin-top: 24px; }
+  .bottom-line h3 { color: #fdcb6e; font-size: 18px; margin-bottom: 14px; text-align: center; }
+  .bl-item { padding: 8px 0; border-bottom: 1px solid #333; font-size: 14px; color: #ddd; }
+  .bl-item:last-child { border: none; }
+  .bl-item strong { color: #fff; }
+
+  .ts { text-align: center; color: #555; font-size: 11px; margin-top: 20px; }
+  .sources { margin-top: 24px; padding-top: 16px; border-top: 1px solid #222; }
+  .sources h4 { color: #666; font-size: 12px; margin-bottom: 8px; }
+  .sources a { color: #6C5CE7; font-size: 11px; text-decoration: none; display: block; margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>REALITY CHECK 2026</h1>
+  <div class="ver">v1 | 19.02.2026</div>
+  <div class="sub">מודיעין שוק: מה עובד לפרסונות כמו פרימק בעידן AI + משבר</div>
+</div>
+
+<div class="verdict">
+  <h2>הפסיקה: פרימק בצד הנכון — אם יזוז</h2>
+  <p>AI הורג execution designers. Fractional CPO צומח. סייבר ישראלי בשיא כל הזמנים. MedTech regulatory UX = חפיר. הכל מצביע על אותו כיוון: פרימק צריך לזוז מ"סטודיו עיצוב" ל"שותף מוצר אסטרטגי" — והמגרש פתוח.</p>
+</div>
+
+<!-- 1: WHO DIES, WHO LIVES -->
+<div class="section">
+  <div class="stitle"><span class="num">01</span> מי מת, מי חי — UX ב-2026</div>
+  <div class="split">
+    <div class="die-card">
+      <h4>מתים</h4>
+      <p>Pixel pushers. מעצבי dark mode. בוני component libraries. מי שמוכר "מסכים". סטודיואים גדולים (DDB, FCB, MullenLowe — retired 2026). 45% מיחסי לקוח-agency במשבר.</p>
+    </div>
+    <div class="live-card">
+      <h4>חיים</h4>
+      <p>Systems thinkers. Strategic generalists. מומחי רגולציה (FDA, cyber). מי שמחבר business + product + UX. בוטיקים ממוקדי נישה. "One-person unicorns" עם AI.</p>
+    </div>
+  </div>
+  <div class="insight">
+    <h3>הנתון המפתיע</h3>
+    <p><span class="data">61% מחברות מתחת ל-10 עובדים</span> אומרות ש-AI "קריטי" ליתרון תחרותי (Figma 2025). חברות קטנות מרוויחות יותר מ-AI מחברות גדולות.</p>
+    <span class="primak">פרימק = one-man + AI + PRIMO = בדיוק המודל שמנצח</span>
+  </div>
+</div>
+
+<!-- 2: FRACTIONAL CPO -->
+<div class="section">
+  <div class="stitle"><span class="num">02</span> Fractional CPO — הזדמנות פתוחה</div>
+  <div class="insight">
+    <h3>השוק מתפוצץ</h3>
+    <p><span class="data">2,000 → 110,000 פרופילים בלינקדאין</span> תוך שנתיים (HBR). 25% מהחברות בארה"ב כבר משתמשות. 78% מ-fractional executives צופים עלייה בהזדמנויות.</p>
+  </div>
+  <div class="insight">
+    <h3>תמחור (US)</h3>
+    <p>שעתי: <span class="data">$150-400</span> | Retainer: <span class="data">$5K-20K/חודש</span> | Sprint: <span class="data">$15K+ מינימום</span></p>
+    <p>CPO במשרה מלאה = $260-327K/שנה. Fractional = 30-50% מהעלות → ROI ברור ללקוח.</p>
+    <span class="primak">פרימק גלובלי: $275/שעה כבר בטווח. Retainer $13K/mo = תחרותי. בישראל: WHITESPACE — כמעט אף אחד לא עושה את זה.</span>
+  </div>
+  <div class="insight">
+    <h3>תעשיות שקונות</h3>
+    <p>SaaS (#1) → FinTech → <span class="data">HealthTech</span> → <span class="data">Cybersecurity</span> → PE Portfolio Companies</p>
+    <span class="primak">פרימק = HealthTech + Cyber + AI. בול 3 מתוך 5.</span>
+  </div>
+</div>
+
+<!-- 3: WHERE THE MONEY IS IN ISRAEL -->
+<div class="section">
+  <div class="stitle"><span class="num">03</span> איפה הכסף בישראל 2026</div>
+  <div class="sector-bar">
+    <div class="name">סייבר</div>
+    <div class="bar"><div class="fill fill-cyber"></div></div>
+    <div class="val">$8.27B גיוס</div>
+  </div>
+  <div class="sector-bar">
+    <div class="name">Enterprise AI</div>
+    <div class="bar"><div class="fill fill-ai"></div></div>
+    <div class="val">$4.5B גיוס</div>
+  </div>
+  <div class="sector-bar">
+    <div class="name">ביטחון/Gov</div>
+    <div class="bar"><div class="fill fill-defense"></div></div>
+    <div class="val">₪112B תקציב</div>
+  </div>
+  <div class="sector-bar">
+    <div class="name">Digital Health</div>
+    <div class="bar"><div class="fill fill-health"></div></div>
+    <div class="val warn">סטגנציה</div>
+  </div>
+  <div class="sector-bar">
+    <div class="name">FinTech</div>
+    <div class="bar"><div class="fill fill-fintech"></div></div>
+    <div class="val warn">סטגנציה</div>
+  </div>
+  <div class="insight">
+    <p><span class="data">70% מהון ההשקעות הישראלי</span> מרוכז בסייבר + AI. כל השאר = שאריות.</p>
+    <p><span class="data">717 סבבי גיוס ב-2025</span> — הנמוך בעשור. אבל median round = $10M (עלייה של 67%). <strong>פחות חברות, יותר כסף לכל אחת.</strong></p>
+    <span class="primak">פרימק + Orchestra + Sola + Defy = כבר בתוך הסייבר. CathWorks + AISAP + Feminai = MedTech. שני הצירים הכי חזקים.</span>
+  </div>
+</div>
+
+<!-- 4: MEDTECH MOAT -->
+<div class="section">
+  <div class="stitle"><span class="num">04</span> MedTech Regulatory UX — החפיר</div>
+  <div class="insight">
+    <h3>למה AI לא יכול להחליף את זה</h3>
+    <p>FDA Human Factors (IEC 62366) = <span class="data">חובה רגולטורית</span>. צריך Usability Engineering File מתועד, מחקרי formative/summative, וידע רגולטורי. AI לא עושה את זה.</p>
+    <p>QMSR מחליף QSR <span class="data">בפברואר 2026</span> = עבודת compliance חדשה חובה.</p>
+    <p>EU AI Act = שכבה נוספת על MDR/IVDR למכשור רפואי מבוסס AI.</p>
+  </div>
+  <div class="insight">
+    <h3>התחרות הגלובלית</h3>
+    <p>שחקנים גדולים: Emergo by UL, Veranex, RQM+ (CROs). בינוניים: ClariMed, Cleio. הפער: <span class="data">בין CROs ענקיים לסולנים — אין שכבת ביניים.</span></p>
+    <p>Guidea (US) = benchmark — 22 FDA clearances. <span class="warn">אין שחקן ישראלי מקביל.</span></p>
+    <span class="primak">CathWorks FFRangio (FDA cleared, $585M exit) = הוכחה שאין לאף אחד בישראל. זה ה-moat.</span>
+  </div>
+</div>
+
+<!-- 5: DOWNTURN PLAYBOOK -->
+<div class="section">
+  <div class="stitle"><span class="num">05</span> מה עובד במשבר — היסטוריה</div>
+  <div class="model-row">
+    <div class="model best">
+      <h4>Retainer</h4>
+      <div class="pct">60-70%</div>
+      <p>$3K-16K/חודש. יציב, צפוי, מאפשר תכנון. המודל שמחזיק בירידות.</p>
+    </div>
+    <div class="model">
+      <h4>Projects</h4>
+      <div class="pct" style="color:#fdcb6e;">30-40%</div>
+      <p>$40K-75K/פרויקט. ערך גבוה, לא צפוי. "מתחילים כל חודש מאפס."</p>
+    </div>
+    <div class="model">
+      <h4>Equity</h4>
+      <div class="pct" style="color:#a29bfe;">סלקטיבי</div>
+      <p>2% equity + success fee. מתאים כשללקוח אין מזומן. סיכון גבוה.</p>
+    </div>
+  </div>
+  <div class="insight">
+    <h3>הכלל ההיסטורי</h3>
+    <p><span class="data">80% מהכנסות שירותים מקצועיים = מלקוחות קיימים.</span> במשבר, focus = לקוחות קיימים, לא acquisition. (McKinsey, Bain — שני המשברים 2008, 2020.)</p>
+    <span class="primak">פרימק: IcanDo (retainer) = בדיוק המודל הנכון. Scout = acquisition חדש. היחס צריך להיות 70/30.</span>
+  </div>
+</div>
+
+<!-- BOTTOM LINE -->
+<div class="bottom-line">
+  <h3>5 מהלכים שהנתונים תומכים בהם</h3>
+  <div class="bl-item"><strong>1. תפסיק להיקרא "UX studio"</strong> — תהיה Fractional CPO. הישראלי הראשון שתופס את המגרש הזה.</div>
+  <div class="bl-item"><strong>2. תתמקד בסייבר + MedTech</strong> — שם הכסף ($8.27B + $548B). Orchestra + CathWorks = proof שכבר יש.</div>
+  <div class="bl-item"><strong>3. תעבור ל-retainer + sprints</strong> — לא שעות. $13K/mo retainer או $22K sprint. מודל שמחזיק במשבר.</div>
+  <div class="bl-item"><strong>4. תשתמש ב-AI כמכפיל כוח</strong> — PRIMO + Figma MCP + Claude = one-person unicorn. 61% מהקטנים כבר שם.</div>
+  <div class="bl-item"><strong>5. תשלח 3 הודעות/שבוע</strong> — pipeline ₪3.5-6.5M מחכה. 0 הודעות יצאו. הנתונים לא משנים כלום אם לא זזים.</div>
+</div>
+
+<div class="sources">
+  <h4>מקורות</h4>
+  <a href="https://www.nngroup.com/articles/state-of-ux-2026/">NN/g — State of UX 2026</a>
+  <a href="https://uxplaybook.org/articles/ux-designer-job-market-reality-2026">UX Playbook — Job Market Reality 2026</a>
+  <a href="https://columncontent.com/fractional-work-statistics/">Fractional Work Statistics 2026 (100+ trends)</a>
+  <a href="https://www.jpost.com/business-and-innovation/article-884460">JPost — Israeli Cyber $72.6B Exits 2025</a>
+  <a href="https://securityboulevard.com/2025/12/funding-of-israeli-cybersecurity-soars-to-record-levels/">Security Boulevard — Israeli Cyber $8.27B ATH</a>
+  <a href="https://startupnationcentral.org/hub/blog/israeli-tech-funding-2025/">SNC — Israeli Tech Funding 2025</a>
+  <a href="https://www.medicaldevice-network.com/features/what-2025-reveals-about-medtech-next-leap-in-2026/">Medical Device Network — MedTech 2026</a>
+  <a href="https://www.consultingsuccess.com/professional-services-recession-playbook">Consulting Success — Recession Playbook</a>
+  <a href="https://www.calcalistech.com/ctechnews/article/fgffufeb3">Calcalist — Tech Layoffs 2026</a>
+  <a href="https://jakobnielsenphd.substack.com/p/2026-predictions">Jakob Nielsen — 18 Predictions for 2026</a>
+</div>
+
+<div class="ts">PRIMO Reality Check v1 | 19.02.2026 | 15+ מקורות, 5 זוויות מחקר</div>
+
+</body>
+</html>

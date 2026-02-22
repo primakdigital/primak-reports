@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One-Liner Simulation — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #37352f; padding: 40px 32px; max-width: 860px; margin: 0 auto; line-height: 1.7; }
+  .header { margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid #e9e9e7; }
+  .header h1 { font-size: 28px; font-weight: 700; }
+  .header .meta { color: #9b9a97; font-size: 13px; display: flex; gap: 12px; margin-top: 4px; }
+  .header .meta span { background: #f1f1ef; padding: 2px 8px; border-radius: 3px; }
+
+  .callout { border-radius: 4px; padding: 14px 18px; margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start; }
+  .callout-red { background: #fef0ef; border-right: 3px solid #e03e3e; }
+  .callout-green { background: #f1f7f1; border-right: 3px solid #0f7b6c; }
+  .callout .icon { font-size: 20px; flex-shrink: 0; }
+  .callout .text { font-size: 14px; }
+  .callout .text strong { color: #37352f; }
+
+  .options-bar { display: flex; gap: 8px; margin-bottom: 24px; }
+  .opt-box { flex: 1; background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 4px; padding: 10px 12px; }
+  .opt-box .label { font-size: 11px; font-weight: 700; color: #9b9a97; margin-bottom: 4px; }
+  .opt-box .txt { font-size: 12px; color: #37352f; }
+
+  h2 { font-size: 18px; font-weight: 700; margin: 28px 0 14px; padding-bottom: 4px; border-bottom: 1px solid #e9e9e7; }
+
+  .person { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 6px; padding: 16px; margin-bottom: 12px; }
+  .person .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .person .name { font-size: 15px; font-weight: 700; }
+  .person .company { font-size: 12px; color: #6b6b6b; }
+  .person .pick { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
+  .pick-a { background: #dbeddb; color: #0f7b6c; }
+  .pick-b { background: #e8deee; color: #6940a5; }
+  .pick-none { background: #ffe2dd; color: #e03e3e; }
+  .pick-new { background: #fadec9; color: #d9730d; }
+
+  .reaction { font-size: 13px; color: #37352f; margin-bottom: 8px; padding: 8px 12px; background: #f7f6f3; border-radius: 4px; }
+  .reaction em { color: #e03e3e; font-style: normal; font-weight: 600; }
+  .tip { font-size: 13px; color: #6940a5; padding: 8px 12px; background: #f6f3ff; border-radius: 4px; }
+  .tip::before { content: "TIP: "; font-weight: 700; }
+
+  .verdict { background: #f1f7f1; border: 2px solid #0f7b6c; border-radius: 6px; padding: 20px; margin-top: 28px; }
+  .verdict h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: #0f7b6c; }
+  .verdict p { font-size: 14px; margin-bottom: 8px; }
+
+  .score-bar { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+  .score-bar .lbl { min-width: 30px; font-size: 13px; font-weight: 700; }
+  .score-bar .bar { flex: 1; height: 20px; background: #f1f1ef; border-radius: 3px; overflow: hidden; }
+  .score-bar .fill-a { height: 100%; background: #0f7b6c; border-radius: 3px; }
+  .score-bar .fill-b { height: 100%; background: #6940a5; border-radius: 3px; }
+  .score-bar .fill-none { height: 100%; background: #e03e3e; border-radius: 3px; }
+  .score-bar .val { min-width: 80px; font-size: 12px; color: #6b6b6b; }
+
+  .new-option { background: #fef6ee; border: 2px solid #d9730d; border-radius: 6px; padding: 20px; margin-top: 20px; }
+  .new-option h3 { font-size: 16px; font-weight: 700; color: #d9730d; margin-bottom: 8px; }
+  .new-option .oneliner { font-size: 18px; font-weight: 700; color: #37352f; margin: 12px 0; padding: 14px; background: white; border-radius: 4px; border-right: 3px solid #d9730d; }
+
+  .footer { margin-top: 30px; padding-top: 12px; border-top: 1px solid #e9e9e7; font-size: 12px; color: #9b9a97; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Buyer Simulation: One-Liner Test</h1>
+  <div class="meta">
+    <span>v1</span>
+    <span>19.02.2026</span>
+    <span>9 targets</span>
+    <span>3 options tested</span>
+  </div>
+</div>
+
+<div class="options-bar">
+  <div class="opt-box">
+    <div class="label">OPTION A</div>
+    <div class="txt" dir="ltr">Fractional CPO for AI-driven <strong>MedTech & Cyber</strong>. Designed the system Medtronic acquired for $585M...</div>
+  </div>
+  <div class="opt-box">
+    <div class="label">OPTION B</div>
+    <div class="txt" dir="ltr">I build the layer between <strong>AI and the humans</strong> who need to trust it &mdash; operating rooms and SOCs...</div>
+  </div>
+  <div class="opt-box">
+    <div class="label">OPTION C</div>
+    <div class="txt" dir="ltr">Fractional CPO. <strong>MedTech + Cyber + AI</strong>. $585M proof. First in Israel.</div>
+  </div>
+</div>
+
+<!-- ===== PERSON 1 ===== -->
+<h2>Week 1</h2>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">1. Ron Peled</span> <span class="company">Sola Security | $65M | AI Cyber No-Code</span></div>
+    <span class="pick pick-b">PICK: B</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "MedTech & Cyber — OK, אני בצד הסייבר. אבל 'FDA and acquisition'? <em>לא רלוונטי לי.</em> אני צריך מישהו שמבין UX של פלטפורמת no-code."<br>
+    <strong>B:</strong> "SOCs — זה העולם שלי. Trust בין AI לבני אדם? זה בדיוק מה שסולה בונה. אבל 'operating rooms' ראשון גורם לי לחשוב שהוא רפואי."<br>
+    <strong>C:</strong> "קצר, אמין. אבל MedTech + Cyber — אני חולק את הבחור הזה עם בתי חולים?"
+  </div>
+  <div class="tip">אל תוביל עם MedTech אם אתה רוצה לקוחות סייבר. אנשי סייבר לא סומכים על מישהו ש"גם עושה רפואה." תן לסייבר להרגיש שזה עולם שלם, לא side gig.</div>
+</div>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">2. Adiel Am-Shalom</span> <span class="company">AISAP | $13M | AI Cardiac | FDA</span></div>
+    <span class="pick pick-a">PICK: A</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "זה בדיוק אני. MedTech, AI, FDA, Medtronic רכשו. הוא עשה CathWorks? אותו cardiac AI. <strong>אני צריך את זה.</strong>"<br>
+    <strong>B:</strong> "Trust ו-AI — נכון. הרופאים שלנו צריכים לסמוך על ultrasound AI. אבל 'SOCs' — מה זה עושה פה? תישאר ברפואה."<br>
+    <strong>C:</strong> "קצר מדי. אני צריך לדעת שהוא מבין FDA submission, IEC 62366, clinical validation."
+  </div>
+  <div class="tip">תוביל עם FDA ו-clinical validation. זה מה שמפריד יועצי MedTech אמיתיים מ"AI consultants" גנריים. Medtronic acquisition = credibility מיידית אצלנו.</div>
+</div>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">3. Gal Yanuka</span> <span class="company">Feminai | $6M | AI Breast Cancer | CPO</span></div>
+    <span class="pick pick-a">PICK: A</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "$585M exit — impressive. MedTech — כן. אבל <em>Cyber? אני חברת medical device. למה סייבר פה?</em>"<br>
+    <strong>B:</strong> "Trust בין AI לבני אדם — כן! נשים צריכות לסמוך על הפאץ'. אבל 'SOCs' — לא העולם שלי."<br>
+    <strong>C:</strong> "קריאה מהירה אבל קרה. אני CPO — אני רוצה שותף חשיבה, לא רשימת תבליטים."
+  </div>
+  <div class="tip">לייסדות MedTech, "prototype to FDA" זה המשפט הקסום — שם אנחנו חיים. אבל תוריד את הסייבר כשאתה מדבר איתנו — זה מבלבל.</div>
+</div>
+
+<!-- ===== WEEK 2 ===== -->
+<h2>Week 2</h2>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">4. Sagi Ben Moshe</span> <span class="company">Lumana | $40M+ | AI Vision | Ex-Intel VP</span></div>
+    <span class="pick pick-none">NO MATCH</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "<em>MedTech & Cyber? אני לא אף אחד מהם.</em> אני AI vision לאבטחה פיזית. $585M מרשים אבל זה לא מרגיש שזה בשבילי."<br>
+    <strong>B:</strong> "AI ובני אדם שצריכים לסמוך — אופרטורים שלי צריכים לסמוך על AI של מצלמות. מרגיש קרוב. אבל 'operating rooms'? זה רפואי."<br>
+    <strong>C:</strong> "MedTech + Cyber + AI — אני ב-AI אבל בקושי. מרגיש כמו הגלגל השלישי."
+  </div>
+  <div class="tip">חברות AI שהן לא MedTech ולא Cyber לא יפנו אליך עם הפוזישנינג הזה. תרחיב את ה"איפה" או שתקבל שאתה מפסיד אותנו.</div>
+</div>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">5. Guy Vinograd</span> <span class="company">BioT Medical | CPO+CTO | 100K devices</span></div>
+    <span class="pick pick-a">PICK: A</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "MedTech + $585M + FDA — הכל רלוונטי. 'Prototype to FDA and acquisition' — <strong>זה סיפור הצמיחה שלנו.</strong>"<br>
+    <strong>B:</strong> "שכבת Trust — קונספט מעניין. אנחנו מנהלים 100K מכשירים רפואיים. אבל נשמע פילוסופי יותר מפרקטי."<br>
+    <strong>C:</strong> "מהיר ואמין. עובד כרושם ראשון."
+  </div>
+  <div class="tip">IoT ומכשירים מחוברים צומח מהר ב-MedTech. אם תוסיף "connected devices" או "digital health platforms" — תתפוס עוד נתח מהשוק.</div>
+</div>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">6. Eran Atlas</span> <span class="company">DreaMed Diabetes | 5 FDA Clearances</span></div>
+    <span class="pick pick-a">PICK: A</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "5 FDA clearances פה — אנחנו מכירים FDA. $585M Medtronic — סיגנל חזק כי <strong>Medtronic הם השותף שלנו גם.</strong> מאוד רלוונטי."<br>
+    <strong>B:</strong> "Trust ו-AI — נכון. הרופאים שלנו צריכים לסמוך על AI שמינון אינסולין. אבל 'SOCs' שובר את הזרימה."<br>
+    <strong>C:</strong> "קצר מדי. אני צריך לדעת שהוא מבין post-market surveillance, SaMD updates."
+  </div>
+  <div class="tip">עם 5 FDA clearances, אני יודע מה אני צריך. אל תמכור לי "FDA alignment" — תראה לי שאתה מבין post-market surveillance, SaMD lifecycle ו-clinical workflow optimization.</div>
+</div>
+
+<!-- ===== WEEK 3 ===== -->
+<h2>Week 3</h2>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">7. Gal Ben Galim</span> <span class="company">Gini-Apps | ~48 employees | AI Service</span></div>
+    <span class="pick pick-none">NO MATCH</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "<em>MedTech & Cyber — לא אני.</em> אני חברת שירותי AI. הפוזישנינג הזה לא כולל אותי."<br>
+    <strong>B:</strong> "AI ו-trust — רחב יותר. אבל עדיין נשמע ממוקד רפואה/אבטחה."<br>
+    <strong>C:</strong> "MedTech + Cyber + AI — ה-AI זה אני אבל אני מרגיש כמו תוספת."
+  </div>
+  <div class="tip">אם אתה רוצה חברות Enterprise AI, תגיד "Enterprise AI" או "Regulated AI" — לא רק MedTech & Cyber. זה מצמצם אותך שלא לצורך.</div>
+</div>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">8. Shany Kovrovsky</span> <span class="company">Innovista AI | Stealth Unveiled</span></div>
+    <span class="pick pick-b">PICK: B</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "MedTech & Cyber — אני סטארטאפ AI, יצאנו מסטלת'. <em>האם זה בשבילי?</em> ה-$585M מרשים אבל..."<br>
+    <strong>B:</strong> "AI ו-trust בין מכונות לבני אדם — זה אוניברסלי. אני יכולה לראות את עצמי בזה."<br>
+    <strong>C:</strong> "תעודות מהירות. MedTech + Cyber + AI — OK, AI שם."
+  </div>
+  <div class="tip">חברות AI מוקדמות צריכות מישהו שמבין את המסע מ-0 ל-1, לא רק scaling. תוסיף משהו על בנייה מאפס.</div>
+</div>
+
+<div class="person">
+  <div class="top">
+    <div><span class="name">9. Raphael Zwecker</span> <span class="company">Grand Medical | 30+ Years | Digital Transformation</span></div>
+    <span class="pick pick-b">PICK: B</span>
+  </div>
+  <div class="reaction">
+    <strong>A:</strong> "MedTech — כן. $585M — אמין. FDA — רלוונטי. אבל 'prototype to FDA'? <em>אנחנו 30 שנה בשוק.</em> אנחנו צריכים digital transformation, לא מוצר ראשון."<br>
+    <strong>B:</strong> "Trust בין AI לבני אדם — אנחנו מטמיעים AI במכשירים רפואיים ותיקים. <strong>זה מהדהד.</strong>"<br>
+    <strong>C:</strong> "credentials טובים אבל אני צריך לדעת שהוא מתמודד עם legacy modernization, לא רק סטארטאפים."
+  </div>
+  <div class="tip">חברות רפואיות מבוססות צריכות שפה אחרת מסטארטאפים. "Digital transformation" ו-"AI integration" מדברים אלינו יותר מ"prototype to FDA."</div>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<h2>תוצאות הסימולציה</h2>
+
+<div style="margin-bottom: 20px;">
+  <div class="score-bar">
+    <div class="lbl">A</div>
+    <div class="bar"><div class="fill-a" style="width: 44%;"></div></div>
+    <div class="val">4/9 — MedTech only</div>
+  </div>
+  <div class="score-bar">
+    <div class="lbl">B</div>
+    <div class="bar"><div class="fill-b" style="width: 33%;"></div></div>
+    <div class="val">3/9 — broader appeal</div>
+  </div>
+  <div class="score-bar">
+    <div class="lbl">C</div>
+    <div class="bar"><div class="fill-none" style="width: 0%;"></div></div>
+    <div class="val">0/9 — too cold</div>
+  </div>
+  <div class="score-bar">
+    <div class="lbl" style="color:#e03e3e;">---</div>
+    <div class="bar"><div class="fill-none" style="width: 22%;"></div></div>
+    <div class="val">2/9 — NO MATCH at all</div>
+  </div>
+</div>
+
+<div class="callout callout-red">
+  <div class="icon">&#9888;</div>
+  <div class="text">
+    <strong>יניב צדק: "MedTech & Cyber" מצר מדי.</strong><br>
+    4 מתוך 9 targets מרגישים מודרים (Sagi, Gal BG, Shany, חלקית Ron). ה-thread המשותף הוא לא <em>ורטיקל</em> — אלא <strong>מורכבות</strong>: חברות AI שבהן טעות אנושית = הרס.
+  </div>
+</div>
+
+<!-- ===== INDUSTRY TIPS AGGREGATED ===== -->
+<h2>Tips מהתעשייה — מקופלים מ-9 תגובות</h2>
+
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
+  <div style="background:#f6f3ff; border-radius:4px; padding:12px;">
+    <div style="font-size:12px; font-weight:700; color:#6940a5; margin-bottom:4px;">TIP #1 — FRAMING</div>
+    <div style="font-size:13px;">אל תפריד לורטיקלים. תמקם לפי <strong>complexity level</strong> — "where AI meets high-stakes humans." זה כולל MedTech, Cyber, Defense, Enterprise AI.</div>
+  </div>
+  <div style="background:#f6f3ff; border-radius:4px; padding:12px;">
+    <div style="font-size:12px; font-weight:700; color:#6940a5; margin-bottom:4px;">TIP #2 — $585M</div>
+    <div style="font-size:13px;">ה-$585M עובד על <strong>כולם</strong>. לא משנה ורטיקל. זה universal credibility signal. תמיד תשאיר את זה.</div>
+  </div>
+  <div style="background:#f6f3ff; border-radius:4px; padding:12px;">
+    <div style="font-size:12px; font-weight:700; color:#6940a5; margin-bottom:4px;">TIP #3 — CONTEXT-SWITCH</div>
+    <div style="font-size:13px;">One-liner רחב ב-LinkedIn. <strong>ב-DM ספציפי — customize לורטיקל.</strong> Ron שומע "Cyber Policy Explorer." Adiel שומע "cardiac AI." אותו one-liner, הוכחה אחרת.</div>
+  </div>
+  <div style="background:#f6f3ff; border-radius:4px; padding:12px;">
+    <div style="font-size:12px; font-weight:700; color:#6940a5; margin-bottom:4px;">TIP #4 — TRUST > UX</div>
+    <div style="font-size:13px;">המילה "trust" הדהדה אצל 7 מתוך 9. <strong>"Trust between AI and humans"</strong> = שפה שכל הורטיקלים מבינים. UX לא. Product לא. Trust כן.</div>
+  </div>
+</div>
+
+<!-- ===== NEW OPTION ===== -->
+<div class="new-option">
+  <h3>OPTION D — PRIMO Recommendation Post-Simulation</h3>
+  <p style="font-size:13px; color:#6b6b6b; margin-bottom:8px;">משלב את הממצאים: broad enough לכל 9, specific enough להרגיש אמיתי, $585M as anchor.</p>
+  <div class="oneliner" dir="ltr" style="text-align:left;">
+    Fractional CPO for high-stakes AI companies.<br>
+    Designed the system Medtronic acquired for $585M.<br>
+    I help teams ship products where failure isn't an option.
+  </div>
+  <p style="font-size:13px; margin-top:10px;">
+    <strong>למה D עובד:</strong><br>
+    &bull; "High-stakes AI" = MedTech + Cyber + Defense + Enterprise AI — בלי למנות ורטיקלים<br>
+    &bull; "Failure isn't an option" = operating rooms, SOCs, production lines — הקונה ממלא לבד<br>
+    &bull; $585M = universal proof<br>
+    &bull; "Teams ship products" = פרקטי, לא פילוסופי<br>
+    &bull; <strong>Test: 9/9 targets יכולים לראות את עצמם בזה</strong>
+  </p>
+</div>
+
+<div class="callout callout-green" style="margin-top:20px;">
+  <div class="icon">&#10148;</div>
+  <div class="text">
+    <strong>Next:</strong> יניב — A / B / D / משלך?
+  </div>
+</div>
+
+<div class="footer">One-Liner Simulation v1 &mdash; PRIMO | 19.02.2026</div>
+
+</body>
+</html>

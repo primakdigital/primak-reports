@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Reset Brief — v1</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #ffffff; color: #37352f; padding: 40px 32px; max-width: 860px; margin: 0 auto; line-height: 1.7; }
+
+  .header { margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid #e9e9e7; }
+  .header h1 { font-size: 32px; font-weight: 700; color: #37352f; margin-bottom: 4px; }
+  .header .subtitle { font-size: 16px; color: #6b6b6b; margin-bottom: 8px; }
+  .header .meta { color: #9b9a97; font-size: 13px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .header .meta span { background: #f1f1ef; padding: 2px 8px; border-radius: 3px; }
+
+  .callout { background: #f1f7f1; border-radius: 4px; padding: 16px 20px; margin-bottom: 28px; display: flex; gap: 12px; align-items: flex-start; border-right: 3px solid #0f7b6c; }
+  .callout-red { background: #fef0ef; border-right-color: #e03e3e; }
+  .callout-blue { background: #f0f4ff; border-right-color: #2f80ed; }
+  .callout-orange { background: #fef6ee; border-right-color: #d9730d; }
+  .callout-purple { background: #f6f3ff; border-right-color: #6940a5; }
+  .callout .icon { font-size: 22px; flex-shrink: 0; }
+  .callout .text h3 { font-size: 15px; font-weight: 700; color: #37352f; margin-bottom: 4px; }
+  .callout .text p { font-size: 14px; color: #55534e; }
+
+  h2 { font-size: 22px; font-weight: 700; color: #37352f; margin: 36px 0 16px; padding-bottom: 6px; border-bottom: 1px solid #e9e9e7; }
+  h2 .num { color: #9b9a97; font-size: 14px; margin-left: 8px; }
+
+  .decision-box { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 6px; padding: 20px; margin-bottom: 16px; }
+  .decision-box .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #9b9a97; margin-bottom: 6px; }
+  .decision-box .question { font-size: 16px; font-weight: 700; color: #37352f; margin-bottom: 12px; }
+  .decision-box .primo-rec { background: #f1f7f1; border-radius: 4px; padding: 12px 16px; margin-bottom: 12px; border-right: 3px solid #0f7b6c; }
+  .decision-box .primo-rec .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; background: #0f7b6c; color: white; margin-bottom: 6px; }
+  .decision-box .primo-rec p { font-size: 14px; color: #37352f; font-weight: 600; }
+  .decision-box .reasoning { font-size: 13px; color: #6b6b6b; margin-top: 8px; }
+  .decision-box .alternatives { margin-top: 10px; padding-top: 10px; border-top: 1px solid #e9e9e7; }
+  .decision-box .alternatives .alt-label { font-size: 11px; color: #9b9a97; margin-bottom: 4px; }
+  .decision-box .alternatives ul { font-size: 13px; color: #6b6b6b; padding-right: 20px; }
+  .decision-box .alternatives li { margin-bottom: 2px; }
+
+  .approval { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 14px; background: #f7f7f5; border-radius: 4px; }
+  .approval .checkbox { width: 18px; height: 18px; border: 2px solid #d1d1cf; border-radius: 3px; flex-shrink: 0; }
+  .approval .label-text { font-size: 13px; color: #37352f; }
+
+  .cascade-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  .cascade-table th { background: #f7f6f3; text-align: right; padding: 10px 14px; font-size: 12px; font-weight: 600; color: #37352f; border-bottom: 1px solid #e9e9e7; }
+  .cascade-table td { padding: 10px 14px; font-size: 13px; color: #37352f; border-bottom: 1px solid #f1f1ef; vertical-align: top; }
+  .cascade-table .who { font-weight: 600; }
+  .cascade-table .tag { display: inline-block; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+  .tag-primo { background: #dbeddb; color: #0f7b6c; }
+  .tag-yaniv { background: #d3e5ef; color: #2f80ed; }
+  .tag-together { background: #e8deee; color: #6940a5; }
+  .tag-phase1 { background: #fadec9; color: #d9730d; }
+  .tag-phase2 { background: #dbeddb; color: #0f7b6c; }
+  .tag-phase3 { background: #d3e5ef; color: #2f80ed; }
+
+  .timeline-bar { display: flex; gap: 0; margin-bottom: 24px; border-radius: 4px; overflow: hidden; height: 36px; }
+  .timeline-bar .phase { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; }
+  .phase-1 { background: #d9730d; flex: 1; }
+  .phase-2 { background: #0f7b6c; flex: 2; }
+  .phase-3 { background: #2f80ed; flex: 1; }
+
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .summary-card { background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 6px; padding: 16px; }
+  .summary-card .num { font-size: 28px; font-weight: 700; color: #0f7b6c; }
+  .summary-card .desc { font-size: 12px; color: #9b9a97; }
+
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e9e9e7; font-size: 12px; color: #9b9a97; display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Brand Reset Brief</h1>
+  <div class="subtitle">7 החלטות. מסמך אחד. כל הנכסים מתעדכנים.</div>
+  <div class="meta">
+    <span>v1</span>
+    <span>19.02.2026</span>
+    <span>PRIMO &rarr; Yaniv</span>
+    <span>Status: PENDING APPROVAL</span>
+  </div>
+</div>
+
+<div class="callout callout-red">
+  <div class="icon">&#9888;</div>
+  <div class="text">
+    <h3>כלל ברזל: שום דבר לא יוצא החוצה לפני שכל 7 ההחלטות מאושרות.</h3>
+    <p>Scout messages, Didi email, LinkedIn, website, proposals &mdash; הכל מחכה ל-green light על המסמך הזה.</p>
+  </div>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="num">7</div>
+    <div class="desc">החלטות לאישור</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">12</div>
+    <div class="desc">נכסים לעדכון</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">48h</div>
+    <div class="desc">זמן ביצוע אחרי אישור</div>
+  </div>
+  <div class="summary-card">
+    <div class="num">0</div>
+    <div class="desc">הוצאות חיצוניות</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 1 ==================== -->
+<h2>החלטה #1 <span class="num">ONE-LINER</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">מה Primak אומר ב-15 שניות כשמישהו שואל "מה אתם עושים?"</div>
+
+  <div class="primo-rec">
+    <div class="tag">PRIMO RECOMMENDATION</div>
+    <p dir="ltr" style="text-align:left;">"Fractional CPO for AI &amp; MedTech companies &mdash; I designed the product that Medtronic acquired for $585M. Now I do it for startups scaling to FDA and enterprise."</p>
+  </div>
+
+  <div class="reasoning">
+    <strong>למה:</strong> כולל 4 אלמנטים בלתי-ניתנים-להעתקה: (1) Fractional CPO = תפקיד, לא שירות, (2) AI + MedTech = נישה, (3) $585M = הוכחה, (4) FDA + enterprise = complexity.
+  </div>
+
+  <div class="alternatives">
+    <div class="alt-label">חלופות</div>
+    <ul>
+      <li><strong>B:</strong> "I build the product layer that gets medtech startups from prototype to FDA clearance and acquisition."</li>
+      <li><strong>C:</strong> "Product architect for companies where bad UX kills people or kills deals."</li>
+    </ul>
+  </div>
+
+  <div class="approval">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר A / B / C / אחר: ___</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 2 ==================== -->
+<h2>החלטה #2 <span class="num">TITLE &amp; ROLE</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">איך יניב מגדיר את עצמו בלינקדאין, בחתימת מייל, ובפגישות?</div>
+
+  <div class="primo-rec">
+    <div class="tag">PRIMO RECOMMENDATION</div>
+    <p>Founder &amp; Fractional CPO, Primak Digital</p>
+  </div>
+
+  <div class="reasoning">
+    <strong>למה:</strong> "Fractional CPO" = whitespace בישראל (כמעט 0 תוצאות). "UX Architect" = commodity. "Product Strategist" = generic. CPO = C-level, Fractional = flexible &mdash; זה בדיוק מה שקונים ב-2026.
+  </div>
+
+  <div class="alternatives">
+    <div class="alt-label">חלופות</div>
+    <ul>
+      <li><strong>B:</strong> Founder &amp; Product Architect, Primak Digital</li>
+      <li><strong>C:</strong> Founder &amp; UX Architect, Primak Digital <em>(נוכחי &mdash; לא מומלץ)</em></li>
+    </ul>
+  </div>
+
+  <div class="approval">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר A / B / C / אחר: ___</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 3 ==================== -->
+<h2>החלטה #3 <span class="num">SERVICES — 3 PACKAGES</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">מה Primak מוכר? 3 מוצרים ברורים, לא "שעות".</div>
+
+  <div class="primo-rec">
+    <div class="tag">PRIMO RECOMMENDATION</div>
+    <p>S1 + S2 + S3 &mdash; Sprint, Retainer, Review</p>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+      <div style="background:#f1f7f1; border-radius:4px; padding:14px; border-top: 3px solid #0f7b6c;">
+        <div style="font-size:11px; color:#9b9a97;">S1 &mdash; LAUNCH SPRINT</div>
+        <div style="font-size:20px; font-weight:700; margin:6px 0;" dir="ltr">$22K</div>
+        <div style="font-size:12px; color:#6b6b6b;">
+          4-6 שבועות<br>
+          Product spec + UX design<br>
+          Design system + prototype<br>
+          Investor-ready deliverable
+        </div>
+      </div>
+      <div style="background:#f6f3ff; border-radius:4px; padding:14px; border-top: 3px solid #6940a5;">
+        <div style="font-size:11px; color:#9b9a97;">S2 &mdash; FRACTIONAL CPO</div>
+        <div style="font-size:20px; font-weight:700; margin:6px 0;" dir="ltr">$13K/mo</div>
+        <div style="font-size:12px; color:#6b6b6b;">
+          2-3 ימים/שבוע<br>
+          Product strategy + roadmap<br>
+          UX architecture + team lead<br>
+          Stakeholder + FDA alignment
+        </div>
+      </div>
+      <div style="background:#f0f4ff; border-radius:4px; padding:14px; border-top: 3px solid #2f80ed;">
+        <div style="font-size:11px; color:#9b9a97;">S3 &mdash; UX/HF REVIEW</div>
+        <div style="font-size:20px; font-weight:700; margin:6px 0;" dir="ltr">$15K</div>
+        <div style="font-size:12px; color:#6b6b6b;">
+          2-3 שבועות<br>
+          Human Factors assessment<br>
+          FDA IEC 62366 alignment<br>
+          Risk-based UX audit
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reasoning" style="margin-top: 12px;">
+    <strong>למה:</strong> Target mix: Retainer 60-70% (S2), Sprint 30-40% (S1+S3). S3 = gateway &mdash; review leads to retainer.<br>
+    <strong>Israel rates:</strong> S1 = ~₪80K, S2 = ~₪47K/mo, S3 = ~₪55K. Minimum ₪450/hr floor preserved.
+  </div>
+
+  <div class="approval">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר S1+S2+S3 / שינויים: ___</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 4 ==================== -->
+<h2>החלטה #4 <span class="num">PROOF CASES &mdash; TOP 3</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">אילו 3 proof cases מובילים כל שיחה, פיץ', ומסמך?</div>
+
+  <div class="primo-rec">
+    <div class="tag">PRIMO RECOMMENDATION</div>
+    <p>CathWorks &rarr; Haaretz &rarr; Orchestra</p>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+      <div style="background:#fbfbfa; border:1px solid #e9e9e7; border-radius:4px; padding:14px;">
+        <div style="font-size:20px; margin-bottom:4px;">&#129293;</div>
+        <div style="font-size:14px; font-weight:700;">CathWorks FFRangio</div>
+        <div style="font-size:12px; color:#6b6b6b; margin-top:4px;">
+          AI cardiac diagnostics<br>
+          FDA cleared. 100K patients<br>
+          Medtronic acquired $585M<br>
+          <strong>Signal:</strong> MedTech + FDA + Exit
+        </div>
+      </div>
+      <div style="background:#fbfbfa; border:1px solid #e9e9e7; border-radius:4px; padding:14px;">
+        <div style="font-size:20px; margin-bottom:4px;">&#128240;</div>
+        <div style="font-size:14px; font-weight:700;">Haaretz-TheMarker</div>
+        <div style="font-size:12px; color:#6b6b6b; margin-top:4px;">
+          Israel's #1 newspaper<br>
+          70-person team. 3-year digital transformation<br>
+          Led entire design department<br>
+          <strong>Signal:</strong> Scale + Leadership + Enterprise
+        </div>
+      </div>
+      <div style="background:#fbfbfa; border:1px solid #e9e9e7; border-radius:4px; padding:14px;">
+        <div style="font-size:20px; margin-bottom:4px;">&#128274;</div>
+        <div style="font-size:14px; font-weight:700;">Orchestra Cyber</div>
+        <div style="font-size:12px; color:#6b6b6b; margin-top:4px;">
+          NSO Group founders<br>
+          Orchestrated Cisco partnership<br>
+          Cyber Policy Explorer UX<br>
+          <strong>Signal:</strong> Cyber + Enterprise + Strategy
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reasoning" style="margin-top: 12px;">
+    <strong>למה דווקא 3 אלה:</strong> CathWorks = MedTech proof (#1 always). Haaretz = scale + management proof. Orchestra = cyber proof + NSO credibility.<br>
+    <strong>בהמתנה:</strong> Selina (unicorn), ZIM (enterprise), Queue (CPO title) &mdash; second-tier, per-context.
+  </div>
+
+  <div class="approval">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר 3 אלה / סדר אחר / החלפה: ___</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 5 ==================== -->
+<h2>החלטה #5 <span class="num">TARGET VERTICALS</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">אילו 3 ורטיקלים Primak תוקף? (=איפה הכסף + איפה ההוכחה)</div>
+
+  <div class="primo-rec">
+    <div class="tag">PRIMO RECOMMENDATION</div>
+    <p>MedTech/HealthTech &rarr; Cybersecurity &rarr; Enterprise AI</p>
+  </div>
+
+  <div style="margin-top: 12px; padding: 12px 16px; background: #fbfbfa; border: 1px solid #e9e9e7; border-radius: 4px;">
+    <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #f1f1ef;">
+      <div style="font-size:13px; font-weight:700; min-width:140px;">MedTech/HealthTech</div>
+      <div style="flex:1; height:14px; background:#f1f1ef; border-radius:3px; overflow:hidden;"><div style="width:95%; height:100%; background:#0f7b6c; border-radius:3px;"></div></div>
+      <div style="font-size:12px; color:#6b6b6b; min-width:100px;">95% match</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid #f1f1ef;">
+      <div style="font-size:13px; font-weight:700; min-width:140px;">Cybersecurity</div>
+      <div style="flex:1; height:14px; background:#f1f1ef; border-radius:3px; overflow:hidden;"><div style="width:82%; height:100%; background:#6940a5; border-radius:3px;"></div></div>
+      <div style="font-size:12px; color:#6b6b6b; min-width:100px;">82% match</div>
+    </div>
+    <div style="display:flex; align-items:center; gap:10px; padding:8px 0;">
+      <div style="font-size:13px; font-weight:700; min-width:140px;">Enterprise AI</div>
+      <div style="flex:1; height:14px; background:#f1f1ef; border-radius:3px; overflow:hidden;"><div style="width:70%; height:100%; background:#d9730d; border-radius:3px;"></div></div>
+      <div style="font-size:12px; color:#6b6b6b; min-width:100px;">70% match</div>
+    </div>
+  </div>
+
+  <div class="reasoning" style="margin-top: 12px;">
+    <strong>למה:</strong> MedTech = $585M proof + FDA moat + 8+ clients. Cyber = $8.27B raised 2025 + Orchestra/NSO proof. Enterprise AI = $4.5B raised + 18/22 companies build dashboards = Primak sweet spot.<br>
+    <strong>NOT:</strong> ClimateTech, AgTech, FinTech, EdTech &mdash; no proof cases, no moat, low ROI.
+  </div>
+
+  <div class="approval">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר 3 ורטיקלים / אחר: ___</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 6 ==================== -->
+<h2>החלטה #6 <span class="num">VOICE &amp; LANGUAGE</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">איזו שפה ו-tone Primak מדבר? (ב-LinkedIn, proposals, emails)</div>
+
+  <div class="primo-rec">
+    <div class="tag">PRIMO RECOMMENDATION</div>
+    <p>English-first + direct + numbers &mdash; "LeCun, not TED Talk"</p>
+  </div>
+
+  <div style="margin-top: 12px; display:grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div style="background:#f1f7f1; border-radius:4px; padding:14px;">
+      <div style="font-size:12px; font-weight:700; color:#0f7b6c; margin-bottom:6px;">DO</div>
+      <div style="font-size:13px; color:#37352f;">
+        &bull; LinkedIn = English (global positioning)<br>
+        &bull; Claims backed by numbers<br>
+        &bull; Short. Max 3 sentences per point<br>
+        &bull; "I designed X. It did Y. Here's Z."<br>
+        &bull; Hebrew for Israeli outreach DMs
+      </div>
+    </div>
+    <div style="background:#fef0ef; border-radius:4px; padding:14px;">
+      <div style="font-size:12px; font-weight:700; color:#e03e3e; margin-bottom:6px;">DON'T</div>
+      <div style="font-size:13px; color:#37352f;">
+        &bull; "Passionate about..."<br>
+        &bull; "Helping companies with..."<br>
+        &bull; Buzzwords without proof<br>
+        &bull; Long storytelling posts<br>
+        &bull; First person ("I am amazing at...")
+      </div>
+    </div>
+  </div>
+
+  <div class="reasoning" style="margin-top: 12px;">
+    <strong>כלל יניב:</strong> לעולם לא גוף ראשון בפיץ'. הערך מדבר, לא האדם. CathWorks + $585M + FDA &mdash; המספרים עושים את העבודה.<br>
+    <strong>LinkedIn language:</strong> English primary (global CPO market), Hebrew for Israeli DMs only.
+  </div>
+
+  <div class="approval">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר English-first + direct / אחר: ___</div>
+  </div>
+</div>
+
+<!-- ==================== DECISION 7 ==================== -->
+<h2>החלטה #7 <span class="num">DEAL GATES &mdash; 5 MANDATORY</span></h2>
+
+<div class="decision-box">
+  <div class="label">השאלה</div>
+  <div class="question">אישור סופי ל-5 Gates שחלים על כל עסקה מהיום.</div>
+
+  <div style="margin-top: 12px;">
+    <div style="display:grid; gap: 8px;">
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:#f7f6f3; border-radius:4px;">
+        <div style="width:28px; height:28px; background:#0f7b6c; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">G1</div>
+        <div>
+          <div style="font-size:14px; font-weight:600;">Budget Check</div>
+          <div style="font-size:12px; color:#6b6b6b;">לפני שום עבודה &mdash; "מה התקציב?" אם אין תשובה = לא ממשיכים.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:#f7f6f3; border-radius:4px;">
+        <div style="width:28px; height:28px; background:#0f7b6c; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">G2</div>
+        <div>
+          <div style="font-size:14px; font-weight:600;">Decision Maker ID</div>
+          <div style="font-size:12px; color:#6b6b6b;">מי חותם? לא יועצים, לא פקידים. מזהים את מקבל ההחלטה האמיתי.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:#f7f6f3; border-radius:4px;">
+        <div style="width:28px; height:28px; background:#0f7b6c; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">G3</div>
+        <div>
+          <div style="font-size:14px; font-weight:600;">Scope Lock</div>
+          <div style="font-size:12px; color:#6b6b6b;">Scope נעול לפני תמחור. שינוי scope = שינוי מחיר. בכתב.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:#f7f6f3; border-radius:4px;">
+        <div style="width:28px; height:28px; background:#0f7b6c; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">G4</div>
+        <div>
+          <div style="font-size:14px; font-weight:600;">Floor Price &#8362;450</div>
+          <div style="font-size:12px; color:#6b6b6b;">שום עסקה מתחת ל-₪450/hr (IL) או $275/hr (Global). אין חריגים.</div>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; padding:10px 14px; background:#f7f6f3; border-radius:4px;">
+        <div style="width:28px; height:28px; background:#0f7b6c; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; flex-shrink:0;">G5</div>
+        <div>
+          <div style="font-size:14px; font-weight:600;">Exit Trigger 6 Months</div>
+          <div style="font-size:12px; color:#6b6b6b;">אין data אחרי 6 חודשים = exit. לא 9 (כמו BIGY). לא 12. שישה.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="approval" style="margin-top:14px;">
+    <div class="checkbox"></div>
+    <div class="label-text">אני מאשר 5 Gates / שינויים: ___</div>
+  </div>
+</div>
+
+<!-- ==================== CASCADE PLAN ==================== -->
+<h2>Cascade Plan <span class="num">מה מתעדכן ואיך</span></h2>
+
+<div class="callout callout-orange">
+  <div class="icon">&#9200;</div>
+  <div class="text">
+    <h3>3 phases &mdash; 48 שעות מרגע אישור 7 ההחלטות</h3>
+    <p>Phase 1 (שעה 0-4): Internal core. Phase 2 (שעה 4-24): Outbound ready. Phase 3 (שעה 24-48): Public facing.</p>
+  </div>
+</div>
+
+<div class="timeline-bar">
+  <div class="phase phase-1">Phase 1: Core (0-4h)</div>
+  <div class="phase phase-2">Phase 2: Outbound (4-24h)</div>
+  <div class="phase phase-3">Phase 3: Public (24-48h)</div>
+</div>
+
+<table class="cascade-table">
+  <thead>
+    <tr>
+      <th style="width:25%;">נכס</th>
+      <th style="width:35%;">מה משתנה</th>
+      <th style="width:15%;">מי</th>
+      <th style="width:15%;">Phase</th>
+      <th style="width:10%;">זמן</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="font-weight:600;">PRIMO System</td>
+      <td>Positioning, voice, pricing rules, CLAUDE.md</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase1">1</span></td>
+      <td>1h</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">AIM Brain</td>
+      <td>All entities aligned to new positioning</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase1">1</span></td>
+      <td>30m</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">Pricing Engine</td>
+      <td>3 packages (S1/S2/S3) as default options</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase1">1</span></td>
+      <td>30m</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">One-Pager</td>
+      <td>New positioning, 3 packages, proof cases. Primak template.</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase1">1</span></td>
+      <td>1h</td>
+    </tr>
+    <tr style="background:#f7f6f3;">
+      <td style="font-weight:600;">Didi Email</td>
+      <td>New positioning + CathWorks + ARC partnerships + meet</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase2">2</span></td>
+      <td>30m</td>
+    </tr>
+    <tr style="background:#f7f6f3;">
+      <td style="font-weight:600;">Scout W1 Messages</td>
+      <td>Recalibrate 3 msgs to Fractional CPO positioning</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase2">2</span></td>
+      <td>1h</td>
+    </tr>
+    <tr style="background:#f7f6f3;">
+      <td style="font-weight:600;">Email Signature</td>
+      <td>New title + one-liner + contact</td>
+      <td class="who"><span class="tag tag-yaniv">YANIV</span></td>
+      <td><span class="tag tag-phase2">2</span></td>
+      <td>10m</td>
+    </tr>
+    <tr style="background:#f7f6f3;">
+      <td style="font-weight:600;">Proposal Template</td>
+      <td>New packages, positioning, proof cases</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase2">2</span></td>
+      <td>1h</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">LinkedIn Profile</td>
+      <td>Headline, About, Experience, Featured</td>
+      <td class="who"><span class="tag tag-together">TOGETHER</span></td>
+      <td><span class="tag tag-phase3">3</span></td>
+      <td>1h</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">LinkedIn Banner</td>
+      <td>New visual &mdash; Fractional CPO + $585M + verticals</td>
+      <td class="who"><span class="tag tag-yaniv">YANIV</span></td>
+      <td><span class="tag tag-phase3">3</span></td>
+      <td>2h</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">Website (primak.co)</td>
+      <td>Hero, services, proof cases, positioning</td>
+      <td class="who"><span class="tag tag-together">TOGETHER</span></td>
+      <td><span class="tag tag-phase3">3</span></td>
+      <td>4h</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">Scout W2-W3 Messages</td>
+      <td>Write remaining 6 messages in new positioning</td>
+      <td class="who"><span class="tag tag-primo">PRIMO</span></td>
+      <td><span class="tag tag-phase3">3</span></td>
+      <td>2h</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ==================== EXECUTION RULES ==================== -->
+<h2>Execution Rules <span class="num">כללי ביצוע</span></h2>
+
+<div class="callout callout-purple">
+  <div class="icon">&#9881;</div>
+  <div class="text">
+    <h3>PRIMO עושה, יניב מאשר ושולח.</h3>
+    <p>PRIMO מכין כל draft. יניב עושה QA + send. שום דבר לא יוצא ללא "אישור יניב" מפורש.</p>
+  </div>
+</div>
+
+<div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:20px;">
+  <div style="background:#f1f7f1; border-radius:4px; padding:14px;">
+    <div style="font-size:12px; font-weight:700; color:#0f7b6c; margin-bottom:8px;">PRIMO DOES</div>
+    <div style="font-size:13px; color:#37352f;">
+      &bull; Write all drafts<br>
+      &bull; Update AIM Brain + PRIMO rules<br>
+      &bull; Update pricing engine<br>
+      &bull; Create one-pager (Primak template)<br>
+      &bull; Recalibrate all Scout messages<br>
+      &bull; Draft LinkedIn sections<br>
+      &bull; Draft website copy<br>
+      &bull; QA every deliverable before presenting
+    </div>
+  </div>
+  <div style="background:#f0f4ff; border-radius:4px; padding:14px;">
+    <div style="font-size:12px; font-weight:700; color:#2f80ed; margin-bottom:8px;">YANIV DOES</div>
+    <div style="font-size:13px; color:#37352f;">
+      &bull; Approve 7 decisions (this document)<br>
+      &bull; Review + send Didi email<br>
+      &bull; Copy-paste Scout messages to LinkedIn<br>
+      &bull; Update email signature<br>
+      &bull; Design LinkedIn banner<br>
+      &bull; Update LinkedIn profile (from PRIMO draft)<br>
+      &bull; Update website (from PRIMO draft)<br>
+      &bull; Final QA on everything going out
+    </div>
+  </div>
+</div>
+
+<!-- ==================== NEXT STEP ==================== -->
+<div class="callout" style="margin-top:32px;">
+  <div class="icon">&#10148;</div>
+  <div class="text">
+    <h3>Next Step</h3>
+    <p><strong>יניב &mdash; סמן את הבחירה שלך ב-7 ההחלטות.</strong> A/B/C/אחר לכל אחת. ברגע שיש אישור, PRIMO מתחיל Phase 1 מייד.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <div>Brand Reset Brief v1 &mdash; PRIMO for Primak Digital</div>
+  <div>19.02.2026</div>
+</div>
+
+</body>
+</html>

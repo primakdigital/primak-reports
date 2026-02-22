@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentagram — CV Strategic Rewrite v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f7f7f7; --white: #fff;
+    --red: #dc2626; --green: #059669; --blue: #1d4ed8;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .hero { padding: 80px 60px 60px; border-bottom: 1px solid var(--black); }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 40px; }
+  .hero h1 { font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -2px; max-width: 780px; margin-bottom: 20px; }
+  .hero .sub { font-size: 17px; color: var(--mid); max-width: 600px; line-height: 1.7; }
+  .hero .meta { margin-top: 40px; font-size: 12px; color: var(--light); letter-spacing: 1px; text-transform: uppercase; }
+
+  section { padding: 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
+  section.black { background: var(--black); color: var(--white); }
+
+  .sn { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 12px; }
+  .dark .sn, .black .sn { color: #555; }
+  h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-bottom: 24px; }
+  h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+  h4 { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; color: var(--light); }
+  p { max-width: 700px; margin-bottom: 14px; font-size: 15px; line-height: 1.7; }
+
+  .finding { display: grid; grid-template-columns: 24px 1fr; gap: 12px; margin-bottom: 16px; align-items: start; }
+  .finding .icon { font-size: 14px; font-weight: 800; color: var(--green); margin-top: 3px; }
+  .finding .icon.warn { color: var(--red); }
+  .finding .icon.note { color: var(--blue); }
+  .finding .text { font-size: 14px; line-height: 1.7; }
+  .finding .text strong { font-weight: 700; }
+
+  .insight { background: var(--bg); border-left: 4px solid var(--black); padding: 28px; margin: 24px 0; max-width: 700px; }
+  .insight blockquote { font-size: 17px; font-weight: 600; line-height: 1.5; letter-spacing: -0.3px; }
+  .insight .attr { margin-top: 10px; font-size: 13px; color: var(--mid); }
+  .dark .insight { background: #222; border-left-color: #666; }
+
+  /* CV PREVIEW */
+  .cv-preview { background: var(--white); border: 2px solid var(--black); max-width: 680px; margin: 28px 0; }
+  .cv-header { padding: 40px 36px 24px; border-bottom: 1px solid var(--border); }
+  .cv-header .cv-name { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 2px; }
+  .cv-header .cv-title { font-size: 14px; font-weight: 600; color: var(--mid); letter-spacing: 1px; text-transform: uppercase; }
+  .cv-header .cv-contact { font-size: 12px; color: var(--light); margin-top: 8px; }
+  .cv-section { padding: 24px 36px; border-bottom: 1px solid var(--border); }
+  .cv-section:last-child { border-bottom: none; }
+  .cv-section-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--light); font-weight: 700; margin-bottom: 16px; }
+  .cv-profile { font-size: 14px; line-height: 1.8; color: var(--mid); }
+  .cv-proof-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; background: var(--black); color: var(--white); margin-top: 16px; }
+  .cv-proof-item { padding: 12px 10px; text-align: center; border-right: 1px solid #333; }
+  .cv-proof-item:last-child { border-right: none; }
+  .cv-proof-item .cv-proof-num { font-size: 18px; font-weight: 800; }
+  .cv-proof-item .cv-proof-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: #999; margin-top: 2px; }
+
+  .cv-entry { margin-bottom: 20px; }
+  .cv-entry:last-child { margin-bottom: 0; }
+  .cv-entry-header { display: grid; grid-template-columns: 1fr auto; align-items: baseline; margin-bottom: 4px; }
+  .cv-entry-company { font-size: 15px; font-weight: 700; }
+  .cv-entry-domain { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: 1px; }
+  .cv-entry-role { font-size: 12px; font-weight: 600; color: var(--mid); margin-bottom: 4px; }
+  .cv-entry-desc { font-size: 13px; line-height: 1.7; color: #444; }
+  .cv-entry-outcome { font-size: 12px; font-weight: 600; color: var(--black); margin-top: 4px; }
+
+  .cv-small-entry { display: grid; grid-template-columns: 180px 1fr; gap: 12px; margin-bottom: 8px; font-size: 13px; }
+  .cv-small-entry .cv-small-name { font-weight: 600; }
+  .cv-small-entry .cv-small-desc { color: var(--mid); }
+
+  /* DESIGN DIRECTION */
+  .design-card { border: 1px solid var(--border); margin-bottom: 20px; }
+  .design-card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 15px; background: var(--bg); }
+  .design-card-body { padding: 20px; font-size: 14px; line-height: 1.7; }
+  .design-card-body p { font-size: 14px; }
+
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--black); margin: 24px 0; }
+  .do-col { padding: 24px; }
+  .do-col:first-child { border-right: 1px solid var(--border); background: #ecfdf5; }
+  .do-col:last-child { background: #fef2f2; }
+  .do-col h4 { margin-bottom: 12px; }
+  .do-col ul { padding-left: 16px; font-size: 13px; line-height: 1.8; }
+  .do-col:first-child h4 { color: var(--green); }
+  .do-col:last-child h4 { color: var(--red); }
+
+  .footer { padding: 40px 60px; font-size: 11px; color: var(--light); display: flex; justify-content: space-between; }
+
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px; } .hero h1 { font-size: 28px; }
+    section { padding: 40px 24px; }
+    .cv-proof-bar { grid-template-columns: repeat(3, 1fr); }
+    .do-dont { grid-template-columns: 1fr; }
+    .do-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    .cv-small-entry { grid-template-columns: 1fr; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Pentagram — CV Strategic Rewrite</div>
+  <h1>From project list to executive signal</h1>
+  <p class="sub">Analysis, rewrite, and design direction for Yaniv Primak's CV. Aligned with the new Primak positioning: Product Turnaround specialist who turns stuck technology into working product.</p>
+  <div class="meta">22 February 2026 · v1 · Natasha Jen, Paula Scher, Eddie Opara</div>
+</div>
+
+<!-- ================================ -->
+<!-- PART 1: ANALYSIS                  -->
+<!-- ================================ -->
+
+<section>
+  <div class="sn">Part 1 — Analysis of Current CV</div>
+  <h2>What works, what doesn't</h2>
+
+  <h3 style="margin-top: 24px; color: var(--green);">What works</h3>
+
+  <div class="finding">
+    <div class="icon">+</div>
+    <div class="text"><strong>Profile paragraph is strong.</strong> "I turn stuck technology into working product" — already aligned with new positioning. The pattern (funding + talent, no product) is clear.</div>
+  </div>
+  <div class="finding">
+    <div class="icon">+</div>
+    <div class="text"><strong>CathWorks entry is powerful.</strong> FDA clearance, 100K patients, $585M acquisition — real numbers, verifiable outcomes. This is the strongest entry in the CV.</div>
+  </div>
+  <div class="finding">
+    <div class="icon">+</div>
+    <div class="text"><strong>Domain breadth is visible.</strong> Healthcare, cybersecurity, media, B2B — the versatility is present. "Five domains, zero failures" is there.</div>
+  </div>
+
+  <h3 style="margin-top: 28px; color: var(--red);">What doesn't work</h3>
+
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>Reads like a freelancer portfolio, not an executive CV.</strong> 15 entries across two categories. Decision-makers scanning this see quantity, not authority. A CPO's CV should show 5-7 significant engagements, not every project.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>Organized by domain, not by impact.</strong> Healthcare gets 6 entries — but only CathWorks is a major engagement. The small projects (NeuroBrave, ClubD, NGT, TAU) dilute the signal. A reader can't distinguish a $585M engagement from a branding gig.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>Role titles undermine the positioning.</strong> "Clinical Interface Design," "Brand & Design," "Visual Communication," "Design Lead" — these position Yaniv as a designer, not a product leader. Directly contradicts the new identity.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>No outcomes except CathWorks.</strong> Every other entry describes WHAT the project is, not WHAT HAPPENED because Yaniv was there. No revenue impact, no scale metrics, no before/after.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>Haaretz is buried.</strong> 3-year transformation, 70 people, Head of Product — this is a top-3 career entry and it sits mid-page under "Technology, Scale & Transformation" with no prominence.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>Orchestra is under-described.</strong> "Product Design" title. No mention that they had been struggling for nearly a year before Yaniv joined. No mention of building from zero. The Cisco partnership reads as a footnote.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>Selina is missing entirely.</strong> One of the 5 proof cases (unicorn, hospitality, mobile acquisition fix) is absent from the CV.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>"Additional" section is an afterthought.</strong> Teaching at Open University + Techstars at the bottom, unlabeled, conveys zero strategic value.</div>
+  </div>
+  <div class="finding">
+    <div class="icon warn">!</div>
+    <div class="text"><strong>No proof architecture.</strong> The "5 domains, zero failures" line is in the profile but nowhere else. No system for making outcomes scannable. No visual hierarchy between major and minor engagements.</div>
+  </div>
+
+  <div class="insight" style="margin-top: 28px;">
+    <blockquote>Core problem: this CV describes projects. It should demonstrate a pattern. The pattern is: stuck technology → Yaniv enters → working product. Every entry should show that arc — or be cut.</blockquote>
+    <div class="attr">Paula Scher — strategic assessment</div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- PART 2: REWRITTEN CV              -->
+<!-- ================================ -->
+
+<section class="dark">
+  <div class="sn">Part 2 — CV Updated (Final Draft)</div>
+  <h2 style="color:#fff;">The rewritten CV</h2>
+  <p style="color: #999;">Restructured by impact. Role titles reframed to reflect product leadership. Outcomes added where verifiable. Minor projects consolidated. Hierarchy serves the 7-second scan.</p>
+</section>
+
+<section style="padding: 60px; background: #fafafa;">
+  <div class="cv-preview">
+
+    <!-- CV HEADER -->
+    <div class="cv-header">
+      <div class="cv-name">Yaniv Primak</div>
+      <div class="cv-title">CPO, Primak</div>
+      <div class="cv-contact">yaniv@primak.co &nbsp;·&nbsp; primak.co &nbsp;·&nbsp; Tel Aviv</div>
+    </div>
+
+    <!-- PROFILE -->
+    <div class="cv-section">
+      <div class="cv-section-title">Profile</div>
+      <div class="cv-profile">
+        I turn stuck technology into working product. The domain changes — healthcare, cybersecurity, media, B2B platforms — the problem doesn't: organizations with funding and talent, but no product that ships. I find what's broken, build what's missing, and leave when it runs.
+      </div>
+      <div class="cv-proof-bar">
+        <div class="cv-proof-item">
+          <div class="cv-proof-num">$585M</div>
+          <div class="cv-proof-label">Exit</div>
+        </div>
+        <div class="cv-proof-item">
+          <div class="cv-proof-num">FDA</div>
+          <div class="cv-proof-label">Cleared</div>
+        </div>
+        <div class="cv-proof-item">
+          <div class="cv-proof-num">100K+</div>
+          <div class="cv-proof-label">Patients</div>
+        </div>
+        <div class="cv-proof-item">
+          <div class="cv-proof-num">5</div>
+          <div class="cv-proof-label">Domains</div>
+        </div>
+        <div class="cv-proof-item">
+          <div class="cv-proof-num">0</div>
+          <div class="cv-proof-label">Failures</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KEY ENGAGEMENTS -->
+    <div class="cv-section">
+      <div class="cv-section-title">Key Engagements</div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-header">
+          <div class="cv-entry-company">CathWorks</div>
+          <div class="cv-entry-domain">MedTech AI</div>
+        </div>
+        <div class="cv-entry-role">Product Lead — FFRangio Clinical Platform</div>
+        <div class="cv-entry-desc">Led UX and product design for AI-powered coronary artery diagnostics. Built the complete clinical interface — from concept through FDA 510(k) clearance. Deployed in cardiac catheterization labs, 100,000+ patient procedures worldwide.</div>
+        <div class="cv-entry-outcome">→ Acquired by Medtronic for $585M (2026)</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-header">
+          <div class="cv-entry-company">Haaretz — TheMarker Group</div>
+          <div class="cv-entry-domain">Digital Media</div>
+        </div>
+        <div class="cv-entry-role">Head of Product</div>
+        <div class="cv-entry-desc">Led 3-year digital transformation of Israel's largest premium media group. Built and managed 70-person product & engineering department. Redesigned editorial workflows, publishing systems, and all reader-facing digital products. Designed TheMarker — Israel's leading financial newspaper.</div>
+        <div class="cv-entry-outcome">→ 70-person department · 3-year transformation · Full digital product suite</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-header">
+          <div class="cv-entry-company">Orchestra Group</div>
+          <div class="cv-entry-domain">Cybersecurity</div>
+        </div>
+        <div class="cv-entry-role">Product Lead</div>
+        <div class="cv-entry-desc">Built the product from zero. Advanced cyber analytics platform for CISOs and forensic analysts. Joined an organization founded by NSO Group alumni that had resources but no working product. Led product design and UX end-to-end.</div>
+        <div class="cv-entry-outcome">→ Pilot with Bank of America · Strategic partnership with Cisco</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-header">
+          <div class="cv-entry-company">Queue</div>
+          <div class="cv-entry-domain">B2B2C Platform</div>
+        </div>
+        <div class="cv-entry-role">Chief Product Officer</div>
+        <div class="cv-entry-desc">Full product ownership — from fundraising support through concept, build, and market launch. Authority management platform.</div>
+        <div class="cv-entry-outcome">→ Concept to market · CPO from day one</div>
+      </div>
+
+      <div class="cv-entry">
+        <div class="cv-entry-header">
+          <div class="cv-entry-company">Globes</div>
+          <div class="cv-entry-domain">Financial Media</div>
+        </div>
+        <div class="cv-entry-role">Design Lead</div>
+        <div class="cv-entry-desc">Complete redesign of Israel's second-largest financial newspaper — daily edition, supplements, and weekend magazine.</div>
+      </div>
+    </div>
+
+    <!-- HEALTHCARE PORTFOLIO -->
+    <div class="cv-section">
+      <div class="cv-section-title">Healthcare & Health-Tech Portfolio</div>
+
+      <div class="cv-small-entry">
+        <div class="cv-small-name">ICA — Israel Center for Addictions</div>
+        <div class="cv-small-desc">Product design for IcanDo behavioral health platform. Garmin biosensor integration. National Knowledge Center for addiction research.</div>
+      </div>
+      <div class="cv-small-entry">
+        <div class="cv-small-name">NeuroBrave</div>
+        <div class="cv-small-desc">Brand and product design for neuroscience AI platform — cognitive insights from wearable biosensors.</div>
+      </div>
+      <div class="cv-small-entry">
+        <div class="cv-small-name">eHealth Ventures / ClubD</div>
+        <div class="cv-small-desc">Brand identity and design system for health-tech investor club, with the Israeli Medical Association.</div>
+      </div>
+      <div class="cv-small-entry">
+        <div class="cv-small-name">NGT Healthcare</div>
+        <div class="cv-small-desc">Product and brand for EMRIS Pharma and Slate Therapeutics portfolio companies.</div>
+      </div>
+    </div>
+
+    <!-- EDUCATION & ADVISORY -->
+    <div class="cv-section">
+      <div class="cv-section-title">Education & Advisory</div>
+
+      <div class="cv-small-entry">
+        <div class="cv-small-name">Open University of Israel</div>
+        <div class="cv-small-desc">AI Lecturer & Faculty Coordinator</div>
+      </div>
+      <div class="cv-small-entry">
+        <div class="cv-small-name">Reichman University</div>
+        <div class="cv-small-desc">Lecturer — Entrepreneurship & Economics</div>
+      </div>
+      <div class="cv-small-entry">
+        <div class="cv-small-name">Techstars</div>
+        <div class="cv-small-desc">Accelerator</div>
+      </div>
+      <div class="cv-small-entry">
+        <div class="cv-small-name">Tel Aviv University</div>
+        <div class="cv-small-desc">Faculty of Medicine — Visual Communication, Prof. Didi Fabian</div>
+      </div>
+    </div>
+
+  </div><!-- end cv-preview -->
+
+  <div class="insight" style="margin-top: 24px;">
+    <blockquote>Recommended addition: Selina Hotels (unicorn, hospitality tech). Confirmed as one of Yaniv's 5 proof cases but absent from source CV. Should be added to Key Engagements when details are confirmed.</blockquote>
+    <div class="attr">Gap flagged — not added per "existing facts only" rule</div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- PART 3: KEY UPGRADES              -->
+<!-- ================================ -->
+
+<section>
+  <div class="sn">Key Upgrades Made</div>
+  <h2>What changed and why</h2>
+
+  <div class="finding" style="margin-top: 20px;">
+    <div class="icon note">1</div>
+    <div class="text"><strong>Structure: domain-first → impact-first.</strong> Key Engagements now ordered by strategic weight: CathWorks ($585M), Haaretz (70 people, 3 years), Orchestra (zero to Cisco), Queue (CPO). Smaller projects moved to consolidated "Portfolio" section.</div>
+  </div>
+  <div class="finding">
+    <div class="icon note">2</div>
+    <div class="text"><strong>Role titles reframed.</strong> "Clinical Interface Design" → "Product Lead — FFRangio Clinical Platform." "Product Design" at Orchestra → "Product Lead." Titles now reflect leadership and ownership, not craft deliverables.</div>
+  </div>
+  <div class="finding">
+    <div class="icon note">3</div>
+    <div class="text"><strong>Proof bar added.</strong> Five numbers ($585M | FDA | 100K+ | 5 Domains | 0 Failures) immediately below profile. Scannable in 2 seconds. Decision-makers see outcomes before reading a single entry.</div>
+  </div>
+  <div class="finding">
+    <div class="icon note">4</div>
+    <div class="text"><strong>Outcome lines added to every key entry.</strong> "→ Acquired by Medtronic for $585M." "→ Pilot with Bank of America · Strategic partnership with Cisco." Each entry now ends with what happened — not just what it was.</div>
+  </div>
+  <div class="finding">
+    <div class="icon note">5</div>
+    <div class="text"><strong>Signal-to-noise ratio improved.</strong> From 15 entries of equal weight to 5 key engagements + 4 supporting projects + 4 education items. Clear hierarchy. No confusion about what matters.</div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- PART 4: DESIGN DIRECTION          -->
+<!-- ================================ -->
+
+<section class="black">
+  <div class="sn">Part 3 — Design Direction</div>
+  <h2 style="color:#fff;">How this CV should look and feel</h2>
+  <p style="color: #999;">Creative direction for implementation. Not graphic execution — strategic guidance for the final branded document.</p>
+</section>
+
+<section>
+
+  <!-- CONCEPT -->
+  <div class="design-card">
+    <div class="design-card-header">1. Design Concept</div>
+    <div class="design-card-body">
+      <p><strong>Direction: Executive Editorial.</strong></p>
+      <p>The CV should feel like an executive brief, not a creative portfolio. Think McKinsey partner biography meets Monocle editorial. Clean, authoritative, information-dense but never crowded. The design communicates: "this person operates at the executive level" before a single word is read.</p>
+      <p>Reference mood: Moog product sheets (precision + beauty), Pentagram case study pages (clean grid, clear hierarchy), The Economist typography (authority without decoration).</p>
+      <p><strong>NOT:</strong> creative portfolio, colorful infographic, "modern resume template," anything with icons, charts, or skill bars.</p>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="design-card">
+    <div class="design-card-header">2. Layout & Hierarchy</div>
+    <div class="design-card-body">
+      <p><strong>Page 1 (above the fold — the decision page):</strong></p>
+      <p>Name + Title + Contact → Profile (3 lines max) → Proof Bar (5 metrics, black background, white text) → Top 2-3 Key Engagements with outcome lines. Everything a decision-maker needs to say "I want to meet this person" in 7 seconds.</p>
+      <p><strong>Page 2 (supporting depth):</strong></p>
+      <p>Remaining Key Engagements → Healthcare Portfolio (compressed) → Education & Advisory. This page exists for due diligence — the decision was made on page 1.</p>
+      <p><strong>Grid:</strong> Single column. No sidebar. No two-column layout. Executive documents are read top-to-bottom, not scanned left-to-right. Generous left margin (identity column for section labels, aligned left).</p>
+      <p><strong>Whitespace:</strong> Aggressive. The emptiness IS the authority. A CV with 60% whitespace communicates seniority. A packed CV communicates anxiety.</p>
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="design-card">
+    <div class="design-card-header">3. Typography Direction</div>
+    <div class="design-card-body">
+      <p><strong>Hierarchy (4 levels):</strong></p>
+      <p><strong>Level 1 — Name:</strong> Large, heavy weight (800-900). The name should be the largest element on the page. No logo. The name IS the logo.</p>
+      <p><strong>Level 2 — Section titles:</strong> Small caps, wide letter-spacing, light weight. "KEY ENGAGEMENTS" as a quiet structural label, not a shouted heading.</p>
+      <p><strong>Level 3 — Entry titles:</strong> Bold, slightly larger than body. Company name is the anchor. Domain sits right-aligned as a tag.</p>
+      <p><strong>Level 4 — Body:</strong> Regular weight, generous line height (1.6-1.7). Outcome lines in bold or medium weight, slightly smaller than body.</p>
+      <p><strong>Typographic tone:</strong> Neo-grotesque. Clean, no serifs, no decorative elements. The typeface should disappear — letting the content speak. Inter, Graphik, Founders Grotesk, or Suisse Int'l family. One family only — no mixing.</p>
+      <p><strong>Proof Bar numbers:</strong> Tabular figures, heavy weight. The numbers should look like they belong on a financial report, not a poster.</p>
+    </div>
+  </div>
+
+  <!-- PROOF SYSTEM -->
+  <div class="design-card">
+    <div class="design-card-header">4. Proof Presentation System</div>
+    <div class="design-card-body">
+      <p><strong>Proof Bar:</strong> Black background strip, full width, immediately below profile. Five metrics in equal columns. Large numbers (18-24pt) over small uppercase labels (8-9pt). This is the "billboard" — the first thing eyes go to after the name.</p>
+      <p><strong>Outcome Lines:</strong> Each Key Engagement ends with a bold line prefixed by "→". This creates a scannable pattern — a reader can skim just the arrows and get the full story: $585M... 70-person department... Cisco partnership... concept to market.</p>
+      <p><strong>Domain Tags:</strong> Right-aligned, uppercase, light weight. MedTech AI / Cybersecurity / Digital Media. They provide context without competing with the company name. Subtle categorization that helps the reader place each engagement instantly.</p>
+      <p><strong>Hierarchy between Key Engagements and Portfolio:</strong> Key Engagements get full entries (company, role, description, outcome). Portfolio items get one-line compressed entries (name + one-sentence description). The visual weight difference immediately communicates: these are the stories that matter.</p>
+    </div>
+  </div>
+
+  <!-- VISUAL LANGUAGE -->
+  <div class="design-card">
+    <div class="design-card-header">5. Visual Language</div>
+    <div class="design-card-body">
+      <p><strong>Color:</strong> Black and white. Period. One accent color ONLY for the proof bar or outcome arrows — if needed. The Primak brand can be monochrome at this stage. Color is for the website, not the CV.</p>
+      <p><strong>Lines:</strong> Thin horizontal rules (0.5pt, light grey) to separate sections. No boxes, no borders around entries. Lines are structural, not decorative.</p>
+      <p><strong>Spacing:</strong> Section spacing > entry spacing > line spacing. The rhythm should feel architectural — each section is a room, each entry is furniture. Enough space to breathe, not enough to feel empty.</p>
+      <p><strong>Icons:</strong> None. Zero. No industry icons, no contact icons, no skill icons. Icons are for junior designers. This CV speaks with words and numbers.</p>
+      <p><strong>Elements:</strong> The ONLY graphic element is the Proof Bar (black strip with white numbers). Everything else is pure typography. The proof bar functions as both a visual anchor and an information device — this is the Moog principle: beautiful AND functional.</p>
+    </div>
+  </div>
+
+  <!-- FORMAT VARIANTS -->
+  <div class="design-card">
+    <div class="design-card-header">6. Format Variants</div>
+    <div class="design-card-body">
+      <p><strong>Primary: Executive PDF (2 pages).</strong> Full CV. Formatted for print and screen. This is the asset sent to clients, partners, investors, and board-level contacts. Must look flawless on both a 27" screen and an A4 printout.</p>
+      <p><strong>Secondary: Word (.docx) — Branded Template.</strong> Same content and visual structure as the PDF, implemented in Word with proper heading styles, consistent spacing, and Primak branded template. Export-ready — no reformatting needed by recipient. Use the Primak Word template (primaktemp.dotx) as base.</p>
+      <p><strong>Tertiary: LinkedIn-ready text.</strong> Plain text version optimized for copy-paste into LinkedIn's About section and Experience entries. No formatting dependencies. Same content hierarchy, adapted for LinkedIn's constraints.</p>
+      <p><strong>One-page variant:</strong> For situations requiring a single page (conference bios, board packages): Profile + Proof Bar + 5 Key Engagements (3-line each) + Education (one line). Cut the portfolio section entirely.</p>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont">
+    <div class="do-col">
+      <h4>Do</h4>
+      <ul>
+        <li><strong>Precision:</strong> Every word earns its place. If it doesn't advance the narrative, cut it.</li>
+        <li><strong>Authority:</strong> Whitespace, clean typography, large name. The document should feel senior before reading starts.</li>
+        <li><strong>Clarity:</strong> 7-second scan reveals: who, what domains, what outcomes, what scale.</li>
+        <li><strong>Outcomes first:</strong> The proof bar is the first visual element after the name. Numbers precede narratives.</li>
+        <li><strong>Pattern recognition:</strong> Reader should feel the "enters stuck → leaves working" arc across all entries.</li>
+        <li><strong>Print-ready:</strong> Must look as good printed on paper as it does on screen.</li>
+      </ul>
+    </div>
+    <div class="do-col">
+      <h4>Don't</h4>
+      <ul>
+        <li><strong>No icons.</strong> No skill bars. No charts. No infographics. No rating systems.</li>
+        <li><strong>No color.</strong> Black, white, one possible accent. That's it.</li>
+        <li><strong>No decoration.</strong> No borders, shadows, gradients, background textures.</li>
+        <li><strong>No fluff.</strong> No "passionate about innovation." No "proven track record of excellence." Let the numbers talk.</li>
+        <li><strong>No portfolio aesthetics.</strong> This is not a creative portfolio. No full-bleed images, no project thumbnails, no mood boards.</li>
+        <li><strong>No "modern CV template" look.</strong> No sidebar with skills, no headshot circle, no progress bars.</li>
+        <li><strong>No equal weight.</strong> If CathWorks ($585M) and ClubD (branding gig) look the same — the hierarchy failed.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ -->
+<!-- WORD IMPLEMENTATION GUIDE         -->
+<!-- ================================ -->
+
+<section class="dark">
+  <div class="sn">Implementation — Word Document</div>
+  <h2 style="color:#fff;">How to build this in Word</h2>
+
+  <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin: 24px 0; max-width: 640px;">
+    <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Template</div>
+    <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">Use <code style="background:#333; color:#ccc;">primaktemp.dotx</code> as base. Override styles as needed to match the design direction above.</p>
+  </div>
+
+  <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin: 16px 0; max-width: 640px;">
+    <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Heading Styles</div>
+    <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">
+      <strong>Heading 1:</strong> Name — 24-28pt, weight 800, no spacing above, 6pt below<br>
+      <strong>Heading 2:</strong> Section titles — 9pt, uppercase, letter-spacing 3pt, color #888, 24pt above, 12pt below<br>
+      <strong>Heading 3:</strong> Company names — 13pt, weight 700, 16pt above, 2pt below<br>
+      <strong>Normal:</strong> Body — 10.5pt, weight 400, line spacing 1.5, color #444<br>
+      <strong>Outcome:</strong> Custom style — 10pt, weight 600, color #111, 4pt above
+    </p>
+  </div>
+
+  <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin: 16px 0; max-width: 640px;">
+    <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Proof Bar in Word</div>
+    <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">Implement as a 5-column table with black cell shading, white text, no borders. Row height: 1.2cm. Center-aligned. This is the one "graphic" element — it breaks the monotony and anchors the page.</p>
+  </div>
+
+  <div style="background: #222; border-left: 4px solid #4ade80; padding: 24px; margin: 16px 0; max-width: 640px;">
+    <div style="font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #4ade80; font-weight: 700; margin-bottom: 6px;">Page Setup</div>
+    <p style="color: #ccc; font-size: 14px; margin-bottom: 0;">
+      A4 · Margins: Top 2.5cm, Bottom 2cm, Left 3cm, Right 2.5cm · Left margin is intentionally larger — creates a clean reading column. No headers/footers on page 1. Page 2: subtle footer with "Yaniv Primak — CPO, Primak" right-aligned, 8pt, color #ccc.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sn">Next Step</div>
+  <h2>Ready for implementation</h2>
+  <p>This document contains everything needed to produce the final branded Word/PDF. The CV text is final-draft ready — pending Yaniv's review and the addition of Selina Hotels once details are confirmed.</p>
+  <p><strong>Deliverables to produce:</strong></p>
+  <div class="finding" style="margin-top: 16px;">
+    <div class="icon note">1</div>
+    <div class="text">Branded Word document (.docx) using primaktemp.dotx + style overrides per design direction</div>
+  </div>
+  <div class="finding">
+    <div class="icon note">2</div>
+    <div class="text">PDF export from Word — print-ready, no quality loss</div>
+  </div>
+  <div class="finding">
+    <div class="icon note">3</div>
+    <div class="text">LinkedIn-ready plain text version for About + Experience sections</div>
+  </div>
+</section>
+
+<div class="footer">
+  <div>Pentagram × Primak · CV Strategic Rewrite v1 · 22.02.2026</div>
+  <div>Confidential</div>
+</div>
+
+</body>
+</html>
