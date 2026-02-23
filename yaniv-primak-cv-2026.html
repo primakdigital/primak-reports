@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yaniv Primak - CPO, Primak</title>
+<meta name="description" content="Yaniv Primak - CPO, Primak. Product leader for medical AI and health-tech. $585M exit, FDA cleared, 100K+ patients.">
+<meta property="og:title" content="Yaniv Primak - CPO, Primak">
+<meta property="og:description" content="Product leader for medical AI and health-tech. $585M exit, FDA cleared, 100K+ patients.">
+<meta property="og:type" content="profile">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f7f7f7; --white: #fff;
+    --accent: #111; --red: #dc2626; --green: #059669;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* HERO */
+  .hero { background: var(--black); color: #fff; padding: 100px 60px 80px; min-height: 80vh; display: flex; flex-direction: column; justify-content: flex-end; border-bottom: 1px solid #333; }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #444; font-weight: 600; margin-bottom: 40px; }
+  .hero-identity { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+  .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.08; letter-spacing: -2px; max-width: 780px; margin-bottom: 8px; color: #fff; }
+  .hero .title { font-size: 16px; font-weight: 500; color: #777; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0; }
+  .hero .sub { font-size: 16px; color: #999; max-width: 600px; line-height: 1.7; }
+  .hero .contact { margin-top: 40px; font-size: 13px; color: #444; }
+  .hero .contact a { color: #666; text-decoration: none; transition: color 0.2s; }
+  .hero .contact a:hover { color: #fff; }
+  .hero .contact .sep { color: #333; margin: 0 6px; }
+  .hero .photo { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; filter: grayscale(100%); margin-bottom: 0; border: 2px solid #333; }
+
+  /* PROOF BAR */
+  .proof-bar { background: var(--black); padding: 0 60px 48px; display: flex; gap: 32px; flex-wrap: wrap; }
+  .proof-item { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #666; font-weight: 500; }
+  .proof-item strong { color: #999; font-weight: 700; }
+
+  /* SECTIONS */
+  section { padding: 48px 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
+
+  .sn { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 12px; }
+  .dark .sn { color: #555; }
+  h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 20px; }
+  h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.3px; }
+  p { max-width: 640px; margin-bottom: 14px; }
+
+  /* ENTRY CARDS - TIER 1 */
+  .entry-card { border: 1px solid var(--border); margin-bottom: 14px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .entry-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .entry-card-header { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--border); background: var(--bg); }
+  .entry-card-company { font-weight: 700; font-size: 17px; letter-spacing: -0.3px; }
+  .entry-card-company a { color: var(--black); text-decoration: none; }
+  .entry-card-company a:hover { text-decoration: underline; }
+  .entry-card-domain { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+  .entry-card-body { padding: 16px 18px; }
+  .entry-card-role { font-size: 13px; font-weight: 600; color: var(--mid); margin-bottom: 8px; }
+  .entry-card-desc { font-size: 14px; line-height: 1.7; color: #444; max-width: 640px; margin-bottom: 0; }
+  .entry-card-outcome { font-size: 10px; font-weight: 600; color: var(--light); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); letter-spacing: 1.5px; text-transform: uppercase; }
+
+  /* TIER 2 - COMPACT */
+  .compact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .compact-card { border: 1px solid var(--border); padding: 16px 18px; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .compact-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .compact-company { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; margin-bottom: 4px; }
+  .compact-desc { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 8px; }
+  .compact-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .compact-tag { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--light); font-weight: 600; background: var(--bg); padding: 2px 8px; border-radius: 2px; }
+
+  /* DARK SECTION OVERRIDES */
+  .dark .entry-card { border-color: #333; }
+  .dark .entry-card-header { background: #222; border-bottom-color: #333; }
+  .dark .entry-card-company { color: #fff; }
+  .dark .entry-card-company a { color: #fff; }
+  .dark .entry-card-desc { color: #999; }
+  .dark .entry-card-outcome { color: #666; border-top-color: #333; }
+  .dark .entry-card:hover { box-shadow: 0 4px 16px rgba(255,255,255,0.04); }
+  .dark .entry-card-role { color: #777; }
+  .dark h2 { color: #fff; }
+
+  /* FOOTER */
+  .footer { padding: 40px 60px; font-size: 11px; color: #555; display: flex; justify-content: space-between; background: var(--black); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 24px 48px; min-height: 60vh; }
+    .hero h1 { font-size: 32px; letter-spacing: -1.5px; }
+    .hero .title { font-size: 13px; }
+    .proof-bar { padding: 0 24px 32px; gap: 16px; }
+    section { padding: 32px 24px; }
+    h2 { font-size: 20px; }
+    .entry-card-header { grid-template-columns: 1fr; gap: 4px; }
+    .compact-grid { grid-template-columns: 1fr; }
+    .footer { padding: 40px 24px; flex-direction: column; gap: 4px; }
+  }
+
+  @media print {
+    .hero { padding: 40px 40px 30px; min-height: auto; background: #111; color: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .proof-bar { padding: 0 40px 20px; background: #111; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    section { padding: 40px; }
+    .entry-card { break-inside: avoid; }
+    a { color: var(--black); text-decoration: none; }
+    .footer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Curriculum Vitae</div>
+  <div class="hero-identity">
+    <img src="yaniv-primak-photo.png" alt="Yaniv Primak" class="photo">
+    <div>
+      <h1>Yaniv Primak</h1>
+      <div class="title">CPO, Primak</div>
+    </div>
+  </div>
+  <p class="sub">Built FDA-cleared cardiac AI that reached 100K patients and a $585M Medtronic acquisition. Then applied the same discipline across cybersecurity, media, and enterprise - shipping products that couldn't afford to fail.</p>
+  <div class="contact">
+    <a href="mailto:yaniv@primak.co">yaniv@primak.co</a>
+    <span class="sep">&middot;</span>
+    <a href="https://primak.co" target="_blank" rel="noopener">primak.co</a>
+    <span class="sep">&middot;</span>
+    <a href="https://linkedin.com/in/yanivprimak" target="_blank" rel="noopener">LinkedIn</a>
+    <span class="sep">&middot;</span>
+    Tel Aviv
+  </div>
+</div>
+
+
+<!-- TIER 1: PRODUCT LEADERSHIP -->
+<section>
+  <div class="sn">Product Leadership</div>
+  <h2></h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.medtronic.com/us-en/about/news/cathworks.html" target="_blank" rel="noopener">CathWorks</a></div>
+      <div class="entry-card-domain">MedTech AI</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead - FFRangio Clinical Platform</div>
+      <p class="entry-card-desc">AI-powered coronary diagnostics with no clinical interface. Built the complete product from concept through FDA 510(k) clearance. Deployed in cardiac catheterization labs worldwide.</p>
+      <div class="entry-card-outcome">$585M - Acquired by Medtronic · 100,000+ patients · FDA cleared</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">PhotoShield</div>
+      <div class="entry-card-domain">Cybersecurity · Enterprise AI</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">CPO</div>
+      <p class="entry-card-desc">Enterprise endpoint protection platform - AI that detects when employees photograph screens with smartphones or cameras, then blocks them. Built product from zero for the hybrid work security market.</p>
+      <div class="entry-card-outcome">Enterprise privacy platform · AI visual detection · Remote workforce protection</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Queue</div>
+      <div class="entry-card-domain">B2B2C · SaaS</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">CPO</div>
+      <p class="entry-card-desc">Authority management platform. Led product from fundraising through concept, build, and market launch. Full CPO ownership - strategy, roadmap, team, delivery.</p>
+      <div class="entry-card-outcome">From fundraising to market launch · Full product ownership</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.ica.org.il" target="_blank" rel="noopener">IcanDo (ICA)</a></div>
+      <div class="entry-card-domain">Healthcare · AI · Biosensors</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead</div>
+      <p class="entry-card-desc">End-to-end product ownership for behavioral health mobile app. Garmin biosensor integration for real-time physiological monitoring of addiction recovery patients.</p>
+      <div class="entry-card-outcome">Behavioral health app · Biosensor integration · Live on App Store & Google Play</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.neurobrave.com" target="_blank" rel="noopener">NeuroBrave</a></div>
+      <div class="entry-card-domain">Neuroscience · AI · Wearables</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead</div>
+      <p class="entry-card-desc">End-to-end product ownership for neuroscience AI mobile app - cognitive insights from wearable biosensors for clinical researchers.</p>
+      <div class="entry-card-outcome">Neuroscience AI · Wearable biosensors · Mobile app</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company"><a href="https://www.haaretz.co.il" target="_blank" rel="noopener">Haaretz - TheMarker Group</a></div>
+      <div class="entry-card-domain">Media · Digital Transformation</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Head of Product</div>
+      <p class="entry-card-desc">Led online-to-offline digital transformation of Israel's leading newspaper group. No product team, no digital infrastructure. Built a 70-person department and shipped every digital product over three years.</p>
+      <div class="entry-card-outcome">Online/Offline transformation · 70-person department · 3-year full digital suite</div>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Orchestra Group</div>
+      <div class="entry-card-domain">Cybersecurity</div>
+    </div>
+    <div class="entry-card-body">
+      <div class="entry-card-role">Product Lead</div>
+      <p class="entry-card-desc">Cyber startup founded by NSO Group alumni. Built the cyber analytics platform from zero - end-to-end product for CISOs and forensic analysts.</p>
+      <div class="entry-card-outcome">Cyber CISO platform · NSO Group founders</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- TIER 2: HEALTHCARE & AI -->
+<section>
+  <div class="sn">Selected Projects</div>
+  <h2>Healthcare & AI ecosystem</h2>
+
+  <div class="compact-grid">
+    <div class="compact-card">
+      <div class="compact-company">ICA - National Knowledge Center</div>
+      <div class="compact-desc">Product lead and developer for Israel's national addiction research knowledge center. End-to-end - architecture, UX, development, and AI integration for clinical researchers and policymakers.</div>
+      <div class="compact-tags">
+        <span class="compact-tag">Healthcare</span>
+        <span class="compact-tag">AI</span>
+        <span class="compact-tag">Full-Stack</span>
+      </div>
+    </div>
+    <div class="compact-card">
+      <div class="compact-company">eHealth Ventures / ClubD</div>
+      <div class="compact-desc">Branding, strategy, and narrative for health-tech investor club - in partnership with the Israeli Medical Association. End-to-end execution.</div>
+      <div class="compact-tags">
+        <span class="compact-tag">Health-Tech</span>
+        <span class="compact-tag">Strategy</span>
+        <span class="compact-tag">IMA</span>
+      </div>
+    </div>
+    <div class="compact-card">
+      <div class="compact-company">NGT Healthcare (EMRIS + Slate)</div>
+      <div class="compact-desc">Product and brand strategy for EMRIS Pharma and Slate Therapeutics portfolio companies.</div>
+      <div class="compact-tags">
+        <span class="compact-tag">Pharma</span>
+        <span class="compact-tag">Portfolio</span>
+      </div>
+    </div>
+    <div class="compact-card">
+      <div class="compact-company">Selina Hotels</div>
+      <div class="compact-desc">Unicorn hospitality company. Redesigned the booking experience, fixed the mobile acquisition funnel.</div>
+      <div class="compact-tags">
+        <span class="compact-tag">Hospitality</span>
+        <span class="compact-tag">Unicorn</span>
+        <span class="compact-tag">Mobile</span>
+      </div>
+    </div>
+    <div class="compact-card">
+      <div class="compact-company">ZIM Ventures</div>
+      <div class="compact-desc">Product definition and design for ZIM's (NYSE: ZIM) logistics-tech innovation arm.</div>
+      <div class="compact-tags">
+        <span class="compact-tag">Logistics</span>
+        <span class="compact-tag">Innovation</span>
+        <span class="compact-tag">NYSE</span>
+      </div>
+    </div>
+    <div class="compact-card">
+      <div class="compact-company">Geshem / 100DAYS</div>
+      <div class="compact-desc">Strategy, storytelling, and branding for student support venture. Fundraising strategy targeting healthcare funds.</div>
+      <div class="compact-tags">
+        <span class="compact-tag">Healthcare Funding</span>
+        <span class="compact-tag">Strategy</span>
+        <span class="compact-tag">Impact</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- TIER 3: EDUCATION -->
+<section class="dark">
+  <div class="sn">Education & Advisory</div>
+  <h2>Teaching & mentoring</h2>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Open University of Israel</div>
+      <div class="entry-card-domain">AI · Academia</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">AI Domain Lead</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Techstars</div>
+      <div class="entry-card-domain">Accelerator</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Mentor in Residence</p>
+    </div>
+  </div>
+
+  <div class="entry-card">
+    <div class="entry-card-header">
+      <div class="entry-card-company">Reichman University</div>
+      <div class="entry-card-domain">Academia</div>
+    </div>
+    <div class="entry-card-body">
+      <p class="entry-card-desc">Innovation Lab</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="footer">
+  <div>Primak · Fractional CPO for high-stakes AI</div>
+  <div><a href="https://primak.co" style="color:#555; text-decoration:none;">primak.co</a> · <a href="mailto:yaniv@primak.co" style="color:#555; text-decoration:none;">yaniv@primak.co</a></div>
+</div>
+
+</body>
+</html>
