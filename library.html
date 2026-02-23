@@ -20,10 +20,22 @@
   .hero .back { margin-top: 16px; }
   .hero .back a { font-size: 13px; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--border); }
   .hero .back a:hover { color: var(--black); border-bottom-color: var(--black); }
+  .hero .legend { margin-top: 16px; display: flex; gap: 20px; font-size: 11px; color: var(--light); }
+  .hero .legend span { display: flex; align-items: center; gap: 6px; }
+  .hero .legend .dot { width: 8px; height: 8px; border-radius: 50%; }
 
-  .section { padding: 32px 48px; border-bottom: 1px solid var(--border); }
+  .section { padding: 32px 48px; border-bottom: 1px solid var(--border); border-right: 4px solid transparent; }
   .section:last-of-type { border-bottom: none; }
   .section-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+
+  /* ENERGY TIERS */
+  .section.hot { border-right-color: var(--accent); }
+  .section.hot .section-label { color: var(--accent); }
+  .section.warm { border-right-color: var(--orange); }
+  .section.warm .section-label { color: var(--orange); }
+  .section.cold { border-right-color: #ddd; opacity: 0.55; }
+  .section.cold:hover { opacity: 0.85; }
+  .section.cold .section-label { color: var(--light); }
 
   .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
   .doc-link { display: block; padding: 10px 14px; border: 1px solid var(--border); border-radius: 4px; text-decoration: none; color: var(--black); font-size: 13px; font-weight: 600; transition: all 0.15s; }
@@ -39,19 +51,67 @@
     .hero, .section, .footer { padding-right: 20px; padding-left: 20px; }
     .hero h1 { font-size: 28px; }
     .docs-grid { grid-template-columns: 1fr 1fr; }
+    .hero .legend { flex-wrap: wrap; gap: 12px; }
   }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <div class="mark">Primak Document Library &mdash; v3 &mdash; 23.02.2026</div>
+  <div class="mark">Primak Document Library &mdash; v4 &mdash; 23.02.2026</div>
   <h1>ספריית מסמכים</h1>
   <div class="back"><a href="index.html">&larr; חזרה ל-Command Center</a></div>
+  <div class="legend">
+    <span><span class="dot" style="background:var(--accent);"></span> חם — מניע הכנסה עכשיו</span>
+    <span><span class="dot" style="background:var(--orange);"></span> תומך — reference פעיל</span>
+    <span><span class="dot" style="background:#ddd;"></span> קר — ארכיון</span>
+  </div>
 </div>
 
-<!-- ═══ PENTAGRAM BRAND RESET ═══ -->
-<div class="section" id="pentagram">
+<!-- ═══ HOT: OUTREACH ═══ -->
+<div class="section hot">
+  <div class="section-label">Outreach &amp; Contacts</div>
+  <div class="docs-grid">
+    <a href="scout-outreach-hub-v1.html" class="doc-link"><span class="t green">Active</span>Outreach Hub — Briefs</a>
+    <a href="scout-plan-v1.html" class="doc-link"><span class="t">Scout</span>Outreach Plan v1</a>
+    <a href="scout-targets-v2.html" class="doc-link"><span class="t">Scout</span>Target Bank v2</a>
+    <a href="arc-innovation-deep-dive-v1.html" class="doc-link"><span class="t">ARC</span>Deep Dive — Sheba</a>
+    <a href="connection-map-v1.html" class="doc-link"><span class="t">Map</span>Connection Map</a>
+    <a href="network-intelligence-v1.html" class="doc-link"><span class="t">Network</span>12 Gateways</a>
+  </div>
+</div>
+
+<!-- ═══ HOT: CV ═══ -->
+<div class="section hot">
+  <div class="section-label">CV</div>
+  <div class="docs-grid">
+    <a href="yaniv-primak-cv-2026.html" class="doc-link"><span class="t green">Cornerstone</span>CV 2026</a>
+    <a href="cv-yaniv-primak-zim-v6.html" class="doc-link"><span class="t">v6</span>Zimlichman Version</a>
+    <a href="cv-yaniv-primak-v5.html" class="doc-link"><span class="t">v5</span>Standalone v5</a>
+    <a href="cv-yaniv-primak-v4.html" class="doc-link"><span class="t">v4</span>Minimal 4 Sizes</a>
+    <a href="cv-yaniv-primak-v3.html" class="doc-link"><span class="t">v3</span>Moog Restrained</a>
+    <a href="cv-yaniv-primak-v2.html" class="doc-link"><span class="t">v2</span>Pentagram Bold</a>
+    <a href="cv-yaniv-primak-v1.html" class="doc-link"><span class="t">v1</span>White Original</a>
+    <a href="cv-yaniv-primak-web-v1.html" class="doc-link"><span class="t">web</span>First Web Version</a>
+    <a href="cv-yaniv-primak.html" class="doc-link"><span class="t">legacy</span>CV Web v5</a>
+  </div>
+</div>
+
+<!-- ═══ HOT: LINKEDIN ═══ -->
+<div class="section hot">
+  <div class="section-label">LinkedIn</div>
+  <div class="docs-grid">
+    <a href="linkedin-update-v6.html" class="doc-link"><span class="t green">Latest</span>LinkedIn v6</a>
+    <a href="linkedin-update-v5.html" class="doc-link"><span class="t">v5</span>LinkedIn v5</a>
+    <a href="linkedin-update-v4.html" class="doc-link"><span class="t">v4</span>LinkedIn v4</a>
+    <a href="linkedin-update-v3.html" class="doc-link"><span class="t">v3</span>LinkedIn v3</a>
+    <a href="linkedin-update-v2.html" class="doc-link"><span class="t">v2</span>LinkedIn v2</a>
+    <a href="linkedin-update-v1.html" class="doc-link"><span class="t">v1</span>LinkedIn v1</a>
+  </div>
+</div>
+
+<!-- ═══ HOT: BRAND RESET ═══ -->
+<div class="section hot" id="pentagram">
   <div class="section-label">Pentagram Brand Reset — 11 מסמכים</div>
   <div class="docs-grid">
     <a href="primak-brand-bible-v1.html" class="doc-link"><span class="t red">Base</span>Brand Bible v1</a>
@@ -68,50 +128,8 @@
   </div>
 </div>
 
-<!-- ═══ CV ═══ -->
-<div class="section">
-  <div class="section-label">CV — כל הגרסאות</div>
-  <div class="docs-grid">
-    <a href="yaniv-primak-cv-2026.html" class="doc-link"><span class="t green">Cornerstone</span>CV 2026</a>
-    <a href="cv-yaniv-primak-zim-v6.html" class="doc-link"><span class="t">v6</span>Zimlichman Version</a>
-    <a href="cv-yaniv-primak-v5.html" class="doc-link"><span class="t">v5</span>Standalone v5</a>
-    <a href="cv-yaniv-primak-v4.html" class="doc-link"><span class="t">v4</span>Minimal 4 Sizes</a>
-    <a href="cv-yaniv-primak-v3.html" class="doc-link"><span class="t">v3</span>Moog Restrained</a>
-    <a href="cv-yaniv-primak-v2.html" class="doc-link"><span class="t">v2</span>Pentagram Bold</a>
-    <a href="cv-yaniv-primak-v1.html" class="doc-link"><span class="t">v1</span>White Original</a>
-    <a href="cv-yaniv-primak-web-v1.html" class="doc-link"><span class="t">web</span>First Web Version</a>
-    <a href="cv-yaniv-primak.html" class="doc-link"><span class="t">legacy</span>CV Web v5</a>
-  </div>
-</div>
-
-<!-- ═══ LINKEDIN ═══ -->
-<div class="section">
-  <div class="section-label">LinkedIn</div>
-  <div class="docs-grid">
-    <a href="linkedin-update-v6.html" class="doc-link"><span class="t green">Latest</span>LinkedIn v6</a>
-    <a href="linkedin-update-v5.html" class="doc-link"><span class="t">v5</span>LinkedIn v5</a>
-    <a href="linkedin-update-v4.html" class="doc-link"><span class="t">v4</span>LinkedIn v4</a>
-    <a href="linkedin-update-v3.html" class="doc-link"><span class="t">v3</span>LinkedIn v3</a>
-    <a href="linkedin-update-v2.html" class="doc-link"><span class="t">v2</span>LinkedIn v2</a>
-    <a href="linkedin-update-v1.html" class="doc-link"><span class="t">v1</span>LinkedIn v1</a>
-  </div>
-</div>
-
-<!-- ═══ OUTREACH & CONTACTS ═══ -->
-<div class="section">
-  <div class="section-label">Outreach &amp; Contacts</div>
-  <div class="docs-grid">
-    <a href="scout-outreach-hub-v1.html" class="doc-link"><span class="t green">Active</span>Outreach Hub — Briefs</a>
-    <a href="scout-plan-v1.html" class="doc-link"><span class="t">Scout</span>Outreach Plan v1</a>
-    <a href="scout-targets-v2.html" class="doc-link"><span class="t">Scout</span>Target Bank v2</a>
-    <a href="arc-innovation-deep-dive-v1.html" class="doc-link"><span class="t">ARC</span>Deep Dive — Sheba</a>
-    <a href="connection-map-v1.html" class="doc-link"><span class="t">Map</span>Connection Map</a>
-    <a href="network-intelligence-v1.html" class="doc-link"><span class="t">Network</span>12 Gateways</a>
-  </div>
-</div>
-
-<!-- ═══ PROOF CASES ═══ -->
-<div class="section">
+<!-- ═══ WARM: PROOF CASES ═══ -->
+<div class="section warm">
   <div class="section-label">Proof Cases</div>
   <div class="docs-grid">
     <a href="proof-pack-v1.html" class="doc-link"><span class="t green">Master</span>Proof Pack</a>
@@ -127,8 +145,8 @@
   </div>
 </div>
 
-<!-- ═══ STRATEGY & INTELLIGENCE ═══ -->
-<div class="section">
+<!-- ═══ WARM: STRATEGY ═══ -->
+<div class="section warm">
   <div class="section-label">Strategy &amp; Intelligence</div>
   <div class="docs-grid">
     <a href="strategic-synthesis-v2.html" class="doc-link"><span class="t">Strategy</span>Intelligence Synthesis v2</a>
@@ -140,20 +158,19 @@
   </div>
 </div>
 
-<!-- ═══ PROJECT PAGES ═══ -->
-<div class="section">
+<!-- ═══ WARM: PROJECT PAGES ═══ -->
+<div class="section warm">
   <div class="section-label">Project Pages</div>
   <div class="docs-grid">
     <a href="projects/arc-innovation.html" class="doc-link"><span class="t">Project</span>ARC Innovation</a>
     <a href="projects/icando.html" class="doc-link"><span class="t">Project</span>IcanDo</a>
     <a href="projects/scout-outreach.html" class="doc-link"><span class="t">Project</span>Scout Outreach</a>
     <a href="projects/momentick.html" class="doc-link"><span class="t">Project</span>Momentick</a>
-    <a href="projects/ica-kc.html" class="doc-link"><span class="t">Project</span>ICA KC</a>
   </div>
 </div>
 
-<!-- ═══ VENTURE & SPECS ═══ -->
-<div class="section">
+<!-- ═══ WARM: VENTURE ═══ -->
+<div class="section warm">
   <div class="section-label">Venture &amp; Specs</div>
   <div class="docs-grid">
     <a href="visual-acuity-pwa-techspec-v1.html" class="doc-link"><span class="t">Spec</span>Visual Acuity PWA</a>
@@ -165,14 +182,15 @@
   </div>
 </div>
 
-<!-- ═══ ARCHIVE ═══ -->
-<div class="section">
-  <div class="section-label" style="color:var(--light);">Archive</div>
+<!-- ═══ COLD: ARCHIVE ═══ -->
+<div class="section cold">
+  <div class="section-label">Archive — ICA KC &amp; Closed</div>
   <div class="docs-grid">
     <a href="deal-debrief-ica-kc-v1.html" class="doc-link"><span class="t red">Debrief</span>ICA KC — EXIT</a>
     <a href="warroom-ica-kc.html" class="doc-link"><span class="t">ICA</span>War Room COMEBACK</a>
     <a href="brief-dana-keren-ica-v1.html" class="doc-link"><span class="t">ICA</span>Brief Dana + Keren</a>
     <a href="script-keren-call-v1.html" class="doc-link"><span class="t">ICA</span>Call Script Keren</a>
+    <a href="projects/ica-kc.html" class="doc-link"><span class="t">ICA</span>Project Page</a>
     <a href="daily-score/2026-02-18-lecun.html" class="doc-link"><span class="t">Score</span>LeCun 18.02</a>
     <a href="daily-score/2026-02-17_daily_score.html" class="doc-link"><span class="t">Score</span>Daily 17.02</a>
     <a href="_archive/lecun-execution-v1.html" class="doc-link"><span class="t">Archive</span>LeCun Execution</a>
@@ -188,7 +206,7 @@
 </div>
 
 <div class="footer">
-  Primak Document Library v3 &mdash; 23.02.2026 &mdash; <a href="index.html" style="color:var(--light);">Command Center &rarr;</a>
+  Primak Document Library v4 &mdash; 23.02.2026 &mdash; <a href="index.html" style="color:var(--light);">Command Center &rarr;</a>
 </div>
 
 </body>
