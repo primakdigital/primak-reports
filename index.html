@@ -90,7 +90,7 @@
 
 <!-- ═══ HERO ═══ -->
 <div class="hero">
-  <div class="mark">Primak Command Center &mdash; v14 &mdash; 23.02.2026</div>
+  <div class="mark">Primak Command Center &mdash; v15 &mdash; 23.02.2026</div>
   <h1>כל פרימק.<br>מקום אחד.</h1>
   <div class="stats">
     <div class="stat">
@@ -121,6 +121,32 @@
   <span class="now-item">⚡ WhatsApp לאומרי פלג</span>
   <span class="now-item">⚡ IcanDo — ממתין לאיה</span>
   <span class="now-item">⚡ ברומטר / אלי צחור — הצעת מבנה מחר בבוקר</span>
+</div>
+
+<!-- ═══ LECUN ENERGY SCORE ═══ -->
+<div class="section" style="background:var(--bg);">
+  <div class="section-label">LeCun Energy Score</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
+    <div style="padding:16px;background:var(--white);border-radius:4px;border:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;">Growth</div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;" id="lecun-growth">---</div>
+      <div style="font-size:11px;color:var(--light);margin-top:4px;">pipeline · revenue gap · stale leads</div>
+    </div>
+    <div style="padding:16px;background:var(--white);border-radius:4px;border:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Delivery</div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;" id="lecun-delivery">---</div>
+      <div style="font-size:11px;color:var(--light);margin-top:4px;">overdue · due today · waiting</div>
+    </div>
+    <div style="padding:16px;background:var(--white);border-radius:4px;border:1px solid var(--border);">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Risk</div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;" id="lecun-risk">---</div>
+      <div style="font-size:11px;color:var(--light);margin-top:4px;">unpaid · concentration · alignment</div>
+    </div>
+  </div>
+  <div style="padding:12px 16px;background:var(--black);color:var(--white);border-radius:4px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px 24px;">
+    <span><span style="color:var(--accent);font-weight:700;">BOTTLENECK:</span> <span style="opacity:0.7;" id="lecun-bottleneck">--- (session start)</span></span>
+    <span><span style="color:var(--orange);font-weight:700;">GUARDIAN:</span> <span style="opacity:0.7;" id="lecun-guardian">---</span></span>
+  </div>
 </div>
 
 <!-- ═══ PIPELINE ═══ -->
@@ -243,7 +269,7 @@
 
 <!-- ═══ REBRANDING PROJECT ═══ -->
 <div class="section">
-  <div class="section-label">Rebranding — עץ פרויקט מלא</div>
+  <div class="section-label">Rebranding</div>
 
   <table class="pipeline-table" style="margin-bottom:24px;">
     <thead>
@@ -261,8 +287,8 @@
         <td class="next-action">CORNERSTONE. נשלח לזימליכמן 23.02. Dark hero, Inter, tiered cards, proof bar.</td>
       </tr>
       <tr>
-        <td class="deal-name"><a href="linkedin-update-v5.html">LinkedIn v5</a></td>
-        <td><span class="pill new">READY</span></td>
+        <td class="deal-name"><a href="linkedin-update-v6.html">LinkedIn v6</a></td>
+        <td><span class="pill active">LATEST</span></td>
         <td class="next-action">8 סקשנים ל-copy-paste. CPO (בלי Founder). Orchestra מתוקן. Academic מעודכן.</td>
       </tr>
       <tr>
@@ -312,47 +338,11 @@
     </tbody>
   </table>
 
-  <!-- FULL FILE TREE -->
-  <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--light);margin:24px 0 12px;">נתיבים מלאים</div>
-  <div style="font-family:'SF Mono','Fira Code',monospace;font-size:11px;line-height:2;background:var(--bg);padding:16px 20px;border-radius:4px;white-space:pre;overflow-x:auto;direction:ltr;text-align:left;"><strong>_REPORTS/</strong>  Published (GitHub Pages)
-├── primak-brand-bible-v1.html         <span style="color:var(--accent);">BASE</span> brand reference
-├── yaniv-primak-cv-2026.html          <span style="color:var(--green);">LIVE</span> cornerstone
-├── cv-yaniv-primak-zim-v6.html        Working file (= 2026)
-├── cv-yaniv-primak-v[1-5].html        CV versions
-├── linkedin-update-v5.html            <span style="color:var(--blue);">READY</span> copy-paste
-├── linkedin-update-v[1-4].html        LinkedIn versions
-├── brand-reset-decisions-v1.html      6/7 locked decisions
-├── brand-reset-brief-v1.html          Strategic brief
-├── one-liner-simulation-v1.html       9/9 buyer test
-├── paradigm-shift-v1.html             9 World Model patterns
-├── reality-check-2026-v2.html         3 gaps analysis
-├── pentagram-methodology-primak-v1    6 phases applied
-├── pentagram-brand-reset-v1           Team A creative
-├── pentagram-brand-reset-counter-v1   Team B counter
-├── pentagram-market-research-v1       5 research streams
-├── pentagram-cv-rewrite-v1            CV analysis
-├── pentagram-deliverables-research-v1 Full process 50+
-└── yaniv-primak-photo.png             B&W photo
-
-<strong>_WORKSPACE/brand-reset/</strong>  Working files
-├── brand-reset-decisions.md           Decisions markdown
-├── pentagram-process-log.md           Teams A/B/C log
-├── cv-yaniv-primak-v1.md/.docx        CV source
-├── one-pager-v1.md/.docx              Pitch doc
-└── didi-email-v6-final.md             Zim email SENT
-
-<strong>_WORKSPACE/scout-outreach/</strong>
-├── yaniv-primak-cv-zimlichman.html    Zim CV
-└── yaniv-primak-cv-zimlichman.docx
-
-<strong>_SKILLS/primak-design-dna/</strong>
-└── SKILL.md                           3 aesthetics</div>
-
   <!-- STATUS GRID -->
   <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--light);margin:24px 0 12px;">סטטוס</div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
     <div style="padding:10px 14px;background:var(--bg);border-radius:4px;font-size:13px;"><span style="color:var(--green);font-weight:700;">✓</span> One-liner · Title · Proof · Verticals · Voice · Gates</div>
-    <div style="padding:10px 14px;background:var(--bg);border-radius:4px;font-size:13px;"><span style="color:var(--green);font-weight:700;">✓</span> Brand Bible · CV Cornerstone · LinkedIn v5</div>
+    <div style="padding:10px 14px;background:var(--bg);border-radius:4px;font-size:13px;"><span style="color:var(--green);font-weight:700;">✓</span> Brand Bible · CV Cornerstone · LinkedIn v6</div>
     <div style="padding:10px 14px;background:var(--bg);border-radius:4px;font-size:13px;"><span style="color:var(--orange);font-weight:700;">⏸</span> Services/Packages — deferred</div>
     <div style="padding:10px 14px;background:var(--bg);border-radius:4px;font-size:13px;"><span style="color:var(--accent);font-weight:700;">!</span> primak.co — old branding. Rebuild W3.</div>
     <div style="padding:10px 14px;background:var(--bg);border-radius:4px;font-size:13px;"><span style="color:var(--orange);font-weight:700;">→</span> Case studies (5) — CathWorks first</div>
@@ -363,7 +353,7 @@
 <!-- ═══ FOOTER ═══ -->
 <div class="footer">
   <div class="info">
-    v14 &mdash; 23.02.2026 &mdash; Delivery: Club D · DriftSense · Open University &mdash; חשבונית רם 40013 פתוחה
+    v15 &mdash; 23.02.2026
   </div>
   <a href="library.html">ספריית מסמכים — 70+ קבצים &rarr;</a>
 </div>
