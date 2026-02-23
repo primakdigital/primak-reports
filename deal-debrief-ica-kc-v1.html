@@ -380,7 +380,7 @@ body {
   <p class="doc-subtitle">ניתוח חוצה-עסקאות. דפוסים. עלויות. מה צריך להשתנות.</p>
   <div class="doc-meta">
     <div>תאריך: <span>23.02.2026</span></div>
-    <div>גרסה: <span>v1</span></div>
+    <div>גרסה: <span>v2</span></div>
     <div>סיווג: <span>פנימי</span></div>
   </div>
 </div>
@@ -388,9 +388,9 @@ body {
 <!-- VERDICT -->
 <div class="verdict">
   <div class="verdict-label">שורה תחתונה</div>
-  <h2>5 חודשים בלי לשאול על תקציב = 5 חודשים בלי Deal Gate #1</h2>
+  <h2>שלב א׳ הצליח: ₪38,940 שולמו במלואם. שלב ב׳ (build) נפל על פער תקציב.</h2>
   <p>
-    ICA KC הוא לא כישלון מכירתי. הוא כישלון תהליך. אותו דפוס — עבודה ללא תקציב מאושר, ללא מקבל החלטות מזוהה, ללא scope lock — חוזר ב-4 מתוך 5 העסקאות שיצאת מהן. העלות הכוללת: ~200 שעות עבודה (90K+ שקל) על 5 עסקאות שהניבו 3,744 שקל. Deal Gates קיימים מ-19.02. הבעיה היא שהם לא הופעלו ב-ICA, ב-BIGY, ב-BoW, או ב-Adventure AI. הם צריכים לרוץ בפגישה ראשונה, לא בחודש חמישי.
+    ICA KC הוא לא כישלון מוחלט — שלב א׳ (אפיון + אסטים, אוקטובר 2025 — ינואר 2026) הסתיים בהצלחה ובתשלום מלא. 3 חשבוניות, אפס חוב. הכישלון הוא בשלב ב׳: שבועיים של עבודת תמחור, משא ומתן עם ספקים (איתי + סאם), ובניית הצעות — בלי לבדוק קודם מה התקציב של הלקוח לשלב הבנייה. כשהתקציב התגלה (₪100-300K כולל הדרכה, מול ₪700K נדרשים) — הפער היה בלתי ניתן לגישור.
   </p>
 </div>
 
@@ -404,73 +404,72 @@ body {
 
   <div class="numbers-row">
     <div class="num-card">
-      <div class="value red">5</div>
-      <div class="label">חודשים</div>
+      <div class="value green">₪38,940</div>
+      <div class="label">הכנסה שלב א׳</div>
     </div>
     <div class="num-card">
-      <div class="value red">0</div>
-      <div class="label">הכנסה</div>
+      <div class="value green">₪0</div>
+      <div class="label">חוב פתוח</div>
     </div>
     <div class="num-card">
-      <div class="value orange">40-55</div>
-      <div class="label">שעות</div>
+      <div class="value orange">~2 שבועות</div>
+      <div class="label">תמחור build (sunk)</div>
     </div>
     <div class="num-card">
-      <div class="value red">18-25K</div>
-      <div class="label">עלות שקועה</div>
+      <div class="value red">₪700K vs 100-300K</div>
+      <div class="label">פער תקציב build</div>
     </div>
   </div>
 
   <div class="timeline">
     <div class="timeline-item">
-      <div class="timeline-date">Sep 2025</div>
-      <div class="timeline-event"><span class="flag orange">MISS</span> תחילת עבודה על ספק. לא נשאל על תקציב. לא זוהה מקבל החלטות.</div>
+      <div class="timeline-date">Oct 2025</div>
+      <div class="timeline-event"><span class="flag green">PAID</span> תחילת שלב א׳ — אפיון + אסטים. חשבונית ראשונה ₪11,682.</div>
     </div>
     <div class="timeline-item">
-      <div class="timeline-date">Sep-Jan</div>
-      <div class="timeline-event">פגישות שבועיות עם קרן דוד ודנה אייזנברג. כתיבת אפיון מלא. 24 מסכים, 2 שחרורים. <span class="flag orange">ללא חוזה</span></div>
+      <div class="timeline-date">Nov 2025</div>
+      <div class="timeline-event"><span class="flag green">PAID</span> עבודת אפיון נמשכת. חשבונית ₪11,682. סקופ גדל מ-13 ל-24 מסכים.</div>
     </div>
     <div class="timeline-item">
-      <div class="timeline-date">Oct-Nov</div>
-      <div class="timeline-event"><span class="flag">MISS</span> סקופ גדל מ-13 ל-24 מסכים (+85%) — ללא אישור מחדש על תמחור או תקציב.</div>
+      <div class="timeline-date">Dec 2025</div>
+      <div class="timeline-event"><span class="flag green">PAID</span> חשבונית ₪11,682. עבודה על 24 מסכים, 2 שחרורים.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Jan 2026</div>
+      <div class="timeline-event"><span class="flag green">PAID</span> חשבונית אחרונה ₪15,576. סה"כ שלב א׳: ₪38,940. <strong>שולם במלואו.</strong></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Feb 4-16</div>
+      <div class="timeline-event"><span class="flag orange">SUNK</span> שבועיים תמחור build: משא ומתן איתי (₪210K) + סאם (₪88K), Pricing Table v8, 2 הצעות ללקוח. <strong>ללא בדיקת תקציב לקוח.</strong></div>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">Feb 16</div>
-      <div class="timeline-event">קרן שולחת "Binder" — מסמך מאוחד מבקש הצעות רשמיות. <span class="flag orange">אין הפתעה</span></div>
+      <div class="timeline-event">קרן שולחת "Binder" — מסמך מאוחד מבקש הצעות רשמיות.</div>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">Feb 17</div>
-      <div class="timeline-event"><span class="flag">SHOCK</span> איה חושפת off-the-record: תקציב ICA הוא 175-210K. יניב: "בטווח הזה אני לא יכול". יציאה מקצועית.</div>
+      <div class="timeline-event"><span class="flag">GAP</span> איה חושפת off-the-record: תקציב ICA לבנייה הוא ₪175-210K. יניב: "בטווח הזה אני לא יכול". פער ₪500K.</div>
     </div>
     <div class="timeline-item">
-      <div class="timeline-date">Feb 17</div>
-      <div class="timeline-event">6 כשלי תהליך מזוהים: אין budget gate, אין scope lock, מחיר ב-SMS, ויכוח לא הוסלם.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Feb 23 AM</div>
-      <div class="timeline-event">איה מבקשת מיניב לשלוח הודעה רשמית לקרן/דנה. PRIMO ממליץ Operation COMEBACK — לעקוף את איה, ללכת ישר לקרן, להגיע למנכ"לית.</div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-date">Feb 23 PM</div>
-      <div class="timeline-event"><span class="flag">DEAD</span> יניב מתקשר לקרן ישירות. קרן: "100-300K כולל מוצרי הדרכה". יניב: "אני לא יכול בטווח הזה". קרן: "אוקיי, תודה, נהניתי." עסקה מתה.</div>
+      <div class="timeline-date">Feb 23</div>
+      <div class="timeline-event"><span class="flag">DEAD</span> יניב מתקשר לקרן ישירות. קרן: "₪100-300K כולל מוצרי הדרכה." יניב: "אני לא יכול." קרן: "אוקיי, תודה." עסקה מתה.</div>
     </div>
   </div>
 </div>
 
 <!-- WHEN SHOULD BUDGET HAVE BEEN ASKED -->
 <div class="section">
-  <h2 class="section-title">מתי היה צריך לשאול על תקציב?</h2>
+  <h2 class="section-title">מתי היה צריך לשאול על תקציב הבנייה?</h2>
 
   <div class="insight-box">
-    בפגישה הראשונה. לא בחודש חמישי. ספציפית: אחרי הפגישה הראשונה עם קרן ודנה, לפני שנכתבה שורה ראשונה של אפיון.
-    <div class="source">Deal Gate #1: Budget Check — קיים מ-19.02, אבל היה צריך להיות פעיל מספטמבר</div>
+    לפני שהשקיעו שבועיים בתמחור build. שלב א׳ (אפיון) היה בתשלום ומוצדק — ₪38,940 שולמו. הבעיה התחילה כשעברו לתמחור build בלי לשאול את ICA כמה תקציב יש לשלב הבנייה.
+    <div class="source">Deal Gate #1: Budget Check — רלוונטי לשלב ב׳ (build), לא לשלב א׳ שכבר שולם</div>
   </div>
 
   <ul class="findings">
-    <li><span class="num">1</span> <strong>ספטמבר 2025:</strong> השאלה "מה התקציב שלכם לפרויקט הזה?" הייתה חייבת לעלות בפגישה ראשונה. לא כאלתימטום — כשאלת scoping לגיטימית. "כדי שנוכל לתכנן נכון, מהו הטווח התקציבי?"</li>
-    <li><span class="num">2</span> <strong>נובמבר 2025:</strong> כשהסקופ גדל מ-13 ל-24 מסכים, זה היה רגע שני קריטי. גידול 85% בסקופ = חובת alignment מחדש על תקציב.</li>
-    <li><span class="num">3</span> <strong>ינואר 2026:</strong> 3+ חודשי עבודה בלי חוזה = דגל אדום. עבודה ללא LOI (Letter of Intent) או MOU מינימלי היא הימור.</li>
-    <li><span class="num">4</span> <strong>מה היה משתנה:</strong> אם היה נשאל בספטמבר, הפער היה מתגלה מיד. 700K מול 175-210K = פער של 70%. שום ניהול משא ומתן לא סוגר פער כזה. יניב היה חוסך 4.5 חודשים ו-40+ שעות.</li>
+    <li><span class="num">1</span> <strong>ינואר 2026:</strong> עם סיום שלב א׳, לפני שמתחילים לתמחר build — היה צריך לשאול: "מה התקציב שלכם לשלב הבנייה?" שאלת scoping לגיטימית בין שלב לשלב.</li>
+    <li><span class="num">2</span> <strong>פברואר 4-16:</strong> במקום לשאול, נכנסנו ל-2 שבועות של משא ומתן עם ספקים (איתי ₪210K, סאם ₪88K), Pricing Table v8, שתי הצעות ללקוח — בלי לדעת אם יש תקציב.</li>
+    <li><span class="num">3</span> <strong>מה היה משתנה:</strong> אם נשאל בינואר, הפער היה מתגלה לפני 2 שבועות של עבודת תמחור. ₪700K מול ₪100-300K = פער בלתי ניתן לגישור. חיסכון: ~2 שבועות עבודה על הצעות שלעולם לא ייסגרו.</li>
   </ul>
 </div>
 
@@ -508,7 +507,7 @@ body {
   </table>
 
   <div class="insight-box">
-    <strong>פסק דין:</strong> איה לא הזיקה. היא עזרה — חשפה את המספר האמיתי וחסכה ליניב הגשת הצעה שלעולם לא הייתה מתקבלת. הבעיה היא שיניב נשען עליה כ-decision maker כשהיא רק consultant. ה-deal gate #2 (Decision Maker ID) לא הופעל — אף אחד לא שאל "מי מחליט על התקציב?" עד ה-23 בפברואר.
+    <strong>פסק דין:</strong> איה עזרה — חשפה את המספר האמיתי וחסכה ליניב הגשת הצעה שלעולם לא הייתה מתקבלת. המידע שלה היה מדויק, ואפילו אופטימי (₪175-210K לעומת ₪100-300K בפועל מקרן). ה-deal gate #2 (Decision Maker ID) היה רלוונטי רק בשלב ב׳ — בשלב א׳ קרן ודנה היו הלקוח הנכון.
   </div>
 </div>
 
@@ -546,7 +545,7 @@ body {
   </table>
 
   <ul class="findings">
-    <li><span class="num">1</span> <strong>COMEBACK חי פחות מ-24 שעות.</strong> הומלץ בבוקר, מת בצהריים. PRIMO בנה War Room document למשהו שנגמר בשיחת טלפון אחת. Overengineering קלאסי.</li>
+    <li><span class="num">1</span> <strong>COMEBACK חי פחות מ-24 שעות.</strong> הומלץ בבוקר, מת בצהריים. PRIMO בנה War Room document למשהו שנגמר בשיחת טלפון אחת. Overengineering קלאסי. ובנוסף — PRIMO תיאר את העסקה כ"5 חודשים עבודה חינם" כשבפועל ₪38,940 שולמו על שלב א׳.</li>
     <li><span class="num">2</span> <strong>הנחת יסוד שגויה:</strong> PRIMO הניח ש"אף אחד לא שאל את ICA ישירות" כלומר יש מרחב תמרון. בפועל, קרן ידעה בדיוק מה התקציב ולא היה מרחב.</li>
     <li><span class="num">3</span> <strong>עיוורון מבני:</strong> ICA = עמותה. תקציב עמותה לא עובד כמו budget של סטארטאפ. אין "ללכת למנכ"לית ולפתוח עוד תקציב". יש תקציב שנתי מאושר.</li>
     <li><span class="num">4</span> <strong>מה PRIMO צריך היה לעשות:</strong> במקום COMEBACK — שאלה אחת: "קרן, מה התקציב?" ואז לסגור נקי. בדיוק מה שיניב עשה.</li>
@@ -575,11 +574,11 @@ body {
     </tr>
     <tr>
       <td class="highlight">ICA KC</td>
-      <td>700K</td>
-      <td class="red">0</td>
-      <td>5 חודשים</td>
-      <td class="red">0</td>
-      <td>פער תקציב בלתי ניתן לגישור</td>
+      <td>700K (build)</td>
+      <td class="orange">שלב א׳ OK</td>
+      <td>4 חודשים paid + 2w sunk</td>
+      <td class="green">₪38,940</td>
+      <td>פער תקציב build בלתי ניתן לגישור</td>
     </tr>
     <tr>
       <td class="highlight">BIGY/RGE</td>
@@ -618,19 +617,19 @@ body {
   <div class="numbers-row">
     <div class="num-card">
       <div class="value red">5</div>
-      <div class="label">עסקאות מתות</div>
+      <div class="label">עסקאות שנסגרו</div>
     </div>
     <div class="num-card">
-      <div class="value red">3,744</div>
-      <div class="label">סה"כ הכנסה ש"ח</div>
+      <div class="value orange">₪42,684</div>
+      <div class="label">סה"כ הכנסה</div>
     </div>
     <div class="num-card">
-      <div class="value orange">~200</div>
-      <div class="label">שעות שהושקעו</div>
+      <div class="value green">₪38,940</div>
+      <div class="label">ICA KC שלב א׳</div>
     </div>
     <div class="num-card">
-      <div class="value red">90K+</div>
-      <div class="label">עלות הזדמנות ש"ח</div>
+      <div class="value red">₪3,744</div>
+      <div class="label">שאר 4 עסקאות</div>
     </div>
   </div>
 </div>
@@ -641,8 +640,8 @@ body {
 
   <div class="pattern-card">
     <div class="pattern-label">דפוס #1</div>
-    <h3>עבודה ללא תקציב מאושר</h3>
-    <p><strong>ICA KC:</strong> 5 חודשי אפיון, אף אחד לא שאל על תקציב. <strong>BoW:</strong> one-pager אושר, אבל אף פעם לא היה ברור אם יש כסף. <strong>Adventure AI:</strong> פגישה התקיימה, התחייבות כספית לא נדונה. 3 מתוך 5 = אותו כישלון של Deal Gate #1.</p>
+    <h3>תמחור build ללא בדיקת תקציב לקוח</h3>
+    <p><strong>ICA KC:</strong> שלב א׳ שולם (₪38,940), אבל לפני שלב ב׳ (build ₪700K) — אף אחד לא שאל את ICA כמה תקציב יש. 2 שבועות תמחור על ריק. <strong>BoW:</strong> one-pager אושר, אבל אף פעם לא היה ברור אם יש כסף. <strong>Adventure AI:</strong> פגישה התקיימה, התחייבות כספית לא נדונה.</p>
   </div>
 
   <div class="pattern-card">
@@ -654,7 +653,7 @@ body {
   <div class="pattern-card">
     <div class="pattern-label">דפוס #3</div>
     <h3>השקעת זמן לא פרופורציונלית</h3>
-    <p><strong>ICA KC:</strong> 40-55 שעות = 18-25K שקל עבודה חינם. <strong>BoW:</strong> ~15 שעות = 6,750 שקל sunk cost. <strong>BIGY:</strong> 9 חודשים ב-GM 27%. סה"כ: לפחות 90K שקל בעלות הזדמנות על עסקאות שלא סגרו, כנגד 3,744 שקל הכנסה.</p>
+    <p><strong>ICA KC:</strong> שלב א׳ שולם, אבל ~2 שבועות תמחור build = sunk cost. <strong>BoW:</strong> ~15 שעות = 6,750 שקל sunk cost. <strong>BIGY:</strong> 9 חודשים ב-GM 27%. ב-ICA KC ה-sunk cost מוגבל — רוב העבודה הייתה בתשלום.</p>
   </div>
 
   <div class="pattern-card">
@@ -672,44 +671,34 @@ body {
 
 <!-- OPPORTUNITY COST -->
 <div class="section">
-  <h2 class="section-title">עלות הזדמנות: בעיית ה"עבודה חינם"</h2>
+  <h2 class="section-title">עלות הזדמנות: 2 שבועות תמחור build</h2>
 
   <table class="data-table">
     <tr><th>פרמטר</th><th>ICA KC</th><th>הערה</th></tr>
     <tr>
-      <td class="highlight">שעות שהושקעו</td>
-      <td>40-55</td>
-      <td>אפיון מלא, 24 מסכים, 2 releases</td>
+      <td class="highlight">שלב א׳ (אפיון)</td>
+      <td class="green">₪38,940 שולם</td>
+      <td>4 חודשים, 3 חשבוניות, ₪0 חוב</td>
     </tr>
     <tr>
-      <td class="highlight">עלות שעה (reference)</td>
-      <td>450 ש"ח</td>
-      <td>Reference rate 2026</td>
+      <td class="highlight">שלב ב׳ (תמחור build)</td>
+      <td class="red">~2 שבועות sunk</td>
+      <td>משא ומתן ספקים + הצעות ללקוח</td>
     </tr>
     <tr>
-      <td class="highlight">עלות שקועה</td>
-      <td class="red">18,000-24,750 ש"ח</td>
-      <td>עבודה שנעשתה ללא תשלום</td>
+      <td class="highlight">מה נעשה ב-2 שבועות</td>
+      <td>איתי ₪210K + סאם ₪88K</td>
+      <td>Pricing Table v8, 2 הצעות, War Room</td>
     </tr>
     <tr>
-      <td class="highlight">אלטרנטיבה: Scout W1</td>
-      <td class="green">50-150K ש"ח</td>
-      <td>50 שעות על 3 targets = לפחות 1 deal</td>
-    </tr>
-    <tr>
-      <td class="highlight">אלטרנטיבה: ARC</td>
-      <td class="green">ריטיינר מתמשך</td>
-      <td>50 שעות על Zimlichman = partnership</td>
-    </tr>
-    <tr>
-      <td class="highlight">יחס עלות/תועלת</td>
-      <td class="red">אינסוף:0</td>
-      <td>50 שעות = 0 שקל</td>
+      <td class="highlight">מה היה חוסך</td>
+      <td class="green">שאלה אחת</td>
+      <td>"מה התקציב לשלב הבנייה?" — לפני תמחור</td>
     </tr>
   </table>
 
   <div class="insight-box">
-    50 שעות על ICA KC = 0 שקל. 50 שעות על Scout Outreach = deal פוטנציאלי של 50-150K. 50 שעות על ARC = partnership עם 120 סטארטאפים. הבחירה הייתה ברורה בספטמבר — אם היה נשאל על תקציב.
+    שלב א׳ היה עסק טוב: ₪38,940 על אפיון + אסטים. הלקח הוא רק על המעבר לשלב ב׳: לפני שמשקיעים שבועיים בתמחור build — לוודא שיש תקציב.
   </div>
 </div>
 
@@ -731,7 +720,7 @@ body {
     <div class="comp-col loss">
       <div class="comp-label">יציאות (LOSS)</div>
       <ul>
-        <li><strong>ICA KC:</strong> תקציב לא ידוע, DM לא מזוהה</li>
+        <li><strong>ICA KC:</strong> שלב א׳ OK (₪38,940), שלב ב׳ נכשל — תקציב build לא נבדק</li>
         <li><strong>BIGY:</strong> אין דאטה, אין תגובה, GM נמוך</li>
         <li><strong>Adventure AI:</strong> לקוח non-committal</li>
         <li><strong>BoW:</strong> שני DM = gridlock, חלון קניה סגור</li>
@@ -742,8 +731,8 @@ body {
 
   <ul class="findings">
     <li><span class="num">1</span> <strong>Wins = תקציב ברור + DM מזוהה + scope מוגדר.</strong> שלושת ה-Deal Gates הראשונים. בלי חריגים.</li>
-    <li><span class="num">2</span> <strong>Losses = חוסר בלפחות 2 מתוך 3 gates.</strong> ICA KC: 0 gates. BIGY: 0. BoW: 0. Adventure AI: 0. Momentick: gate #4 (floor price) נפרץ.</li>
-    <li><span class="num">3</span> <strong>הקורלציה מוחלטת:</strong> 100% מהלקוחות המשלמים עברו את 3 ה-gates הראשונים. 100% מהיציאות לא עברו.</li>
+    <li><span class="num">2</span> <strong>Losses = חוסר gates בשלב ב׳.</strong> ICA KC: שלב א׳ pass, שלב ב׳ 0 gates. BIGY: 0. BoW: 0. Adventure AI: 0. Momentick: gate #4 (floor price) נפרץ.</li>
+    <li><span class="num">3</span> <strong>הקורלציה:</strong> ICA KC מוכיח שעסקה יכולה לעבוד בשלב אחד (₪38,940) ולהיכשל בשלב הבא. Gates צריכים לרוץ על כל שלב בנפרד.</li>
     <li><span class="num">4</span> <strong>ARC = ה-playbook:</strong> warm intro (Didi), DM מזוהה (Zimlichman), budget = institutional (Sheba/ARC). כל ה-gates נבדקים לפני עבודה.</li>
   </ul>
 </div>
@@ -913,8 +902,8 @@ body {
   <ul class="findings">
     <li>
       <span class="num">1</span>
-      <strong>Budget Check בפגישה ראשונה. לא שנייה. ראשונה.</strong><br>
-      "כדי שנבנה הצעה ריאלית — מהו הטווח התקציבי שלכם?" אם אין תשובה — פגישה שנייה כוללת שאלה שוב. אם אין תשובה אחרי שתיים — לא ממשיכים.
+      <strong>Budget Check לפני כל שלב חדש. לא רק בפגישה ראשונה.</strong><br>
+      ICA KC מוכיח: שלב א׳ שולם, שלב ב׳ נפל על תקציב. "מה התקציב שלכם לשלב הבא?" — חובה לפני כל מעבר שלב. לא רק בתחילת ההתקשרות.
     </li>
     <li>
       <span class="num">2</span>
@@ -954,7 +943,7 @@ body {
     </tr>
     <tr>
       <td class="highlight">#1 Budget Check</td>
-      <td class="red">FAIL</td>
+      <td class="orange">FAIL (build)</td>
       <td class="red">FAIL</td>
       <td class="red">FAIL</td>
       <td class="red">FAIL</td>
@@ -962,7 +951,7 @@ body {
     </tr>
     <tr>
       <td class="highlight">#2 Decision Maker ID</td>
-      <td class="red">FAIL</td>
+      <td class="orange">PARTIAL</td>
       <td class="red">FAIL</td>
       <td class="orange">PARTIAL</td>
       <td class="red">FAIL</td>
@@ -994,7 +983,7 @@ body {
     </tr>
     <tr>
       <td class="highlight" style="border-top: 2px solid var(--black);">ציון</td>
-      <td class="red" style="border-top: 2px solid var(--black);">0/5</td>
+      <td class="orange" style="border-top: 2px solid var(--black);">1.5/5</td>
       <td class="red" style="border-top: 2px solid var(--black);">0/5</td>
       <td class="red" style="border-top: 2px solid var(--black);">0.5/5</td>
       <td class="orange" style="border-top: 2px solid var(--black);">1/5</td>
@@ -1003,16 +992,16 @@ body {
   </table>
 
   <div class="insight-box">
-    ICA KC ו-BIGY קיבלו 0 מתוך 5 Gates. זה לא חוסר מזל — זה חוסר תהליך. ה-Gates הוגדרו ב-19.02.2026 אבל כל 5 העסקאות כבר היו בתנועה (או מתות) לפני שה-Gates אומצו. הלקח: Gates חייבים לרוץ רטרואקטיבית על כל עסקה פתוחה ביום שנוצרו.
+    ICA KC מציג תמונה מורכבת: שלב א׳ עבד (אפיון בתשלום, ₪38,940). שלב ב׳ נכשל (0 gates על build). הלקח: Gates צריכים לרוץ על כל שלב בנפרד — לא רק על תחילת ההתקשרות. BIGY קיבל 0/5 — שם הבעיה היא מהשורש.
   </div>
 </div>
 
 <!-- FINAL RECOMMENDATION -->
 <div class="verdict">
   <div class="verdict-label">המלצה</div>
-  <h2>ICA KC = סגור. התקציב לא יזוז.<br>הזמן שהתפנה = לסגור ARC + Scout W1.</h2>
+  <h2>ICA KC שלב א׳ = הצלחה (₪38,940). שלב ב׳ = סגור.<br>הזמן שהתפנה = ARC + Scout W1.</h2>
   <p>
-    קרן אמרה "אוקיי, תודה." אין דלת פתוחה. 100-300K כולל הדרכה = 50-150K לפלטפורמה = פחות מ-40% מהעלות. אין grants שיסגרו את הפער בטווח הקרוב. IcanDo ממשיך — ריטיינר עצמאי, לא קשור ל-KC. כל שעה שנשפכת על ICA KC מחר היא שעה שלא הולכת ל-ARC (שם Zimlichman כבר אמר כן) או ל-Scout (שם Pipeline = 270-560K).
+    שלב האפיון הניב הכנסה, יצר אסטים, ובנה קשר מקצועי עם קרן ודנה. זה לא כישלון — זה עסק שהגיע לתקרה. Build ₪700K מול תקציב ₪100-300K כולל הדרכה = לא ייסגר. IcanDo ממשיך — ריטיינר עצמאי, לא קשור ל-KC. כל שעה שנשפכת על ICA KC מחר היא שעה שלא הולכת ל-ARC (Zimlichman אמר כן) או ל-Scout (Pipeline ₪270-560K).
   </p>
 </div>
 
