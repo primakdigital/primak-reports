@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primak Brand Bible v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f7f7f7; --white: #fff;
+    --red: #dc2626;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  /* HERO */
+  .hero { background: var(--black); color: #fff; padding: 80px 60px 60px; }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: #444; font-weight: 600; margin-bottom: 32px; }
+  .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
+  .hero .sub { font-size: 15px; color: #777; max-width: 560px; line-height: 1.7; }
+  .hero .meta { font-size: 11px; color: #444; margin-top: 24px; letter-spacing: 1px; }
+
+  /* SECTIONS */
+  section { padding: 48px 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
+  .sn { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 12px; }
+  .dark .sn { color: #555; }
+  h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 20px; }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.2px; }
+  p { max-width: 640px; margin-bottom: 14px; font-size: 14px; line-height: 1.7; color: #444; }
+  .dark p { color: #999; }
+  .dark h2 { color: #fff; }
+  .dark h3 { color: #ddd; }
+
+  /* CARDS */
+  .rule-card { border: 1px solid var(--border); padding: 20px; margin-bottom: 12px; }
+  .rule-card h3 { margin-bottom: 6px; }
+  .rule-card p { margin-bottom: 0; }
+  .dark .rule-card { border-color: #333; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  /* LOCKUP */
+  .lockup { background: var(--bg); padding: 24px; border-radius: 0; margin-bottom: 16px; }
+  .lockup-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 8px; }
+  .lockup-value { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .lockup-note { font-size: 12px; color: var(--light); margin-top: 6px; }
+  .dark .lockup { background: #222; }
+
+  /* DO / DON'T */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+  .do-col, .dont-col { padding: 20px; }
+  .do-col { border: 2px solid #059669; }
+  .dont-col { border: 2px solid #dc2626; }
+  .do-col h3 { color: #059669; }
+  .dont-col h3 { color: #dc2626; }
+  .do-col ul, .dont-col ul { list-style: none; padding: 0; }
+  .do-col li, .dont-col li { font-size: 13px; padding: 4px 0; line-height: 1.5; }
+  .do-col li::before { content: "YES "; font-weight: 700; color: #059669; }
+  .dont-col li::before { content: "NO "; font-weight: 700; color: #dc2626; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+  th, td { text-align: left; padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  th { font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--light); }
+  .dark th, .dark td { border-bottom-color: #333; }
+  .dark td { color: #999; }
+
+  /* COLOR SWATCHES */
+  .swatch-row { display: flex; gap: 12px; margin-bottom: 16px; }
+  .swatch { width: 64px; height: 64px; border-radius: 0; display: flex; align-items: flex-end; padding: 4px 6px; }
+  .swatch span { font-size: 9px; font-weight: 600; letter-spacing: 0.5px; }
+
+  /* FONT SPECIMEN */
+  .specimen { margin-bottom: 20px; }
+  .specimen-size { font-size: 11px; color: var(--light); margin-bottom: 4px; }
+
+  /* PROOF */
+  .proof-card { border: 1px solid var(--border); padding: 16px; }
+  .proof-audience { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 4px; }
+  .proof-company { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+  .proof-line { font-size: 13px; color: #555; }
+
+  /* CORNERSTONE */
+  .cornerstone { border: 2px solid var(--black); padding: 24px; margin-top: 16px; }
+  .cornerstone a { color: var(--black); font-weight: 600; }
+  .dark .cornerstone { border-color: #555; }
+  .dark .cornerstone a { color: #fff; }
+
+  /* FOOTER */
+  .footer { padding: 40px 60px; font-size: 11px; color: #555; background: var(--black); display: flex; justify-content: space-between; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero { padding: 48px 24px; }
+    .hero h1 { font-size: 28px; }
+    section { padding: 32px 24px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .do-dont { grid-template-columns: 1fr; }
+    .footer { padding: 32px 24px; flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">Brand Bible</div>
+  <h1>Primak Brand Bible</h1>
+  <div class="sub">The single reference for all external Primak communication, design, and positioning. Every deliverable, message, and touchpoint must align with this document.</div>
+  <div class="meta">v1 - 23 February 2026 - Brand Reset Reference</div>
+</div>
+
+<!-- 01 BRAND ESSENCE -->
+<section>
+  <div class="sn">01 - Brand Essence</div>
+  <h2>Who we are</h2>
+
+  <div class="lockup">
+    <div class="lockup-label">Core Identity</div>
+    <div class="lockup-value">"I turn stuck technology into product."</div>
+    <div class="lockup-note">Confirmed by Yaniv. Found in behavior across 5 domains, 0 failures.</div>
+  </div>
+
+  <div class="lockup">
+    <div class="lockup-label">One-Liner (External)</div>
+    <div class="lockup-value">Fractional CPO for high-stakes AI. We ship the products humans need to trust.</div>
+    <div class="lockup-note">14 words. 9/9 buyers tested. Locked 19.02.2026.</div>
+  </div>
+
+  <div class="lockup">
+    <div class="lockup-label">Qualification Filter</div>
+    <div class="lockup-value">If your AI fails, does someone get hurt or does a deal die?</div>
+    <div class="lockup-note">Yes = Primak's people. No = not.</div>
+  </div>
+
+  <h3>5 Brand Principles (found in behavior, not aspiration)</h3>
+  <div class="grid-3" style="margin-top: 12px;">
+    <div class="rule-card">
+      <h3>Direct</h3>
+      <p>"From the gut." Simplifies, then executes. No committee layers.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Versatile</h3>
+      <p>5 domains, skill transfers because it's not domain knowledge - it's product instinct.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Relentless</h3>
+      <p>5/5, 0 failures. Doesn't leave until it works.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Founder-native</h3>
+      <p>Speaks founder language, not consultant language.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Commercial</h3>
+      <p>Output is revenue, not wireframes. Numbers talk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 POSITIONING -->
+<section>
+  <div class="sn">02 - Positioning</div>
+  <h2>What we say</h2>
+
+  <div class="grid-2">
+    <div class="lockup">
+      <div class="lockup-label">Title (Everywhere)</div>
+      <div class="lockup-value">CPO, Primak</div>
+      <div class="lockup-note">No "Founder." No ego. Ultra-minimal. Used in: LinkedIn, email sig, meetings, proposals, CV.</div>
+    </div>
+    <div class="lockup">
+      <div class="lockup-label">SEO Title (LinkedIn About only)</div>
+      <div class="lockup-value">Fractional CPO</div>
+      <div class="lockup-note">Use "Fractional CPO" ONLY in LinkedIn About section for search visibility. Never in headline or introduction.</div>
+    </div>
+  </div>
+
+  <div class="lockup">
+    <div class="lockup-label">Vertical</div>
+    <div class="lockup-value">"High-stakes AI" IS the vertical. No list.</div>
+    <div class="lockup-note">Captures MedTech, Cyber, Defense, Enterprise AI without listing them. Nobody owns it commercially. $90B+ TAM.</div>
+  </div>
+
+  <h3>3 Key Messages</h3>
+  <table>
+    <tr><th>Message</th><th>When to use</th></tr>
+    <tr>
+      <td><strong>Core:</strong> "Fractional CPO for high-stakes AI. We ship the products humans need to trust."</td>
+      <td>First contact. LinkedIn. Email sig. Proposals.</td>
+    </tr>
+    <tr>
+      <td><strong>Proof:</strong> "Built FDA-cleared cardiac AI that reached 100K patients and a $585M Medtronic acquisition. Then applied the same discipline across cybersecurity, media, and enterprise."</td>
+      <td>CV hero. Detailed conversations. About sections.</td>
+    </tr>
+    <tr>
+      <td><strong>Referral:</strong> "If your AI product is stuck, Yaniv turns it into something that ships."</td>
+      <td>What others say about us. Word-of-mouth target.</td>
+    </tr>
+  </table>
+
+  <h3>White Space Owned</h3>
+  <p><strong>"Product Turnaround"</strong> - Nobody does turnaround for product/technology. Deloitte/FTI does financial turnaround ($500-1,500/hr). McKinsey does strategy. Nobody enters a stuck product and makes it ship. That's Primak.</p>
+</section>
+
+<!-- 03 VOICE & TONE -->
+<section class="dark">
+  <div class="sn">03 - Voice & Tone</div>
+  <h2>How we say it</h2>
+
+  <div class="grid-2">
+    <div class="lockup">
+      <div class="lockup-label">Primary Language</div>
+      <div class="lockup-value">English-first</div>
+      <div class="lockup-note">LinkedIn, website, proposals, published content = English. Israeli DMs = Hebrew. Match client language in proposals.</div>
+    </div>
+    <div class="lockup">
+      <div class="lockup-label">Voice Character</div>
+      <div class="lockup-value">Chill authority</div>
+      <div class="lockup-note">Sounds like someone who already has, not someone who's proving. Direct. Confident. Numbers > adjectives.</div>
+    </div>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-col">
+      <h3>Do</h3>
+      <ul>
+        <li>"We" - company language, not freelancer</li>
+        <li>Numbers first, always. "$585M" not "significant exit"</li>
+        <li>Short sentences. Let facts breathe.</li>
+        <li>Lay credentials, let target connect dots</li>
+        <li>Chill test: does this sound like someone who already has?</li>
+        <li>"Built the product" / "Shipped" / "Deployed"</li>
+        <li>Match the register of who you're talking to</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <h3>Don't</h3>
+      <ul>
+        <li>Never first person in pitches ("I am passionate...")</li>
+        <li>Never "Passionate about..." / "Thought leader"</li>
+        <li>Never buzzwords without receipts</li>
+        <li>Never diagnose their problems in outreach</li>
+        <li>Never adopt opponent's diminishing framing</li>
+        <li>Never over-explain. If it needs a paragraph, it's wrong.</li>
+        <li>Never "Founder" in title. CPO only.</li>
+        <li>Never use "fractional" as identity - only as SEO term in LinkedIn About</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 24px;">Outreach Rules</h3>
+  <div class="rule-card">
+    <h3>Intel Protocol (Before ANY outreach)</h3>
+    <p style="color:#999;">(1) OSINT on target - find THEIR words for the problem. (2) Map what their org provides vs doesn't. (3) Write using THEIR language, not ours. Lay credentials, let them connect the dots. NEVER diagnose their problems.</p>
+  </div>
+</section>
+
+<!-- 04 VISUAL DNA -->
+<section>
+  <div class="sn">04 - Visual DNA</div>
+  <h2>How it looks</h2>
+  <p>Established by the CV cornerstone deliverable (23.02.2026). All future Primak outputs inherit this visual system.</p>
+
+  <h3>Typography</h3>
+  <div class="lockup">
+    <div class="lockup-label">Primary Typeface</div>
+    <div class="lockup-value" style="font-family:'Inter',sans-serif;">Inter</div>
+    <div class="lockup-note">Google Fonts. Weights: 300-900. Neo-grotesque, clean, professional.</div>
+  </div>
+
+  <h3>Type Scale (4 sizes + outcome)</h3>
+  <table>
+    <tr><th>Element</th><th>Size</th><th>Weight</th><th>Treatment</th></tr>
+    <tr><td>H1 / Name</td><td>48px</td><td>800</td><td>letter-spacing: -2px</td></tr>
+    <tr><td>H2 / Section</td><td>26px</td><td>700</td><td>letter-spacing: -0.5px</td></tr>
+    <tr><td>Body</td><td>14-17px</td><td>400-600</td><td>line-height: 1.7</td></tr>
+    <tr><td>Section labels</td><td>11px</td><td>600</td><td>UPPERCASE, letter-spacing: 4px</td></tr>
+    <tr><td>Outcome lines</td><td>10px</td><td>600</td><td>UPPERCASE, letter-spacing: 1.5px, small caps</td></tr>
+  </table>
+
+  <h3>Color Palette</h3>
+  <div class="swatch-row">
+    <div class="swatch" style="background:#111;"><span style="color:#555;">#111</span></div>
+    <div class="swatch" style="background:#1a1a1a;"><span style="color:#555;">#1a1a1a</span></div>
+    <div class="swatch" style="background:#555;"><span style="color:#999;">#555</span></div>
+    <div class="swatch" style="background:#888;"><span style="color:#ccc;">#888</span></div>
+    <div class="swatch" style="background:#f7f7f7; border:1px solid #e0e0e0;"><span style="color:#888;">#f7f7f7</span></div>
+    <div class="swatch" style="background:#ffffff; border:1px solid #e0e0e0;"><span style="color:#888;">#fff</span></div>
+  </div>
+  <p>Black and white only. No accent colors. Grayscale hierarchy creates authority. Photography: B&W, grayscale(100%).</p>
+
+  <h3>Layout Principles</h3>
+  <div class="grid-2">
+    <div class="rule-card">
+      <h3>Dark Hero</h3>
+      <p>Major documents open with dark (#111) hero section, min-height 80vh. Name + title + value proposition + contact.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Card System</h3>
+      <p>Content in bordered cards (1px solid #e0e0e0). Hover: translateY(-2px) + box-shadow. Tier 1 = full cards. Tier 2 = compact grid.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Generous Whitespace</h3>
+      <p>Section padding: 48px 60px. Let content breathe. No cramming. 1 topic per page, max 1 scroll.</p>
+    </div>
+    <div class="rule-card">
+      <h3>Dark Bookends</h3>
+      <p>Open dark, close dark. Education/advisory sections use dark background for visual weight.</p>
+    </div>
+  </div>
+
+  <h3>Design Reference</h3>
+  <p><strong>Moog</strong> - precision + beauty. Not creative portfolio. Executive editorial meets Monocle. Zero icons. Zero decorative elements. The content IS the design.</p>
+</section>
+
+<!-- 05 PROOF SYSTEM -->
+<section>
+  <div class="sn">05 - Proof System</div>
+  <h2>What we show</h2>
+  <p>Flex by audience. No fixed trio. PRIMO selects per target.</p>
+
+  <div class="grid-3" style="margin-top: 16px;">
+    <div class="proof-card">
+      <div class="proof-audience">MedTech Buyers</div>
+      <div class="proof-company">CathWorks FFRangio</div>
+      <div class="proof-line">AI cardiac diagnostics - FDA cleared - 100K+ patients - $585M Medtronic acquisition</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-audience">Cyber Buyers</div>
+      <div class="proof-company">Orchestra Group</div>
+      <div class="proof-line">Cyber CISO platform - NSO Group founders - built from zero</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-audience">Scale Buyers</div>
+      <div class="proof-company">Haaretz-TheMarker</div>
+      <div class="proof-line">70-person department - 3-year digital transformation - Israel's #1 newspaper</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-audience">CPO Skeptics</div>
+      <div class="proof-company">Queue Platform</div>
+      <div class="proof-line">Actual CPO title - B2B2C - fundraising through market launch</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-audience">Startup Buyers</div>
+      <div class="proof-company">Selina Hotels</div>
+      <div class="proof-line">Unicorn hospitality - booking experience redesign - mobile acquisition</div>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 24px;">Proof Bar (for documents)</h3>
+  <div class="lockup">
+    <div class="lockup-value" style="font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#666;">$585M EXIT &nbsp; FDA CLEARED &nbsp; 100,000+ PATIENTS &nbsp; 5 DOMAINS &nbsp; 0 FAILURES</div>
+    <div class="lockup-note">Always appears after hero section. Uppercase, spaced, muted color.</div>
+  </div>
+</section>
+
+<!-- 06 DEAL ARCHITECTURE -->
+<section class="dark">
+  <div class="sn">06 - Deal Architecture</div>
+  <h2>How we sell</h2>
+
+  <h3>5 Mandatory Gates</h3>
+  <table>
+    <tr><th>#</th><th>Gate</th><th>Rule</th></tr>
+    <tr><td>G1</td><td>Budget Check</td><td>What's the budget? No answer = don't continue.</td></tr>
+    <tr><td>G2</td><td>Decision Maker ID</td><td>Who signs? Not advisors, not clerks.</td></tr>
+    <tr><td>G3</td><td>Scope Lock</td><td>Locked before pricing. Change = price change. In writing.</td></tr>
+    <tr><td>G4</td><td>Floor Price</td><td>450 NIS/hr (Israel) | $275/hr (Global). No exceptions.</td></tr>
+    <tr><td>G5</td><td>Exit Trigger</td><td>6 months without data = exit.</td></tr>
+  </table>
+
+  <h3>Service Direction (Deferred - Not Yet Locked)</h3>
+  <p style="color:#999;">3 products, not hours: Diagnose / Build / Lead. Research benchmarks: S1 $22K, S2 $13K/mo, S3 $15K. Separate brand discussion needed.</p>
+
+  <h3>Pricing Reference</h3>
+  <table>
+    <tr><th>Metric</th><th>Value</th></tr>
+    <tr><td>Reference Rate</td><td>450 NIS/hr (Israel) | $275/hr (Global)</td></tr>
+    <tr><td>Gross Margin Target</td><td>Launch 55% | Build 60% | Scale 65%</td></tr>
+    <tr><td>Discounts</td><td>Standard max 5% | Strategic max 10% | Pilot = credit only</td></tr>
+  </table>
+</section>
+
+<!-- 07 TOUCHPOINTS -->
+<section>
+  <div class="sn">07 - Touchpoints</div>
+  <h2>Where it applies</h2>
+  <p>From 23.02.2026, ALL external Primak activity must be wrapped in the new branding.</p>
+
+  <table>
+    <tr><th>Touchpoint</th><th>Status</th><th>Action</th></tr>
+    <tr><td>CV (web)</td><td style="color:#059669; font-weight:600;">LIVE</td><td>Cornerstone deliverable. Published on GitHub Pages.</td></tr>
+    <tr><td>LinkedIn Profile</td><td style="color:#d9730d; font-weight:600;">NEXT</td><td>Update headline, About, Experience per v5 copy (CPO not Founder).</td></tr>
+    <tr><td>Email Signature</td><td style="color:#888;">Pending</td><td>Yaniv Primak | CPO, Primak | yaniv@primak.co</td></tr>
+    <tr><td>Proposals / Decks</td><td style="color:#888;">Pending</td><td>Use brand voice, proof bar, visual DNA.</td></tr>
+    <tr><td>primak.co Website</td><td style="color:#dc2626; font-weight:600;">OLD BRANDING</td><td>Still shows "design and technology taskforce." Rebuild needed.</td></tr>
+    <tr><td>Outreach Messages</td><td style="color:#059669; font-weight:600;">Active</td><td>All new outreach follows Intel Protocol + voice guidelines.</td></tr>
+    <tr><td>Case Studies</td><td style="color:#888;">Not started</td><td>5 published + indexed stories. CathWorks first (live news cycle).</td></tr>
+    <tr><td>Business Cards</td><td style="color:#888;">Not started</td><td>Phase 2 - after visual identity system.</td></tr>
+  </table>
+</section>
+
+<!-- 08 CORNERSTONE -->
+<section class="dark">
+  <div class="sn">08 - Cornerstone Reference</div>
+  <h2>The baseline</h2>
+  <p style="color:#999;">The CV is the first tangible output of the new branding. All future deliverables reference this document for voice, tone, visual DNA, and positioning.</p>
+
+  <div class="cornerstone">
+    <div class="lockup-label" style="color:#555;">Cornerstone Deliverable</div>
+    <div style="font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 8px;">
+      <a href="https://primakdigital.github.io/primak-reports/yaniv-primak-cv-2026.html" style="color:#fff; text-decoration: none;">yaniv-primak-cv-2026.html</a>
+    </div>
+    <p style="color:#777; margin-bottom: 0;">Published 23.02.2026. Dark hero + Inter font + 4-size hierarchy + proof bar + tiered card system + outcome lines in small caps + hover animations + B&W photo + dark bookends.</p>
+  </div>
+
+  <h3 style="margin-top: 24px;">Pentagram Process Documents</h3>
+  <table>
+    <tr><th>Document</th><th>Contains</th></tr>
+    <tr><td>pentagram-methodology-primak-v1.html</td><td>6-phase methodology applied to Primak. Discovery, challenges, principles, system design.</td></tr>
+    <tr><td>pentagram-brand-reset-v1.html</td><td>Team A creative proposals. Design language approved.</td></tr>
+    <tr><td>pentagram-brand-reset-counter-v1.html</td><td>Team B counter-brief. "Signal not dashboard."</td></tr>
+    <tr><td>pentagram-market-research-v1.html</td><td>5 research workstreams. Competitor landscape. Buyer language. AI retrieval.</td></tr>
+    <tr><td>pentagram-deliverables-research-v1.html</td><td>Full Pentagram process - 50+ deliverables across 11 categories.</td></tr>
+    <tr><td>brand-reset-decisions-v1.html</td><td>6/7 locked decisions + work plan + validation tests.</td></tr>
+    <tr><td>one-liner-simulation-v1.html</td><td>9 buyer personas tested against one-liner.</td></tr>
+    <tr><td>pentagram-cv-rewrite-v1.html</td><td>CV analysis + rewrite + design direction.</td></tr>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>Primak Brand Bible v1 - 23 February 2026</div>
+  <div>Internal reference - PRIMO operating document</div>
+</div>
+
+</body>
+</html>

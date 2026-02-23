@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pentagram Deliverables Research v1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #111; --dark: #1a1a1a; --mid: #555; --light: #888;
+    --border: #e0e0e0; --bg: #f7f7f7; --white: #fff;
+    --accent: #111; --red: #dc2626; --green: #059669;
+    --blue: #1d4ed8; --blue-light: #eff6ff;
+    --amber: #d97706; --amber-light: #fffbeb;
+  }
+  body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .hero { padding: 80px 60px 60px; border-bottom: 3px solid var(--black); }
+  .hero .tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 40px; }
+  .hero h1 { font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -2px; max-width: 780px; margin-bottom: 20px; }
+  .hero .sub { font-size: 17px; color: var(--mid); max-width: 640px; line-height: 1.7; }
+  .hero .meta { margin-top: 40px; font-size: 12px; color: var(--light); letter-spacing: 1px; text-transform: uppercase; }
+
+  section { padding: 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
+  section.black { background: var(--black); color: var(--white); }
+
+  .sn { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); font-weight: 600; margin-bottom: 12px; }
+  .dark .sn, .black .sn { color: #666; }
+
+  h2 { font-size: 32px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 24px; line-height: 1.15; }
+  h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px; margin-top: 32px; line-height: 1.3; }
+  h4 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 8px; margin-top: 20px; }
+
+  p { font-size: 15px; line-height: 1.75; color: var(--mid); max-width: 720px; margin-bottom: 16px; }
+  .dark p, .black p { color: #aaa; }
+
+  ul { list-style: none; padding: 0; margin-bottom: 20px; }
+  ul li { font-size: 14px; line-height: 1.7; color: var(--mid); padding: 4px 0 4px 20px; position: relative; }
+  ul li::before { content: ""; position: absolute; left: 0; top: 12px; width: 6px; height: 6px; background: var(--black); border-radius: 50%; }
+  .dark ul li::before, .black ul li::before { background: #666; }
+  .dark ul li, .black ul li { color: #aaa; }
+
+  .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 32px; }
+  .phase-card { border: 1px solid var(--border); padding: 32px; }
+  .phase-card .num { font-size: 48px; font-weight: 800; color: #e0e0e0; letter-spacing: -3px; margin-bottom: 8px; }
+  .phase-card h3 { margin-top: 0; font-size: 18px; }
+  .phase-card p { font-size: 13px; }
+  .phase-card .dur { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); font-weight: 600; margin-top: 16px; }
+
+  .del-table { width: 100%; border-collapse: collapse; margin-top: 24px; margin-bottom: 32px; }
+  .del-table th { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-align: left; padding: 12px 16px; border-bottom: 2px solid var(--black); font-weight: 700; color: var(--black); }
+  .del-table td { font-size: 13px; padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--mid); vertical-align: top; line-height: 1.6; }
+  .del-table tr:hover td { background: var(--bg); }
+  .del-table .cat { font-weight: 700; color: var(--black); font-size: 13px; }
+
+  .dark .del-table th { border-bottom-color: #555; color: var(--white); }
+  .dark .del-table td { border-bottom-color: #333; color: #aaa; }
+  .dark .del-table .cat { color: var(--white); }
+  .dark .del-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .callout { background: var(--bg); border-left: 3px solid var(--black); padding: 24px 28px; margin: 24px 0; }
+  .callout p { margin-bottom: 0; font-size: 14px; }
+  .callout .source { font-size: 11px; color: var(--light); margin-top: 8px; letter-spacing: 0.5px; }
+
+  .dark .callout { background: rgba(255,255,255,0.04); border-left-color: #555; }
+
+  .red-callout { background: #fef2f2; border-left: 3px solid var(--red); padding: 24px 28px; margin: 24px 0; }
+  .red-callout p { margin-bottom: 0; font-size: 14px; color: var(--black); }
+  .red-callout .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); font-weight: 700; margin-bottom: 8px; }
+
+  .timeline-bar { display: flex; margin: 32px 0; gap: 0; }
+  .timeline-bar .seg { padding: 16px 20px; flex: 1; border: 1px solid var(--border); border-right: none; }
+  .timeline-bar .seg:last-child { border-right: 1px solid var(--border); }
+  .timeline-bar .seg .label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); font-weight: 600; }
+  .timeline-bar .seg .val { font-size: 20px; font-weight: 800; margin-top: 4px; letter-spacing: -1px; }
+  .timeline-bar .seg .note { font-size: 11px; color: var(--light); margin-top: 4px; }
+
+  .example-tag { display: inline-block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; background: var(--black); color: var(--white); padding: 3px 10px; font-weight: 600; margin-right: 6px; margin-bottom: 6px; }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 32px 0; }
+  .stat-row .stat { padding: 24px; border: 1px solid var(--border); border-right: none; text-align: center; }
+  .stat-row .stat:last-child { border-right: 1px solid var(--border); }
+  .stat-row .stat .n { font-size: 36px; font-weight: 800; letter-spacing: -2px; }
+  .stat-row .stat .l { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-top: 4px; }
+
+  .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 32px; }
+  .diff-grid .col { padding: 32px; border: 1px solid var(--border); }
+  .diff-grid .col:first-child { border-right: none; }
+  .diff-grid .col h4 { margin-top: 0; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+  .diff-grid .col ul li { font-size: 13px; }
+
+  .sources { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .sources a { font-size: 12px; color: var(--light); text-decoration: none; display: block; padding: 3px 0; }
+  .sources a:hover { color: var(--black); }
+
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px 40px; }
+    .hero h1 { font-size: 28px; letter-spacing: -1px; }
+    section { padding: 40px 24px; }
+    h2 { font-size: 24px; }
+    .phase-grid { grid-template-columns: 1fr; gap: 20px; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .diff-grid { grid-template-columns: 1fr; }
+    .diff-grid .col:first-child { border-right: 1px solid var(--border); border-bottom: none; }
+    .del-table { font-size: 12px; }
+    .del-table th, .del-table td { padding: 10px 8px; }
+    .timeline-bar { flex-direction: column; }
+    .timeline-bar .seg { border-right: 1px solid var(--border); border-bottom: none; }
+    .timeline-bar .seg:last-child { border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">Pentagram Research</div>
+  <h1>The Complete Pentagram Brand Identity Playbook</h1>
+  <div class="sub">Every phase, every deliverable, every file format. Researched from real Pentagram projects: Mastercard, Slack, Warner Bros., Channel 4, Calendly, Cohere, Mozilla, The New School, ERM, Fashion for Good, Satalia.</div>
+  <div class="meta">v1 &mdash; 23 February 2026 &mdash; Primak Brand Reset Reference</div>
+</div>
+
+<!-- ============================== -->
+<!-- SECTION 1: PENTAGRAM'S PROCESS -->
+<!-- ============================== -->
+
+<section>
+  <div class="sn">01 &mdash; Process</div>
+  <h2>How Pentagram Actually Works: Phase by Phase</h2>
+  <p>Pentagram does not follow a cookie-cutter process. Each partner runs their own studio within the firm. But across documented projects (Mastercard, Channel 4, Slack, Calendly, Mozilla, Warner Bros.), a consistent 6-phase structure emerges. The key difference from regular agencies: a Pentagram partner (not a junior account manager) leads every phase personally.</p>
+
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="num">01</div>
+      <h3>Immersion & Discovery</h3>
+      <p>Deep research into the brand's mission, history, competitive landscape, audience, and cultural context. Pentagram partners personally interview stakeholders, audit every touchpoint, and analyze how the brand is experienced by customers. For Warner Bros., this meant studying 100 years of heritage. For Mastercard, understanding the shift from physical cards to digital payments.</p>
+      <ul>
+        <li>Stakeholder interviews (C-suite, board, customers)</li>
+        <li>Competitive & cultural landscape audit</li>
+        <li>Brand experience mapping (every touchpoint)</li>
+        <li>Heritage & equity assessment</li>
+        <li>Audience research & persona development</li>
+      </ul>
+      <div class="dur">Duration: 2-6 weeks</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="num">02</div>
+      <h3>Strategy & Positioning</h3>
+      <p>Distillation of research into a strategic framework. Brand essence, positioning, messaging architecture, tone of voice. Pentagram bridges strategy and execution; they reject strategy as "words on a whiteboard" and prove how principles translate into tangible design. For Fashion for Good, this produced a 3-word manifesto: "Only good fashion."</p>
+      <ul>
+        <li>Brand essence / core idea definition</li>
+        <li>Positioning statement</li>
+        <li>Messaging platform (hierarchy of messages)</li>
+        <li>Tone of voice guidelines</li>
+        <li>Brand principles / attributes</li>
+        <li>Naming (when applicable)</li>
+      </ul>
+      <div class="dur">Duration: 2-4 weeks</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="num">03</div>
+      <h3>Concept Development</h3>
+      <p>Multiple creative directions explored. Pentagram typically presents 2-4 distinct concepts, each with a core idea, preliminary mark, type direction, and mood. For Slack, Michael Bierut explored multiple approaches before landing on the pinwheel. For Channel 4, the team tested "portals, magic, and time machines" before settling on the "traveller" metaphor.</p>
+      <ul>
+        <li>2-4 distinct creative directions</li>
+        <li>Preliminary marks and type explorations</li>
+        <li>Mood boards and visual territories</li>
+        <li>Concept rationale documents</li>
+        <li>Client presentation and collaborative selection</li>
+      </ul>
+      <div class="dur">Duration: 3-6 weeks</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="num">04</div>
+      <h3>Design Development</h3>
+      <p>Selected concept refined into a complete identity system. This is the heaviest phase. Logo finalized, typography selected or commissioned, color system calibrated, visual language built, patterns and graphic tools developed. For Mastercard, hundreds of color tests were conducted. For Channel 4, color selection alone took 4+ months.</p>
+      <ul>
+        <li>Logo refinement (geometry, proportions, optical corrections)</li>
+        <li>Custom typeface design or selection</li>
+        <li>Color system calibration (Pantone, CMYK, RGB, HEX)</li>
+        <li>Visual language: patterns, shapes, textures, illustration</li>
+        <li>Icon system development</li>
+        <li>Photography direction</li>
+        <li>Motion/animation principles</li>
+        <li>Application mockups across key touchpoints</li>
+      </ul>
+      <div class="dur">Duration: 6-12 weeks</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="num">05</div>
+      <h3>System Build & Guidelines</h3>
+      <p>The identity is codified into a brand book and toolkit. Rules for usage, clear space, minimum sizes, do/don't examples. Templates for recurring applications. Digital toolkits (Figma libraries, parametric tools). For Cohere, Pentagram delivered custom Figma plugins and Cinema 4D tools. For Channel 4, a parametric motion toolkit.</p>
+      <ul>
+        <li>Brand guidelines document (40-100+ pages)</li>
+        <li>Logo usage rules and clear space specs</li>
+        <li>Digital asset library (all formats)</li>
+        <li>Template suite (presentations, social, documents)</li>
+        <li>Figma/design tool component libraries</li>
+        <li>Parametric/generative design tools (when applicable)</li>
+      </ul>
+      <div class="dur">Duration: 3-6 weeks</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="num">06</div>
+      <h3>Implementation & Rollout</h3>
+      <p>Deployment across all touchpoints: digital, print, environmental, product. Pentagram often directs the rollout, coordinating with specialist studios for motion, sound, environmental design, and web development. For Channel 4, they coordinated 6+ external studios. For The New School, they oversaw signage, environmental graphics, campus installations, and website redesign.</p>
+      <ul>
+        <li>Website design/art direction</li>
+        <li>Environmental and signage implementation</li>
+        <li>Stationery and print production</li>
+        <li>Digital platform skins (apps, dashboards)</li>
+        <li>Launch campaign materials</li>
+        <li>Internal training and brand onboarding</li>
+      </ul>
+      <div class="dur">Duration: 4-12 weeks</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== -->
+<!-- SECTION 2: TIMELINE            -->
+<!-- ============================== -->
+
+<section class="dark">
+  <div class="sn">02 &mdash; Timeline</div>
+  <h2>How Long Does It Take?</h2>
+  <p>Based on documented Pentagram projects, timelines range from 4 months (smaller scope) to 3 years (enterprise with massive rollout). For a solo consultant with strategy already locked, the realistic range is 3-5 months for the full visual identity and brand book.</p>
+
+  <div class="timeline-bar">
+    <div class="seg">
+      <div class="label">Mozilla Foundation</div>
+      <div class="val">8 months</div>
+      <div class="note">Strategy + identity + digital</div>
+    </div>
+    <div class="seg">
+      <div class="label">Channel 4</div>
+      <div class="val">18 months</div>
+      <div class="note">Masterbrand + motion + rollout</div>
+    </div>
+    <div class="seg">
+      <div class="label">Warner Bros.</div>
+      <div class="val">3 years</div>
+      <div class="note">Logo + identity + centennial</div>
+    </div>
+    <div class="seg">
+      <div class="label">Slack</div>
+      <div class="val">~6 months</div>
+      <div class="note">Logo + identity + rollout</div>
+    </div>
+  </div>
+
+  <h3>Realistic Timeline for a Solo Consultant Brand (Strategy Already Done)</h3>
+
+  <div class="timeline-bar">
+    <div class="seg">
+      <div class="label">Phase 1-2</div>
+      <div class="val">2-3 wks</div>
+      <div class="note">Discovery + strategy validation</div>
+    </div>
+    <div class="seg">
+      <div class="label">Phase 3</div>
+      <div class="val">3-4 wks</div>
+      <div class="note">Concept development</div>
+    </div>
+    <div class="seg">
+      <div class="label">Phase 4</div>
+      <div class="val">4-6 wks</div>
+      <div class="note">Design development</div>
+    </div>
+    <div class="seg">
+      <div class="label">Phase 5-6</div>
+      <div class="val">3-5 wks</div>
+      <div class="note">Guidelines + implementation</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 24px;">Total estimate: <strong style="color: white; font-size: 20px;">12-18 weeks</strong> (3-5 months) from brief to full delivery, assuming strategy decisions are already locked.</p>
+</section>
+
+<!-- ====================================== -->
+<!-- SECTION 3: COMPLETE DELIVERABLES LIST  -->
+<!-- ====================================== -->
+
+<section>
+  <div class="sn">03 &mdash; Deliverables</div>
+  <h2>The Complete Pentagram Deliverables List</h2>
+  <p>Every single item Pentagram would deliver for a full brand identity engagement, compiled from 11 real projects. Organized by category, with file formats, purpose, and project examples.</p>
+
+  <!-- A. STRATEGY -->
+  <h3>A. Brand Strategy Deliverables</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Brand Essence / Core Idea</td>
+      <td>One sentence or phrase that captures the brand's fundamental truth. The strategic north star from which everything derives.</td>
+      <td>PDF, Keynote/PPT</td>
+      <td>Fashion for Good: "Only good fashion." Calendly: "Easy ahead." This is the seed of the entire system.</td>
+    </tr>
+    <tr>
+      <td class="cat">Positioning Statement</td>
+      <td>Formal articulation of who the brand serves, what it offers, how it's different, and why it matters. 1-2 paragraphs.</td>
+      <td>PDF, Word/Google Docs</td>
+      <td>Mastercard: repositioned from "credit card company" to "forward-thinking, people-centered technology company."</td>
+    </tr>
+    <tr>
+      <td class="cat">Messaging Platform</td>
+      <td>Hierarchy of messages: tagline, elevator pitch, long-form narrative, key messages by audience. Structured so different contexts get different messages from the same framework.</td>
+      <td>PDF, Keynote/PPT</td>
+      <td>Fashion for Good: 5 messaging pillars (Materials, Economy, Energy, Water, Lives). Mozilla: "Reclaim the internet."</td>
+    </tr>
+    <tr>
+      <td class="cat">Tone of Voice Guidelines</td>
+      <td>Defines how the brand speaks: vocabulary, sentence structure, personality traits, do/don't examples, writing samples across channels (web, email, social, formal).</td>
+      <td>PDF (part of brand book)</td>
+      <td>Fashion for Good: "brave, wise, accessible." Satalia: dual tone (client-facing warm vs. recruitment-facing technical).</td>
+    </tr>
+    <tr>
+      <td class="cat">Brand Principles / Attributes</td>
+      <td>3-6 core principles that define brand behavior. Not just words: each principle comes with behavioral descriptions and design implications.</td>
+      <td>PDF, Keynote/PPT</td>
+      <td>Channel 4: behavioural principles that connect the identity across all platforms.</td>
+    </tr>
+    <tr>
+      <td class="cat">Naming (if applicable)</td>
+      <td>Brand name, sub-brand naming convention, product naming system. Includes linguistic testing and trademark screening.</td>
+      <td>PDF, Keynote/PPT</td>
+      <td>Citi: Pentagram recommended unifying Citibank + Travelers under the 4-letter name "Citi."</td>
+    </tr>
+  </table>
+
+  <!-- B. LOGO SYSTEM -->
+  <h3>B. Logo System</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Primary Logo (Full Lockup)</td>
+      <td>The main logo: symbol + wordmark together. This is the default version used in most contexts.</td>
+      <td>AI, EPS, SVG, PDF, PNG (transparent, multiple sizes)</td>
+      <td>Mastercard: interlocking circles + "mastercard" wordmark. Slack: pinwheel + "slack" logotype.</td>
+    </tr>
+    <tr>
+      <td class="cat">Symbol / Icon (Standalone)</td>
+      <td>The mark without the wordmark. Used for favicons, app icons, small-space applications, merchandise.</td>
+      <td>AI, EPS, SVG, PDF, PNG, ICO (favicon)</td>
+      <td>Mastercard's wordless mark (used without brand name, recognized by 81% of consumers). Calendly's hollow "C."</td>
+    </tr>
+    <tr>
+      <td class="cat">Wordmark (Standalone)</td>
+      <td>The brand name in its proprietary typographic treatment, without the symbol. Used in editorial, text-heavy, and co-branding contexts.</td>
+      <td>AI, EPS, SVG, PDF, PNG</td>
+      <td>Slack's lowercase sans-serif logotype. Warner Bros.' custom "Warner Bros." lettering.</td>
+    </tr>
+    <tr>
+      <td class="cat">Logo Variations</td>
+      <td>Full color, single color (black), reversed (white on dark), grayscale. Horizontal, stacked, and compact configurations. Typically 8-16 total variations.</td>
+      <td>AI, EPS, SVG, PDF, PNG per variation</td>
+      <td>Every Pentagram project delivers multiple configurations tested against real contexts.</td>
+    </tr>
+    <tr>
+      <td class="cat">Clear Space & Minimum Size Rules</td>
+      <td>Specifications for the protected area around the logo and the smallest size it can be reproduced at while remaining legible.</td>
+      <td>Documented in brand guidelines (PDF)</td>
+      <td>Critical for consistency. Warner Bros. shield was "optimized to perform across various platforms and scales."</td>
+    </tr>
+    <tr>
+      <td class="cat">Incorrect Usage Examples</td>
+      <td>Visual guide showing how NOT to use the logo: no stretching, no color changes, no drop shadows, no rotation, etc. Usually 8-15 "don't" examples.</td>
+      <td>Documented in brand guidelines (PDF)</td>
+      <td>Standard in every Pentagram brand book. Prevents brand dilution by third parties.</td>
+    </tr>
+    <tr>
+      <td class="cat">Co-Branding Rules</td>
+      <td>How the logo appears alongside partner/client logos. Size ratios, spacing, color priority.</td>
+      <td>Documented in brand guidelines (PDF)</td>
+      <td>Fashion for Good: partner logo colorways that adapt to each partnership context.</td>
+    </tr>
+  </table>
+
+  <!-- C. TYPOGRAPHY -->
+  <h3>C. Typography System</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Primary Typeface</td>
+      <td>The main typeface for headlines, body, and brand communications. Can be custom-commissioned (bespoke) or a carefully selected existing font. Pentagram frequently commissions bespoke typefaces from type foundries.</td>
+      <td>OTF, TTF, WOFF/WOFF2 (web), Variable Font files</td>
+      <td>The New School: custom "Neue" by Peter Bil'ak. Cohere: 3 custom typefaces (Text, Outline, Mono). Warner Bros.: custom "Warner Bros. Sans."</td>
+    </tr>
+    <tr>
+      <td class="cat">Secondary Typeface</td>
+      <td>Complementary typeface for supporting text, captions, or technical content. Provides contrast and hierarchy alongside the primary face.</td>
+      <td>OTF, TTF, WOFF/WOFF2</td>
+      <td>ERM: Spezia (serif, primary) + Afrika Sans (wordmark) + Figtree (geometric supporting). Calendly: Gilroy (primary) + Poppins + Arial (supporting).</td>
+    </tr>
+    <tr>
+      <td class="cat">Type Scale & Hierarchy</td>
+      <td>Specific size, weight, and line-height specifications for each level of typography: H1-H6, body, caption, label, button. Both print and digital scales.</td>
+      <td>Documented in brand guidelines (PDF) + Figma component library</td>
+      <td>Defines the exact visual rhythm of all communications. Different scales for print vs. digital.</td>
+    </tr>
+    <tr>
+      <td class="cat">Pairing Rules</td>
+      <td>Guidelines for how typefaces work together: which combinations are allowed, relative sizing, when to use serif vs. sans-serif, etc.</td>
+      <td>Documented in brand guidelines (PDF)</td>
+      <td>Prevents ad-hoc font mixing that erodes brand coherence.</td>
+    </tr>
+    <tr>
+      <td class="cat">Font Licenses</td>
+      <td>Commercial licenses for all typefaces, covering desktop, web, app, and server use. If custom, perpetual usage rights.</td>
+      <td>License documentation (PDF)</td>
+      <td>A real cost item. Custom typeface commissions range $10,000-$100,000+. Commercial font licenses $500-$5,000.</td>
+    </tr>
+  </table>
+
+  <!-- D. COLOR SYSTEM -->
+  <h3>D. Color System</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Primary Palette</td>
+      <td>2-4 core brand colors that define the brand's visual signature. Each color specified in all color models: Pantone (print standard), CMYK (4-color print), RGB (screen), HEX (web/digital).</td>
+      <td>ASE (Adobe Swatch), Pantone reference numbers, documented in brand guidelines</td>
+      <td>Slack: 4 primary colors (pink, blue, green, yellow) down from 11. Mastercard: red, yellow, orange. The New School: Parsons Red, black, white.</td>
+    </tr>
+    <tr>
+      <td class="cat">Secondary Palette</td>
+      <td>6-12 supporting colors for data visualization, illustration, backgrounds, UI states, accent applications. Designed to complement the primary palette.</td>
+      <td>ASE, Pantone numbers, documented in brand guidelines</td>
+      <td>The New School: 12 secondary colors (7 traditional Pantone + 4 fluorescents + 2 metallics). Cohere: coniferous green, mushroom grey, volcanic black + synthetic hues.</td>
+    </tr>
+    <tr>
+      <td class="cat">Tint & Gradient Rules</td>
+      <td>Specifications for tints (lighter versions), shades (darker versions), and gradient combinations. Which gradients are allowed, direction, stops.</td>
+      <td>Documented in brand guidelines</td>
+      <td>Channel 4: CSS linear gradients + WebGL 3D gradients as core design element. Mastercard: carefully calibrated orange overlap color.</td>
+    </tr>
+    <tr>
+      <td class="cat">Color Usage Rules</td>
+      <td>Rules for which colors go where: primary backgrounds, text colors, accent applications, contrast requirements (WCAG accessibility), and forbidden combinations.</td>
+      <td>Documented in brand guidelines</td>
+      <td>Slack's previous 11-color palette failed on non-white backgrounds. The 4-color reduction solved this.</td>
+    </tr>
+    <tr>
+      <td class="cat">Dark Mode Palette</td>
+      <td>Color adaptations for dark interfaces, ensuring contrast and legibility in inverted schemes. Increasingly standard for digital-first brands.</td>
+      <td>Documented in brand guidelines + Figma component library</td>
+      <td>Satalia: full dual palette (color client-facing + dark monochrome technical-facing).</td>
+    </tr>
+  </table>
+
+  <!-- E. VISUAL LANGUAGE -->
+  <h3>E. Visual Language & Graphic System</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Graphic Elements / Patterns</td>
+      <td>Distinctive graphic shapes, patterns, or textures derived from the brand mark or core concept. Can be parametric (infinite variations from mathematical rules) or fixed.</td>
+      <td>AI, SVG, PDF + source files (Figma, After Effects)</td>
+      <td>Mastercard: parametric patterns built on mathematical principles from the mark. Slack: pill and droplet shapes extracted from logo for icons and illustrations.</td>
+    </tr>
+    <tr>
+      <td class="cat">Icon Set</td>
+      <td>Custom icon library (typically 50-200+ icons) designed in the brand's visual language. Consistent stroke weight, corner radius, grid, and style.</td>
+      <td>SVG, PNG (multiple sizes), Figma component library, icon font file</td>
+      <td>Cohere: line-drawn icons inspired by Voronoi language, designed within a 24px grid. Calendly: custom icon library derived from logo structure.</td>
+    </tr>
+    <tr>
+      <td class="cat">Illustration Style</td>
+      <td>Guidelines for illustration: style (line, flat, 3D, hand-drawn), color use, subject matter, level of detail. Often includes sample illustrations or commissioned artwork.</td>
+      <td>AI, SVG, PNG + style guide in brand book</td>
+      <td>Calendly: line-based illustrations by Mike Lemanski, including "Caly" squirrel mascot. Mastercard: parametric generative illustrations.</td>
+    </tr>
+    <tr>
+      <td class="cat">Photography Direction</td>
+      <td>Art direction for photography: subjects, composition, lighting, color grading, cropping rules, model selection criteria. Sample mood boards and reference images.</td>
+      <td>PDF (within brand book) + sample/reference images (JPEG)</td>
+      <td>ERM: nature-based imagery abstracted through refractive lens. Calendly: "lively, authentic imagery reflecting real moments." Cohere: "new nature" combining organic and synthetic.</td>
+    </tr>
+    <tr>
+      <td class="cat">Image Treatment / Filters</td>
+      <td>Proprietary visual treatments applied to photography: overlays, duotones, refractive effects, halftone, cropping masks. Creates a signature look.</td>
+      <td>Photoshop actions, Lightroom presets, documented process</td>
+      <td>ERM: tonal range broken into concentric patterns. These treatments make any photo instantly recognizable as the brand.</td>
+    </tr>
+    <tr>
+      <td class="cat">Data Visualization Style</td>
+      <td>Guidelines for charts, graphs, infographics: which chart types to use, color mapping, label styles, axis treatments, annotation style.</td>
+      <td>Documented in brand book + Figma components</td>
+      <td>Critical for a consulting brand. Ensures every chart in a presentation looks like it belongs to the same family.</td>
+    </tr>
+  </table>
+
+  <!-- F. BRAND BOOK -->
+  <h3>F. Brand Book / Guidelines</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Brand Standards Manual</td>
+      <td>The master reference document. Contains ALL rules, specifications, and examples for every brand element. Typical Pentagram brand book structure:<br><br>
+        1. Brand Story & Principles (4-8 pages)<br>
+        2. Logo System & Usage (12-20 pages)<br>
+        3. Typography (8-12 pages)<br>
+        4. Color (6-10 pages)<br>
+        5. Visual Language (8-16 pages)<br>
+        6. Photography & Imagery (6-10 pages)<br>
+        7. Applications (12-24 pages)<br>
+        8. Tone of Voice (4-8 pages)<br>
+        9. Digital Guidelines (8-12 pages)<br>
+        10. Incorrect Usage (4-8 pages)
+      </td>
+      <td>PDF (print-ready, 300 DPI) + interactive digital version (web-based or Brandpad)</td>
+      <td>The New School: 90+ page brand standards manual with dedicated sections for each school's color coding. NASA's Pentagram-era manual: 60 pages. Typical range: 40-100+ pages depending on brand complexity.</td>
+    </tr>
+    <tr>
+      <td class="cat">Quick Reference Card</td>
+      <td>1-2 page summary of the most essential rules: logo, primary colors, primary font, key do/don'ts. For quick reference by partners and vendors.</td>
+      <td>PDF (single page, print-ready)</td>
+      <td>Ensures someone can get the essentials in 60 seconds without reading 80 pages.</td>
+    </tr>
+    <tr>
+      <td class="cat">Digital Brand Hub</td>
+      <td>Online, interactive version of the brand guidelines. Searchable, always current, with downloadable assets. Pentagram increasingly delivers via platforms like Brandpad or custom web portals.</td>
+      <td>Web URL (hosted) + downloadable assets</td>
+      <td>Pentagram explicitly uses Brandpad to "systemise a brand" with live, interactive guidelines.</td>
+    </tr>
+  </table>
+
+  <!-- G. DIGITAL ASSETS -->
+  <h3>G. Digital Assets</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Website Design</td>
+      <td>Art direction and UI design for the primary website. Can range from full design + build to design direction and templates for in-house teams.</td>
+      <td>Figma/Sketch files, HTML/CSS (if built), design specs document</td>
+      <td>Cohere: Pentagram designed the website, user dashboard, and playground. The New School: website redesigned using the custom Neue typeface.</td>
+    </tr>
+    <tr>
+      <td class="cat">Social Media Templates</td>
+      <td>Templates for all major platforms: LinkedIn, Twitter/X, Instagram (post, story, carousel), YouTube banner, profile images. Sized to each platform's specs.</td>
+      <td>Figma, PSD, AI, Canva templates</td>
+      <td>Channel 4: full social media system directed by Stink Studios under Pentagram art direction.</td>
+    </tr>
+    <tr>
+      <td class="cat">Presentation Template</td>
+      <td>Master slide deck template: title slide, section dividers, content layouts, charts, image slides, end slide. Typically 20-30 master slide layouts.</td>
+      <td>Keynote, PowerPoint, Google Slides</td>
+      <td>For a consultant, this is the most-used asset. Every pitch, every client meeting, every proposal.</td>
+    </tr>
+    <tr>
+      <td class="cat">Email Templates</td>
+      <td>Branded email templates: newsletter, transactional, announcement, signature. HTML-coded, responsive.</td>
+      <td>HTML, Figma mockups, email builder exports</td>
+      <td>Ensures every email touchpoint carries the brand consistently.</td>
+    </tr>
+    <tr>
+      <td class="cat">Email Signature</td>
+      <td>Standardized email signature: layout, fonts (web-safe fallbacks), logo placement, social links, legal line.</td>
+      <td>HTML code snippet</td>
+      <td>The most frequent brand touchpoint for a consultant. Seen hundreds of times per week.</td>
+    </tr>
+    <tr>
+      <td class="cat">Document Templates</td>
+      <td>Branded templates for proposals, reports, invoices, contracts, briefs. Word/Google Docs with proper styles, headers, footers.</td>
+      <td>Word (.docx), Google Docs, InDesign (.indd), PDF</td>
+      <td>Every document that leaves the brand must look like it belongs to the same family.</td>
+    </tr>
+    <tr>
+      <td class="cat">Figma / Design Component Library</td>
+      <td>Complete design system in Figma: all components, styles, tokens. Enables anyone to create on-brand materials without starting from scratch.</td>
+      <td>Figma file + published component library</td>
+      <td>Cohere: Pentagram delivered bespoke Figma plugins. Channel 4: parametric design toolkits.</td>
+    </tr>
+    <tr>
+      <td class="cat">OG Images & Favicons</td>
+      <td>Open Graph images for link previews (LinkedIn, Twitter, iMessage), favicon set (ICO, Apple Touch Icon, Android icon).</td>
+      <td>PNG (1200x630 OG), ICO, PNG (multiple sizes for favicons)</td>
+      <td>Controls how the brand appears when links are shared. Often overlooked, always noticed.</td>
+    </tr>
+  </table>
+
+  <!-- H. PHYSICAL TOUCHPOINTS -->
+  <h3>H. Physical Touchpoints</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Business Card</td>
+      <td>Front and back design. Typography, layout, paper stock recommendation, printing technique (letterpress, foil, emboss, standard offset). Size: standard 90x50mm or US 89x51mm.</td>
+      <td>AI, PDF (print-ready, 300 DPI + bleed), InDesign</td>
+      <td>A Pentagram-level business card is itself a design object. Paper, finish, and printing technique matter as much as the design. For Citi: the physical card was part of the brand experience.</td>
+    </tr>
+    <tr>
+      <td class="cat">Letterhead</td>
+      <td>A4/Letter format. Logo placement, margin system, typography for body text, footer with legal/contact info. Print and digital (e-letterhead) versions.</td>
+      <td>AI, PDF (print-ready), Word template (.docx)</td>
+      <td>For formal correspondence: proposals, contracts, invoices. The digital version (Word template) is used more frequently than print.</td>
+    </tr>
+    <tr>
+      <td class="cat">Envelope</td>
+      <td>DL, C5, and/or C4 sizes. Logo placement, return address, window alignment if applicable.</td>
+      <td>AI, PDF (print-ready)</td>
+      <td>Less critical for a digital-first consultant, but completes the stationery suite for premium moments.</td>
+    </tr>
+    <tr>
+      <td class="cat">With Compliments Slip</td>
+      <td>DL-sized slip for physical deliveries or gifts. Logo, short message area, contact info.</td>
+      <td>AI, PDF (print-ready)</td>
+      <td>A "luxurious touch" moment for physical deliveries to high-value clients.</td>
+    </tr>
+    <tr>
+      <td class="cat">Notebook / Stationery</td>
+      <td>Branded notebook cover, ruled/blank internal pages, back cover. Sometimes includes branded pen or folder.</td>
+      <td>AI, PDF (print-ready, production specs)</td>
+      <td>Conference handout, client meeting leave-behind, personal use. Reinforces brand in physical meetings.</td>
+    </tr>
+    <tr>
+      <td class="cat">Conference / Event Signage</td>
+      <td>Templates for pull-up banners, podium signage, name badges, booth graphics. Scalable designs for different event formats.</td>
+      <td>AI, PDF (large format, print-ready)</td>
+      <td>For speaking engagements and conference presence. A solo consultant's physical brand presence at events.</td>
+    </tr>
+  </table>
+
+  <!-- I. MOTION & ANIMATION -->
+  <h3>I. Motion & Animation</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Logo Animation</td>
+      <td>Animated version of the logo for video intros/outros, website loading, social media headers. Defines how the mark comes to life: timing, easing, reveal sequence.</td>
+      <td>MP4, GIF, Lottie JSON (web), After Effects project file</td>
+      <td>Channel 4: "the '4' is not a static symbol but a traveller that navigates and unifies all content." Pentagram "nearly always includes motion deliverables in branding projects."</td>
+    </tr>
+    <tr>
+      <td class="cat">Motion Principles</td>
+      <td>Guidelines for how brand elements move: speed, easing curves, entry/exit behavior, transitions. Defines the "personality" of motion across all media.</td>
+      <td>PDF (within brand book) + After Effects/Principle reference files</td>
+      <td>MIND: "continuous dynamic motion to highlight the platform's approach." Channel 4: platform-agnostic behavioural principles guiding all motion.</td>
+    </tr>
+    <tr>
+      <td class="cat">Presentation/Video Intro</td>
+      <td>Branded opening sequence for keynotes, webinars, video calls. 3-5 second animated title card.</td>
+      <td>MP4, MOV, After Effects project</td>
+      <td>For a consultant who presents frequently, this is the visual "handshake" at every talk.</td>
+    </tr>
+    <tr>
+      <td class="cat">Social Media Motion Templates</td>
+      <td>Animated templates for social: story transitions, post animations, quote card motions. Editable for ongoing content creation.</td>
+      <td>After Effects templates, Canva animated templates, GIF</td>
+      <td>Static posts are invisible in 2026. Motion stops the scroll.</td>
+    </tr>
+  </table>
+
+  <!-- J. BRAND ARCHITECTURE -->
+  <h3>J. Brand Architecture</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Architecture Map</td>
+      <td>Visual diagram showing the relationship between the master brand and any sub-brands, service lines, or product offerings. Defines: monolithic (one brand), endorsed (sub-brand + parent), or standalone.</td>
+      <td>PDF, Figma, Keynote/PPT</td>
+      <td>The New School: master brand + 5 individual schools, each with distinct color coding but unified typographic system. Channel 4: masterbrand unifying 4 sub-brands (E4, Film4, 4Music, etc.).</td>
+    </tr>
+    <tr>
+      <td class="cat">Service/Offering Visual System</td>
+      <td>How different services or packages are visually distinguished within the brand system. Color coding, iconography, naming convention.</td>
+      <td>Documented in brand guidelines + Figma components</td>
+      <td>For a consultant with multiple service packages: each package needs visual distinction while belonging to the same brand family.</td>
+    </tr>
+  </table>
+
+  <!-- K. TEMPLATES & TOOLKITS -->
+  <h3>K. Templates & Ongoing Toolkits</h3>
+  <table class="del-table">
+    <tr>
+      <th style="width: 22%;">Deliverable</th>
+      <th style="width: 32%;">What It Is</th>
+      <th style="width: 16%;">Formats</th>
+      <th style="width: 30%;">Why It Matters / Example</th>
+    </tr>
+    <tr>
+      <td class="cat">Proposal Template</td>
+      <td>Branded proposal document with cover, executive summary, scope, timeline, pricing, and terms sections pre-designed.</td>
+      <td>InDesign, Word (.docx), Google Docs</td>
+      <td>The #1 revenue-generating document for a consultant. Must be immaculate.</td>
+    </tr>
+    <tr>
+      <td class="cat">Invoice Template</td>
+      <td>Branded invoice with logo, payment details, item breakdown, totals, terms & conditions.</td>
+      <td>Word (.docx), Excel, Google Sheets, PDF</td>
+      <td>Professional invoices signal premium positioning. Every interaction reinforces brand.</td>
+    </tr>
+    <tr>
+      <td class="cat">Case Study Template</td>
+      <td>1-2 page layout for presenting past work: challenge, approach, results. Designed for both PDF sharing and web presentation.</td>
+      <td>InDesign, Figma, Word, HTML</td>
+      <td>A consultant's proof pack. The design of the case study IS part of the brand experience.</td>
+    </tr>
+    <tr>
+      <td class="cat">Contract / SOW Template</td>
+      <td>Branded but formal document template for contracts and statements of work. Legal-appropriate formatting.</td>
+      <td>Word (.docx), PDF</td>
+      <td>Even legal documents carry the brand. Typography and layout signal professionalism.</td>
+    </tr>
+    <tr>
+      <td class="cat">Asset Library (Organized)</td>
+      <td>All final assets organized in a structured folder system:<br><br>
+        /Logo/Primary/[color, black, white, grayscale]<br>
+        /Logo/Symbol/[color, black, white, grayscale]<br>
+        /Logo/Wordmark/[color, black, white, grayscale]<br>
+        /Typography/Fonts/<br>
+        /Typography/Licenses/<br>
+        /Color/Swatches/<br>
+        /Icons/<br>
+        /Patterns/<br>
+        /Templates/Presentations/<br>
+        /Templates/Documents/<br>
+        /Templates/Social/<br>
+        /Photography/<br>
+        /Motion/<br>
+        /Brand-Book/
+      </td>
+      <td>Organized folder structure (zip archive for handoff)</td>
+      <td>Pentagram delivers assets in a structured system, not a random pile of files. Organization IS a deliverable.</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ======================================= -->
+<!-- SECTION 4: WHAT MAKES PENTAGRAM DIFFERENT -->
+<!-- ======================================= -->
+
+<section class="dark">
+  <div class="sn">04 &mdash; Quality Bar</div>
+  <h2>What Makes Pentagram Different from Every Other Agency</h2>
+
+  <div class="diff-grid">
+    <div class="col">
+      <h4>Regular Agency</h4>
+      <ul>
+        <li>Account manager runs the relationship; designers are interchangeable</li>
+        <li>Strategy and design are separate departments with different people</li>
+        <li>Logo presented in isolation, system built after approval</li>
+        <li>Template-based process: same methodology for every client</li>
+        <li>Guidelines delivered as a PDF and forgotten</li>
+        <li>Markup-driven pricing; junior designers do the work</li>
+        <li>CEO or managing director makes business decisions</li>
+        <li>Creative director may never meet the client</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Pentagram</h4>
+      <ul>
+        <li>A named partner (world-class designer) leads every project personally, from pitch to delivery</li>
+        <li>Strategy and design happen simultaneously, by the same person; they reject "strategy as words on a whiteboard"</li>
+        <li>Logo and system are designed together as one organism; the mark generates the system</li>
+        <li>Every project gets a bespoke process tailored to the problem</li>
+        <li>Guidelines delivered as living systems: Figma libraries, parametric tools, custom plugins, interactive web portals</li>
+        <li>Equal-ownership partnership; all 19 partners are practicing designers, not managers</li>
+        <li>No CEO, no shareholders, no external investors. Partners share profits equally.</li>
+        <li>The person who presents the work IS the person who made the work</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 40px;">
+    <p><strong style="color: white;">"Pentagram is the only major design studio where the owners of the business are the creators of the work and serve as the primary contact for every client."</strong></p>
+    <div class="source">-- pentagram.com/about</div>
+  </div>
+
+  <h3 style="color: white; margin-top: 40px;">The Quality Signals</h3>
+  <ul>
+    <li><strong style="color: white;">Mathematical precision:</strong> Mastercard's patterns built on mathematical principles from the mark itself. Not decorative; derived from the logo's geometry.</li>
+    <li><strong style="color: white;">Parametric systems:</strong> Channel 4's toolkit generates infinite variations from rules, not templates. The system creates itself.</li>
+    <li><strong style="color: white;">Custom tools:</strong> Cohere received bespoke Figma plugins and Cinema 4D tools. Not just assets: tools to create future assets.</li>
+    <li><strong style="color: white;">Bespoke typefaces:</strong> The New School, Cohere, Warner Bros., Channel 4 all received custom-commissioned typefaces. The font IS the brand.</li>
+    <li><strong style="color: white;">Reductive discipline:</strong> Slack went from 11 colors to 4. Mastercard dropped its name entirely. Pentagram removes until only the essential remains.</li>
+    <li><strong style="color: white;">Cultural longevity:</strong> Shakespeare in the Park: 30 consecutive seasons. London Design Festival: annual redesigns since 2008. These systems are built to last decades.</li>
+    <li><strong style="color: white;">Heritage respect:</strong> Warner Bros. was "recalibration, not reinvention." Citi preserved the script heritage. Pentagram evolves; they don't erase.</li>
+  </ul>
+</section>
+
+<!-- ======================== -->
+<!-- SECTION 5: COST CONTEXT  -->
+<!-- ======================== -->
+
+<section>
+  <div class="sn">05 &mdash; Cost Context</div>
+  <h2>What Does This Actually Cost?</h2>
+  <p>Pentagram's fees are not public, but documented figures from various sources give a clear picture of the investment range.</p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="n">$50K-$500K</div>
+      <div class="l">Pentagram Identity Range</div>
+    </div>
+    <div class="stat">
+      <div class="n">$1.5M</div>
+      <div class="l">Citi Logo (1998)</div>
+    </div>
+    <div class="stat">
+      <div class="n">$90K+</div>
+      <div class="l">Strategy Alone</div>
+    </div>
+    <div class="stat">
+      <div class="n">$150K+</div>
+      <div class="l">Visual Identity Alone</div>
+    </div>
+  </div>
+
+  <p>A documented breakdown for startup-scale Pentagram engagements: Brand strategy $90K, naming $75K, messaging $75K, visual identity $150K, website $100K. Total: $490K for a comprehensive engagement.</p>
+
+  <div class="red-callout">
+    <div class="label">What This Means for Primak</div>
+    <p>The Pentagram deliverables list above represents $200K-$500K of professional design work. The question is not "how to replicate Pentagram" -- it's which deliverables are essential vs. which are enterprise-only, and how to achieve Pentagram-level quality on the critical items while being pragmatic on the rest. A solo consultant needs 60% of the deliverables at 100% quality, not 100% of the deliverables at 60% quality.</p>
+  </div>
+</section>
+
+<!-- ================================= -->
+<!-- SECTION 6: PRIORITY FOR CONSULTANT -->
+<!-- ================================= -->
+
+<section class="black">
+  <div class="sn">06 &mdash; Priority Map</div>
+  <h2 style="color: white;">What a Solo Consultant Actually Needs</h2>
+  <p>Not everything on the Pentagram list applies equally. Here's the priority ranking for a fractional CPO brand, with Pentagram quality standards applied to what matters most.</p>
+
+  <h3 style="color: white; margin-top: 32px;">Tier 1: Non-Negotiable (Revenue Impact)</h3>
+  <ul>
+    <li><strong style="color: white;">Logo system</strong> (primary + symbol + reversed) -- your visual signature on every interaction</li>
+    <li><strong style="color: white;">Typography system</strong> (primary + secondary typeface, full scale) -- 80% of brand recognition is typographic</li>
+    <li><strong style="color: white;">Color system</strong> (primary 3-4 + secondary 4-6 colors, all specs) -- instant recognition</li>
+    <li><strong style="color: white;">Business card</strong> (premium stock, thoughtful printing) -- you hand this to decision-makers</li>
+    <li><strong style="color: white;">Presentation template</strong> (30+ master slides) -- used in every client meeting and pitch</li>
+    <li><strong style="color: white;">Proposal template</strong> -- the document that closes deals</li>
+    <li><strong style="color: white;">Website design</strong> -- the first thing anyone checks</li>
+    <li><strong style="color: white;">Email signature</strong> -- seen 500+ times per month</li>
+    <li><strong style="color: white;">Brand guidelines</strong> (40+ pages) -- the rulebook that keeps everything consistent</li>
+  </ul>
+
+  <h3 style="color: white; margin-top: 32px;">Tier 2: High Value (Professional Polish)</h3>
+  <ul>
+    <li><strong style="color: white;">Case study template</strong> -- proof pack presentation</li>
+    <li><strong style="color: white;">Document templates</strong> (report, brief, SOW) -- every document that leaves the brand</li>
+    <li><strong style="color: white;">Social media templates</strong> (LinkedIn focus) -- publishing authority</li>
+    <li><strong style="color: white;">Logo animation</strong> -- video calls, presentations, content</li>
+    <li><strong style="color: white;">Photography direction</strong> -- headshot style, imagery rules</li>
+    <li><strong style="color: white;">Letterhead</strong> (digital e-letterhead) -- formal correspondence</li>
+    <li><strong style="color: white;">Invoice template</strong> -- professional billing</li>
+    <li><strong style="color: white;">OG images + favicons</strong> -- link sharing presence</li>
+  </ul>
+
+  <h3 style="color: white; margin-top: 32px;">Tier 3: When Ready (Scale & Events)</h3>
+  <ul>
+    <li><strong style="color: white;">Conference signage templates</strong> -- speaking engagements</li>
+    <li><strong style="color: white;">Motion principles & templates</strong> -- video content</li>
+    <li><strong style="color: white;">Icon set</strong> -- if building a product or content platform</li>
+    <li><strong style="color: white;">Illustration style</strong> -- thought leadership content</li>
+    <li><strong style="color: white;">Notebook / physical stationery</strong> -- premium client gifts</li>
+    <li><strong style="color: white;">Brand architecture map</strong> -- when service packages are finalized</li>
+    <li><strong style="color: white;">Data visualization style</strong> -- client dashboards and reports</li>
+    <li><strong style="color: white;">Figma component library</strong> -- when working with design contractors</li>
+  </ul>
+</section>
+
+<!-- ======================== -->
+<!-- SECTION 7: SOURCES       -->
+<!-- ======================== -->
+
+<section>
+  <div class="sn">07 &mdash; Sources</div>
+  <h2>Research Sources</h2>
+  <p>All claims in this document are sourced from the following Pentagram projects and references.</p>
+
+  <div class="sources">
+    <a href="https://www.pentagram.com/work/mastercard" target="_blank">Pentagram -- Mastercard Identity (Michael Bierut)</a>
+    <a href="https://www.pentagram.com/work/slack" target="_blank">Pentagram -- Slack Identity (Michael Bierut)</a>
+    <a href="https://www.pentagram.com/work/warner-bros" target="_blank">Pentagram -- Warner Bros. Identity (Emily Oberman)</a>
+    <a href="https://www.pentagram.com/work/channel-4" target="_blank">Pentagram -- Channel 4 Masterbrand (Luke Powell)</a>
+    <a href="https://the-brandidentity.com/interview/the-pentagram-team-behind-channel-4s-masterbrand-give-us-an-in-depth-tour-of-the-extensive-project" target="_blank">The Brand Identity -- Channel 4 In-Depth Tour</a>
+    <a href="https://www.pentagram.com/work/calendly-2" target="_blank">Pentagram -- Calendly Identity (Eddie Opara)</a>
+    <a href="https://www.pentagram.com/work/cohere" target="_blank">Pentagram -- Cohere Identity (Jody Hudson-Powell & Luke Powell)</a>
+    <a href="https://www.itsnicethat.com/news/pentagram-cohere-graphic-design-040423" target="_blank">It's Nice That -- Pentagram Cohere Case Study</a>
+    <a href="https://www.pentagram.com/work/erm" target="_blank">Pentagram -- ERM Identity (Marina Willer)</a>
+    <a href="https://www.pentagram.com/work/fashion-for-good" target="_blank">Pentagram -- Fashion for Good (Angus Hyland & Naresh Ramchandani)</a>
+    <a href="https://www.pentagram.com/work/the-new-school" target="_blank">Pentagram -- The New School Identity (Paula Scher)</a>
+    <a href="https://www.pentagram.com/work/satalia" target="_blank">Pentagram -- Satalia Identity</a>
+    <a href="https://www.pentagram.com/work/citibank" target="_blank">Pentagram -- Citibank Identity (Paula Scher)</a>
+    <a href="https://www.creativeboom.com/insight/nabiha-syed-on-how-mozilla-foundations-rebrand-signals-a-spirit-of-defiant-optimism/" target="_blank">Creative Boom -- Mozilla Foundation Rebrand (Natasha Jen)</a>
+    <a href="https://www.pentagram.com/brand-strategy" target="_blank">Pentagram -- Brand Strategy Services</a>
+    <a href="https://www.pentagram.com/brand-identity" target="_blank">Pentagram -- Brand Identity Services</a>
+    <a href="https://www.pentagram.com/about" target="_blank">Pentagram -- About / Partner Model</a>
+    <a href="https://the-brandidentity.com/interview/presented-by-brandpad-how-to-systemise-a-brand-featuring-pentagram-how-how-and-studio-blackburn" target="_blank">The Brand Identity -- How to Systemise a Brand (feat. Pentagram)</a>
+    <a href="https://sva.edu/features/svas-paula-scher-discusses-pentagrams-design-process" target="_blank">SVA -- Paula Scher Discusses Pentagram's Design Process</a>
+    <a href="https://eyeondesign.aiga.org/epically-long-how-pentagram-chooses-its-new-partners/" target="_blank">AIGA Eye on Design -- How Pentagram Chooses Partners</a>
+    <a href="https://www.underconsideration.com/brandnew/archives/new_logo_and_identity_for_mastercard_by_pentagram.php" target="_blank">Brand New -- Mastercard by Pentagram</a>
+    <a href="https://www.underconsideration.com/brandnew/archives/new_logo_and_identity_for_slack_by_pentagram_and_in_house.php" target="_blank">Brand New -- Slack by Pentagram</a>
+    <a href="https://www.dezeen.com/2019/01/17/slack-logo-rebrand-pentagram/" target="_blank">Dezeen -- Pentagram Slack Rebrand</a>
+    <a href="https://cultmethod.com/articles/branding-cost/" target="_blank">Cult Method -- Branding Package Pricing</a>
+    <a href="https://www.quora.com/How-much-does-a-Pentagram-logo-typically-cost" target="_blank">Quora -- Pentagram Logo Cost Discussion</a>
+  </div>
+</section>
+
+</body>
+</html>

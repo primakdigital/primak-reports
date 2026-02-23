@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>War Room — ICA KC ₪700K</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #111;
+    --dark: #1a1a1a;
+    --mid: #555;
+    --light: #999;
+    --border: #e0e0e0;
+    --bg: #fafafa;
+    --white: #fff;
+    --accent: #e63946;
+    --accent-light: #fef2f2;
+    --green: #059669;
+    --green-light: #ecfdf5;
+    --blue: #1d4ed8;
+    --blue-light: #eff6ff;
+    --orange: #d97706;
+    --orange-light: #fffbeb;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 60px 48px 40px;
+    border-bottom: 2px solid var(--black);
+  }
+  .hero .mark {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero .tagline {
+    font-size: 17px;
+    color: var(--mid);
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+  .hero .timestamp {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* STATUS BAR */
+  .status-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .status-bar .item {
+    flex: 1;
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    border-left: 1px solid var(--border);
+  }
+  .status-bar .item:last-child { border-left: none; }
+  .status-bar .done { background: var(--green-light); color: var(--green); }
+  .status-bar .active { background: var(--accent-light); color: var(--accent); }
+  .status-bar .next { background: var(--blue-light); color: var(--blue); }
+
+  /* SECTIONS */
+  .section {
+    padding: 40px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-of-type { border-bottom: none; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 16px;
+  }
+  .section-label.red { color: var(--accent); }
+  .section-label.green { color: var(--green); }
+  .section-label.blue { color: var(--blue); }
+  .section-label.orange { color: var(--orange); }
+
+  .section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section p, .section .content {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--dark);
+  }
+
+  /* RULE BAR */
+  .rule-bar {
+    background: var(--black);
+    color: var(--white);
+    padding: 16px 48px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
+  /* PERSON */
+  .person {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .person:last-child { border-bottom: none; }
+  .person .name {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .person .role {
+    font-size: 13px;
+    color: var(--mid);
+    margin-bottom: 4px;
+  }
+  .person .intel {
+    font-size: 14px;
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  /* SCRIPT BLOCKS */
+  .script {
+    background: var(--bg);
+    border-right: 3px solid var(--black);
+    padding: 16px 20px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.7;
+    font-weight: 500;
+  }
+  .script-note {
+    font-size: 12px;
+    color: var(--light);
+    padding: 4px 20px 16px;
+  }
+
+  /* IF BLOCKS */
+  .if-grid {
+    display: grid;
+    gap: 8px;
+  }
+  .if-block {
+    background: var(--orange-light);
+    border-right: 3px solid var(--orange);
+    padding: 14px 18px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .if-block .q {
+    font-weight: 700;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .if-block .a {
+    color: var(--dark);
+  }
+
+  /* LOG */
+  .log-entry {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 2;
+  }
+  .log-entry strong {
+    color: var(--black);
+    font-weight: 600;
+  }
+
+  /* FOOTER */
+  .footer {
+    padding: 24px 48px;
+    border-top: 2px solid var(--black);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--light);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="mark">Primak &mdash; War Room</div>
+  <h1>ICA Knowledge Center<br><span>₪700K</span></h1>
+  <div class="tagline">Operation COMEBACK &mdash; מסמך חי, מתעדכן בזמן אמת</div>
+  <div class="timestamp">עדכון אחרון: 23.02.2026 12:30</div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="item done">איה KC — עמדה הועברה</div>
+  <div class="item done">איה IcanDo — שאלה נשלחה</div>
+  <div class="item active">קרן — ליזום שיחה</div>
+  <div class="item next">מנכ"לית — פגישה</div>
+</div>
+
+<!-- RULES -->
+<div class="rule-bar">
+  לא מזכירים מספרים. לא מזכירים איה. לא נותנים מחיר בטלפון. לא מתנצלים. לא יוצאים — נכנסים.
+</div>
+
+<!-- MISSION -->
+<div class="section">
+  <div class="section-label red">מטרה</div>
+  <h2>לסגור חוזה ₪700K.</h2>
+  <div class="content">
+    לא MVP. לא ₪200K. הסכום המלא. הפרויקט המלא.<br>
+    אפס סיכון — רק upside. האפיון שולם. הקשר קיים.
+  </div>
+</div>
+
+<!-- BATTLEFIELD -->
+<div class="section">
+  <div class="section-label blue">שדה הקרב</div>
+  <h2>ארבע פרסונות. מחליטה אחת.</h2>
+
+  <div class="person">
+    <div class="name">קרן דוד</div>
+    <div class="role">Kerend@ica.org.il &mdash; מובילת הפרויקט</div>
+    <div class="intel">שלחה Binder 16.02. ממתינה להצעה. נעלמה כמה ימים. הערוץ הישיר שלנו.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">דנה אייזנברג</div>
+    <div class="role">Training@ica.org.il &mdash; אגף הדרכה</div>
+    <div class="intel">שותפה בתהליך. פחות פעילה בהתכתבות.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">איה אשדת</div>
+    <div class="role">יועצת חיצונית &mdash; אוף דה רקורד</div>
+    <div class="intel">נתנה מספר תקציב לא מאומת. דוחפת יציאה. איה איתה — לא איתנו ולא נגדנו. פרויקט קטן = יותר שליטה לה. לא עוברים דרכה.</div>
+  </div>
+
+  <div class="person">
+    <div class="name">המנכ"לית</div>
+    <div class="role">שם לא ידוע &mdash; מחליטה על הכסף</div>
+    <div class="intel">פגישה איתה = המטרה. הכל שאר זה דרך.</div>
+  </div>
+</div>
+
+<!-- INTELLIGENCE -->
+<div class="section">
+  <div class="section-label">מודיעין</div>
+  <h2>מה אנחנו יודעים. מה לא.</h2>
+  <div class="content">
+    <strong>4 כישלונות קודמים.</strong> ICA ניסו לבנות מרכז ידע 4 פעמים. 4 פעמים נכשל. הפרטים — צריך מיניב. זה מנוף המכירה.<br><br>
+    <strong>5 חודשי אפיון.</strong> יניב כתב כל שורה. 24 מסכים: 13 ציבוריים, 6 פנימיים, 5 AI.<br><br>
+    <strong>Binder.</strong> קרן אגדה את כל חומרי האפיון ושלחה למפתחים. מכרז פעיל.<br><br>
+    <strong>תקציב אמיתי — לא ידוע.</strong> ₪175-210K = מספר של איה בלבד. לא מאומת. לא שאלנו את ICA ישירות.<br><br>
+    <strong>מענקים.</strong> UJA Federation כבר נתנו $150K ל-ICA. רשות חדשנות GovTech — 75% לעמותות. JDC — מקור נוסף.
+  </div>
+</div>
+
+<!-- WHY 700K -->
+<div class="section">
+  <div class="section-label green">למה ₪700K ולא ₪200K</div>
+  <h2>מי שמצטט ₪200K לא קרא את ה-Binder.</h2>
+  <div class="content">
+    24 מסכים. AI. Knowledge architecture. חמישה חודשי אפיון.<br><br>
+    4 כישלונות כפול זול = כסף שרוף. המנכ"לית יודעת את זה.<br><br>
+    יניב = הקלף היחיד. כתב את האפיון. מכיר כל שורה. אף מתחרה לא מתקרב.
+  </div>
+</div>
+
+<!-- PHASE 1 -->
+<div class="section">
+  <div class="section-label red">שלב 1 &mdash; יצירת קשר</div>
+  <h2>הודעה לקרן</h2>
+
+  <div class="script">
+    קרן היי, מה שלומך?<br>
+    אני מתקדם עם ההצעה. לפני שאני שולח, חשוב לי לדבר 10 דקות — יש לי כמה שאלות שישפיעו על מה שאגיש.<br>
+    מתי נוח?
+  </div>
+  <div class="script-note">וואטסאפ או מייל. לא מתנצל. "מתקדם" = היא רגועה. "שאלות" = סקרנות.</div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="section">
+  <div class="section-label red">שלב 2 &mdash; שיחה</div>
+  <h2>תסריט השיחה עם קרן</h2>
+
+  <div class="script">"קרן, תודה שפנית זמן. קיבלתי את ה-Binder — עבודה יפה. לפני שאני שולח הצעה, ספרי לי מה קורה אצלכם."</div>
+  <div class="script-note">תן לה לדבר. הקשב. היא תגלה הכל.</div>
+
+  <div class="script">"קיבלתם הצעות מגורמים אחרים?"</div>
+  <div class="script-note">אם כן — "מעניין." אל תגיב על מחירים.</div>
+
+  <div class="script">"שאלה ישירה — ההנהלה הגדירה מסגרת תקציב?"</div>
+  <div class="script-note">זו השאלה. ישירה, לגיטימית. כל ספק שמציע שואל את זה.</div>
+
+  <div class="script">"אני חי עם הפרויקט הזה 5 חודשים. כתבתי כל שורה. אני יודע מה צריך כדי שזה יעבוד — ומה צריך כדי שזה ייכשל."</div>
+  <div class="script-note">סמכות. אף מתחרה לא יכול להגיד את זה.</div>
+
+  <div class="script">"מה שמטריד אותי — אם זה לא נבנה נכון, הוא יצטרף לניסיונות הקודמים. לכן — לפני שאני מגיש הצעה, אני רוצה 30 דקות עם מי שמחליט על התקציב."</div>
+  <div class="script-note">הפצצה השקטה. 4 כישלונות. היא יודעת על מה מדובר. אתה דואג, לא מוכר.</div>
+
+  <div class="script">"אז מה נוח — שאני אצלצל, או שתתאמי ואני אתפנה?"</div>
+  <div class="script-note">סגירה. נותן לה לבחור. ברור שצריכה פגישה.</div>
+</div>
+
+<!-- IF BLOCKS -->
+<div class="section">
+  <div class="section-label orange">תרחישים</div>
+  <h2>אם קרן אומרת...</h2>
+
+  <div class="if-grid">
+    <div class="if-block">
+      <div class="q">"למה צריך את המנכ"לית?"</div>
+      <div class="a">"בפרויקט בסדר גודל כזה, חשוב שמי שמחליט על תקציב ישמע ישירות מה האופציות."</div>
+    </div>
+    <div class="if-block">
+      <div class="q">"תקציב מוגבל / קטן"</div>
+      <div class="a">"בגלל זה אני רוצה לשבת. יש דרכים חכמות — שלבים, מימון חיצוני. צריך לדבר על זה עם ההנהלה."</div>
+    </div>
+    <div class="if-block">
+      <div class="q">"כבר קיבלנו הצעות זולות יותר"</div>
+      <div class="a">"אני בטוח. גם אני יכול לכתוב מספר קטן. השאלה אם זה יעבוד. אחרי הניסיונות הקודמים — שווה לעשות פעם אחת נכון."</div>
+    </div>
+    <div class="if-block">
+      <div class="q">"אני צריכה לבדוק"</div>
+      <div class="a">"בסדר גמור. תבדקי ותחזרי. אני פה."</div>
+    </div>
+    <div class="if-block">
+      <div class="q">"פשוט שלח הצעת מחיר"</div>
+      <div class="a">"מעדיף לא. הצעה בלי שיחה עם ההנהלה זה מספר על דף. רוצה להציע משהו שבאמת מתאים."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="section">
+  <div class="section-label green">שלב 3 &mdash; פגישה עם המנכ"לית</div>
+  <h2>טרם הוגדר.</h2>
+  <div class="content">יעודכן אחרי שיחה עם קרן.</div>
+</div>
+
+<!-- LOG -->
+<div class="section">
+  <div class="section-label">יומן פעולות</div>
+  <div class="log-entry">
+    <strong>23.02 11:25</strong> — יניב שלח WhatsApp לאיה: "חזרת? נסגור עניינים?"<br>
+    <strong>23.02 ~11:30</strong> — איה ענתה: ביקשה מייל רשמי לדנה/קרן. אוף דה רקורד.<br>
+    <strong>23.02 ~11:35</strong> — יניב לאיה: "בטווח הזה לא יכול לתת מענה שאני עומד מאחוריו."<br>
+    <strong>23.02 ~11:35</strong> — יניב שאל את איה על IcanDo. ממתין לתשובה.<br>
+    <strong>23.02 12:00</strong> — אסטרטגיה שונתה. לא יוצאים — נכנסים. פגישה עם מנכ"לית = המטרה.<br>
+    <strong>23.02 12:30</strong> — War Room Pentagram edition. הודעה + תסריט מוכנים.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">Primak &mdash; Operation COMEBACK &mdash; ICA KC ₪700K &mdash; מסמך חי</div>
+
+</body>
+</html>
