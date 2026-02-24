@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRIEF — Barometer / Eli | 24.02.2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #111; --mid: #555; --light: #999; --border: #e0e0e0; --bg: #fafafa; --white: #fff; --accent: #e63946; --green: #059669; --blue: #1d4ed8; --orange: #d97706; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 0 20px; }
+  .hero { padding: 40px 0 24px; border-bottom: 2px solid var(--black); }
+  .mark { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); margin-bottom: 12px; }
+  h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+  .sub { font-size: 14px; color: var(--mid); margin-top: 8px; }
+  .section { padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--light); margin-bottom: 16px; }
+  .card { background: var(--bg); border-radius: 6px; padding: 20px; margin-bottom: 12px; }
+  .card.red { border-right: 4px solid var(--accent); }
+  .card.green { border-right: 4px solid var(--green); }
+  .card.blue { border-right: 4px solid var(--blue); }
+  .card.orange { border-right: 4px solid var(--orange); }
+  .card-title { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+  .card-body { font-size: 14px; color: var(--mid); }
+  .card-body ul { margin: 8px 0 0 20px; }
+  .card-body li { margin-bottom: 4px; }
+  .pricing-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .pricing-table th { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--light); text-align: right; padding: 8px; border-bottom: 2px solid var(--black); }
+  .pricing-table td { padding: 10px 8px; font-size: 14px; border-bottom: 1px solid var(--border); }
+  .pricing-table .total { font-weight: 800; background: var(--bg); }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
+  .pill.red { background: var(--accent); color: var(--white); }
+  .pill.green { background: var(--green); color: var(--white); }
+  .pill.blue { background: var(--blue); color: var(--white); }
+  .agenda { background: var(--black); color: var(--white); padding: 24px; border-radius: 6px; margin-top: 16px; }
+  .agenda h3 { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .agenda li { font-size: 14px; margin-bottom: 8px; color: rgba(255,255,255,0.85); }
+  .agenda li strong { color: var(--white); }
+  .stats { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; }
+  .stat-value { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-top: 2px; }
+  .footer { padding: 24px 0; font-size: 11px; color: var(--light); letter-spacing: 2px; text-transform: uppercase; }
+  .split-box { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .split-item { padding: 16px; background: var(--white); border: 1px solid var(--border); border-radius: 4px; text-align: center; }
+  .split-item .val { font-size: 22px; font-weight: 800; }
+  .split-item .lbl { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--light); margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="mark">PRIMO BRIEF — BIZDEV</div>
+  <h1>Barometer Investments<br>אלי צחור</h1>
+  <div class="sub">ליד חדש · 3 בקשות · שותפות עם גיא אסיף 50/50</div>
+  <div class="stats">
+    <div class="stat"><span class="stat-value" style="color:var(--accent);">₪75-95K</span><span class="stat-label">Total Package</span></div>
+    <div class="stat"><span class="stat-value" style="color:var(--green);">₪37-47K</span><span class="stat-label">Primak 50%</span></div>
+    <div class="stat"><span class="stat-value">5</span><span class="stat-label">מפגשים</span></div>
+    <div class="stat"><span class="stat-value">0522563898</span><span class="stat-label">אלי</span></div>
+  </div>
+</div>
+
+<!-- ═══ STRATEGY ═══ -->
+<div class="section">
+  <div class="section-label">אסטרטגיית מכירה</div>
+  <div class="card red">
+    <div class="card-title">🎯 פתח עם המיזם התקוע — לא עם הסדנה</div>
+    <div class="card-body">
+      <strong>למה:</strong> המיזם הוא הכאב האמיתי של אלי. סדנת AI = nice to have. מיזם תקוע = כסף שנשרף.
+      <br><strong>איך:</strong> "אלי, ספר לי על המיזם. מה תקוע ולמה?" — תן לו לדבר. אל תציע פתרונות בשיחה הראשונה. רק אבחן.
+      <br><strong>אחרי שמבין את המיזם:</strong> הצע חבילה אחת שעוטפת את כל 3 הבקשות סביב המיזם.
+      <ul>
+        <li><strong>מיזם תקוע</strong> = הליבה (Product Diagnosis + Roadmap)</li>
+        <li><strong>סדנת AI לצוות</strong> = enabler (הצוות צריך כלים לתמוך במיזם)</li>
+        <li><strong>1:1 לאלי</strong> = leadership (אלי צריך לנהל את זה אחרת)</li>
+      </ul>
+      <strong>Frame:</strong> "זה לא 3 דברים שונים. זה דבר אחד — להזיז את המיזם. הסדנה והליווי הם חלק מאותו תהליך."
+    </div>
+  </div>
+</div>
+
+<!-- ═══ THE PACKAGE ═══ -->
+<div class="section">
+  <div class="section-label">מבנה — 5 מפגשים × 3 שעות</div>
+
+  <div class="card blue">
+    <div class="card-title">מפגש 1 — Product Diagnosis: המיזם התקוע</div>
+    <div class="card-body">
+      <span class="pill red">THE MONEY SESSION</span>
+      <ul>
+        <li>מיפוי מצב: מה נבנה, מה תקוע, למה</li>
+        <li>ניתוח Product-Market Fit — יש? אין? חלקי?</li>
+        <li>זיהוי חסמים: טכנולוגי? שוק? צוות? מודל עסקי?</li>
+        <li>Output: מסמך אבחנה + 3 directions אפשריות</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-title">מפגש 2 — AI for Investment Analysis (סדנת צוות)</div>
+    <div class="card-body">
+      <strong>קהל:</strong> צוות אנליסטים של Barometer
+      <ul>
+        <li><strong>Deal Sourcing + AI</strong> — חיפוש וסינון הזדמנויות השקעה עם AI</li>
+        <li><strong>Due Diligence Automation</strong> — ניתוח חברות, שוק, תחרות ב-AI</li>
+        <li><strong>כלים:</strong> Claude (deep analysis), Perplexity (real-time research), ChatGPT (summaries)</li>
+        <li>Hands-on: כל משתתף מריץ DD על חברה אמיתית בזמן המפגש</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-title">מפגש 3 — AI Tools Workshop (סדנת צוות)</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>Portfolio Monitoring</strong> — מעקב אוטומטי אחרי חברות בפורטפוליו</li>
+        <li><strong>Financial Modeling + AI</strong> — prompts למודלים פיננסיים, scenario analysis</li>
+        <li><strong>Competitive Intelligence</strong> — alerts, market signals, trend detection</li>
+        <li><strong>כלים:</strong> Claude Projects (knowledge base), Zapier/Make (automation), Notion AI</li>
+        <li>Output: כל אנליסט יוצא עם 3 workflows עובדים</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-title">מפגש 4 — 1:1 אלי + Venture Roadmap</div>
+    <div class="card-body">
+      <ul>
+        <li><strong>חלק 1 (1.5h):</strong> ליווי אישי — AI strategy לאלי כבעלים. מה לדעת, מה לדרוש, איך לנהל</li>
+        <li><strong>חלק 2 (1.5h):</strong> Roadmap למיזם — 90 ימים, milestones, go/no-go gates</li>
+        <li>Output: מסמך Roadmap + Decision Framework</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-title">מפגש 5 — Implementation + Handoff</div>
+    <div class="card-body">
+      <ul>
+        <li>סיכום תהליך + next steps לצוות</li>
+        <li>Venture: milestone review — האם ה-roadmap עובד?</li>
+        <li>AI tools: בדיקה שה-workflows עובדים, fine-tuning</li>
+        <li>הגדרת KPIs למדידה עצמאית</li>
+        <li><strong>Upsell trigger:</strong> "אם רוצים ליווי שוטף של המיזם — fractional CPO"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PRICING ═══ -->
+<div class="section">
+  <div class="section-label">תמחור ללקוח</div>
+
+  <table class="pricing-table">
+    <thead>
+      <tr><th>פריט</th><th>היקף</th><th>מחיר ללקוח</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Product Diagnosis — מיזם תקוע</strong></td>
+        <td>מפגש 1 (3h) + מסמך אבחנה</td>
+        <td style="font-weight:700;">₪18,000</td>
+      </tr>
+      <tr>
+        <td><strong>סדנת AI לצוות אנליסטים</strong></td>
+        <td>2 מפגשים (6h) + חומרים + workflows</td>
+        <td style="font-weight:700;">₪28,000</td>
+      </tr>
+      <tr>
+        <td><strong>1:1 אלי + Venture Roadmap</strong></td>
+        <td>מפגש 4 (3h) + מסמך roadmap</td>
+        <td style="font-weight:700;">₪15,000</td>
+      </tr>
+      <tr>
+        <td><strong>Implementation + Handoff</strong></td>
+        <td>מפגש 5 (3h) + סיכום + KPIs</td>
+        <td style="font-weight:700;">₪12,000</td>
+      </tr>
+      <tr>
+        <td style="font-size:12px;color:var(--light);">הכנה, חומרים, follow-up</td>
+        <td style="font-size:12px;color:var(--light);">~10h</td>
+        <td style="font-size:12px;color:var(--light);">כלול</td>
+      </tr>
+      <tr class="total">
+        <td><strong>TOTAL PACKAGE</strong></td>
+        <td>5 מפגשים × 3h + deliverables</td>
+        <td style="font-size:18px;font-weight:800;">₪73,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:16px;padding:12px 16px;background:#fff7ed;border-radius:4px;font-size:13px;color:var(--orange);">
+    <strong>טווח מו"מ:</strong> פתיחה ₪80,000 → רצפה ₪65,000. מתחת ל-₪65K = לא עומד ב-GM.
+  </div>
+
+  <!-- SPLIT -->
+  <div style="margin-top:24px;">
+    <div class="section-label">חלוקה 50/50 — Primak × Guy</div>
+    <div class="split-box">
+      <div class="split-item">
+        <div class="val" style="color:var(--green);">₪36,500</div>
+        <div class="lbl">Primak 50%</div>
+      </div>
+      <div class="split-item">
+        <div class="val">₪36,500</div>
+        <div class="lbl">Guy 50%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIMAK P&L -->
+  <div style="margin-top:24px;">
+    <div class="section-label">P&L Primak (50% share)</div>
+    <table class="pricing-table">
+      <thead>
+        <tr><th>פריט</th><th>חישוב</th><th>סכום</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Revenue (Primak share)</td>
+          <td>₪73K × 50%</td>
+          <td style="font-weight:700;">₪36,500</td>
+        </tr>
+        <tr>
+          <td>Yaniv — Delivery</td>
+          <td>15h × ₪450</td>
+          <td>₪6,750</td>
+        </tr>
+        <tr>
+          <td>Yaniv — Prep + Materials</td>
+          <td>10h × ₪450</td>
+          <td>₪4,500</td>
+        </tr>
+        <tr>
+          <td><strong>Total Cost</strong></td>
+          <td>25h × ₪450</td>
+          <td style="font-weight:700;">₪11,250</td>
+        </tr>
+        <tr class="total">
+          <td><strong>Gross Margin</strong></td>
+          <td></td>
+          <td style="font-size:18px;font-weight:800;color:var(--green);">69% ✓</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:8px;font-size:12px;color:var(--light);">GM target: 55%+ Launch | 60%+ Build. At ₪73K → 69% = ABOVE TARGET ✓</div>
+  </div>
+</div>
+
+<!-- ═══ UPSELL ═══ -->
+<div class="section">
+  <div class="section-label">Upsell — אחרי 5 מפגשים</div>
+  <div class="card green">
+    <div class="card-title">Fractional CPO למיזם התקוע</div>
+    <div class="card-body">
+      אם ה-diagnosis מראה שהמיזם שווה הצלה — הצע ליווי שוטף:
+      <ul>
+        <li><strong>מבנה:</strong> 2-3 ימים/חודש × 3-6 חודשים</li>
+        <li><strong>מחיר:</strong> ₪20-30K/חודש</li>
+        <li><strong>Potential:</strong> ₪60-180K נוסף</li>
+        <li><strong>50-50:</strong> ₪30-90K ל-Primak</li>
+      </ul>
+      <strong>אל תציע את זה בשיחה הראשונה.</strong> תן ל-5 מפגשים להוכיח ערך. ה-upsell יבוא לבד.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOOLS LIST ═══ -->
+<div class="section">
+  <div class="section-label">כלי AI לסדנאות — Investment Focus</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div class="card" style="margin:0;">
+      <div class="card-title" style="font-size:14px;">Deal Sourcing</div>
+      <div class="card-body" style="font-size:13px;">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Claude — deep company analysis</li>
+          <li>Perplexity — real-time market research</li>
+          <li>Crunchbase + PitchBook prompts</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin:0;">
+      <div class="card-title" style="font-size:14px;">Due Diligence</div>
+      <div class="card-body" style="font-size:13px;">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Claude Projects — DD knowledge base</li>
+          <li>ChatGPT — financial summaries</li>
+          <li>NotebookLM — document analysis</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin:0;">
+      <div class="card-title" style="font-size:14px;">Portfolio Monitoring</div>
+      <div class="card-body" style="font-size:13px;">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Zapier/Make — automated alerts</li>
+          <li>Claude — quarterly analysis</li>
+          <li>Notion AI — portfolio dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="margin:0;">
+      <div class="card-title" style="font-size:14px;">Financial Modeling</div>
+      <div class="card-body" style="font-size:13px;">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Claude — scenario analysis prompts</li>
+          <li>ChatGPT Code Interpreter — data</li>
+          <li>Custom GPTs for recurring models</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CALL AGENDA ═══ -->
+<div class="section" style="border-bottom:none;">
+  <div class="agenda">
+    <h3>אג'נדה לשיחה עם אלי</h3>
+    <ol>
+      <li><strong>פתיחה (2 דק'):</strong> "אלי, ספרת על 3 דברים. בוא נתחיל מהמיזם — מה הסיפור שם?"</li>
+      <li><strong>מיזם (5 דק'):</strong> הקשב. מה המוצר? מה תקוע? מתי התחיל? כמה כסף בפנים? מה ניסו?</li>
+      <li><strong>Frame (2 דק'):</strong> "שלושת הדברים שביקשת — הם דבר אחד. המיזם הוא הליבה. הסדנה וה-1:1 תומכים."</li>
+      <li><strong>הצע מבנה (2 דק'):</strong> "5 מפגשים × 3 שעות. מתחילים מהמיזם, מסיימים עם צוות AI-ready ו-roadmap."</li>
+      <li><strong>מחיר (1 דק'):</strong> "חבילה מלאה — ₪80K. כולל אבחנה, סדנאות, ליווי אלי, roadmap."</li>
+      <li><strong>סגירה:</strong> "אני שולח סיכום כתוב היום. מתי נתחיל?"</li>
+    </ol>
+  </div>
+  <div style="margin-top:16px;padding:12px 16px;background:#fef2f2;border-radius:4px;font-size:13px;color:var(--accent);">
+    <strong>⚠️ Don't:</strong> אל תציע מחיר לפני שמבין את המיזם. אם אלי שואל "כמה?" — "תלוי במה שנגלה באבחנה. טווח ₪65-80K לחבילה מלאה."
+  </div>
+</div>
+
+<div class="footer">PRIMO — 24.02.2026 v1 · שותפות Primak × Guy Assif 50/50</div>
+</body>
+</html>
