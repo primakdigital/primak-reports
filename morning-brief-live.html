@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIMO Daily Brief — 24.02.2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000;
+    --white: #fff;
+    --red: #E63946;
+    --green: #2D6A4F;
+    --orange: #E76F51;
+    --yellow: #F4A261;
+    --muted: #999;
+    --border: #E5E5E5;
+    --bg-light: #FAFAFA;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── HEADER ────────────────────────────────── */
+
+  .header {
+    padding: 48px 48px 40px;
+    border-bottom: 2px solid var(--black);
+  }
+
+  .header-mark {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .header-date {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 24px;
+  }
+
+  .scores-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .score-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .score-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+  }
+
+  .pill-green { background: var(--green); color: var(--white); }
+  .pill-orange { background: var(--orange); color: var(--white); }
+  .pill-red { background: var(--red); color: var(--white); }
+  .pill-yellow { background: var(--yellow); color: var(--black); }
+
+  .pill .pill-axis {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .pill .pill-value {
+    font-weight: 900;
+    font-size: 15px;
+  }
+
+  .score-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+
+  .bottleneck {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bottleneck-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .bottleneck-value {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--red);
+    letter-spacing: -0.3px;
+  }
+
+  .guardian {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #555;
+    font-style: italic;
+  }
+
+  /* ── SECTIONS ──────────────────────────────── */
+
+  .section {
+    padding: 36px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .section-dot.red { background: var(--red); }
+  .section-dot.orange { background: var(--orange); }
+  .section-dot.green { background: var(--green); }
+
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-title.red { color: var(--red); }
+  .section-title.orange { color: var(--orange); }
+  .section-title.green { color: var(--green); }
+
+  /* ── CARDS ─────────────────────────────────── */
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    padding: 16px 20px;
+    background: var(--bg-light);
+    border-radius: 4px;
+    border-left: 4px solid transparent;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .card.red-border { border-left-color: var(--red); }
+  .card.orange-border { border-left-color: var(--orange); }
+  .card.green-border { border-left-color: var(--green); }
+
+  .card-deal {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+
+  .card-stale {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+  }
+
+  .card-days {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .card-days.red { color: var(--red); }
+  .card-days.orange { color: var(--orange); }
+  .card-days.green { color: var(--green); }
+
+  .card-action {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    padding: 8px 12px;
+    background: var(--white);
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  .card-pattern {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-top: 8px;
+    padding: 4px 8px;
+    background: rgba(230, 57, 70, 0.06);
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* Hebrew content inside cards */
+  .card [dir="rtl"],
+  .card .rtl {
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* ── ACTION #1 ─────────────────────────────── */
+
+  .action-block {
+    padding: 48px;
+    background: var(--black);
+    color: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .action-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+  }
+
+  .action-golden {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    background: rgba(244, 162, 97, 0.15);
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .action-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .action-detail {
+    font-size: 17px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+
+  .action-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .action-time .clock {
+    font-size: 16px;
+  }
+
+  /* ── FOOTER ────────────────────────────────── */
+
+  .footer {
+    padding: 32px 48px;
+    border-top: 2px solid var(--black);
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  .footer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .footer-scan {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .footer-gen {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #CCC;
+  }
+
+  .footer-ev {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+
+  .footer-ev .ev-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 8px;
+  }
+
+  .footer-actions {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-actions li {
+    font-size: 14px;
+    color: #555;
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .footer-actions li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--black);
+  }
+
+  .footer-actions-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .footer-version {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #CCC;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    text-align: right;
+  }
+
+  /* ── RESPONSIVE ────────────────────────────── */
+
+  @media (max-width: 768px) {
+    .header {
+      padding: 32px 20px 28px;
+    }
+
+    .header-date {
+      font-size: 36px;
+      letter-spacing: -1.5px;
+    }
+
+    .scores-row {
+      gap: 8px;
+    }
+
+    .score-divider {
+      display: none;
+    }
+
+    .pill {
+      font-size: 12px;
+      padding: 4px 10px;
+    }
+
+    .section {
+      padding: 28px 20px;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+    }
+
+    .action-block {
+      padding: 32px 20px;
+    }
+
+    .action-title {
+      font-size: 22px;
+    }
+
+    .action-detail {
+      font-size: 15px;
+    }
+
+    .footer {
+      padding: 24px 20px;
+    }
+
+    .footer-top {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-date {
+      font-size: 28px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 3px 8px;
+    }
+
+    .card-deal {
+      font-size: 15px;
+    }
+
+    .action-title {
+      font-size: 20px;
+    }
+  }
+
+  /* ── PRINT ─────────────────────────────────── */
+
+  @media print {
+    .action-block {
+      background: var(--white) !important;
+      color: var(--black) !important;
+      border: 2px solid var(--black);
+    }
+
+    .action-detail {
+      color: #555 !important;
+    }
+
+    .action-label {
+      color: var(--black) !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ── HEADER ──────────────────────────────── -->
+
+  <header class="header">
+    <div class="header-mark">PRIMO DAILY BRIEF</div>
+    <h1 class="header-date">24.02.2026</h1>
+
+    <div class="scores-row">
+      <span class="score-label">LeCun Energy</span>
+      <div class="score-group">
+        <span class="pill pill-orange">
+          <span class="pill-axis">Growth</span>
+          <span class="pill-value">?</span>
+        </span>
+        <span class="pill pill-orange">
+          <span class="pill-axis">Delivery</span>
+          <span class="pill-value">?</span>
+        </span>
+        <span class="pill pill-orange">
+          <span class="pill-axis">Risk</span>
+          <span class="pill-value">?</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="bottleneck">
+      <span class="bottleneck-label">Bottleneck</span>
+      <span class="bottleneck-value">UNKNOWN</span>
+    </div>
+
+    <div class="guardian"></div>
+  </header>
+
+  <!-- ── SECTION 1: REQUIRES DECISION (RED) ──── -->
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot red"></span>
+      <span class="section-title red">Requires Decision Today</span>
+    </div>
+    <div class="cards">
+      <div class="card red-border"><div class="card-stale" style="color:#999;">No items</div></div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 2: WATCH (ORANGE) ──────────── -->
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot orange"></span>
+      <span class="section-title orange">Watch</span>
+    </div>
+    <div class="cards">
+      <div class="card orange-border"><div class="card-stale" style="color:#999;">No items</div></div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 3: MOMENTUM (GREEN) ────────── -->
+
+  <section class="section">
+    <div class="section-header">
+      <span class="section-dot green"></span>
+      <span class="section-title green">Momentum</span>
+    </div>
+    <div class="cards">
+      <div class="card green-border"><div class="card-stale" style="color:#999;">No items</div></div>
+    </div>
+  </section>
+
+  <!-- ── ACTION #1 ───────────────────────────── -->
+
+  <div class="action-block">
+    <div class="action-label">Action #1</div>
+    <div class="action-golden">Golden Time</div>
+    <h2 class="action-title"></h2>
+    <p class="action-detail"></p>
+    <span class="action-time">
+      <span class="clock">&#9201;</span>
+      
+    </span>
+  </div>
+
+  <!-- ── FOOTER ──────────────────────────────── -->
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-meta">
+        <span class="footer-scan">&#128337; 24.02.2026 07:33</span>
+        <span class="footer-gen">Generated by PRIMO</span>
+      </div>
+      <div>
+        <div class="footer-ev">
+          <span class="ev-label">Pipeline EV</span>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-actions-label">Next Session</div>
+    <ul class="footer-actions">
+      <li>No pending actions</li>
+    </ul>
+
+    <div class="footer-version">PRIMO Daily Brief v1</div>
+  </footer>
+
+</body>
+</html>
