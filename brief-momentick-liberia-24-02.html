@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRIEF — Momentick Liberia | 24.02.2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --black: #111; --dark: #1a1a1a; --mid: #555; --light: #999; --border: #e0e0e0; --bg: #fafafa; --white: #fff; --accent: #e63946; --green: #059669; --copper: #c87533; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; max-width: 800px; margin: 0 auto; padding: 0 20px; }
+  .hero { padding: 40px 0 24px; border-bottom: 2px solid var(--black); }
+  .mark { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--light); margin-bottom: 12px; }
+  .hero h1 { font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+  .hero .sub { font-size: 14px; color: var(--mid); margin-top: 8px; }
+  .stats { display: flex; gap: 32px; margin-top: 20px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; }
+  .stat-value { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+  .stat-value.copper { color: var(--copper); }
+  .stat-value.green { color: var(--green); }
+  .stat-value.red { color: var(--accent); }
+  .stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light); margin-top: 2px; }
+  .section { padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--light); margin-bottom: 16px; }
+  .task-card { background: var(--bg); border-radius: 6px; padding: 20px; margin-bottom: 12px; border-right: 4px solid var(--copper); }
+  .task-card.done { border-right-color: var(--green); opacity: 0.6; }
+  .task-card.active { border-right-color: var(--accent); }
+  .task-title { font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+  .task-status { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: inline-block; padding: 2px 8px; border-radius: 2px; margin-bottom: 8px; }
+  .task-status.done { background: #ecfdf5; color: var(--green); }
+  .task-status.active { background: #fef2f2; color: var(--accent); }
+  .task-status.pending { background: #fff7ed; color: var(--copper); }
+  .task-body { font-size: 14px; color: var(--mid); }
+  .task-body ul { margin: 8px 0 0 20px; }
+  .task-body li { margin-bottom: 4px; }
+  .key-nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .key-num { text-align: center; padding: 12px; background: var(--white); border: 1px solid var(--border); border-radius: 4px; }
+  .key-num .val { font-size: 22px; font-weight: 800; color: var(--copper); }
+  .key-num .lbl { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--light); margin-top: 2px; }
+  .agenda { background: var(--black); color: var(--white); padding: 24px; border-radius: 6px; margin-top: 16px; }
+  .agenda h3 { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .agenda li { font-size: 14px; margin-bottom: 8px; color: rgba(255,255,255,0.85); }
+  .agenda li strong { color: var(--white); }
+  .files-list { margin-top: 8px; }
+  .file-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--bg); border-radius: 4px; margin-bottom: 6px; font-size: 13px; }
+  .file-item .tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: var(--copper); color: var(--white); }
+  .file-item .tag.ref { background: var(--light); }
+  .footer { padding: 24px 0; font-size: 11px; color: var(--light); letter-spacing: 2px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="mark">PRIMO BRIEF — DELIVERY</div>
+  <h1>Momentick × Liberia</h1>
+  <div class="sub">פגישה עם Daniel היום צהריים — Review תוצרים + סגירה</div>
+  <div class="stats">
+    <div class="stat"><span class="stat-value copper">$6.15M</span><span class="stat-label">Project Value</span></div>
+    <div class="stat"><span class="stat-value">34w</span><span class="stat-label">Duration</span></div>
+    <div class="stat"><span class="stat-value">95,963</span><span class="stat-label">km² Coverage</span></div>
+    <div class="stat"><span class="stat-value red">30 APR</span><span class="stat-label">Proposal Expiry</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">המצב — 3 משימות</div>
+
+  <div class="task-card done">
+    <span class="task-status done">DONE</span>
+    <div class="task-title">Task 1: One-Pager Copper v2</div>
+    <div class="task-body">נשלח לדניאל 23.02. עמוד A4, כל labels → COPPER, מפת הסתברות.</div>
+  </div>
+
+  <div class="task-card active">
+    <span class="task-status active">TODAY — ACTIVE</span>
+    <div class="task-title">Task 2: Liberia Executive Summary (2 pages)</div>
+    <div class="task-body">
+      <strong>מה Daniel רוצה:</strong>
+      <ul>
+        <li><strong>2 עמודים A4</strong> — super designed, שמשי ליבריה לא קוראים מעל עמוד</li>
+        <li><strong>3+ ויזואלים מינימום</strong> — "דאבל דיפ מבחינת תמונות"</li>
+        <li>טקסט 98% נעול (מתוך Section 1 של ההצעה)</li>
+        <li>Title/intro מופיע גם כאן וגם בהצעה המלאה</li>
+        <li>Daniel: "הסיים את העמוד הראשון הבוקר, שלח v6 condensed"</li>
+      </ul>
+
+      <div class="key-nums">
+        <div class="key-num"><div class="val">$6.15M</div><div class="lbl">Total</div></div>
+        <div class="key-num"><div class="val">$2.15M</div><div class="lbl">Phase A</div></div>
+        <div class="key-num"><div class="val">$4M</div><div class="lbl">Phase B</div></div>
+        <div class="key-num"><div class="val">50%</div><div class="lbl">Rev Share</div></div>
+        <div class="key-num"><div class="val">30+</div><div class="lbl">ETZs</div></div>
+        <div class="key-num"><div class="val">80-90%</div><div class="lbl">Survey Reduction</div></div>
+      </div>
+
+      <br><strong>3 ויזואלים נדרשים:</strong>
+      <ul>
+        <li>1. מפת ליבריה/מערב אפריקה (context)</li>
+        <li>2. שכבות Stacking — סגנון KoBold ($537M) — Daniel ביקש ספציפית</li>
+        <li>3. Copper probability heat map — מבוסס על image.png</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-status pending">PENDING</span>
+    <div class="task-title">Task 3: Full Proposal Design (~10 pages)</div>
+    <div class="task-body">עיצוב ההצעה המלאה. 10 סקשנים, 5+ תמונות, 2 placeholders (Gantt + flow diagram). אחרי Task 2.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">קבצים שהתקבלו היום</div>
+  <div class="files-list">
+    <div class="file-item"><span class="tag">NEW</span> One_Pager_v6_Condensed.docx — העמוד שדניאל סיים הבוקר</div>
+    <div class="file-item"><span class="tag">NEW</span> Proposal v1.3 final — הצעה מלאה עם עריכות צבע (גרסה אחרונה)</div>
+    <div class="file-item"><span class="tag ref">REF</span> Proposal v1.3 Michael — גרסה קודמת של Michael (reference)</div>
+    <div class="file-item"><span class="tag ref">REF</span> Momentick PDF — 2-page company capabilities</div>
+    <div class="file-item"><span class="tag ref">REF</span> image.png — Mineral Probability Map (source for copper map)</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Pricing / Primak</div>
+  <div class="task-body" style="font-size:14px; color: var(--mid);">
+    <strong>תעריף:</strong> ₪450/שעה (reference rate). טרם נקבע סכום.<br>
+    <strong>אסטרטגיה:</strong> Deliver quality → propose Sprint ₪60-100K.<br>
+    <strong>Daniel status:</strong> שולח עבודה ישירות = the deal is warming. Don't push pricing yet.<br>
+    <strong>Proposal expiry:</strong> 30 April 2026 — יש לחץ זמן מצד ליבריה.
+  </div>
+</div>
+
+<div class="section" style="border-bottom: none;">
+  <div class="agenda">
+    <h3>אג'נדה לפגישה עם Daniel — צהריים</h3>
+    <ol>
+      <li><strong>Review One Pager v6</strong> — העמוד החדש שדניאל סיים. מה צריך שינוי?</li>
+      <li><strong>Exec Summary scope lock</strong> — מה בדיוק ב-2 העמודים? אלו ויזואלים? KoBold style?</li>
+      <li><strong>Timeline</strong> — Daniel רוצה לסיים היום. מה "לסיים" = exec summary? proposal? הכל?</li>
+      <li><strong>Full proposal</strong> — Gantt + flow diagram: אתה בונה או הם?</li>
+      <li><strong>שאלה פתוחה:</strong> מה הציר זמן מול ליבריה? מתי צריך להגיש?</li>
+    </ol>
+  </div>
+</div>
+
+<div class="footer">PRIMO — 24.02.2026 v1</div>
+</body>
+</html>
