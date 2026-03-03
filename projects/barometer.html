@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barometer / אלי צחור — Primak Project Dashboard — v1</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; background: #ffffff; color: #37352f; max-width: 860px; margin: 0 auto; padding: 0 24px 60px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+.breadcrumb { padding: 14px 0 0; font-size: 13px; color: #9b9a97; } .breadcrumb a { color: #9b9a97; text-decoration: none; } .breadcrumb a:hover { color: #37352f; } .breadcrumb span { margin: 0 6px; }
+.page-header { padding: 20px 0 16px; border-bottom: 1px solid #e9e9e7; margin-bottom: 28px; } .page-header h1 { font-size: 32px; font-weight: 700; color: #37352f; margin-bottom: 6px; letter-spacing: -0.5px; }
+.header-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; font-size: 13px; color: #9b9a97; }
+.badge { display: inline-flex; align-items: center; font-size: 12px; padding: 2px 8px; border-radius: 3px; font-weight: 500; } .badge.new { background: #ddebf1; color: #2f6b8f; } .badge.pipeline { background: #fbf3db; color: #8c7213; } .badge.partner { background: #e8deee; color: #6940a5; }
+.health-bar { height: 4px; border-radius: 2px; background: #e9e9e7; margin-top: 12px; overflow: hidden; } .health-bar .fill { height: 100%; border-radius: 2px; } .fill.green { background: #4daa57; } .fill.yellow { background: #cb912f; } .fill.red { background: #e03e3e; }
+.version-tag { font-size: 11px; color: #9b9a97; border: 1px solid #e9e9e7; padding: 1px 6px; border-radius: 3px; }
+.one-thing { background: #fbe4e4; border: 1px solid #f0c6c6; border-radius: 6px; padding: 16px 20px; margin-bottom: 28px; } .one-thing-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #c4314b; margin-bottom: 6px; } .one-thing-text { font-size: 15px; font-weight: 600; color: #37352f; margin-bottom: 6px; } .one-thing-meta { font-size: 12px; color: #9b9a97; }
+h2 { font-size: 16px; font-weight: 600; color: #37352f; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #e9e9e7; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 8px; }
+.kpi-card { background: #f7f6f3; border-radius: 6px; padding: 14px 16px; } .kpi-label { font-size: 12px; color: #9b9a97; margin-bottom: 4px; } .kpi-value { font-size: 22px; font-weight: 700; color: #37352f; } .kpi-value.green { color: #1e6b3a; } .kpi-value.red { color: #c4314b; } .kpi-value.yellow { color: #9a6700; }
+.contacts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin: 8px 0 16px; } .contact-card { background: #f7f6f3; border-radius: 6px; padding: 12px 16px; } .contact-name { font-weight: 600; font-size: 14px; color: #37352f; margin-bottom: 2px; } .contact-role { font-size: 12px; color: #9b9a97; margin-bottom: 6px; } .contact-meta { font-size: 12px; color: #787774; display: flex; gap: 10px; flex-wrap: wrap; }
+.timeline-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0ef; font-size: 13px; align-items: baseline; } .timeline-item:last-child { border-bottom: none; } .tl-date { color: #9b9a97; font-size: 12px; min-width: 52px; flex-shrink: 0; } .tl-type { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; } .tl-type.intel { background: #fbf3db; color: #8c7213; } .tl-type.deliverable { background: #e8deee; color: #6940a5; } .tl-type.blocker { background: #fbe4e4; color: #c4314b; } .tl-type.milestone { background: #dbeddb; color: #1e6b3a; } .tl-text { color: #37352f; }
+.docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; margin: 8px 0; }
+.doc-link { display: block; padding: 10px 14px; border: 1px solid #e9e9e7; border-radius: 4px; text-decoration: none; color: #37352f; font-size: 13px; font-weight: 600; transition: all 0.15s; } .doc-link:hover { border-color: #37352f; background: #f7f6f3; text-decoration: none; } .doc-link .t { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #9b9a97; display: block; margin-bottom: 2px; } .doc-link .t.green { color: #1e6b3a; } .doc-link .t.red { color: #c4314b; } .doc-link .t.blue { color: #2e6e9e; }
+.info-box { background: #f7f6f3; border-radius: 6px; padding: 16px 20px; font-size: 13px; color: #37352f; margin-bottom: 16px; }
+.deal-box { background: #edf8ee; border: 1px solid #c6e6c8; border-radius: 6px; padding: 16px 20px; margin: 12px 0; } .deal-box h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #2d6a31; }
+.section { margin-bottom: 24px; font-size: 14px; } .section p { margin-bottom: 8px; }
+a { color: #2e6e9e; text-decoration: none; } a:hover { text-decoration: underline; }
+ul { padding-right: 20px; margin: 8px 0; } li { margin-bottom: 4px; font-size: 13px; }
+.footer { text-align: center; font-size: 11px; color: #c8c7c5; margin-top: 40px; padding-top: 16px; border-top: 1px solid #e9e9e7; }
+</style>
+</head>
+<body>
+
+<div class="breadcrumb"><a href="../index.html">PRIMO Hub</a><span>/</span><span>Barometer / אלי צחור</span></div>
+
+<div class="page-header">
+  <h1>Barometer / אלי צחור</h1>
+  <div class="header-meta">
+    <span class="badge new">LEAD OPEN</span>
+    <span class="badge partner">PARTNER: GUY 50/50</span>
+    <span class="badge pipeline">PIPELINE</span>
+    <span class="version-tag">v1</span>
+    <span>עדכון אחרון: 03.03.2026</span>
+  </div>
+  <div class="health-bar"><div class="fill yellow" style="width: 40%;"></div></div>
+</div>
+
+<div class="one-thing">
+  <div class="one-thing-label">BLOCKER — שאלון לא נשלח</div>
+  <div class="one-thing-text">לשלוח את שאלון המיפוי (18 שאלות) לאלי</div>
+  <div class="one-thing-meta">מוכן מ-24.02 | לא נשלח | בלי שאלון = אין kick-off | טל: 0522563898</div>
+</div>
+
+<h2>מספרים</h2>
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="kpi-label">Package</div>
+    <div class="kpi-value">₪59-65K</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Primak 50%</div>
+    <div class="kpi-value green">₪29.5K</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">GM%</div>
+    <div class="kpi-value green">65%</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">מפגשים</div>
+    <div class="kpi-value">5 × 3h</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">רצפה</div>
+    <div class="kpi-value yellow">₪50K</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Upsell Potential</div>
+    <div class="kpi-value green">₪60-180K</div>
+  </div>
+</div>
+
+<h2>אנשי קשר</h2>
+<div class="contacts-grid">
+  <div class="contact-card">
+    <div class="contact-name">אלי צחור</div>
+    <div class="contact-role">PRIMARY — יו"ר ומייסד ברומטר</div>
+    <div class="contact-meta"><span class="badge new">LEAD</span><span>0522563898</span></div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-name">אמיר חדד</div>
+    <div class="contact-role">מנכ"ל + אנליסט ראשי (מאז 2000)</div>
+    <div class="contact-meta"><span>25 שנה בחברה</span></div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-name">אביטל רייכנברג</div>
+    <div class="contact-role">מנהלת תיקים + Back Office (מאז 2006)</div>
+    <div class="contact-meta"></div>
+  </div>
+  <div class="contact-card">
+    <div class="contact-name">עדי כחילה</div>
+    <div class="contact-role">מנהלת תיקים (מאז 2016)</div>
+    <div class="contact-meta"></div>
+  </div>
+</div>
+<div class="info-box">
+  <strong>שותף בדיל:</strong> גיא אסיף — 50/50 על הכל. שניהם בחדר בכל מפגש. 2 מומחים × 4 אנשים = premium, אינטימי.
+</div>
+
+<h2>מודיעין</h2>
+<div class="section">
+  <p><strong>ברומטר השקעות</strong> — בית השקעות פעיל מ-1998. קיבוץ גליל ים. 5 קרנות נאמנות + 486 לקוחות בתיקים מנוהלים. טל: 09-9547470.</p>
+  <p><strong>המיזם התקוע:</strong> אלי שותף ב-<strong>אהרון טכנולוגיות קול</strong> — מנוע דיבור בעברית. זה הכאב האמיתי שלו. סדנת AI = nice to have. המיזם = כסף שנשרף.</p>
+  <p><strong>רקע אלי:</strong> MBA מימון (בר אילן) + MA היסטוריה. 30+ שנה שוק הון. יו"ר עמותת הלל יוצאים בשאלה.</p>
+  <p><strong>AI readiness:</strong> אפס. אין לצוות נסיון עם AI.</p>
+</div>
+
+<h2>מבנה העסקה — 5 מפגשים</h2>
+<div class="deal-box">
+  <h3>מפגש 1: Product Diagnosis — המיזם התקוע (₪15K)</h3>
+  <p>מיפוי מצב: מה נבנה, מה תקוע, למה. ניתוח PMF. זיהוי חסמים. Output: מסמך אבחנה + 3 כיוונים.</p>
+</div>
+<div class="deal-box">
+  <h3>מפגשים 2-3: AI Workshop לצוות (₪22K)</h3>
+  <p>Deal Sourcing + DD עם AI. Portfolio Monitoring. Financial Modeling. כל אנליסט יוצא עם 3 workflows עובדים.</p>
+</div>
+<div class="deal-box">
+  <h3>מפגש 4: 1:1 אלי + Venture Roadmap (₪12K)</h3>
+  <p>AI strategy לאלי כבעלים + Roadmap 90 יום למיזם. Output: מסמך Roadmap + Decision Framework.</p>
+</div>
+<div class="deal-box">
+  <h3>מפגש 5: Implementation + Handoff (₪10K)</h3>
+  <p>סיכום תהליך, milestone review, fine-tuning workflows, KPIs למדידה עצמאית. Upsell trigger: Fractional CPO.</p>
+</div>
+
+<h2>אסטרטגיית מכירה</h2>
+<div class="info-box">
+  <p style="margin-bottom: 8px;"><strong>Lead with the venture, not the workshop.</strong> המיזם הוא הכאב האמיתי של אלי.</p>
+  <p style="margin-bottom: 8px;"><strong>Frame 3=1:</strong> "זה לא 3 דברים שונים. זה דבר אחד — להזיז את המיזם. הסדנה וה-1:1 תומכים."</p>
+  <p style="margin-bottom: 8px;"><strong>מחיר:</strong> פתיחה ₪65K. רצפה ₪50K. אל תציע מחיר לפני שמבין את המיזם.</p>
+  <p><strong>Upsell:</strong> Fractional CPO למיזם — ₪20-30K/חודש × 3-6 חודשים. אל תציע בשיחה ראשונה.</p>
+</div>
+
+<h2>מסמכים</h2>
+<div class="docs-grid">
+  <a href="../brief-barometer-eli-24-02.html" class="doc-link"><span class="t red">BRIEF</span>בריף שיחה — אלי צחור</a>
+  <a href="../../_WORKSPACE/barometer/barometer-proposal-guy-v1.md" class="doc-link"><span class="t blue">PROPOSAL</span>מסגרת עבודה + שאלון (MD)</a>
+  <a href="../../_WORKSPACE/barometer/barometer-proposal-guy-v1.docx" class="doc-link"><span class="t">DOCX</span>מסגרת עבודה (Word)</a>
+</div>
+
+<h2>שאלון מיפוי — 18 שאלות</h2>
+<div class="info-box">
+  <p style="margin-bottom: 8px;"><strong>סטטוס: מוכן, לא נשלח.</strong> 18 שאלות ב-5 קטגוריות:</p>
+  <ul>
+    <li><strong>א. סביבת עבודה (5)</strong> — כלים, תהליכים, DD, portfolio, תקשורת לקוחות</li>
+    <li><strong>ב. כאבים וצווארי בקבוק (3)</strong> — מה גוזל זמן, מה מפספסים, מה היו עושים עם ×10</li>
+    <li><strong>ג. מוכנות AI (3)</strong> — נסיון קיים, חששות, מגבלות IT</li>
+    <li><strong>ד. יעדים (2)</strong> — חזון לשנה, תוכנית צמיחה</li>
+    <li><strong>ה. המיזם — לאלי בלבד (5)</strong> — מוצר, חסמים, השקעה, ניסיונות, 90 ימים</li>
+  </ul>
+</div>
+
+<h2>ציר זמן</h2>
+<div>
+  <div class="timeline-item">
+    <span class="tl-date">03.03</span>
+    <span class="tl-type blocker">BLOCKER</span>
+    <span class="tl-text">שאלון מוכן אבל לא נשלח. 7 ימים מאז הכנה. צריך לשלוח היום.</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">24.02</span>
+    <span class="tl-type deliverable">BUILD</span>
+    <span class="tl-text">בריף שיחה (HTML), מסגרת עבודה + שאלון (MD + DOCX), אג'נדה לשיחה, תמחור P&L — הכל מוכן.</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">24.02</span>
+    <span class="tl-type intel">INTEL</span>
+    <span class="tl-text">מחקר מודיעיני: ברומטר (1998), 5 קרנות, 486 לקוחות, אהרון טכנולוגיות קול, צוות 4 אנשים.</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tl-date">24.02</span>
+    <span class="tl-type milestone">START</span>
+    <span class="tl-text">ליד נכנס דרך גיא אסיף. אלי ביקש: סדנת AI + 1:1 + עזרה עם מיזם תקוע.</span>
+  </div>
+</div>
+
+<h2>פתוח</h2>
+<div class="info-box">
+  <ul>
+    <li>צריך לסגור 2 מדריכים חיצוניים + תעריף (₪200-250/שעה)</li>
+    <li>עלות מדריכים — יורדת מהקופה לפני 50/50 או כל אחד חצי?</li>
+    <li>תיאום לוח זמנים עם גיא לאחר שאלי חוזר עם תשובות</li>
+  </ul>
+</div>
+
+<div class="footer">PRIMO | Barometer / אלי צחור v1 | 03.03.2026</div>
+</body>
+</html>
