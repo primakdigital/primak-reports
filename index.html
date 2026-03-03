@@ -52,6 +52,9 @@
   .pill.new { background: var(--blue); color: var(--white); }
   .pill.waiting { background: var(--orange); color: var(--white); }
   .pill.sent { background: #ecfdf5; color: var(--green); border: 1px solid var(--green); }
+  .pill.blocked { background: var(--accent); color: var(--white); }
+  .pill.ready { background: #dbeafe; color: var(--blue); border: 1px solid var(--blue); }
+  .pill.alert { background: #fef3c7; color: var(--orange); border: 1px solid var(--orange); }
 
   /* WAITING LIST */
   .wait-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
@@ -90,7 +93,7 @@
 
 <!-- ═══ HERO ═══ -->
 <div class="hero">
-  <div class="mark">Primak Command Center &mdash; v15.3 &mdash; 25.02.2026</div>
+  <div class="mark">Primak Command Center &mdash; v16.0 &mdash; 03.03.2026</div>
   <h1>כל פרימק.<br>מקום אחד.</h1>
   <div class="stats">
     <div class="stat">
@@ -98,15 +101,15 @@
       <div class="stat-label">פער מיעד ₪1.13M</div>
     </div>
     <div class="stat">
-      <div class="stat-value">8</div>
-      <div class="stat-label">דילים בפייפליין</div>
+      <div class="stat-value">5</div>
+      <div class="stat-label">לידים בפייפליין</div>
     </div>
     <div class="stat">
-      <div class="stat-value green">₪290-660K</div>
+      <div class="stat-value green">₪470-960K</div>
       <div class="stat-label">Pipeline EV</div>
     </div>
     <div class="stat">
-      <div class="stat-value">25.02</div>
+      <div class="stat-value">03.03</div>
       <div class="stat-label">עדכון אחרון</div>
     </div>
   </div>
@@ -114,10 +117,10 @@
 
 <!-- ═══ NOW ═══ -->
 <div class="now-bar">
-  <span class="label">עכשיו — 25.02</span>
-  <span class="now-item">⚡ Barometer/Eli — שיחה 11:00+ | <a href="brief-barometer-eli-24-02.html" style="color:var(--accent);text-decoration:underline;">בריף →</a></span>
-  <span class="now-item">⚡ Shira — קרא תגובה + הכנה ל-pre-call מחר 09:15</span>
-  <span class="now-item">⚡ Omri Peleg WhatsApp — scout connector</span>
+  <span class="label">עכשיו — 03.03</span>
+  <span class="now-item">⚠ ICA/Aya — הסכם UI לחתימה. state.md = מת. לברר מיד.</span>
+  <span class="now-item">⚡ Zimlichman — 8 ימים silence. follow-up דידי?</span>
+  <span class="now-item">⚡ Ifat Lavi — Score 95, draft מוכן, לא נשלח</span>
 </div>
 
 <!-- ═══ LECUN ENERGY SCORE ═══ -->
@@ -126,23 +129,35 @@
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;">
     <div style="padding:16px;background:var(--white);border-radius:4px;border:1px solid var(--border);">
       <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Growth</div>
-      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;color:var(--accent);" id="lecun-growth">7</div>
-      <div style="font-size:11px;color:var(--light);margin-top:4px;">pipeline · revenue gap · stale leads</div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;color:var(--accent);">8</div>
+      <div style="font-size:11px;color:var(--light);margin-top:4px;">pipeline frozen · ₪752K gap · 0 outreach · Decision #3</div>
     </div>
     <div style="padding:16px;background:var(--white);border-radius:4px;border:1px solid var(--border);">
       <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:8px;">Delivery</div>
-      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;color:var(--orange);" id="lecun-delivery">5</div>
-      <div style="font-size:11px;color:var(--light);margin-top:4px;">overdue · due today · waiting</div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;color:var(--orange);">4</div>
+      <div style="font-size:11px;color:var(--light);margin-top:4px;">3 clients active · OU לא ביומן · Club D + DriftSense undocumented</div>
     </div>
     <div style="padding:16px;background:var(--white);border-radius:4px;border:1px solid var(--border);">
       <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;">Risk</div>
-      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;color:var(--green);" id="lecun-risk">3</div>
-      <div style="font-size:11px;color:var(--light);margin-top:4px;">unpaid · concentration · alignment</div>
+      <div style="font-size:24px;font-weight:800;letter-spacing:-1px;color:var(--orange);">5</div>
+      <div style="font-size:11px;color:var(--light);margin-top:4px;">Momentick 17d unpaid · ICA resurrection? · 0% retainer</div>
     </div>
   </div>
   <div style="padding:12px 16px;background:var(--black);color:var(--white);border-radius:4px;font-size:13px;display:flex;flex-wrap:wrap;gap:8px 24px;">
-    <span><span style="color:var(--accent);font-weight:700;">BOTTLENECK:</span> <span style="opacity:0.9;" id="lecun-bottleneck">GROWTH (7) — ₪752K gap. Pipeline OK, revenue חסר.</span></span>
-    <span><span style="color:var(--orange);font-weight:700;">GUARDIAN:</span> <span style="opacity:0.9;" id="lecun-guardian">מחר בוקר = money moves בלבד. ברומטר + אומרי. לא ברנדינג.</span></span>
+    <span><span style="color:var(--accent);font-weight:700;">BOTTLENECK:</span> <span style="opacity:0.9;">GROWTH (8) — Pipeline קפוא שבוע. 0 הודעות נשלחו. Decision #3 חוסם הכל.</span></span>
+    <span><span style="color:var(--orange);font-weight:700;">GUARDIAN:</span> <span style="opacity:0.9;">ICA/Aya — לברר. Zimlichman — follow-up. Ifat — לשלוח.</span></span>
+  </div>
+</div>
+
+<!-- ═══ BLOCKER ═══ -->
+<div class="section" style="background:#fff5f5;border-bottom:2px solid var(--accent);">
+  <div class="section-label" style="color:var(--accent);">Blocker — Decision #3: Services/Packages</div>
+  <div style="font-size:14px;color:var(--mid);margin-bottom:8px;">כיוון השתנה, דורש דיון מחדש. 6/7 החלטות brand נעולות. זו האחרונה — מפתח לכל GTM.</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <span class="pill blocked">Scout 0/9</span>
+    <span class="pill blocked">LinkedIn מוקפא</span>
+    <span class="pill blocked">Website מוקפא</span>
+    <span class="pill" style="background:#fef3c7;color:var(--orange);">₪470-960K EV תקוע</span>
   </div>
 </div>
 
@@ -154,59 +169,74 @@
       <tr><th>דיל</th><th>סטטוס</th><th>סכום</th><th>צעד הבא</th></tr>
     </thead>
     <tbody>
-      <tr style="opacity:0.4; text-decoration:line-through;">
-        <td class="deal-name">ICA Knowledge Center</td>
-        <td><span class="pill" style="background:#e3e2e0; color:#999; text-decoration:line-through;">EXIT</span></td>
-        <td>₪0</td>
-        <td class="next-action">EXIT נשלח 24.02. <a href="deal-debrief-ica-kc-v1.html" style="text-decoration:underline;">תחקיר →</a></td>
+      <tr>
+        <td class="deal-name">Zimlichman / ARC</td>
+        <td><span class="pill waiting">WAITING</span></td>
+        <td>₪100K+</td>
+        <td class="next-action">8 ימים silence. CV נשלח 23.02. Follow-up דרך דידי — תוצאה?</td>
       </tr>
       <tr>
         <td class="deal-name">Scout Pipeline</td>
-        <td><span class="pill active">OUTREACH</span></td>
-        <td style="font-weight:700;">₪270-560K</td>
-        <td class="next-action">WhatsApp אומרי פלג + DM גל ינוקא. 5 targets, מתווכים.</td>
+        <td><span class="pill blocked">BLOCKED</span></td>
+        <td style="font-weight:700;">₪470-960K</td>
+        <td class="next-action">9 targets. 0 נשלחו. חסום ע"י Decision #3.</td>
       </tr>
       <tr>
-        <td class="deal-name">ARC / Zimlichman</td>
-        <td><span class="pill sent">SENT</span></td>
-        <td>₪100K+</td>
-        <td class="next-action">CV v6 + מייל נשלח 23.02. Follow-up 26.02 דרך דידי.</td>
-      </tr>
-      <tr>
-        <td class="deal-name">Momentick Pivot — Copper</td>
-        <td><span class="pill active">ACTIVE</span></td>
-        <td>₪60-100K</td>
-        <td class="next-action">פגישה 15:30 היום. <a href="brief-momentick-liberia-24-02.html" style="color:var(--accent);font-weight:700;text-decoration:underline;">בריף →</a></td>
-      </tr>
-      <tr>
-        <td class="deal-name">IcanDo</td>
-        <td><span class="pill waiting">CONTRACT</span></td>
-        <td>₪55K EV</td>
-        <td class="next-action">חוזה ₪430/hr. איה חזרה — follow-up נשלח.</td>
+        <td class="deal-name">Barometer / אלי</td>
+        <td><span class="pill new">OPEN</span></td>
+        <td>₪60-110K</td>
+        <td class="next-action">Questionnaire הובטח — לא נשלח.</td>
       </tr>
       <tr>
         <td class="deal-name">Ifat Lavi / CathWorks</td>
-        <td><span class="pill new">PLAN A</span></td>
+        <td><span class="pill ready">READY</span></td>
         <td>Deal flow</td>
-        <td class="next-action">Reconnect drafted. Innovation Authority + Case Study.</td>
-      </tr>
-      <tr style="opacity:0.5;">
-        <td class="deal-name">Guy Assif Accelerator</td>
-        <td><span class="pill" style="background:#e3e2e0; color:#999;">PAUSED</span></td>
-        <td>TBD</td>
-        <td class="next-action">נדחה 2+ שבועות. חוזרים ~11.03.</td>
+        <td class="next-action">Score 95. Draft reconnect מוכן. ממתין לשליחה.</td>
       </tr>
       <tr>
-        <td class="deal-name">Barometer / אלי צחור</td>
-        <td><span class="pill new">NEW</span></td>
-        <td>₪60-110K</td>
-        <td class="next-action">שיחה 11:00+ היום. <a href="brief-barometer-eli-24-02.html" style="color:var(--accent);font-weight:700;text-decoration:underline;">בריף →</a></td>
-      </tr>
-      <tr>
-        <td class="deal-name">David Landau</td>
-        <td><span class="pill waiting">WAITING</span></td>
+        <td class="deal-name">Omri Peleg</td>
+        <td><span class="pill waiting">CONNECTOR</span></td>
         <td>TBD</td>
-        <td class="next-action">Visual Acuity PWA. Tech spec נשלח. ממתין לשיחה.</td>
+        <td class="next-action">Scout connector ל-3 targets. WhatsApp follow-up. סטטוס לא ידוע.</td>
+      </tr>
+      <tr style="background:#fff7ed;">
+        <td class="deal-name" style="color:var(--orange);">⚠ ICA / Aya — Resurrected?</td>
+        <td><span class="pill alert">ALERT</span></td>
+        <td>₪55K EV?</td>
+        <td class="next-action">הסכם UI נשלח לחתימה 02.03. state.md = "מת". סתירה — לברר מיד.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ ARCHIVED ═══ -->
+<div class="section">
+  <div class="section-label">סגורים / ארכיב</div>
+  <table class="pipeline-table">
+    <tbody>
+      <tr style="opacity:0.4;">
+        <td class="deal-name">ICA מרכז הידע</td>
+        <td><span class="pill" style="background:#e3e2e0; color:#999;">CLOSED ✓</span></td>
+        <td>₪0</td>
+        <td class="next-action">אפיון הושלם ושולם. מכרז נכשל ×4. <a href="deal-debrief-ica-kc-v1.html" style="text-decoration:underline;">תחקיר →</a></td>
+      </tr>
+      <tr style="opacity:0.4;">
+        <td class="deal-name">RGE</td>
+        <td><span class="pill" style="background:#e3e2e0; color:#999;">EXIT</span></td>
+        <td>—</td>
+        <td class="next-action">19.02.2026</td>
+      </tr>
+      <tr style="opacity:0.4;">
+        <td class="deal-name">Adventure AI</td>
+        <td><span class="pill" style="background:#e3e2e0; color:#999;">EXIT</span></td>
+        <td>—</td>
+        <td class="next-action">18.02.2026</td>
+      </tr>
+      <tr style="opacity:0.4;">
+        <td class="deal-name">BoW</td>
+        <td><span class="pill" style="background:#e3e2e0; color:#999;">CLOSED</span></td>
+        <td>—</td>
+        <td class="next-action">16.02.2026</td>
       </tr>
     </tbody>
   </table>
@@ -216,62 +246,130 @@
 <div class="section">
   <div class="section-label">ממתין לתגובה</div>
   <div class="wait-list">
-    <div class="wait-item">
-      <div class="who">איה אשדת</div>
-      <div class="what">IcanDo חוזה. PASSIVE WAIT — 2 follow-ups ללא מענה.</div>
-      <div class="since">20+ ימים | P7: תרומה→עסקה</div>
-    </div>
-    <div class="wait-item">
-      <div class="who">זימליכמן</div>
-      <div class="what">ARC. CV נשלח 23.02. דידי: "אם לא עונה אמשוך לו בדש הבגד"</div>
-      <div class="since">נשלח 23.02 | follow-up 26.02 דרך דידי</div>
+    <div class="wait-item" style="border-right-color:var(--accent);">
+      <div class="who">ICA / איה אשדת</div>
+      <div class="what">הסכם UI נשלח לחתימה 02.03. state.md = מת. סתירה.</div>
+      <div class="since" style="color:var(--accent);font-weight:600;">ACTION — לברר סטטוס מיד</div>
     </div>
     <div class="wait-item" style="border-right-color:var(--accent);">
-      <div class="who">דניאל Kashmir</div>
-      <div class="what">שלח Liberia proposal + one-pager 24.02. רוצה review צהרים.</div>
-      <div class="since">24.02 | ACTION — לתאם פגישה</div>
+      <div class="who">זימליכמן / ARC</div>
+      <div class="what">CV נשלח 23.02 לאייל. דידי: "אם לא עונה אמשוך לו בדש הבגד"</div>
+      <div class="since" style="color:var(--accent);">8 ימים | follow-up דרך דידי — תוצאה לא ידועה</div>
     </div>
     <div class="wait-item">
-      <div class="who">דוד לנדאו</div>
-      <div class="what">Visual Acuity PWA. הבטיח שיחה.</div>
-      <div class="since">מייל 22.02</div>
+      <div class="who">Barometer / אלי</div>
+      <div class="what">Questionnaire + proposal הובטח. לא נשלח.</div>
+      <div class="since">7+ ימים מאז שיחה</div>
+    </div>
+    <div class="wait-item">
+      <div class="who">Omri Peleg</div>
+      <div class="what">Scout connector ל-3 targets. WhatsApp follow-up.</div>
+      <div class="since">סטטוס לא ידוע</div>
     </div>
   </div>
 </div>
 
-<!-- ═══ TODAY SCHEDULE ═══ -->
+<!-- ═══ CLIENTS ═══ -->
 <div class="section">
-  <div class="section-label">לו״ז היום — ד׳ 25.02.2026</div>
-  <div class="cal-day" style="background:var(--bg);border-radius:4px;padding:14px 12px;">
-    <div class="day-label today" style="min-width:90px;">11:00+</div>
-    <div class="day-items">📞 <strong>אלי צחור — Barometer</strong> | 0522563898 | <a href="brief-barometer-eli-24-02.html" style="color:var(--accent);font-weight:700;text-decoration:underline;">בריף →</a>
-      <div style="font-size:12px;color:var(--mid);margin-top:4px;">① פתח עם המיזם התקוע — "מה תקוע ולמה?" ② Frame 3=1 ③ מחיר: פתיחה ₪65K / רצפה ₪50K ④ אל תציע מחיר לפני שמבין</div>
+  <div class="section-label">לקוחות פעילים</div>
+  <table class="pipeline-table">
+    <thead>
+      <tr><th>לקוח</th><th>סטטוס</th><th>תשלום</th><th>הערה</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="deal-name">Open University</td>
+        <td><span class="pill active">ACTIVE</span></td>
+        <td>שוטף</td>
+        <td class="next-action">⚠ פגישת רביעי 17:00 לא מופיעה ביומן השבוע</td>
+      </tr>
+      <tr>
+        <td class="deal-name">Club D</td>
+        <td><span class="pill active">ACTIVE</span></td>
+        <td>—</td>
+        <td class="next-action">next action לא מתועד</td>
+      </tr>
+      <tr>
+        <td class="deal-name">DriftSense</td>
+        <td><span class="pill active">ACTIVE</span></td>
+        <td>—</td>
+        <td class="next-action">next action לא מתועד</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ FINANCIAL ═══ -->
+<div class="section">
+  <div class="section-label">פיננסי</div>
+  <table class="pipeline-table">
+    <thead>
+      <tr><th>פריט</th><th>סכום</th><th>תאריך</th><th>סטטוס</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="deal-name">Momentick — חשבונית</td>
+        <td style="font-weight:700;">₪3,744</td>
+        <td>14.02</td>
+        <td class="next-action" style="color:var(--orange);font-weight:600;">17 יום — לא ידוע אם שולם</td>
+      </tr>
+      <tr>
+        <td>חשבון עסקה 90179 — עומרי רפאל</td>
+        <td>—</td>
+        <td>03.03</td>
+        <td class="next-action">חדש — לבדוק</td>
+      </tr>
+      <tr>
+        <td>חשבונית מס 92877 — דינה וולף</td>
+        <td>—</td>
+        <td>01.03</td>
+        <td class="next-action">חדש — לבדוק</td>
+      </tr>
+      <tr>
+        <td>דוח הכנסות פבר׳ — Morning</td>
+        <td>—</td>
+        <td>02.03</td>
+        <td class="next-action">דוח תקופתי</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ WEEK SCHEDULE ═══ -->
+<div class="section">
+  <div class="section-label">לו״ז השבוע — 03-08.03.2026</div>
+  <div class="cal-day">
+    <div class="day-label today">ג׳ 03.03</div>
+    <div class="day-items" style="color:var(--light);font-style:italic;">ריק — אין פגישות עסקיות</div>
+  </div>
+  <div class="cal-day">
+    <div class="day-label" style="color:var(--orange);">ד׳ 04.03</div>
+    <div class="day-items">⚠ Open University (רביעי 17:00) <strong style="color:var(--accent);">לא מופיע ביומן</strong></div>
+  </div>
+  <div class="cal-day">
+    <div class="day-label">ה׳-ש׳</div>
+    <div class="day-items" style="color:var(--light);font-style:italic;">ריק</div>
+  </div>
+  <div class="cal-day">
+    <div class="day-label">א׳ 08.03</div>
+    <div class="day-items">
+      10:00 <strong>ביגי — KPI דגשים לפרסום</strong> (Omri, ProManager)<br>
+      11:00 <strong>פתיחת שבוע — PRIMAK ENGINE</strong><br>
+      19:00 יומולדת לאביעד (אישי)
     </div>
-  </div>
-  <div class="cal-day">
-    <div class="day-label" style="min-width:90px;color:var(--orange);">אחרי שיחה</div>
-    <div class="day-items">⚡ <strong>ביצוע</strong> — סגירת לופ Barometer (סיכום + next steps)</div>
-  </div>
-  <div class="cal-day">
-    <div class="day-label" style="min-width:90px;">—</div>
-    <div class="day-items">📧 <strong>Shira SmartReach</strong> — קרא תגובה + הכן עמדה ל-pre-call מחר 09:15</div>
-  </div>
-  <div class="cal-day">
-    <div class="day-label" style="min-width:90px;">—</div>
-    <div class="day-items">💬 <strong>Omri Peleg</strong> — WhatsApp scout connector</div>
   </div>
 </div>
 
-<!-- ═══ WEEK AHEAD ═══ -->
+<!-- ═══ ENGINE ═══ -->
 <div class="section">
-  <div class="section-label">השבוע</div>
-  <div class="cal-day">
-    <div class="day-label">ה׳ 26.02</div>
-    <div class="day-items">09:00 PRIMO War Room · 09:15 Shira/Kaylene pre-call · 10:00 Follow-up Zimlichman דרך דידי</div>
-  </div>
-  <div class="cal-day">
-    <div class="day-label">ש׳ 28.02</div>
-    <div class="day-items">Scout W1 follow-ups · IcanDo (אם עדיין שתיקה = EXIT signal)</div>
+  <div class="section-label">PRIMAK ENGINE — v0.3.0</div>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <span class="pill active">Claude.ai Project — LIVE</span>
+    <span class="pill new">Gmail MCP — v0.3</span>
+    <span class="pill new">Calendar MCP — v0.3</span>
+    <span class="pill" style="background:#e3e2e0; color:#999; text-decoration:line-through;">Scout Agent — DEPRECATED</span>
+    <span class="pill active">MENTAL.md — Drive</span>
+    <span class="pill active">GitHub Pages — LIVE</span>
   </div>
 </div>
 
@@ -279,7 +377,7 @@
 <div class="section">
   <div class="section-label">Rebranding</div>
   <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;">
-    <span style="font-size:14px;font-weight:700;">תוצר אחרון:</span>
+    <span style="font-size:14px;font-weight:700;">תוצרים:</span>
     <a href="linkedin-update-v6.html" style="font-size:14px;font-weight:700;color:var(--black);border-bottom:2px solid var(--black);text-decoration:none;padding-bottom:1px;">LinkedIn v6</a>
     <span style="font-size:13px;color:var(--light);">·</span>
     <a href="yaniv-primak-cv-2026.html" style="font-size:14px;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--border);padding-bottom:1px;">CV 2026</a>
@@ -294,7 +392,7 @@
 <!-- ═══ FOOTER ═══ -->
 <div class="footer">
   <div class="info">
-    v15.3 &mdash; 25.02.2026
+    v16.0 &mdash; 03.03.2026
   </div>
   <a href="library.html">ספריית מסמכים — 70+ קבצים &rarr;</a>
   <a href="primak-triggers-v1.html">Trigger Reference v3.1 &rarr;</a>
