@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRIMAK — Command Room</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0f;
@@ -53,78 +54,30 @@
     position: relative;
     overflow: hidden;
   }
-
   header::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, var(--accent), var(--cyan), var(--teal), var(--accent));
     background-size: 300% 100%;
     animation: shimmer 6s ease-in-out infinite;
   }
-
-  @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
+  @keyframes shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
   header h1 {
-    font-size: 2rem;
-    font-weight: 900;
-    margin-bottom: 0.3rem;
+    font-size: 2rem; font-weight: 900; margin-bottom: 0.3rem;
     background: linear-gradient(135deg, var(--accent2), var(--cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     letter-spacing: -0.5px;
   }
+  header .subtitle { color: var(--text2); font-size: 0.95rem; font-weight: 300; margin-bottom: 1rem; }
+  header .meta { color: var(--text3); font-size: 0.8rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
 
-  header .subtitle {
-    color: var(--text2);
-    font-size: 0.95rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
-  }
-
-  header .meta {
-    color: var(--text3);
-    font-size: 0.8rem;
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  /* ── Stats Bar ── */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-  }
-
-  .stat {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0.85rem 1rem;
-    text-align: center;
-  }
-
-  .stat .value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    display: block;
-  }
-
-  .stat .label {
-    font-size: 0.75rem;
-    color: var(--text2);
-    font-weight: 400;
-  }
-
+  /* ── Stats ── */
+  .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; text-align: center; }
+  .stat .value { font-size: 1.5rem; font-weight: 700; display: block; }
+  .stat .label { font-size: 0.75rem; color: var(--text2); }
   .stat .value.green { color: var(--green); }
   .stat .value.amber { color: var(--amber); }
   .stat .value.accent { color: var(--accent2); }
@@ -133,240 +86,124 @@
   .stat .value.teal { color: var(--teal); }
 
   /* ── Nav ── */
-  nav {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-  }
-
-  nav a {
-    color: var(--text2);
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 0.35rem 0.85rem;
-    border-radius: 6px;
-    background: var(--surface2);
-    border: 1px solid transparent;
-    transition: all 0.2s;
-  }
-
-  nav a:hover {
-    color: var(--text);
-    border-color: var(--accent);
-    background: rgba(108, 99, 255, 0.1);
-  }
+  nav { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+  nav a { color: var(--text2); font-size: 0.8rem; font-weight: 500; padding: 0.35rem 0.85rem; border-radius: 6px; background: var(--surface2); border: 1px solid transparent; transition: all 0.2s; }
+  nav a:hover { color: var(--text); border-color: var(--accent); background: rgba(108,99,255,0.1); }
+  nav .nav-sep { color: var(--text3); font-size: 0.6rem; align-self: center; }
 
   /* ── Sections ── */
-  section {
-    margin-bottom: 2rem;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-  }
-
-  h2 .section-icon { margin-left: 0.5rem; opacity: 0.7; }
-
-  h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 1.25rem 0 0.6rem;
-    color: var(--text2);
-  }
+  section { margin-bottom: 2rem; }
+  h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.6rem; color: var(--text2); }
 
   /* ── Tables ── */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-  }
-
-  thead th {
-    background: var(--surface2);
-    color: var(--text2);
-    font-weight: 600;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 0.65rem 0.85rem;
-    text-align: right;
-    border-bottom: 1px solid var(--border2);
-  }
-
-  tbody td {
-    padding: 0.6rem 0.85rem;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-
-  tbody tr:hover { background: rgba(108, 99, 255, 0.04); }
-
-  .mono {
-    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.78rem;
-    direction: ltr;
-    unicode-bidi: embed;
-    color: var(--cyan);
-  }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
+  thead th { background: var(--surface2); color: var(--text2); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.65rem 0.85rem; text-align: right; border-bottom: 1px solid var(--border2); }
+  tbody td { padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:hover { background: rgba(108,99,255,0.04); }
+  .mono { font-family: 'SF Mono','Fira Code','Consolas',monospace; font-size: 0.78rem; direction: ltr; unicode-bidi: embed; color: var(--cyan); }
 
   /* ── Cards ── */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem;
-    margin-bottom: 1rem;
-    transition: border-color 0.2s;
-  }
-
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; transition: border-color 0.2s; }
   .card:hover { border-color: var(--border2); }
-
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .card-title {
-    font-weight: 700;
-    font-size: 1rem;
-  }
-
-  .card-details {
-    font-size: 0.82rem;
-    color: var(--text2);
-    line-height: 1.8;
-  }
-
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+  .card-title { font-weight: 700; font-size: 1rem; }
+  .card-details { font-size: 0.82rem; color: var(--text2); line-height: 1.8; }
   .card-details strong { color: var(--text); font-weight: 500; }
+  .card-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+  .card-links a { font-size: 0.75rem; padding: 0.2rem 0.6rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; }
+  .card-links a:hover { border-color: var(--accent); background: rgba(108,99,255,0.1); }
 
-  .card-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.5rem;
-  }
+  /* ── Badges ── */
+  .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-active { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+  .badge-lead { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+  .badge-alert { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .badge-locked { background: rgba(108,99,255,0.15); color: var(--accent2); border: 1px solid rgba(108,99,255,0.3); }
+  .badge-silence { background: rgba(152,152,168,0.15); color: var(--text2); border: 1px solid rgba(152,152,168,0.3); }
+  .badge-draft { background: rgba(34,211,238,0.15); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
 
-  .card-links a {
-    font-size: 0.75rem;
-    padding: 0.2rem 0.6rem;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-  }
-
-  .card-links a:hover {
-    border-color: var(--accent);
-    background: rgba(108, 99, 255, 0.1);
-  }
-
-  /* ── Status Badges ── */
-  .badge {
-    display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 0.15rem 0.55rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .badge-active { background: rgba(52, 211, 153, 0.15); color: var(--green); border: 1px solid rgba(52, 211, 153, 0.3); }
-  .badge-lead { background: rgba(251, 191, 36, 0.15); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.3); }
-  .badge-alert { background: rgba(248, 113, 113, 0.15); color: var(--red); border: 1px solid rgba(248, 113, 113, 0.3); }
-  .badge-locked { background: rgba(108, 99, 255, 0.15); color: var(--accent2); border: 1px solid rgba(108, 99, 255, 0.3); }
-  .badge-silence { background: rgba(152, 152, 168, 0.15); color: var(--text2); border: 1px solid rgba(152, 152, 168, 0.3); }
-  .badge-draft { background: rgba(34, 211, 238, 0.15); color: var(--cyan); border: 1px solid rgba(34, 211, 238, 0.3); }
-
-  /* ── Drive Tree ── */
-  .tree {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem 1.5rem;
-    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-    font-size: 0.8rem;
-    direction: ltr;
-    unicode-bidi: embed;
-    line-height: 1.8;
-    color: var(--text2);
-    overflow-x: auto;
-  }
-
+  /* ── Tree ── */
+  .tree { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; font-family: 'SF Mono','Fira Code','Consolas',monospace; font-size: 0.8rem; direction: ltr; unicode-bidi: embed; line-height: 1.8; color: var(--text2); overflow-x: auto; }
   .tree .folder { color: var(--amber); font-weight: 600; }
   .tree .comment { color: var(--text3); }
-  .tree .emoji { font-family: 'Heebo', system-ui; }
 
   /* ── Financial ── */
-  .fin-amount { color: var(--green); font-weight: 600; font-family: 'SF Mono', monospace; direction: ltr; unicode-bidi: embed; }
+  .fin-amount { color: var(--green); font-weight: 600; font-family: 'SF Mono',monospace; direction: ltr; unicode-bidi: embed; }
   .fin-pending { color: var(--amber); }
 
   /* ── Rules ── */
-  .rules-list {
-    list-style: none;
-    counter-reset: rule;
-  }
-
-  .rules-list li {
-    counter-increment: rule;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.85rem;
-    color: var(--text2);
-  }
-
-  .rules-list li::before {
-    content: counter(rule);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--accent2);
-    margin-left: 0.6rem;
-  }
+  .rules-list { list-style: none; counter-reset: rule; }
+  .rules-list li { counter-increment: rule; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--text2); }
+  .rules-list li::before { content: counter(rule); display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; font-size: 0.7rem; font-weight: 700; color: var(--accent2); margin-left: 0.6rem; }
 
   /* ── Changelog ── */
-  .changelog-date {
-    color: var(--accent2);
-    font-weight: 600;
-    font-family: 'SF Mono', monospace;
-    font-size: 0.8rem;
-    direction: ltr;
-    unicode-bidi: embed;
-    white-space: nowrap;
-    min-width: 50px;
+  .changelog-date { color: var(--accent2); font-weight: 600; font-family: 'SF Mono',monospace; font-size: 0.8rem; direction: ltr; unicode-bidi: embed; white-space: nowrap; min-width: 50px; }
+
+  /* ── Section Note ── */
+  .section-note { font-size: 0.78rem; color: var(--text2); background: var(--surface); border-right: 3px solid var(--accent); padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; border-radius: 0 6px 6px 0; }
+
+  /* ══════ TRIGGERS ══════ */
+  /* ── Collapsible ── */
+  .collapsible-header {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
+  .collapsible-header .toggle-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
+    font-size: 0.85rem; color: var(--accent2);
+    transition: transform 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .collapsible-header:hover .toggle-icon { background: rgba(108,99,255,0.15); }
+  .collapsible-content { display: none; }
+  .collapsible-content.open { display: block; }
+  .collapsible-header .toggle-icon.open { transform: rotate(90deg); }
+
+  /* ── Trigger-specific ── */
+  .trigger-id { font-family: 'SF Mono','Fira Code',monospace; font-weight: 700; color: var(--accent2); font-size: 0.8rem; }
+  .trigger-id a { color: var(--accent2); text-decoration: none; }
+  .trigger-id a:hover { text-decoration: underline; }
+  .trigger-phrase { font-family: 'SF Mono','Fira Code',monospace; font-size: 0.78rem; color: var(--cyan); background: rgba(34,211,238,0.08); padding: 1px 6px; border-radius: 4px; display: inline-block; margin: 1px 0; direction: ltr; unicode-bidi: embed; }
+  .trigger-phrase[data-lang="he"] { direction: rtl; color: var(--green); background: rgba(52,211,153,0.08); }
+  .type-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
+  .type-pipeline   { background: rgba(108,99,255,0.15); color: var(--accent2); }
+  .type-admin      { background: rgba(34,211,238,0.12); color: var(--cyan); }
+  .type-admin-doc  { background: rgba(34,211,238,0.08); color: #67e8f9; border: 1px dashed rgba(34,211,238,0.25); }
+  .type-pricing    { background: rgba(251,191,36,0.12); color: var(--amber); }
+  .type-workflow   { background: rgba(52,211,153,0.12); color: var(--green); }
+  .type-team       { background: rgba(244,114,182,0.12); color: var(--pink); }
+  .type-hygiene    { background: rgba(248,113,113,0.12); color: var(--red); }
+  .type-status     { background: rgba(156,163,175,0.12); color: #9ca3af; }
+  .type-knowledge  { background: rgba(45,212,191,0.12); color: var(--teal); }
+  .type-auto       { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px dashed rgba(251,191,36,0.3); }
+  .trigger-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; scroll-margin-top: 1rem; }
+  .trigger-card:hover { border-color: rgba(108,99,255,0.3); }
+  .trigger-card .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .trigger-card .card-title .tid { font-family: 'SF Mono','Fira Code',monospace; color: var(--accent2); font-weight: 700; }
+  .card-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .card-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid rgba(42,42,58,0.5); vertical-align: top; }
+  .card-table td:first-child { width: 70px; color: var(--text2); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
+  .card-table tr:last-child td { border-bottom: none; }
+  .detail-text { font-size: 0.78rem; color: var(--text2); }
+  .ref-link { font-size: 0.72rem; color: var(--text2); font-family: 'SF Mono',monospace; opacity: 0.7; }
+  .mode-tag { font-size: 0.68rem; padding: 1px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .mode-recommend { background: rgba(251,191,36,0.15); color: var(--amber); }
+  .mode-execute   { background: rgba(248,113,113,0.15); color: var(--red); }
+  .separator { color: var(--text2); opacity: 0.5; margin: 0 2px; }
+  .removed-section table { opacity: 0.6; }
+  .removed-section tbody td { text-decoration: line-through; color: var(--text2); }
+
+  /* Triggers master table sticky */
+  .triggers-master thead th { position: sticky; top: 0; z-index: 1; }
 
   /* ── Footer ── */
-  footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    color: var(--text3);
-    font-size: 0.75rem;
-    border-top: 1px solid var(--border);
-    margin-top: 1rem;
-  }
+  footer { text-align: center; padding: 2rem 1rem; color: var(--text3); font-size: 0.75rem; border-top: 1px solid var(--border); margin-top: 1rem; }
 
   /* ── Responsive ── */
   @media (max-width: 768px) {
@@ -376,6 +213,7 @@
     table { font-size: 0.78rem; }
     thead th, tbody td { padding: 0.45rem 0.5rem; }
     .card { padding: 1rem; }
+    .card-table td:first-child { width: 55px; }
   }
 </style>
 </head>
@@ -384,11 +222,11 @@
 <!-- ══════════ HEADER ══════════ -->
 <header>
   <h1>PRIMAK — Command Room</h1>
-  <div class="subtitle">אינדקס מרכזי — כל הנתיבים, כל הנכסים</div>
+  <div class="subtitle">מקור אמת אחד — נתיבים, לקוחות, טריגרים, תשתיות</div>
   <div class="meta">
-    <span>v2.0</span>
+    <span>v3.0</span>
     <span>עדכון: 09.03.2026</span>
-    <span>PRIMO System</span>
+    <span>PRIMO System v8.0</span>
   </div>
 </header>
 
@@ -396,10 +234,10 @@
 <div class="stats-bar">
   <div class="stat"><span class="value green">5</span><span class="label">לקוחות פעילים</span></div>
   <div class="stat"><span class="value amber">4</span><span class="label">לידים</span></div>
-  <div class="stat"><span class="value accent">6</span><span class="label">שכבות ארכיטקטורה</span></div>
+  <div class="stat"><span class="value accent">36</span><span class="label">טריגרים</span></div>
   <div class="stat"><span class="value cyan">31</span><span class="label">מסמכי Vault</span></div>
   <div class="stat"><span class="value teal">3</span><span class="label">מנועי חיפוש</span></div>
-  <div class="stat"><span class="value pink">58</span><span class="label">קבצי GitHub Pages</span></div>
+  <div class="stat"><span class="value pink">6</span><span class="label">שכבות</span></div>
 </div>
 
 <!-- ══════════ NAV ══════════ -->
@@ -409,6 +247,9 @@
   <a href="#clients">לקוחות</a>
   <a href="#leads">לידים</a>
   <a href="#financial">פיננסי</a>
+  <span class="nav-sep">|</span>
+  <a href="#triggers">טריגרים (36)</a>
+  <span class="nav-sep">|</span>
   <a href="#knowledge">Knowledge System</a>
   <a href="#github">GitHub Pages</a>
   <a href="#rules">חוקים</a>
@@ -429,7 +270,6 @@
       <tr><td><strong>Knowledge System</strong></td><td>3-engine vault search (31 docs)</td><td>MCP + CLI (<span class="mono">primak-search</span>)</td></tr>
     </tbody>
   </table>
-
   <h3>קבצי Project (נטענים אוטומטית)</h3>
   <table>
     <thead><tr><th>קובץ</th><th>תפקיד</th><th>גודל</th></tr></thead>
@@ -441,10 +281,10 @@
   </table>
 </section>
 
-<!-- ══════════ DRIVE STRUCTURE ══════════ -->
+<!-- ══════════ DRIVE ══════════ -->
 <section id="drive">
   <h2>מבנה Drive — PRIMAK-HQ</h2>
-  <div class="tree"><span class="emoji">🎯</span> <span class="folder">PRIMAK-HQ/</span>
+  <div class="tree">🎯 <span class="folder">PRIMAK-HQ/</span>
 ├── <span class="folder">_CLIENTS/</span>                    <span class="comment">← עבודה חיה של לקוחות בלבד</span>
 │   ├── ICA-IcanDo/
 │   ├── Momentick/
@@ -465,21 +305,16 @@
 │   └── Prinak_templet doc
 │
 └── <span class="folder">_SHARE/</span>                      <span class="comment">← deliverables ללקוחות</span></div>
-  <div style="margin-top: 0.75rem; font-size: 0.82rem; color: var(--text2); background: var(--surface); border: 1px solid var(--border); border-right: 3px solid var(--accent); border-radius: 8px; padding: 0.75rem 1rem;">
-    <strong style="color: var(--text);">עיקרון:</strong> _CLIENTS = עבודת לקוחות. _SYSTEM = ניהול פרימק. לעולם לא מתערבבים.
+  <div style="margin-top:0.75rem;font-size:0.82rem;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-right:3px solid var(--accent);border-radius:8px;padding:0.75rem 1rem;">
+    <strong style="color:var(--text);">עיקרון:</strong> _CLIENTS = עבודת לקוחות. _SYSTEM = ניהול פרימק. לעולם לא מתערבבים.
   </div>
 </section>
 
 <!-- ══════════ CLIENTS ══════════ -->
 <section id="clients">
   <h2>לקוחות פעילים (5)</h2>
-
-  <!-- ICA -->
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">ICA / IcanDo</span>
-      <span class="badge badge-active">ACTIVE — חוזה חתום</span>
-    </div>
+    <div class="card-header"><span class="card-title">ICA / IcanDo</span><span class="badge badge-active">ACTIVE — חוזה חתום</span></div>
     <div class="card-details">
       <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
       <strong>Tech Lead:</strong> איתי קאהן (<span class="mono">itaik@ica.org.il</span>)<br>
@@ -494,20 +329,15 @@
       <a href="https://docs.google.com/document/d/1wxYZwjBlZyLh8QNkN55YxJk1_IceNLRy/edit">Proposal</a>
       <a href="https://docs.google.com/document/d/1Ak0cDs-4rCLa-u1oA3-HcGmU_WE-jnFk/edit">Workspace</a>
     </div>
-    <div class="card-links" style="margin-top: 0.3rem;">
+    <div class="card-links" style="margin-top:0.3rem;">
       <a href="https://drive.google.com/drive/folders/1FxBsyZg6bE5FiKn_lJkFYkHxJuRTe3TG">ICA Web UI</a>
       <a href="https://docs.google.com/document/d/1om7yLctGW3MF5HioA1EKBhmfgtZDx6br/edit">ica-knowledge-center</a>
       <a href="https://docs.google.com/document/d/1eUhik7U15Dep9JjM2Toc9Id72diCdcvh/edit">ica-therapist-mvp</a>
       <a href="https://docs.google.com/document/d/1-Fs37phYcUzRuk-Hki51o5qN7ABMhMYL/edit">ICA UI</a>
     </div>
   </div>
-
-  <!-- Momentick -->
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Momentick</span>
-      <span class="badge badge-active">ACTIVE — שוטף</span>
-    </div>
+    <div class="card-header"><span class="card-title">Momentick</span><span class="badge badge-active">ACTIVE — שוטף</span></div>
     <div class="card-details">
       <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
       <strong>חשבונית אחרונה:</strong> <span class="fin-amount">₪3,744</span> (14.02.2026) — <span class="fin-pending">סטטוס תשלום לא ידוע</span><br>
@@ -515,54 +345,26 @@
       11 Build HTMLs: P00-P10 + ASSEMBLED-liberia-proposal.html | 6 Figma patches
     </div>
   </div>
-
-  <!-- Open University -->
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Open University</span>
-      <span class="badge badge-active">ACTIVE</span>
-    </div>
-    <div class="card-details">
-      <strong>מפגשים:</strong> רביעי 17:00<br>
-      <strong>תשלום:</strong> שוטף
-    </div>
+    <div class="card-header"><span class="card-title">Open University</span><span class="badge badge-active">ACTIVE</span></div>
+    <div class="card-details"><strong>מפגשים:</strong> רביעי 17:00<br><strong>תשלום:</strong> שוטף</div>
   </div>
-
-  <!-- Club D -->
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Club D</span>
-      <span class="badge badge-active">ACTIVE</span>
-    </div>
-    <div class="card-details">
-      <strong>next action:</strong> לא מתועד
-    </div>
+    <div class="card-header"><span class="card-title">Club D</span><span class="badge badge-active">ACTIVE</span></div>
+    <div class="card-details"><strong>next action:</strong> לא מתועד</div>
   </div>
-
-  <!-- DriftSense -->
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">DriftSense</span>
-      <span class="badge badge-active">ACTIVE</span>
-    </div>
-    <div class="card-details">
-      <strong>next action:</strong> לא מתועד
-    </div>
+    <div class="card-header"><span class="card-title">DriftSense</span><span class="badge badge-active">ACTIVE</span></div>
+    <div class="card-details"><strong>next action:</strong> לא מתועד</div>
   </div>
 </section>
 
 <!-- ══════════ LEADS ══════════ -->
 <section id="leads">
   <h2>לידים פעילים</h2>
-
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Barometer / Eli + Guy Asif</span>
-      <span class="badge badge-locked">תמחור נעול</span>
-    </div>
-    <div class="card-details">
-      <strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span> | חבילה <span class="fin-amount">₪17,510</span> | 50/50 יניב+גיא
-    </div>
+    <div class="card-header"><span class="card-title">Barometer / Eli + Guy Asif</span><span class="badge badge-locked">תמחור נעול</span></div>
+    <div class="card-details"><strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span> | חבילה <span class="fin-amount">₪17,510</span> | 50/50 יניב+גיא</div>
     <div class="card-links">
       <a href="https://drive.google.com/drive/folders/14JGt5meBo-u6s205TMDqb8taBPt6vhV_">Barometer Drive</a>
       <a href="https://docs.google.com/document/d/1TNK6vbzk6rR5BQlwjuJ3MmDnJSLDu-YC/edit">הצעת שירות v2</a>
@@ -570,31 +372,16 @@
       <a href="https://docs.google.com/document/d/1tlXX8icGUZFaYlULppZMr_H-ZWsa-n-3DUv60VWQsXk/edit">Proposal Guy v1</a>
     </div>
   </div>
-
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Zimlichman / ARC / Sheba</span>
-      <span class="badge badge-silence">SILENCE</span>
-    </div>
-    <div class="card-details">
-      <strong>CV נשלח:</strong> 23.02 ל-<span class="mono">Eyal.Zimlichman@sheba.health.gov.il</span><br>
-      <strong>סטטוס:</strong> 9+ ימים silence
-    </div>
+    <div class="card-header"><span class="card-title">Zimlichman / ARC / Sheba</span><span class="badge badge-silence">SILENCE</span></div>
+    <div class="card-details"><strong>CV נשלח:</strong> 23.02 ל-<span class="mono">Eyal.Zimlichman@sheba.health.gov.il</span><br><strong>סטטוס:</strong> 9+ ימים silence</div>
   </div>
-
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Ifat Lavi / CathWorks</span>
-      <span class="badge badge-draft">DRAFT READY</span>
-    </div>
+    <div class="card-header"><span class="card-title">Ifat Lavi / CathWorks</span><span class="badge badge-draft">DRAFT READY</span></div>
     <div class="card-details">Score 95, draft מוכן, לא נשלח</div>
   </div>
-
   <div class="card">
-    <div class="card-header">
-      <span class="card-title">Omri Peleg</span>
-      <span class="badge badge-lead">CONNECTOR</span>
-    </div>
+    <div class="card-header"><span class="card-title">Omri Peleg</span><span class="badge badge-lead">CONNECTOR</span></div>
     <div class="card-details">connector ל-3 targets, WhatsApp follow-up</div>
   </div>
 </section>
@@ -613,10 +400,148 @@
   </table>
 </section>
 
+<!-- ══════════════════════════════════════════════════ -->
+<!-- ═══ TRIGGERS — COLLAPSIBLE ═══ -->
+<!-- ══════════════════════════════════════════════════ -->
+<section id="triggers">
+  <h2 class="collapsible-header" onclick="toggleTriggers()">
+    <span class="toggle-icon" id="trigger-toggle">▶</span>
+    טריגרים — 36 Total (30 User + 6 Auto)
+    <span class="badge" style="background:var(--accent);color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:99px;">v4.0</span>
+  </h2>
+
+  <!-- Master Table — always visible -->
+  <table class="triggers-master">
+    <thead><tr><th style="width:50px">ID</th><th>Name</th><th>HE</th><th>EN</th><th style="width:90px">Category</th><th style="width:65px">Output</th></tr></thead>
+    <tbody>
+      <tr><td class="trigger-id"><a href="#t01">T01</a></td><td>Pipeline Dashboard</td><td><span class="trigger-phrase" data-lang="he">עדכן pipeline</span></td><td><span class="trigger-phrase">pipeline update</span></td><td><span class="type-tag type-pipeline">pipeline</span></td><td class="ref-link">.html</td></tr>
+      <tr><td class="trigger-id"><a href="#t02">T02</a></td><td>Lead Analysis</td><td><span class="trigger-phrase" data-lang="he">ניתוח ליד {name}</span></td><td><span class="trigger-phrase">analyze lead {name}</span></td><td><span class="type-tag type-pipeline">pipeline</span></td><td class="ref-link">.html</td></tr>
+      <tr><td class="trigger-id"><a href="#t03">T03</a></td><td>סטטוס לקוח</td><td><span class="trigger-phrase" data-lang="he">סטטוס {client}</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t04">T04</a></td><td>מייל ללקוח</td><td><span class="trigger-phrase" data-lang="he">תכתוב מייל ל-{name}</span></td><td><span class="trigger-phrase">follow up with {name}</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">draft</td></tr>
+      <tr><td class="trigger-id"><a href="#t05">T05</a></td><td>תדריך לפגישה</td><td><span class="trigger-phrase" data-lang="he">הכן אותי לפגישה עם {name}</span></td><td><span class="trigger-phrase">briefing for {name}</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t06">T06</a></td><td>תשלומים</td><td><span class="trigger-phrase" data-lang="he">סטטוס תשלומים</span></td><td><span class="trigger-phrase">payment status</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t07">T07</a></td><td>מצגת משקיעים</td><td><span class="trigger-phrase" data-lang="he">מצגת משקיעים</span></td><td><span class="trigger-phrase">investor deck</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.pptx</td></tr>
+      <tr><td class="trigger-id"><a href="#t08">T08</a></td><td>בריף לדיזיינר</td><td><span class="trigger-phrase" data-lang="he">בריף לדיזיינר</span></td><td><span class="trigger-phrase">designer brief</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.docx</td></tr>
+      <tr><td class="trigger-id"><a href="#t09">T09</a></td><td>הצעת מחיר</td><td><span class="trigger-phrase" data-lang="he">הצעת מחיר</span></td><td><span class="trigger-phrase">pricing proposal</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.docx</td></tr>
+      <tr><td class="trigger-id"><a href="#t10">T10</a></td><td>מחקר שוק</td><td><span class="trigger-phrase" data-lang="he">מחקר שוק</span></td><td><span class="trigger-phrase">market research</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.html</td></tr>
+      <tr><td class="trigger-id"><a href="#t11">T11</a></td><td>תוכנית פרויקט</td><td><span class="trigger-phrase" data-lang="he">תוכנית פרויקט</span></td><td><span class="trigger-phrase">project plan</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t12">T12</a></td><td>שאילתת זיכרון</td><td><span class="trigger-phrase" data-lang="he">תזכיר לי</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t13">T13</a></td><td>כתיבה לזיכרון</td><td><span class="trigger-phrase" data-lang="he">תזכור ש-{topic}</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">memory</td></tr>
+      <tr><td class="trigger-id"><a href="#t14">T14</a></td><td>תמחור</td><td><span class="trigger-phrase" data-lang="he">תמחור {project}</span></td><td><span class="trigger-phrase">pricing</span></td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t15">T15</a></td><td>Go/No-Go</td><td><span class="trigger-phrase" data-lang="he">Go/No-Go {project}</span></td><td>—</td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t16">T16</a></td><td>Re-tier</td><td><span class="trigger-phrase" data-lang="he">Re-tier {client}</span></td><td>—</td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t17">T17</a></td><td>Red Flags</td><td><span class="trigger-phrase" data-lang="he">דגלים אדומים</span></td><td><span class="trigger-phrase">red flags</span></td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t18">T18</a></td><td>טען סטטוס</td><td><span class="trigger-phrase" data-lang="he">טען סטטוס</span></td><td><span class="trigger-phrase">load status</span></td><td><span class="type-tag type-workflow">workflow</span></td><td class="ref-link">state.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t19">T19</a></td><td>שמור</td><td><span class="trigger-phrase" data-lang="he">שמור</span></td><td><span class="trigger-phrase">save</span></td><td><span class="type-tag type-workflow">workflow</span></td><td class="ref-link">state.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t20">T20</a></td><td>Research Swarm</td><td><span class="trigger-phrase" data-lang="he">research swarm {topic}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t21">T21</a></td><td>Build Squad</td><td><span class="trigger-phrase" data-lang="he">build squad {project}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">files</td></tr>
+      <tr><td class="trigger-id"><a href="#t22">T22</a></td><td>QA Swarm</td><td><span class="trigger-phrase" data-lang="he">qa swarm {project}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">report</td></tr>
+      <tr><td class="trigger-id"><a href="#t23">T23</a></td><td>Debate Team</td><td><span class="trigger-phrase" data-lang="he">debate {topic}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">brief</td></tr>
+      <tr><td class="trigger-id"><a href="#t24">T24</a></td><td>ניקוי דרייב</td><td><span class="trigger-phrase" data-lang="he">ניקוי דרייב</span></td><td><span class="trigger-phrase">drive cleanup</span></td><td><span class="type-tag type-hygiene">hygiene</span></td><td class="ref-link">score</td></tr>
+      <tr><td class="trigger-id"><a href="#t25">T25</a></td><td>Team Status</td><td><span class="trigger-phrase" data-lang="he">סטטוס צוותים</span></td><td><span class="trigger-phrase">team status</span></td><td><span class="type-tag type-status">status</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t26">T26</a></td><td>Knowledge Search</td><td><span class="trigger-phrase" data-lang="he">חפש בידע</span></td><td><span class="trigger-phrase">primak search</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t27">T27</a></td><td>Knowledge Health</td><td><span class="trigger-phrase" data-lang="he">בריאות ידע</span></td><td><span class="trigger-phrase">knowledge health</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">report</td></tr>
+      <tr><td class="trigger-id"><a href="#t28">T28</a></td><td>Knowledge Reindex</td><td><span class="trigger-phrase" data-lang="he">אנדקס מחדש</span></td><td><span class="trigger-phrase">reindex</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">log</td></tr>
+      <tr><td class="trigger-id"><a href="#t29">T29</a></td><td>Knowledge Validate</td><td><span class="trigger-phrase" data-lang="he">בדוק ידע</span></td><td><span class="trigger-phrase">validate knowledge</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">10 tests</td></tr>
+      <tr><td class="trigger-id"><a href="#t30">T30</a></td><td>Vault Stats</td><td><span class="trigger-phrase" data-lang="he">סטטיסטיקות vault</span></td><td><span class="trigger-phrase">vault stats</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">inline</td></tr>
+      <tr style="background:var(--surface2);"><td colspan="6" style="text-align:center;color:var(--text2);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;padding:0.4rem;">Automatic Triggers</td></tr>
+      <tr><td class="trigger-id"><a href="#a01">A01</a></td><td>Follow-up</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">recommend</td></tr>
+      <tr><td class="trigger-id"><a href="#a02">A02</a></td><td>Invoice Reminder</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">push</td></tr>
+      <tr><td class="trigger-id"><a href="#a03">A03</a></td><td>Re-tier Check</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">recommend</td></tr>
+      <tr><td class="trigger-id"><a href="#a04">A04</a></td><td>Exit Trigger</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">recommend</td></tr>
+      <tr><td class="trigger-id"><a href="#a05">A05</a></td><td>Concentration Alert</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">flag</td></tr>
+      <tr><td class="trigger-id"><a href="#a06">A06</a></td><td>Lead Analysis Recommend</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">recommend</td></tr>
+    </tbody>
+  </table>
+
+  <!-- Collapsible trigger cards -->
+  <div class="collapsible-content" id="trigger-cards">
+
+    <!-- Pipeline T01-T02 -->
+    <h3>Pipeline Intelligence <span class="type-tag type-pipeline">T01–T02</span></h3>
+    <div class="trigger-card" id="t01"><div class="card-title"><span class="tid">T01</span> — Pipeline Intelligence Dashboard <span class="type-tag type-pipeline">pipeline</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">עדכן pipeline</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">עדכון pipeline</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pipeline update</span></td></tr><tr><td>Action</td><td>Regenerate Pipeline Intelligence Dashboard — all deals ranked, scored, 5-agent analysis</td></tr><tr><td>Output</td><td class="ref-link">_WORKSPACE/bizdev-intelligence/pipeline_intelligence_{YYYY-MM-DD}.html</td></tr><tr><td>Spec</td><td class="ref-link">_CORE/pipeline_intelligence_v1.md</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §2</td></tr></table></div>
+    <div class="trigger-card" id="t02"><div class="card-title"><span class="tid">T02</span> — Lead Analysis (Per Deal) <span class="type-tag type-pipeline">pipeline</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">ניתוח ליד {name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">analyze lead {name}</span></td></tr><tr><td>Action</td><td>5-agent deep dive on single deal</td></tr><tr><td>When</td><td class="detail-text">Deal moved stage · new intel · pre-meeting · score crossed 50/70 · stuck &gt;7 days</td></tr><tr><td>Output</td><td class="ref-link">_WORKSPACE/bizdev-intelligence/lead_analysis_{client}_{YYYY-MM-DD}.html</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §3</td></tr></table></div>
+
+    <!-- Admin T03-T13 -->
+    <h3>Admin — ניהול שוטף <span class="type-tag type-admin">T03–T13</span></h3>
+    <div class="trigger-card" id="t03"><div class="card-title"><span class="tid">T03</span> — סטטוס לקוח <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטוס {client}</span></td></tr><tr><td>Action</td><td>Client status query — Client Intelligence → conversation_search → recent_chats</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
+    <div class="trigger-card" id="t04"><div class="card-title"><span class="tid">T04</span> — מייל ללקוח <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תכתוב מייל ל-{name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">follow up with {name}</span></td></tr><tr><td>Action</td><td>Draft client email with RTL standards + Primak Pro signature</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.1</td></tr></table></div>
+    <div class="trigger-card" id="t05"><div class="card-title"><span class="tid">T05</span> — תדריך לפגישה <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">הכן אותי לפגישה עם {name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">briefing for {name}</span></td></tr><tr><td>Action</td><td>Meeting prep — Client Intelligence + Gmail scan + Calendar context</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.2</td></tr></table></div>
+    <div class="trigger-card" id="t06"><div class="card-title"><span class="tid">T06</span> — תשלומים <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטוס תשלומים</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">מי חייב לי</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">payment status</span></td></tr><tr><td>Action</td><td>Payment tracking — scan Gmail + memory + Client Intelligence</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.3</td></tr></table></div>
+    <div class="section-note">T07–T11 — Deliverables Factory. כל trigger יוצר סוג מסמך שונה מ-template.<br>Output: <code style="color:var(--text2)">_WORKSPACE/{client}/output/{YYYY-MM-DD}_{client}_{type}_v1.0.{ext}</code></div>
+    <div class="trigger-card" id="t07"><div class="card-title"><span class="tid">T07</span> — מצגת משקיעים <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">מצגת משקיעים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">investor deck</span></td></tr><tr><td>Action</td><td>Create investor presentation from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_investor-deck_v1.0.pptx</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
+    <div class="trigger-card" id="t08"><div class="card-title"><span class="tid">T08</span> — בריף לדיזיינר <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">בריף לדיזיינר</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">designer brief</span></td></tr><tr><td>Action</td><td>Create designer brief from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_designer-brief_v1.0.docx</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
+    <div class="trigger-card" id="t09"><div class="card-title"><span class="tid">T09</span> — הצעת מחיר <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">הצעת מחיר</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pricing proposal</span></td></tr><tr><td>Action</td><td>Create pricing proposal from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_proposal_v1.0.docx</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
+    <div class="trigger-card" id="t10"><div class="card-title"><span class="tid">T10</span> — מחקר שוק <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">מחקר שוק</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">market research</span></td></tr><tr><td>Action</td><td>Create market research report from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_market-research_v1.0.html</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
+    <div class="trigger-card" id="t11"><div class="card-title"><span class="tid">T11</span> — תוכנית פרויקט <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תוכנית פרויקט</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">project plan</span></td></tr><tr><td>Action</td><td>Create project plan from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_project-plan_v1.0.md</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
+    <div class="trigger-card" id="t12"><div class="card-title"><span class="tid">T12</span> — שאילתת זיכרון <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תזכיר לי</span></td></tr><tr><td>Action</td><td>Memory query — Client Intelligence → conversation_search → recent_chats</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
+    <div class="trigger-card" id="t13"><div class="card-title"><span class="tid">T13</span> — כתיבה לזיכרון <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תזכור ש-{topic}</span></td></tr><tr><td>Action</td><td>Write to memory via memory_user_edits add</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
+
+    <!-- Pricing T14-T17 -->
+    <h3>Pricing — תמחור והחלטות <span class="type-tag type-pricing">T14–T17</span></h3>
+    <div class="trigger-card" id="t14"><div class="card-title"><span class="tid">T14</span> — תמחור <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תמחור {project}</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">כמה לגבות</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pricing</span></td></tr><tr><td>Action</td><td>Full pricing — PPL classification → Formula Engine → Anti-Waste QA</td></tr><tr><td>Pre</td><td class="detail-text">Run PPL sensitivity classification first (operations.md §8.6)</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.1</td></tr></table></div>
+    <div class="trigger-card" id="t15"><div class="card-title"><span class="tid">T15</span> — Go/No-Go <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">Go/No-Go {project}</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">האם לקחת את הפרויקט</span></td></tr><tr><td>Action</td><td>5-criteria assessment → Go / Discuss / Refuse</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.2</td></tr></table></div>
+    <div class="trigger-card" id="t16"><div class="card-title"><span class="tid">T16</span> — Re-tier <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">Re-tier {client}</span></td></tr><tr><td>Action</td><td>90-day retainer review → Core / Growth / Scale / Exit</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.3</td></tr></table></div>
+    <div class="trigger-card" id="t17"><div class="card-title"><span class="tid">T17</span> — Red Flags <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">דגלים אדומים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">red flags</span></td></tr><tr><td>Action</td><td>Scan all projects for warning signs</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.5</td></tr></table></div>
+
+    <!-- Workflow T18-T19 -->
+    <h3>Workflow — ניהול סשן <span class="type-tag type-workflow">T18–T19</span></h3>
+    <div class="trigger-card" id="t18"><div class="card-title"><span class="tid">T18</span> — טען סטטוס <span class="type-tag type-workflow">workflow</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">טען סטטוס</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">איפה עצרנו</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">load status</span></td></tr><tr><td>Action</td><td>Load SESSION_RESUME → WAITING_FOR → TASKS → Memory → Lint quick-check</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §7.1</td></tr></table></div>
+    <div class="trigger-card" id="t19"><div class="card-title"><span class="tid">T19</span> — שמור <span class="type-tag type-workflow">workflow</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">שמור</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">שמירה</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">save</span></td></tr><tr><td>Action</td><td>Update SESSION_RESUME → sync docx → git commit+push (if repo)</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §7.2</td></tr></table></div>
+
+    <!-- Agent Teams T20-T23 -->
+    <h3>Agent Teams — צוותי סוכנים <span class="type-tag type-team">T20–T23</span></h3>
+    <div class="trigger-card" id="t20"><div class="card-title"><span class="tid">T20</span> — Research Swarm <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">research swarm {topic}</span></td></tr><tr><td>Action</td><td>Launch 3-agent research team (market + competitors + tech)</td></tr><tr><td>Model</td><td>Sonnet</td></tr><tr><td>Pre</td><td class="detail-text">Brief approved · ownership set · done criteria defined · quota check</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
+    <div class="trigger-card" id="t21"><div class="card-title"><span class="tid">T21</span> — Build Squad <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">build squad {project}</span></td></tr><tr><td>Action</td><td>Launch 3-agent build team (backend + frontend + integration)</td></tr><tr><td>Model</td><td>Sonnet</td></tr><tr><td>Pre</td><td class="detail-text">Approved spec · directory ownership per agent · human checkpoint · quota check</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
+    <div class="trigger-card" id="t22"><div class="card-title"><span class="tid">T22</span> — QA Swarm <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">qa swarm {project}</span></td></tr><tr><td>Action</td><td>Launch 3-agent QA team (functional + edge cases + standards)</td></tr><tr><td>Model</td><td>Sonnet</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
+    <div class="trigger-card" id="t23"><div class="card-title"><span class="tid">T23</span> — Debate Team <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">debate {topic}</span></td></tr><tr><td>Action</td><td>Launch 3-agent debate team (advocate + devil's advocate + analyst)</td></tr><tr><td>Model</td><td>Opus (reasoning depth required)</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
+
+    <!-- Hygiene + Status T24-T25 -->
+    <h3>Hygiene + Status <span class="type-tag type-hygiene">T24</span> <span class="type-tag type-status">T25</span></h3>
+    <div class="trigger-card" id="t24"><div class="card-title"><span class="tid">T24</span> — ניקוי דרייב <span class="type-tag type-hygiene">hygiene</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">ניקוי דרייב</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">סדר בבית</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">drive cleanup</span></td></tr><tr><td>Action</td><td>Full hygiene lifecycle: SCAN → DETECT → REPORT → REMEDIATE → VERIFY → LOG</td></tr><tr><td>SLA</td><td class="detail-text">≤14 calendar days</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §10</td></tr></table></div>
+    <div class="trigger-card" id="t25"><div class="card-title"><span class="tid">T25</span> — Team Status <span class="type-tag type-status">status</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטוס צוותים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">team status</span></td></tr><tr><td>Action</td><td>Show TEAM_STATUS table from state.md + active agent processes</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.6</td></tr></table></div>
+
+    <!-- Knowledge T26-T30 -->
+    <h3>Knowledge System — מערכת ידע <span class="type-tag type-knowledge">T26–T30</span></h3>
+    <div class="section-note">Knowledge System v2.1 LOCKED · Docs: <code style="color:var(--text2)">_ENGINE/staging/knowledge-v1/ARCHITECTURE.md</code></div>
+    <div class="trigger-card" id="t26"><div class="card-title"><span class="tid">T26</span> — Knowledge Search <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">חפש בידע</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">חפש ב-vault</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">primak search</span></td></tr><tr><td>Action</td><td>Search knowledge vault using best-fit engine (FTS / Semantic / Graph RAG)</td></tr><tr><td>CLI</td><td class="ref-link">primak-search "{query}" (smart) · primak-search "{query}" --deep (all 3)</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §7</td></tr></table></div>
+    <div class="trigger-card" id="t27"><div class="card-title"><span class="tid">T27</span> — Knowledge Health <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">בריאות ידע</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">knowledge health</span></td></tr><tr><td>Action</td><td>Run health check on 3 engines (FTS · Semantic · Graph RAG)</td></tr><tr><td>CLI</td><td class="ref-link">primak-search --health</td></tr><tr><td>Pre</td><td class="detail-text">Ollama running</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §7</td></tr></table></div>
+    <div class="trigger-card" id="t28"><div class="card-title"><span class="tid">T28</span> — Knowledge Reindex <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">אנדקס מחדש</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">reindex</span></td></tr><tr><td>Action</td><td>Re-index vault search engines</td></tr><tr><td>Fast</td><td class="ref-link">reindex-all.sh fast (~2 min) — FTS + Vector only</td></tr><tr><td>Full</td><td class="ref-link">reindex-all.sh full (~90 min) — + Graph RAG rebuild</td></tr><tr><td>Schedule</td><td class="detail-text">Every Sunday 06:08 (fast mode)</td></tr><tr><td>Pre</td><td class="detail-text">Ollama running</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §8</td></tr></table></div>
+    <div class="trigger-card" id="t29"><div class="card-title"><span class="tid">T29</span> — Knowledge Validate <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">בדוק ידע</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">validate knowledge</span></td></tr><tr><td>Action</td><td>Run 10 automated tests across all 3 engines</td></tr><tr><td>Script</td><td class="ref-link">scripts/validate.sh [--verbose]</td></tr><tr><td>Pre</td><td class="detail-text">Ollama running</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §8</td></tr></table></div>
+    <div class="trigger-card" id="t30"><div class="card-title"><span class="tid">T30</span> — Vault Stats <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטיסטיקות vault</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">vault stats</span></td></tr><tr><td>Action</td><td>Show vault statistics (doc count · graph size · Ollama status)</td></tr><tr><td>MCP</td><td class="detail-text">knowledge_vault_stats tool</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §7</td></tr></table></div>
+
+    <!-- Auto A01-A06 -->
+    <h3>Automatic Triggers <span class="type-tag type-auto">A01–A06</span></h3>
+    <div class="section-note">מופעלים אוטומטית לפי תנאים. Mode: <span class="mode-tag mode-recommend">RECOMMEND</span> = מציע ליניב · <span class="mode-tag mode-execute">EXECUTE</span> = מבצע ישירות.</div>
+    <div class="trigger-card" id="a01"><div class="card-title"><span class="tid">A01</span> — Follow-up Reminder <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>WAITING_FOR item &gt; 3 days without response</td></tr><tr><td>Action</td><td>Suggest follow-up action to Yaniv</td></tr><tr><td>Frequency</td><td class="detail-text">Session start</td></tr></table></div>
+    <div class="trigger-card" id="a02"><div class="card-title"><span class="tid">A02</span> — Invoice Reminder <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Invoice unpaid &gt; 48h from delivery</td></tr><tr><td>Action</td><td>Push immediate invoice send</td></tr><tr><td>Frequency</td><td class="detail-text">Session start</td></tr></table></div>
+    <div class="trigger-card" id="a03"><div class="card-title"><span class="tid">A03</span> — Re-tier Check <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Retainer age &gt; 90 days since last review</td></tr><tr><td>Action</td><td>Recommend Re-tier assessment (→ T16)</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update</td></tr></table></div>
+    <div class="trigger-card" id="a04"><div class="card-title"><span class="tid">A04</span> — Exit Trigger <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>No data &gt; 6 months</td></tr><tr><td>Action</td><td>Recommend Exit process</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update</td></tr></table></div>
+    <div class="trigger-card" id="a05"><div class="card-title"><span class="tid">A05</span> — Concentration Alert <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Single client &gt; 40% revenue</td></tr><tr><td>Action</td><td>Flag risk + recommend diversification</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update · financial review</td></tr></table></div>
+    <div class="trigger-card" id="a06"><div class="card-title"><span class="tid">A06</span> — Lead Analysis Recommend <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Deal moved stage · new intel · pre-meeting · score crossed 50/70 · stuck &gt;7 days</td></tr><tr><td>Action</td><td>Recommend ניתוח ליד {name} to Yaniv (→ T02)</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update</td></tr></table></div>
+
+    <!-- Removed -->
+    <h3 style="color:var(--text3)">Removed Triggers (Since v8.0)</h3>
+    <div class="removed-section"><table><thead><tr><th style="width:80px"># ישן</th><th>טריגר</th><th>הוחלף ב-</th></tr></thead><tbody>
+      <tr><td>T01 (old)</td><td>דו"ח בוקר</td><td>PRIMO session brief</td></tr>
+      <tr><td>T02 (old)</td><td>שכבת לקון</td><td>PRIMO operating layer</td></tr>
+      <tr><td>T03 (old)</td><td>מה יש היום</td><td>PRIMO conversational</td></tr>
+      <tr><td>T04 (old)</td><td>מיילים דחופים</td><td>PRIMO conversational</td></tr>
+      <tr><td>T16 (old)</td><td>סיום יום / EOD</td><td>— (never used)</td></tr>
+      <tr><td>T17 (old)</td><td>סיכום שבועי</td><td>— (never used)</td></tr>
+      <tr><td>T22 (old)</td><td>pipeline (old)</td><td>T01 Pipeline Intelligence</td></tr>
+      <tr><td>T25 (old)</td><td>צור סיכום</td><td>state.md session end</td></tr>
+      <tr><td>T32 (old)</td><td>Continuity check</td><td>— (morning report chain)</td></tr>
+      <tr><td>A01 (old)</td><td>Bizdev Sub-Layer</td><td>Pipeline Intelligence</td></tr>
+      <tr><td>A02 (old)</td><td>Guardian (Quiet Day)</td><td>PRIMO proactive</td></tr>
+    </tbody></table></div>
+
+  </div><!-- /trigger-cards -->
+</section>
+
 <!-- ══════════ KNOWLEDGE SYSTEM ══════════ -->
 <section id="knowledge">
   <h2>Knowledge System v2.1</h2>
-
   <table>
     <thead><tr><th>רכיב</th><th>נתיב</th><th>תיאור</th></tr></thead>
     <tbody>
@@ -626,7 +551,6 @@
       <tr><td><strong>Vault Digest</strong></td><td class="mono">scripts/generate-vault-digest.py</td><td>סיכום vault אוטומטי (~529 tokens)</td></tr>
     </tbody>
   </table>
-
   <h3>Search Engines</h3>
   <table>
     <thead><tr><th>מנוע</th><th>סוג</th><th>זמן</th><th>שימוש</th></tr></thead>
@@ -636,52 +560,27 @@
       <tr><td><strong>Graph RAG</strong></td><td>Entity relations</td><td>10-60s</td><td>"מי?", "מה הקשר?"</td></tr>
     </tbody>
   </table>
-
-  <h3>Access Points</h3>
-  <div class="card-details" style="font-size: 0.82rem; color: var(--text2);">
-    <strong>Claude Code:</strong> MCP server (<span class="mono">primak-knowledge</span>) — 5 tools, אוטומטי<br>
-    <strong>CLI:</strong> <span class="mono">primak-search "query" [--fast|--deep|--graph|--vector]</span><br>
-    <strong>Direct:</strong> <span class="mono">search-vault.sh</span>, <span class="mono">search-semantic.py</span>, <span class="mono">graph-vault.py</span><br>
-    <strong>Health:</strong> <span class="mono">primak-search --health</span> | <span class="mono">scripts/health-check.sh</span><br>
-    <strong>Validate:</strong> <span class="mono">scripts/validate.sh</span> — 10 tests, 10/10 passing
-  </div>
-
   <h3>Infrastructure</h3>
-  <div class="card-details" style="font-size: 0.82rem; color: var(--text2);">
+  <div class="card-details" style="font-size:0.82rem;color:var(--text2);">
     <strong>Ollama:</strong> qwen3:8b (5.2GB) + nomic-embed-text (274MB)<br>
     <strong>DB:</strong> DuckDB 1.4.4 (14MB) | LightRAG v1.4.10 | FastMCP<br>
     <strong>Graph:</strong> 318 entities, 294 relations, 262KB graphml<br>
     <strong>Triggers:</strong> T26-T30 (triggers.md v4.0)<br>
     <strong>Scheduled:</strong> <span class="mono">knowledge-reindex</span> — ראשון 06:08 (fast mode)
   </div>
-
-  <h3>Documentation</h3>
-  <table>
-    <thead><tr><th>מסמך</th><th>נתיב</th><th>תיאור</th></tr></thead>
-    <tbody>
-      <tr><td>Architecture Guide</td><td class="mono">knowledge-v1/ARCHITECTURE.md</td><td>ארכיטקטורה, engines, config, versioning</td></tr>
-      <tr><td>User Guide</td><td class="mono">knowledge-v1/USER-GUIDE.md</td><td>מדריך שימוש, המלצות, מה חדש</td></tr>
-      <tr><td>File Map</td><td class="mono">knowledge-v1/FILE-MAP.md</td><td>מפת קבצים מדויקת</td></tr>
-    </tbody>
-  </table>
 </section>
 
 <!-- ══════════ GITHUB PAGES ══════════ -->
 <section id="github">
   <h2>GitHub Pages</h2>
-  <div style="margin-bottom: 0.75rem; font-size: 0.85rem;">
-    <strong>בסיס:</strong> <a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io/primak-reports/</a>
-  </div>
+  <div style="margin-bottom:0.75rem;font-size:0.85rem;"><strong>בסיס:</strong> <a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io/primak-reports/</a></div>
   <table>
     <thead><tr><th>קובץ</th><th>תיאור</th></tr></thead>
     <tbody>
       <tr><td><a href="https://primakdigital.github.io/primak-reports/index.html">index.html</a></td><td>Dashboard v16.0</td></tr>
       <tr><td><a href="https://primakdigital.github.io/primak-reports/library.html">library.html</a></td><td>ספרייה</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-triggers-v1.html">primak-triggers-v1.html</a></td><td>Triggers v4.0 — 36 triggers, 10 categories</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html">primak-command-room-v1.html</a></td><td>Command Room v2.0 — הקובץ הזה</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html">primak-command-room-v1.html</a></td><td>Command Room v3.0 (SOT) — הקובץ הזה</td></tr>
       <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-brand-bible-v1.html">primak-brand-bible-v1.html</a></td><td>Brand Bible</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/brand-reset-decisions-v1.html">brand-reset-decisions-v1.html</a></td><td>Brand Reset Decisions</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/linkedin-update-v6.html">linkedin-update-v6.html</a></td><td>LinkedIn Update</td></tr>
       <tr><td><a href="https://primakdigital.github.io/primak-reports/yaniv-primak-cv-2026.html">yaniv-primak-cv-2026.html</a></td><td>CV</td></tr>
     </tbody>
   </table>
@@ -705,27 +604,35 @@
   <table>
     <thead><tr><th>תאריך</th><th>שינוי</th></tr></thead>
     <tbody>
-      <tr><td class="changelog-date">09.03</td><td>primak-command-room-v1.html — HTML published to GitHub Pages.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>primak-triggers-v1.html v4.0 — HTML published. 36 triggers, 10 categories, anchor cards. Cross-refs updated.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>Command Room v3.0 — unified SOT: command room + triggers merged into single HTML.</td></tr>
       <tr><td class="changelog-date">09.03</td><td>triggers.md v4.0 — UX redesign: unified card format, anchor navigation, standardized placeholders.</td></tr>
       <tr><td class="changelog-date">09.03</td><td>Knowledge System v2.1 — 3-engine search, MCP server, CLI, validation, T26-T30.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>vault-digest.md — auto-generated vault summary for Claude.ai (~529 tokens).</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>3 docs: ARCHITECTURE.md, USER-GUIDE.md, FILE-MAP.md.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>PATH fix: ~/primak/_TOOLS added to .zshrc for CLI access.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>Validation 10/10 (was 9/10). All engines verified operational.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>sync-to-project.sh updated — auto-generates vault-digest on sync.</td></tr>
       <tr><td class="changelog-date">03.03</td><td>command_room.md v2. הפרדת _CLIENTS/_SYSTEM. Momentick = לקוח 5.</td></tr>
       <tr><td class="changelog-date">03.03</td><td>ICA/IcanDo חוזה חתום. ACTIVE.</td></tr>
       <tr><td class="changelog-date">03.03</td><td>Barometer תמחור נעול.</td></tr>
-      <tr><td class="changelog-date">03.03</td><td>3 קבצים deprecated הוסרו מ-Project (51K freed).</td></tr>
     </tbody>
   </table>
 </section>
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  PRIMAK — Command Room v2.0 | Source: command_room.md | Generated: 09.03.2026 | Primak Digital
+  PRIMAK — Command Room v3.0 (Unified SOT) | Source: command_room.md + triggers.md | 09.03.2026 | Primak Digital
 </footer>
+
+<script>
+function toggleTriggers() {
+  const cards = document.getElementById('trigger-cards');
+  const icon = document.getElementById('trigger-toggle');
+  cards.classList.toggle('open');
+  icon.classList.toggle('open');
+}
+
+// Auto-open triggers section if URL has trigger anchor
+if (window.location.hash && (window.location.hash.match(/^#[ta]\d/) || window.location.hash === '#triggers')) {
+  document.getElementById('trigger-cards').classList.add('open');
+  document.getElementById('trigger-toggle').classList.add('open');
+}
+</script>
 
 </body>
 </html>
