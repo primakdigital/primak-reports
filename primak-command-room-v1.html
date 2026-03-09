@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIMAK — Command Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --surface3: #22222e;
+    --border: #2a2a3a;
+    --border2: #3a3a4a;
+    --text: #e8e8f0;
+    --text2: #9898a8;
+    --text3: #686878;
+    --accent: #6c63ff;
+    --accent2: #8b83ff;
+    --green: #34d399;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --cyan: #22d3ee;
+    --pink: #f472b6;
+    --teal: #2dd4bf;
+    --purple: #a78bfa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
+  a:hover { color: var(--cyan); }
+
+  /* ── Header ── */
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem 2rem 1.5rem;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--cyan), var(--teal), var(--accent));
+    background-size: 300% 100%;
+    animation: shimmer 6s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  header h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(135deg, var(--accent2), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+
+  header .subtitle {
+    color: var(--text2);
+    font-size: 0.95rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  header .meta {
+    color: var(--text3);
+    font-size: 0.8rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── Stats Bar ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    text-align: center;
+  }
+
+  .stat .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: block;
+  }
+
+  .stat .label {
+    font-size: 0.75rem;
+    color: var(--text2);
+    font-weight: 400;
+  }
+
+  .stat .value.green { color: var(--green); }
+  .stat .value.amber { color: var(--amber); }
+  .stat .value.accent { color: var(--accent2); }
+  .stat .value.cyan { color: var(--cyan); }
+  .stat .value.pink { color: var(--pink); }
+  .stat .value.teal { color: var(--teal); }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  nav a {
+    color: var(--text2);
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  nav a:hover {
+    color: var(--text);
+    border-color: var(--accent);
+    background: rgba(108, 99, 255, 0.1);
+  }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  h2 .section-icon { margin-left: 0.5rem; opacity: 0.7; }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1.25rem 0 0.6rem;
+    color: var(--text2);
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  thead th {
+    background: var(--surface2);
+    color: var(--text2);
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.65rem 0.85rem;
+    text-align: right;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  tbody td {
+    padding: 0.6rem 0.85rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tbody tr:hover { background: rgba(108, 99, 255, 0.04); }
+
+  .mono {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.78rem;
+    direction: ltr;
+    unicode-bidi: embed;
+    color: var(--cyan);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .card-details {
+    font-size: 0.82rem;
+    color: var(--text2);
+    line-height: 1.8;
+  }
+
+  .card-details strong { color: var(--text); font-weight: 500; }
+
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+
+  .card-links a {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+  }
+
+  .card-links a:hover {
+    border-color: var(--accent);
+    background: rgba(108, 99, 255, 0.1);
+  }
+
+  /* ── Status Badges ── */
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-active { background: rgba(52, 211, 153, 0.15); color: var(--green); border: 1px solid rgba(52, 211, 153, 0.3); }
+  .badge-lead { background: rgba(251, 191, 36, 0.15); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+  .badge-alert { background: rgba(248, 113, 113, 0.15); color: var(--red); border: 1px solid rgba(248, 113, 113, 0.3); }
+  .badge-locked { background: rgba(108, 99, 255, 0.15); color: var(--accent2); border: 1px solid rgba(108, 99, 255, 0.3); }
+  .badge-silence { background: rgba(152, 152, 168, 0.15); color: var(--text2); border: 1px solid rgba(152, 152, 168, 0.3); }
+  .badge-draft { background: rgba(34, 211, 238, 0.15); color: var(--cyan); border: 1px solid rgba(34, 211, 238, 0.3); }
+
+  /* ── Drive Tree ── */
+  .tree {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.8rem;
+    direction: ltr;
+    unicode-bidi: embed;
+    line-height: 1.8;
+    color: var(--text2);
+    overflow-x: auto;
+  }
+
+  .tree .folder { color: var(--amber); font-weight: 600; }
+  .tree .comment { color: var(--text3); }
+  .tree .emoji { font-family: 'Heebo', system-ui; }
+
+  /* ── Financial ── */
+  .fin-amount { color: var(--green); font-weight: 600; font-family: 'SF Mono', monospace; direction: ltr; unicode-bidi: embed; }
+  .fin-pending { color: var(--amber); }
+
+  /* ── Rules ── */
+  .rules-list {
+    list-style: none;
+    counter-reset: rule;
+  }
+
+  .rules-list li {
+    counter-increment: rule;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text2);
+  }
+
+  .rules-list li::before {
+    content: counter(rule);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent2);
+    margin-left: 0.6rem;
+  }
+
+  /* ── Changelog ── */
+  .changelog-date {
+    color: var(--accent2);
+    font-weight: 600;
+    font-family: 'SF Mono', monospace;
+    font-size: 0.8rem;
+    direction: ltr;
+    unicode-bidi: embed;
+    white-space: nowrap;
+    min-width: 50px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text3);
+    font-size: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    header h1 { font-size: 1.5rem; }
+    .stats-bar { grid-template-columns: repeat(3, 1fr); }
+    table { font-size: 0.78rem; }
+    thead th, tbody td { padding: 0.45rem 0.5rem; }
+    .card { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <h1>PRIMAK — Command Room</h1>
+  <div class="subtitle">אינדקס מרכזי — כל הנתיבים, כל הנכסים</div>
+  <div class="meta">
+    <span>v2.0</span>
+    <span>עדכון: 09.03.2026</span>
+    <span>PRIMO System</span>
+  </div>
+</header>
+
+<!-- ══════════ STATS ══════════ -->
+<div class="stats-bar">
+  <div class="stat"><span class="value green">5</span><span class="label">לקוחות פעילים</span></div>
+  <div class="stat"><span class="value amber">4</span><span class="label">לידים</span></div>
+  <div class="stat"><span class="value accent">6</span><span class="label">שכבות ארכיטקטורה</span></div>
+  <div class="stat"><span class="value cyan">31</span><span class="label">מסמכי Vault</span></div>
+  <div class="stat"><span class="value teal">3</span><span class="label">מנועי חיפוש</span></div>
+  <div class="stat"><span class="value pink">58</span><span class="label">קבצי GitHub Pages</span></div>
+</div>
+
+<!-- ══════════ NAV ══════════ -->
+<nav id="nav">
+  <a href="#arch">ארכיטקטורה</a>
+  <a href="#drive">מבנה Drive</a>
+  <a href="#clients">לקוחות</a>
+  <a href="#leads">לידים</a>
+  <a href="#financial">פיננסי</a>
+  <a href="#knowledge">Knowledge System</a>
+  <a href="#github">GitHub Pages</a>
+  <a href="#rules">חוקים</a>
+  <a href="#log">לוג שינויים</a>
+</nav>
+
+<!-- ══════════ ARCHITECTURE ══════════ -->
+<section id="arch">
+  <h2>ארכיטקטורה — מה חי איפה</h2>
+  <table>
+    <thead><tr><th>שכבה</th><th>תפקיד</th><th>כלי גישה</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Claude.ai Project</strong> (PRIMAK HQ)</td><td>סטטוס + החלטות</td><td>נטען אוטומטי כל session</td></tr>
+      <tr><td><strong>Google Drive</strong>: PRIMAK-HQ</td><td>נכסים, חוזים, מסמכי לקוחות</td><td>Gmail/Drive MCP</td></tr>
+      <tr><td><strong>Apple Notes</strong>: ENGINE-LOG</td><td>לוג תובנות והחלטות שוטף</td><td>Apple Notes MCP</td></tr>
+      <tr><td><strong>GitHub Pages</strong></td><td>תוצרים ציבוריים, dashboard</td><td><a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io</a></td></tr>
+      <tr><td><strong>Local</strong>: <span class="mono">~/primak/</span></td><td>workspace פעיל, scripts</td><td>Claude Code (MCP)</td></tr>
+      <tr><td><strong>Knowledge System</strong></td><td>3-engine vault search (31 docs)</td><td>MCP + CLI (<span class="mono">primak-search</span>)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>קבצי Project (נטענים אוטומטית)</h3>
+  <table>
+    <thead><tr><th>קובץ</th><th>תפקיד</th><th>גודל</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">CLAUDE.md</span></td><td>הקשר עסקי שוטף</td><td>~2K</td></tr>
+      <tr><td><span class="mono">state.md</span></td><td>לקוחות, leads, outcomes — source of truth</td><td>~4K</td></tr>
+      <tr><td><span class="mono">vault-digest.md</span></td><td>סיכום vault אוטומטי — entities, docs, graph</td><td>~500 tokens</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ DRIVE STRUCTURE ══════════ -->
+<section id="drive">
+  <h2>מבנה Drive — PRIMAK-HQ</h2>
+  <div class="tree"><span class="emoji">🎯</span> <span class="folder">PRIMAK-HQ/</span>
+├── <span class="folder">_CLIENTS/</span>                    <span class="comment">← עבודה חיה של לקוחות בלבד</span>
+│   ├── ICA-IcanDo/
+│   ├── Momentick/
+│   ├── Open-University/
+│   ├── Club-D/
+│   ├── DriftSense/
+│   └── Barometer/               <span class="comment">(ליד)</span>
+│
+├── <span class="folder">_SYSTEM/</span>                     <span class="comment">← ניהול המערכת — לא לקוחות</span>
+│   ├── command_room.md
+│   ├── MENTAL.md
+│   ├── _ENGINE/
+│   └── _REPORTS/
+│
+├── <span class="folder">_ARCHIVE/</span>                    <span class="comment">← סגורים + deprecated</span>
+│   ├── ICA-Knowledge-Center/
+│   ├── PRIMAK-HQ-LIVE
+│   └── Prinak_templet doc
+│
+└── <span class="folder">_SHARE/</span>                      <span class="comment">← deliverables ללקוחות</span></div>
+  <div style="margin-top: 0.75rem; font-size: 0.82rem; color: var(--text2); background: var(--surface); border: 1px solid var(--border); border-right: 3px solid var(--accent); border-radius: 8px; padding: 0.75rem 1rem;">
+    <strong style="color: var(--text);">עיקרון:</strong> _CLIENTS = עבודת לקוחות. _SYSTEM = ניהול פרימק. לעולם לא מתערבבים.
+  </div>
+</section>
+
+<!-- ══════════ CLIENTS ══════════ -->
+<section id="clients">
+  <h2>לקוחות פעילים (5)</h2>
+
+  <!-- ICA -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">ICA / IcanDo</span>
+      <span class="badge badge-active">ACTIVE — חוזה חתום</span>
+    </div>
+    <div class="card-details">
+      <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
+      <strong>Tech Lead:</strong> איתי קאהן (<span class="mono">itaik@ica.org.il</span>)<br>
+      <strong>תנאים:</strong> <span class="fin-amount">₪430/שעה</span> + מע"מ | 12 חודשים מ-01.01.2026 | שוטף+30<br>
+      <strong>הגנות:</strong> הגבלת אחריות + הגנת IP קודם. אין התניית IP בתשלום.
+    </div>
+    <div class="card-links">
+      <a href="https://drive.google.com/file/d/1u-HplD3_6Eykxv7Bs3AwoJsS6dQ_KyZY/view">חוזה חתום</a>
+      <a href="https://drive.google.com/drive/folders/1G-6mwxHrV2leBE6FcECIUZr7-1g2PD-g">ICA Drive</a>
+      <a href="https://docs.google.com/document/d/1_v68u2ixbll-1gICasiO_4OUAb9VhpHx/edit">_DOCS</a>
+      <a href="https://docs.google.com/document/d/18lyPdvSatXfZZCKXiPMxVeS36NM70vOa/edit">IcanDo</a>
+      <a href="https://docs.google.com/document/d/1wxYZwjBlZyLh8QNkN55YxJk1_IceNLRy/edit">Proposal</a>
+      <a href="https://docs.google.com/document/d/1Ak0cDs-4rCLa-u1oA3-HcGmU_WE-jnFk/edit">Workspace</a>
+    </div>
+    <div class="card-links" style="margin-top: 0.3rem;">
+      <a href="https://drive.google.com/drive/folders/1FxBsyZg6bE5FiKn_lJkFYkHxJuRTe3TG">ICA Web UI</a>
+      <a href="https://docs.google.com/document/d/1om7yLctGW3MF5HioA1EKBhmfgtZDx6br/edit">ica-knowledge-center</a>
+      <a href="https://docs.google.com/document/d/1eUhik7U15Dep9JjM2Toc9Id72diCdcvh/edit">ica-therapist-mvp</a>
+      <a href="https://docs.google.com/document/d/1-Fs37phYcUzRuk-Hki51o5qN7ABMhMYL/edit">ICA UI</a>
+    </div>
+  </div>
+
+  <!-- Momentick -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Momentick</span>
+      <span class="badge badge-active">ACTIVE — שוטף</span>
+    </div>
+    <div class="card-details">
+      <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
+      <strong>חשבונית אחרונה:</strong> <span class="fin-amount">₪3,744</span> (14.02.2026) — <span class="fin-pending">סטטוס תשלום לא ידוע</span><br>
+      <strong>Local:</strong> <span class="mono">~/primak/_WORKSPACE/momentick/liberia/</span> (17 קבצים)<br>
+      11 Build HTMLs: P00-P10 + ASSEMBLED-liberia-proposal.html | 6 Figma patches
+    </div>
+  </div>
+
+  <!-- Open University -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Open University</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-details">
+      <strong>מפגשים:</strong> רביעי 17:00<br>
+      <strong>תשלום:</strong> שוטף
+    </div>
+  </div>
+
+  <!-- Club D -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Club D</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-details">
+      <strong>next action:</strong> לא מתועד
+    </div>
+  </div>
+
+  <!-- DriftSense -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">DriftSense</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-details">
+      <strong>next action:</strong> לא מתועד
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LEADS ══════════ -->
+<section id="leads">
+  <h2>לידים פעילים</h2>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Barometer / Eli + Guy Asif</span>
+      <span class="badge badge-locked">תמחור נעול</span>
+    </div>
+    <div class="card-details">
+      <strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span> | חבילה <span class="fin-amount">₪17,510</span> | 50/50 יניב+גיא
+    </div>
+    <div class="card-links">
+      <a href="https://drive.google.com/drive/folders/14JGt5meBo-u6s205TMDqb8taBPt6vhV_">Barometer Drive</a>
+      <a href="https://docs.google.com/document/d/1TNK6vbzk6rR5BQlwjuJ3MmDnJSLDu-YC/edit">הצעת שירות v2</a>
+      <a href="https://docs.google.com/document/d/1E_683LAj31vvD_Av6Nq3btfJJDXiSvS4/edit">שאלון מיפוי v1</a>
+      <a href="https://docs.google.com/document/d/1tlXX8icGUZFaYlULppZMr_H-ZWsa-n-3DUv60VWQsXk/edit">Proposal Guy v1</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Zimlichman / ARC / Sheba</span>
+      <span class="badge badge-silence">SILENCE</span>
+    </div>
+    <div class="card-details">
+      <strong>CV נשלח:</strong> 23.02 ל-<span class="mono">Eyal.Zimlichman@sheba.health.gov.il</span><br>
+      <strong>סטטוס:</strong> 9+ ימים silence
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Ifat Lavi / CathWorks</span>
+      <span class="badge badge-draft">DRAFT READY</span>
+    </div>
+    <div class="card-details">Score 95, draft מוכן, לא נשלח</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Omri Peleg</span>
+      <span class="badge badge-lead">CONNECTOR</span>
+    </div>
+    <div class="card-details">connector ל-3 targets, WhatsApp follow-up</div>
+  </div>
+</section>
+
+<!-- ══════════ FINANCIAL ══════════ -->
+<section id="financial">
+  <h2>פיננסי</h2>
+  <table>
+    <thead><tr><th>ישות</th><th>סכום</th><th>תאריך</th><th>סטטוס</th></tr></thead>
+    <tbody>
+      <tr><td>Momentick</td><td class="fin-amount">₪3,744</td><td>14.02</td><td><span class="fin-pending">חשבונית יצאה — תשלום לא ידוע (17 יום)</span></td></tr>
+      <tr><td>עומרי רפאל</td><td>עסקה 90179</td><td>03.03</td><td>חדש — לבדוק</td></tr>
+      <tr><td>דינה וולף</td><td>חשבונית 92877</td><td>01.03</td><td>חדש — לבדוק</td></tr>
+      <tr><td>Morning</td><td>דוח פבר'</td><td>02.03</td><td>דוח תקופתי</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ KNOWLEDGE SYSTEM ══════════ -->
+<section id="knowledge">
+  <h2>Knowledge System v2.1</h2>
+
+  <table>
+    <thead><tr><th>רכיב</th><th>נתיב</th><th>תיאור</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Vault (SOT)</strong></td><td class="mono">~/primak/_KNOWLEDGE/</td><td>31 מסמכים, Obsidian Vault</td></tr>
+      <tr><td><strong>Engine</strong></td><td class="mono">~/primak/_ENGINE/staging/knowledge-v1/</td><td>3-engine search system</td></tr>
+      <tr><td><strong>CLI</strong></td><td class="mono">~/primak/_TOOLS/primak-search</td><td>Unified search CLI</td></tr>
+      <tr><td><strong>Vault Digest</strong></td><td class="mono">scripts/generate-vault-digest.py</td><td>סיכום vault אוטומטי (~529 tokens)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Search Engines</h3>
+  <table>
+    <thead><tr><th>מנוע</th><th>סוג</th><th>זמן</th><th>שימוש</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FTS (BM25)</strong></td><td>Keyword</td><td>&lt;1s</td><td>מילים מדויקות, שמות קבצים</td></tr>
+      <tr><td><strong>Semantic (RRF)</strong></td><td>Hybrid FTS+Vector</td><td>2-5s</td><td>קונספטים, "מצא לי..."</td></tr>
+      <tr><td><strong>Graph RAG</strong></td><td>Entity relations</td><td>10-60s</td><td>"מי?", "מה הקשר?"</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Access Points</h3>
+  <div class="card-details" style="font-size: 0.82rem; color: var(--text2);">
+    <strong>Claude Code:</strong> MCP server (<span class="mono">primak-knowledge</span>) — 5 tools, אוטומטי<br>
+    <strong>CLI:</strong> <span class="mono">primak-search "query" [--fast|--deep|--graph|--vector]</span><br>
+    <strong>Direct:</strong> <span class="mono">search-vault.sh</span>, <span class="mono">search-semantic.py</span>, <span class="mono">graph-vault.py</span><br>
+    <strong>Health:</strong> <span class="mono">primak-search --health</span> | <span class="mono">scripts/health-check.sh</span><br>
+    <strong>Validate:</strong> <span class="mono">scripts/validate.sh</span> — 10 tests, 10/10 passing
+  </div>
+
+  <h3>Infrastructure</h3>
+  <div class="card-details" style="font-size: 0.82rem; color: var(--text2);">
+    <strong>Ollama:</strong> qwen3:8b (5.2GB) + nomic-embed-text (274MB)<br>
+    <strong>DB:</strong> DuckDB 1.4.4 (14MB) | LightRAG v1.4.10 | FastMCP<br>
+    <strong>Graph:</strong> 318 entities, 294 relations, 262KB graphml<br>
+    <strong>Triggers:</strong> T26-T30 (triggers.md v4.0)<br>
+    <strong>Scheduled:</strong> <span class="mono">knowledge-reindex</span> — ראשון 06:08 (fast mode)
+  </div>
+
+  <h3>Documentation</h3>
+  <table>
+    <thead><tr><th>מסמך</th><th>נתיב</th><th>תיאור</th></tr></thead>
+    <tbody>
+      <tr><td>Architecture Guide</td><td class="mono">knowledge-v1/ARCHITECTURE.md</td><td>ארכיטקטורה, engines, config, versioning</td></tr>
+      <tr><td>User Guide</td><td class="mono">knowledge-v1/USER-GUIDE.md</td><td>מדריך שימוש, המלצות, מה חדש</td></tr>
+      <tr><td>File Map</td><td class="mono">knowledge-v1/FILE-MAP.md</td><td>מפת קבצים מדויקת</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ GITHUB PAGES ══════════ -->
+<section id="github">
+  <h2>GitHub Pages</h2>
+  <div style="margin-bottom: 0.75rem; font-size: 0.85rem;">
+    <strong>בסיס:</strong> <a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io/primak-reports/</a>
+  </div>
+  <table>
+    <thead><tr><th>קובץ</th><th>תיאור</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/index.html">index.html</a></td><td>Dashboard v16.0</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/library.html">library.html</a></td><td>ספרייה</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-triggers-v1.html">primak-triggers-v1.html</a></td><td>Triggers v4.0 — 36 triggers, 10 categories</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html">primak-command-room-v1.html</a></td><td>Command Room v2.0 — הקובץ הזה</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-brand-bible-v1.html">primak-brand-bible-v1.html</a></td><td>Brand Bible</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/brand-reset-decisions-v1.html">brand-reset-decisions-v1.html</a></td><td>Brand Reset Decisions</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/linkedin-update-v6.html">linkedin-update-v6.html</a></td><td>LinkedIn Update</td></tr>
+      <tr><td><a href="https://primakdigital.github.io/primak-reports/yaniv-primak-cv-2026.html">yaniv-primak-cv-2026.html</a></td><td>CV</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ RULES ══════════ -->
+<section id="rules">
+  <h2>חוקי Command Room</h2>
+  <ol class="rules-list">
+    <li>כל נתיב = מאומת. לינק שבור = מסיר מיד.</li>
+    <li>כל שינוי נתיב = עדכון מיידי של הקובץ הזה.</li>
+    <li>קובץ חדש ללקוח = נכנס לאינדקס תחת הלקוח.</li>
+    <li>_CLIENTS = עבודת לקוחות בלבד. _SYSTEM = ניהול בלבד.</li>
+    <li>Session start: קרא command_room.md רק כשצריך נתיבים.</li>
+  </ol>
+</section>
+
+<!-- ══════════ CHANGELOG ══════════ -->
+<section id="log">
+  <h2>לוג שינויים</h2>
+  <table>
+    <thead><tr><th>תאריך</th><th>שינוי</th></tr></thead>
+    <tbody>
+      <tr><td class="changelog-date">09.03</td><td>primak-command-room-v1.html — HTML published to GitHub Pages.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>primak-triggers-v1.html v4.0 — HTML published. 36 triggers, 10 categories, anchor cards. Cross-refs updated.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>triggers.md v4.0 — UX redesign: unified card format, anchor navigation, standardized placeholders.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>Knowledge System v2.1 — 3-engine search, MCP server, CLI, validation, T26-T30.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>vault-digest.md — auto-generated vault summary for Claude.ai (~529 tokens).</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>3 docs: ARCHITECTURE.md, USER-GUIDE.md, FILE-MAP.md.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>PATH fix: ~/primak/_TOOLS added to .zshrc for CLI access.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>Validation 10/10 (was 9/10). All engines verified operational.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>sync-to-project.sh updated — auto-generates vault-digest on sync.</td></tr>
+      <tr><td class="changelog-date">03.03</td><td>command_room.md v2. הפרדת _CLIENTS/_SYSTEM. Momentick = לקוח 5.</td></tr>
+      <tr><td class="changelog-date">03.03</td><td>ICA/IcanDo חוזה חתום. ACTIVE.</td></tr>
+      <tr><td class="changelog-date">03.03</td><td>Barometer תמחור נעול.</td></tr>
+      <tr><td class="changelog-date">03.03</td><td>3 קבצים deprecated הוסרו מ-Project (51K freed).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  PRIMAK — Command Room v2.0 | Source: command_room.md | Generated: 09.03.2026 | Primak Digital
+</footer>
+
+</body>
+</html>
