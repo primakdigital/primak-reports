@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IcanDo — Screen Browser</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text2: #8888a0;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --orange: #f97316;
+    --blue: #3b82f6;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(20px);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    color: white;
+  }
+
+  .logo h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .logo span {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 400;
+  }
+
+  .meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--surface2);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .stat-dot.built { background: var(--green); }
+  .stat-dot.figma { background: var(--yellow); }
+  .stat-dot.planned { background: var(--text2); }
+
+  .stat-label { font-size: 13px; color: var(--text2); }
+  .stat-count { font-size: 13px; font-weight: 700; color: var(--text); }
+
+  /* Filter bar */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Main content */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface2);
+    border-radius: 8px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .section-count {
+    font-size: 12px;
+    padding: 2px 8px;
+    background: var(--surface2);
+    border-radius: 10px;
+    color: var(--text2);
+    margin-right: auto;
+  }
+
+  /* Screen cards grid */
+  .screens-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* Screen card */
+  .screen-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .screen-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .screen-card.built::before { background: var(--green); }
+  .screen-card.figma::before { background: var(--yellow); }
+  .screen-card.planned::before { background: var(--text2); }
+
+  .screen-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.15);
+  }
+
+  .screen-card.expanded {
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .card-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--surface2);
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+
+  .card-status {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  .card-status.built {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+  }
+
+  .card-status.figma {
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--yellow);
+  }
+
+  .card-status.planned {
+    background: rgba(136, 136, 160, 0.15);
+    color: var(--text2);
+  }
+
+  .card-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .card-apk-name {
+    font-size: 12px;
+    color: var(--text2);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    direction: ltr;
+    text-align: right;
+    margin-bottom: 12px;
+  }
+
+  .card-details {
+    display: none;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .screen-card.expanded .card-details {
+    display: block;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  .detail-label {
+    color: var(--text2);
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+
+  .detail-value {
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    direction: ltr;
+    text-align: right;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin: 2px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text2);
+  }
+
+  /* Components section */
+  .components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .component-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .component-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent2);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    direction: ltr;
+    text-align: right;
+    margin-bottom: 6px;
+  }
+
+  .component-path {
+    font-size: 11px;
+    color: var(--text2);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    direction: ltr;
+    text-align: right;
+    margin-bottom: 8px;
+  }
+
+  .component-usage {
+    font-size: 12px;
+    color: var(--text2);
+  }
+
+  /* Capabilities */
+  .capabilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .capability {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+  }
+
+  .capability-icon {
+    font-size: 16px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: var(--text2);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  .footer a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .header { padding: 16px; }
+    .main { padding: 16px; }
+    .header-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .meta { flex-wrap: wrap; }
+    .stats-bar { flex-wrap: wrap; }
+    .screens-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-icon">iC</div>
+      <div>
+        <h1>IcanDo — Screen Browser</h1>
+        <span>React Native + Expo + TypeScript | APK v1.0.9</span>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="meta-item">Figma: nj1qaYbFDTaJe22YOJfVYf</div>
+      <div class="meta-item">Firebase: takecair-624fa</div>
+      <div class="meta-item">Updated: 2026-03-11</div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-dot built"></div>
+      <span class="stat-count">1</span>
+      <span class="stat-label">Built (RN + Figma)</span>
+    </div>
+    <div class="stat">
+      <div class="stat-dot figma"></div>
+      <span class="stat-count">1</span>
+      <span class="stat-label">Figma Only</span>
+    </div>
+    <div class="stat">
+      <div class="stat-dot planned"></div>
+      <span class="stat-count">11</span>
+      <span class="stat-label">Planned</span>
+    </div>
+    <div class="stat" style="margin-right: 16px; padding-right: 16px; border-right: 1px solid var(--border);">
+      <span class="stat-count" style="font-size: 18px;">13</span>
+      <span class="stat-label">Total Screens</span>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterScreens('all')">All</button>
+    <button class="filter-btn" onclick="filterScreens('built')">Built</button>
+    <button class="filter-btn" onclick="filterScreens('figma')">Figma Only</button>
+    <button class="filter-btn" onclick="filterScreens('planned')">Planned</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- Auth Flow -->
+  <div class="section" data-section="auth">
+    <div class="section-header">
+      <div class="section-icon">🔐</div>
+      <div class="section-title">Auth Flow</div>
+      <div class="section-count">2 screens</div>
+    </div>
+    <div class="screens-grid">
+
+      <div class="screen-card built" onclick="toggleCard(this)" data-status="built">
+        <div class="card-top">
+          <div class="card-number">1</div>
+          <div class="card-status built">Built</div>
+        </div>
+        <div class="card-name">Login</div>
+        <div class="card-apk-name">FirstLoginPage</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Figma</span>
+            <span class="detail-value">Node 7:212</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">RN Path</span>
+            <span class="detail-value">src/screens/LoginScreen/</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">States</span>
+            <div>
+              <span class="tag">Default</span>
+              <span class="tag">Loading</span>
+              <span class="tag">Error</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card figma" onclick="toggleCard(this)" data-status="figma">
+        <div class="card-top">
+          <div class="card-number">2</div>
+          <div class="card-status figma">Figma Only</div>
+        </div>
+        <div class="card-name">New Password</div>
+        <div class="card-apk-name">NewPasswordLoginPage</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Figma</span>
+            <span class="detail-value">v10</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">RN Path</span>
+            <span class="detail-value" style="color: var(--text2);">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">States</span>
+            <div>
+              <span class="tag">Default</span>
+              <span class="tag">Success</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Main Flow -->
+  <div class="section" data-section="main">
+    <div class="section-header">
+      <div class="section-icon">🏠</div>
+      <div class="section-title">Main Flow</div>
+      <div class="section-count">2 screens</div>
+    </div>
+    <div class="screens-grid">
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">3</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Home</div>
+        <div class="card-apk-name">HomePage</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Figma</span>
+            <span class="detail-value" style="color: var(--text2);">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">RN Path</span>
+            <span class="detail-value" style="color: var(--text2);">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">4</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Personal Questions</div>
+        <div class="card-apk-name">PersonalQuestionsPage</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Figma</span>
+            <span class="detail-value" style="color: var(--text2);">—</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">RN Path</span>
+            <span class="detail-value" style="color: var(--text2);">—</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div class="section" data-section="modals">
+    <div class="section-header">
+      <div class="section-icon">🪟</div>
+      <div class="section-title">Modals</div>
+      <div class="section-count">9 screens</div>
+    </div>
+    <div class="screens-grid">
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">5</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Sleep Habits</div>
+        <div class="card-apk-name">SleepHabitsModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Health tracking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">6</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Exercise Instructions</div>
+        <div class="card-apk-name">ExerciseInstructionModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Activity guidance</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">7</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Calendar</div>
+        <div class="card-apk-name">CalendarModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Schedule view</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">8</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Survey</div>
+        <div class="card-apk-name">SurveyModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">User questionnaire</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">9</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Confirmation</div>
+        <div class="card-apk-name">ConfirmationModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Action confirm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">10</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Help</div>
+        <div class="card-apk-name">HelpModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Support/info</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">11</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Delete Account</div>
+        <div class="card-apk-name">DeleteAccountModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Destructive action</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">12</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Show</div>
+        <div class="card-apk-name">ShowModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Content display</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="screen-card planned" onclick="toggleCard(this)" data-status="planned">
+        <div class="card-top">
+          <div class="card-number">13</div>
+          <div class="card-status planned">Planned</div>
+        </div>
+        <div class="card-name">Mistake</div>
+        <div class="card-apk-name">MistakeModal</div>
+        <div class="card-details">
+          <div class="detail-row">
+            <span class="detail-label">Notes</span>
+            <span class="detail-value">Error/correction</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Shared Components -->
+  <div class="section" data-section="components">
+    <div class="section-header">
+      <div class="section-icon">🧩</div>
+      <div class="section-title">Shared Components</div>
+      <div class="section-count">5 components</div>
+    </div>
+    <div class="components-grid">
+
+      <div class="component-card">
+        <div class="component-name">&lt;AppText /&gt;</div>
+        <div class="component-path">src/components/AppText.tsx</div>
+        <div class="component-usage">Used by: All screens</div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-name">&lt;AppInput /&gt;</div>
+        <div class="component-path">src/components/AppInput.tsx</div>
+        <div class="component-usage">Used by: Login, NewPassword</div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-name">&lt;AppButton /&gt;</div>
+        <div class="component-path">src/components/AppButton.tsx</div>
+        <div class="component-usage">Used by: All screens</div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-name">&lt;AppDivider /&gt;</div>
+        <div class="component-path">src/components/AppDivider.tsx</div>
+        <div class="component-usage">Used by: Login</div>
+      </div>
+
+      <div class="component-card">
+        <div class="component-name">&lt;SafeScreen /&gt;</div>
+        <div class="component-path">src/components/SafeScreen.tsx</div>
+        <div class="component-usage">Used by: All screens</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- App Capabilities -->
+  <div class="section" data-section="capabilities">
+    <div class="section-header">
+      <div class="section-icon">📡</div>
+      <div class="section-title">App Capabilities</div>
+      <div class="section-count">from APK analysis</div>
+    </div>
+    <div class="capabilities">
+      <div class="capability">
+        <span class="capability-icon">📶</span>
+        <span>Bluetooth BLE</span>
+      </div>
+      <div class="capability">
+        <span class="capability-icon">📍</span>
+        <span>Location (fine)</span>
+      </div>
+      <div class="capability">
+        <span class="capability-icon">🎙️</span>
+        <span>Audio Recording</span>
+      </div>
+      <div class="capability">
+        <span class="capability-icon">🔔</span>
+        <span>Push Notifications (FCM)</span>
+      </div>
+      <div class="capability">
+        <span class="capability-icon">🔗</span>
+        <span>Deep Linking: takecair://</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  IcanDo Screen Browser v1.0 — Source: APK reverse-engineering (ICAnDO-1.0.9) + Figma<br>
+  <a href="https://primakdigital.github.io/primak-reports/">Primak Reports Hub</a>
+</div>
+
+<script>
+function toggleCard(card) {
+  card.classList.toggle('expanded');
+}
+
+function filterScreens(status) {
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.screen-card').forEach(card => {
+    if (status === 'all' || card.dataset.status === status) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Hide empty sections
+  document.querySelectorAll('.section[data-section]').forEach(section => {
+    if (section.dataset.section === 'components' || section.dataset.section === 'capabilities') return;
+    const visible = section.querySelectorAll('.screen-card:not([style*="display: none"])');
+    section.style.display = visible.length ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>
