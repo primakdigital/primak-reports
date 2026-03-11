@@ -224,8 +224,8 @@
   <h1>PRIMAK — Command Room</h1>
   <div class="subtitle">מקור אמת אחד — נתיבים, לקוחות, טריגרים, תשתיות</div>
   <div class="meta">
-    <span>v3.0</span>
-    <span>עדכון: 09.03.2026</span>
+    <span>v4.0</span>
+    <span>עדכון: 11.03.2026</span>
     <span>PRIMO System v8.0</span>
   </div>
 </header>
@@ -572,18 +572,421 @@
 
 <!-- ══════════ GITHUB PAGES ══════════ -->
 <section id="github">
-  <h2>GitHub Pages</h2>
-  <div style="margin-bottom:0.75rem;font-size:0.85rem;"><strong>בסיס:</strong> <a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io/primak-reports/</a></div>
-  <table>
-    <thead><tr><th>קובץ</th><th>תיאור</th></tr></thead>
-    <tbody>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/index.html">index.html</a></td><td>Dashboard v16.0</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/library.html">library.html</a></td><td>ספרייה</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html">primak-command-room-v1.html</a></td><td>Command Room v3.0 (SOT) — הקובץ הזה</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/primak-brand-bible-v1.html">primak-brand-bible-v1.html</a></td><td>Brand Bible</td></tr>
-      <tr><td><a href="https://primakdigital.github.io/primak-reports/yaniv-primak-cv-2026.html">yaniv-primak-cv-2026.html</a></td><td>CV</td></tr>
-    </tbody>
-  </table>
+  <h2>GitHub Pages — ספריית מסמכים</h2>
+  <div style="margin-bottom:1.25rem;font-size:0.85rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <span><strong>בסיס:</strong> <a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io/primak-reports/</a></span>
+    <span style="color:var(--text3)">|</span>
+    <a href="https://primakdigital.github.io/primak-reports/library.html" style="color:var(--cyan);font-size:0.8rem;">ספרייה מלאה ←</a>
+  </div>
+
+  <style>
+    .doc-category { margin-bottom: 1.75rem; }
+    .doc-category-title {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text3); margin-bottom: 0.75rem; padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem;
+    }
+    .doc-category-title .cat-count {
+      background: var(--surface3); color: var(--text3); font-size: 0.65rem;
+      padding: 0.1rem 0.45rem; border-radius: 10px; font-weight: 500; letter-spacing: 0;
+    }
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.6rem; }
+    .doc-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.75rem 0.85rem; display: flex; flex-direction: column; gap: 0.3rem;
+      transition: border-color 0.2s, background 0.2s; text-decoration: none;
+    }
+    .doc-card:hover { border-color: var(--accent); background: rgba(108,99,255,0.06); }
+    .doc-card-title { color: var(--text); font-size: 0.85rem; font-weight: 600; line-height: 1.3; }
+    .doc-card-meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+    .doc-version {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px;
+      padding: 0.1rem 0.4rem; border-radius: 4px; font-family: monospace;
+    }
+    .doc-version.active { background: rgba(52,211,153,0.15); color: var(--green); }
+    .doc-version.system { background: rgba(108,99,255,0.15); color: var(--accent2); }
+    .doc-version.brand  { background: rgba(244,114,182,0.15); color: var(--pink); }
+    .doc-version.lead   { background: rgba(251,191,36,0.15); color: var(--amber); }
+    .doc-version.arch   { background: rgba(107,114,128,0.15); color: var(--text3); }
+    .doc-date { font-size: 0.7rem; color: var(--text3); }
+    .doc-card-desc { font-size: 0.75rem; color: var(--text2); line-height: 1.4; margin-top: 0.1rem; }
+    .doc-card.current-doc { border-color: var(--cyan); }
+    .doc-card.current-doc .doc-card-title { color: var(--cyan); }
+  </style>
+
+  <!-- SYSTEM -->
+  <div class="doc-category">
+    <div class="doc-category-title">System &amp; Operations <span class="cat-count">5</span></div>
+    <div class="doc-grid">
+      <a class="doc-card current-doc" href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html" target="_blank">
+        <div class="doc-card-title">Command Room</div>
+        <div class="doc-card-meta"><span class="doc-version system">v3.0</span><span class="doc-date">09.03.2026</span></div>
+        <div class="doc-card-desc">SOT מרכזי — נתיבים, לקוחות, טריגרים, Knowledge</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/library.html" target="_blank">
+        <div class="doc-card-title">Document Library</div>
+        <div class="doc-card-meta"><span class="doc-version system">v5</span><span class="doc-date">02.03.2026</span></div>
+        <div class="doc-card-desc">ספריית כל המסמכים — 60+ קבצים מקוטגרים</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/index.html" target="_blank">
+        <div class="doc-card-title">Dashboard</div>
+        <div class="doc-card-meta"><span class="doc-version system">v16.0</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">Command Center — overview כל הפרויקטים</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/primak-triggers-v1.html" target="_blank">
+        <div class="doc-card-title">Trigger Reference</div>
+        <div class="doc-card-meta"><span class="doc-version system">v3.1</span><span class="doc-date">09.03.2026</span></div>
+        <div class="doc-card-desc">36 טריגרים — T01-T30 + A01-A06</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/morning-brief-live.html" target="_blank">
+        <div class="doc-card-title">Morning Brief — Live</div>
+        <div class="doc-card-meta"><span class="doc-version system">Live</span><span class="doc-date">Daily</span></div>
+        <div class="doc-card-desc">בריף בוקר חי — pipeline + tasks</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- BRAND -->
+  <div class="doc-category">
+    <div class="doc-category-title">Branding — Pentagram Reset <span class="cat-count">11</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/primak-brand-bible-v1.html" target="_blank">
+        <div class="doc-card-title">Brand Bible</div>
+        <div class="doc-card-meta"><span class="doc-version brand">v1</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Identity, positioning, voice, visual DNA — SOT</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brand-reset-decisions-v1.html" target="_blank">
+        <div class="doc-card-title">Brand Decisions</div>
+        <div class="doc-card-meta"><span class="doc-version brand">6/7</span><span class="doc-date">19.02.2026</span></div>
+        <div class="doc-card-desc">6/7 החלטות נעולות + חסם Decision #3</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/one-liner-simulation-v1.html" target="_blank">
+        <div class="doc-card-title">Buyer Simulation</div>
+        <div class="doc-card-meta"><span class="doc-version brand">9/9</span><span class="doc-date">19.02.2026</span></div>
+        <div class="doc-card-desc">9 פרסונות — בדיקת one-liner</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brand-reset-brief-v1.html" target="_blank">
+        <div class="doc-card-title">Brand Reset Brief</div>
+        <div class="doc-card-meta"><span class="doc-version brand">v1</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">ה-brief המקורי — הגדרת בעיה ויעד</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/paradigm-shift-v1.html" target="_blank">
+        <div class="doc-card-title">Paradigm Shift 2026</div>
+        <div class="doc-card-meta"><span class="doc-version brand">v1</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">שינוי פרדיגמה — מ-agency ל-solo CPO</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-methodology-primak-v1.html" target="_blank">
+        <div class="doc-card-title">Methodology — 6 Phases</div>
+        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">מתודולוגיית Pentagram — 6 שלבים</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-brand-reset-v1.html" target="_blank">
+        <div class="doc-card-title">Team A — Creative</div>
+        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">הצעות עיצוב — שפה ויזואלית מאושרת</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-brand-reset-counter-v1.html" target="_blank">
+        <div class="doc-card-title">Team B — Counter Brief</div>
+        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">"Signal not dashboard" — counter proposal</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-market-research-v1.html" target="_blank">
+        <div class="doc-card-title">Market Research</div>
+        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">5 workstreams — competitors, buyer language, AI retrieval</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-cv-rewrite-v1.html" target="_blank">
+        <div class="doc-card-title">CV Rewrite Analysis</div>
+        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">ניתוח + כיוון עיצוב ל-CV</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-deliverables-research-v1.html" target="_blank">
+        <div class="doc-card-title">Deliverables Research</div>
+        <div class="doc-card-meta"><span class="doc-version brand">50+</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">Pentagram process — 50+ deliverables, 11 categories</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CV -->
+  <div class="doc-category">
+    <div class="doc-category-title">CV — גרסאות <span class="cat-count">7</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/yaniv-primak-cv-2026.html" target="_blank">
+        <div class="doc-card-title">CV 2026 — Cornerstone</div>
+        <div class="doc-card-meta"><span class="doc-version active">LIVE</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Dark hero + Inter + proof bar — baseline לכל deliverable</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-zim-v6.html" target="_blank">
+        <div class="doc-card-title">CV — Zimlichman Version</div>
+        <div class="doc-card-meta"><span class="doc-version active">v6</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">גרסה מותאמת ל-ARC/Sheba</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v5.html" target="_blank">
+        <div class="doc-card-title">CV Standalone</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v5</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">Standalone v5</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v4.html" target="_blank">
+        <div class="doc-card-title">CV Minimal 4 Sizes</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v4</span><span class="doc-date">21.02.2026</span></div>
+        <div class="doc-card-desc">4-size type hierarchy</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v3.html" target="_blank">
+        <div class="doc-card-title">CV Moog Restrained</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v3</span><span class="doc-date">20.02.2026</span></div>
+        <div class="doc-card-desc">Moog-inspired restraint</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v2.html" target="_blank">
+        <div class="doc-card-title">CV Pentagram Bold</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v2</span><span class="doc-date">19.02.2026</span></div>
+        <div class="doc-card-desc">Pentagram bold aesthetic</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v1.html" target="_blank">
+        <div class="doc-card-title">CV White Original</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v1</span><span class="doc-date">18.02.2026</span></div>
+        <div class="doc-card-desc">גרסה ראשונה מקורית</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- LINKEDIN -->
+  <div class="doc-category">
+    <div class="doc-category-title">LinkedIn — גרסאות <span class="cat-count">6</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v6.html" target="_blank">
+        <div class="doc-card-title">LinkedIn Update</div>
+        <div class="doc-card-meta"><span class="doc-version active">v6 LATEST</span><span class="doc-date">09.03.2026</span></div>
+        <div class="doc-card-desc">גרסה פעילה — v8 ready for Claude Code deploy</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v5.html" target="_blank">
+        <div class="doc-card-title">LinkedIn v5</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v5</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v4.html" target="_blank">
+        <div class="doc-card-title">LinkedIn v4</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v4</span><span class="doc-date">01.03.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v3.html" target="_blank">
+        <div class="doc-card-title">LinkedIn v3</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v3</span><span class="doc-date">26.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v2.html" target="_blank">
+        <div class="doc-card-title">LinkedIn v2</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v2</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v1.html" target="_blank">
+        <div class="doc-card-title">LinkedIn v1</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v1</span><span class="doc-date">18.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- PIPELINE & OUTREACH -->
+  <div class="doc-category">
+    <div class="doc-category-title">Pipeline &amp; Outreach <span class="cat-count">7</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/scout-outreach-hub-v1.html" target="_blank">
+        <div class="doc-card-title">Outreach Hub — Briefs</div>
+        <div class="doc-card-meta"><span class="doc-version lead">Active</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">Scout briefs — חסום Decision #3</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/scout-plan-v1.html" target="_blank">
+        <div class="doc-card-title">Scout Plan</div>
+        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">01.03.2026</span></div>
+        <div class="doc-card-desc">9 targets | ₪470-960K EV</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/scout-targets-v2.html" target="_blank">
+        <div class="doc-card-title">Target Bank</div>
+        <div class="doc-card-meta"><span class="doc-version lead">v2</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">בנק מטרות מלא — scored + prioritized</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brief-barometer-eli-24-02.html" target="_blank">
+        <div class="doc-card-title">Barometer / Eli Brief</div>
+        <div class="doc-card-meta"><span class="doc-version lead">Lead</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-desc">בריף ל-אלי צחור — ₪17,510 חבילה</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/arc-innovation-deep-dive-v1.html" target="_blank">
+        <div class="doc-card-title">ARC Deep Dive — Sheba</div>
+        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">Zimlichman — STRATEGIC HIGH, 9+ ימים silence</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/connection-map-v1.html" target="_blank">
+        <div class="doc-card-title">Connection Map</div>
+        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-desc">מפת קשרים — connectors וגישה ל-targets</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/network-intelligence-v1.html" target="_blank">
+        <div class="doc-card-title">Network — 12 Gateways</div>
+        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-desc">12 שערי כניסה לשוק</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- STRATEGY -->
+  <div class="doc-category">
+    <div class="doc-category-title">Strategy &amp; Intelligence <span class="cat-count">6</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/strategic-synthesis-v2.html" target="_blank">
+        <div class="doc-card-title">Intelligence Synthesis</div>
+        <div class="doc-card-meta"><span class="doc-version active">v2</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">סינתזה אסטרטגית — pipeline + positioning</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/strategic-analysis-v1.html" target="_blank">
+        <div class="doc-card-title">Strategic Analysis</div>
+        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">25.02.2026</span></div>
+        <div class="doc-card-desc">ניתוח אסטרטגי שוק ו-positioning</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/market-intelligence-v1.html" target="_blank">
+        <div class="doc-card-title">Market Intelligence</div>
+        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">Q4/Q1 2026</span></div>
+        <div class="doc-card-desc">מודיעין שוק — AI, Israel, global</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/reality-check-2026-v2.html" target="_blank">
+        <div class="doc-card-title">Reality Check 2026</div>
+        <div class="doc-card-meta"><span class="doc-version active">v2</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">מצב ביטחוני + כלכלי — השלכות על pipeline</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/intelligence-hub-update-v1.html" target="_blank">
+        <div class="doc-card-title">Intelligence Hub Update</div>
+        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">עדכון מרכז המודיעין</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/sunday-brief-22-02-v1.html" target="_blank">
+        <div class="doc-card-title">Sunday Brief</div>
+        <div class="doc-card-meta"><span class="doc-version arch">v1</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">בריף ראשון לאחר ה-reset</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- PROOF CASES -->
+  <div class="doc-category">
+    <div class="doc-category-title">Proof Cases <span class="cat-count">9</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-pack-v1.html" target="_blank">
+        <div class="doc-card-title">Proof Pack — Master</div>
+        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">כל ה-cases בפרזנטציה אחת</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/cathworks.html" target="_blank">
+        <div class="doc-card-title">CathWorks</div>
+        <div class="doc-card-meta"><span class="doc-version active">$585M</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">FDA cleared AI cardiac — Medtronic acquisition</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/orchestra.html" target="_blank">
+        <div class="doc-card-title">Orchestra</div>
+        <div class="doc-card-meta"><span class="doc-version active">Cyber</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">CISO platform — NSO Group founders</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/queue.html" target="_blank">
+        <div class="doc-card-title">Queue Platform</div>
+        <div class="doc-card-meta"><span class="doc-version active">CPO</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">B2B2C — fundraising through launch</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/selina.html" target="_blank">
+        <div class="doc-card-title">Selina Hotels</div>
+        <div class="doc-card-meta"><span class="doc-version active">Startup</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Unicorn hospitality — booking redesign</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/anu.html" target="_blank">
+        <div class="doc-card-title">ANU Museum</div>
+        <div class="doc-card-meta"><span class="doc-version active">Heritage</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">מוזיאון העם היהודי</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/beefree.html" target="_blank">
+        <div class="doc-card-title">Beefree</div>
+        <div class="doc-card-meta"><span class="doc-version active">SaaS</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Email builder SaaS</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/labs02.html" target="_blank">
+        <div class="doc-card-title">Labs02</div>
+        <div class="doc-card-meta"><span class="doc-version active">Lab</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/neurobrave.html" target="_blank">
+        <div class="doc-card-title">NeuroBrave</div>
+        <div class="doc-card-meta"><span class="doc-version active">AI</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Neuro AI product</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="doc-category">
+    <div class="doc-category-title">Project Pages <span class="cat-count">5</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/barometer.html" target="_blank">
+        <div class="doc-card-title">Barometer / Eli</div>
+        <div class="doc-card-meta"><span class="doc-version lead">Lead</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">₪17,510 — ממתין לאישור Guy</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/arc-innovation.html" target="_blank">
+        <div class="doc-card-title">ARC Innovation</div>
+        <div class="doc-card-meta"><span class="doc-version lead">STRATEGIC</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">Zimlichman / Sheba — silence 9+ ימים</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/momentick.html" target="_blank">
+        <div class="doc-card-title">Momentick</div>
+        <div class="doc-card-meta"><span class="doc-version active">Active</span><span class="doc-date">04.03.2026</span></div>
+        <div class="doc-card-desc">Liberia proposal ₪60-100K — ממתין תגובה</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/scout-outreach.html" target="_blank">
+        <div class="doc-card-title">Scout Outreach</div>
+        <div class="doc-card-meta"><span class="doc-version lead">Blocked</span><span class="doc-date">01.03.2026</span></div>
+        <div class="doc-card-desc">חסום Decision #3 — 9 targets מוקפאים</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brief-momentick-liberia-24-02.html" target="_blank">
+        <div class="doc-card-title">Momentick Liberia Brief</div>
+        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-desc">scope + approach Liberia</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- VENTURE -->
+  <div class="doc-category">
+    <div class="doc-category-title">Venture &amp; Specs <span class="cat-count">6</span></div>
+    <div class="doc-grid">
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/visual-acuity-pwa-techspec-v1.html" target="_blank">
+        <div class="doc-card-title">Visual Acuity PWA</div>
+        <div class="doc-card-meta"><span class="doc-version system">Spec v1</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">Tech spec — PWA</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/photoshield-onepager-v1.html" target="_blank">
+        <div class="doc-card-title">PhotoShield</div>
+        <div class="doc-card-meta"><span class="doc-version system">One-Pager</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">One-pager ליזמות</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-exec-memo-template-v1.html" target="_blank">
+        <div class="doc-card-title">Exec Memo Template</div>
+        <div class="doc-card-meta"><span class="doc-version system">Template</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">תבנית Executive Memo</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-trackmodel-exec-memo.html" target="_blank">
+        <div class="doc-card-title">TrackModel — Exec Memo</div>
+        <div class="doc-card-meta"><span class="doc-version system">TrackModel</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-trackmodel-gonogo.html" target="_blank">
+        <div class="doc-card-title">TrackModel — Go/No-Go</div>
+        <div class="doc-card-meta"><span class="doc-version system">TrackModel</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+      <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-trackmodel-legal.html" target="_blank">
+        <div class="doc-card-title">TrackModel — Legal</div>
+        <div class="doc-card-meta"><span class="doc-version system">TrackModel</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-desc">—</div>
+      </a>
+    </div>
+  </div>
+
 </section>
 
 <!-- ══════════ RULES ══════════ -->
@@ -604,6 +1007,7 @@
   <table>
     <thead><tr><th>תאריך</th><th>שינוי</th></tr></thead>
     <tbody>
+      <tr><td class="changelog-date">11.03</td><td>Command Room v4.0 — GitHub Pages section: טבלה → כרטיסים מקוטגרים. 8 קטגוריות, 56 מסמכים, versions + dates לכל מסמך.</td></tr>
       <tr><td class="changelog-date">09.03</td><td>Command Room v3.0 — unified SOT: command room + triggers merged into single HTML.</td></tr>
       <tr><td class="changelog-date">09.03</td><td>triggers.md v4.0 — UX redesign: unified card format, anchor navigation, standardized placeholders.</td></tr>
       <tr><td class="changelog-date">09.03</td><td>Knowledge System v2.1 — 3-engine search, MCP server, CLI, validation, T26-T30.</td></tr>
@@ -616,7 +1020,7 @@
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  PRIMAK — Command Room v3.0 (Unified SOT) | Source: command_room.md + triggers.md | 09.03.2026 | Primak Digital
+  PRIMAK — Command Room v4.0 (Unified SOT) | Source: command_room.md + triggers.md | 11.03.2026 | Primak Digital
 </footer>
 
 <script>
