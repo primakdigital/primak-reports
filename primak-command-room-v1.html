@@ -5,259 +5,382 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRIMAK — Command Room</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a26;
-    --surface3: #22222e;
-    --border: #2a2a3a;
-    --border2: #3a3a4a;
-    --text: #e8e8f0;
-    --text2: #9898a8;
-    --text3: #686878;
-    --accent: #6c63ff;
-    --accent2: #8b83ff;
-    --green: #34d399;
-    --amber: #fbbf24;
-    --red: #f87171;
-    --cyan: #22d3ee;
-    --pink: #f472b6;
-    --teal: #2dd4bf;
-    --purple: #a78bfa;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --black: #111;
+    --dark: #1a1a1a;
+    --mid: #555;
+    --light: #888;
+    --border: #e0e0e0;
+    --bg: #f7f7f7;
+    --white: #fff;
+  }
+
   body {
-    font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--white);
+    color: var(--black);
     line-height: 1.6;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
   }
 
-  a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
-  a:hover { color: var(--cyan); }
+  a { color: var(--black); text-decoration: none; transition: opacity 0.2s; }
+  a:hover { opacity: 0.6; }
 
-  /* ── Header ── */
-  header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 2rem 2rem 1.5rem;
-    background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
+  /* ── HERO ── */
+  .hero {
+    background: var(--black);
+    color: #fff;
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid #222;
   }
-  header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--cyan), var(--teal), var(--accent));
-    background-size: 300% 100%;
-    animation: shimmer 6s ease-in-out infinite;
+  .hero-tag {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: #444; font-weight: 600; margin-bottom: 32px;
   }
-  @keyframes shimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
-  header h1 {
-    font-size: 2rem; font-weight: 900; margin-bottom: 0.3rem;
-    background: linear-gradient(135deg, var(--accent2), var(--cyan));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
+  .hero h1 {
+    font-size: 48px; font-weight: 800; letter-spacing: -2px;
+    line-height: 1.08; margin-bottom: 8px; color: #fff;
   }
-  header .subtitle { color: var(--text2); font-size: 0.95rem; font-weight: 300; margin-bottom: 1rem; }
-  header .meta { color: var(--text3); font-size: 0.8rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+  .hero .title {
+    font-size: 13px; font-weight: 500; color: #555;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .hero .sub {
+    font-size: 15px; color: #777; max-width: 560px;
+    line-height: 1.7; margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 12px; color: #444;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta .dot { width: 4px; height: 4px; border-radius: 50%; background: #333; }
 
-  /* ── Stats ── */
-  .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 2rem; }
-  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.85rem 1rem; text-align: center; }
-  .stat .value { font-size: 1.5rem; font-weight: 700; display: block; }
-  .stat .label { font-size: 0.75rem; color: var(--text2); }
-  .stat .value.green { color: var(--green); }
-  .stat .value.amber { color: var(--amber); }
-  .stat .value.accent { color: var(--accent2); }
-  .stat .value.cyan { color: var(--cyan); }
-  .stat .value.pink { color: var(--pink); }
-  .stat .value.teal { color: var(--teal); }
+  /* ── PROOF BAR ── */
+  .proof-bar {
+    background: var(--black);
+    padding: 0 60px 48px;
+    display: flex; gap: 32px; flex-wrap: wrap;
+    border-bottom: 1px solid #222;
+  }
+  .proof-item {
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: #555; font-weight: 600;
+  }
+  .proof-item strong { color: #888; font-weight: 700; }
 
-  /* ── Nav ── */
-  nav { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
-  nav a { color: var(--text2); font-size: 0.8rem; font-weight: 500; padding: 0.35rem 0.85rem; border-radius: 6px; background: var(--surface2); border: 1px solid transparent; transition: all 0.2s; }
-  nav a:hover { color: var(--text); border-color: var(--accent); background: rgba(108,99,255,0.1); }
-  nav .nav-sep { color: var(--text3); font-size: 0.6rem; align-self: center; }
+  /* ── NAV ── */
+  nav {
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 0 60px;
+    display: flex; gap: 0; flex-wrap: wrap; align-items: center;
+    position: sticky; top: 0; z-index: 100;
+  }
+  nav a {
+    font-size: 12px; font-weight: 500; color: var(--mid);
+    padding: 14px 16px; border-bottom: 2px solid transparent;
+    letter-spacing: 0.3px; transition: all 0.15s; white-space: nowrap;
+  }
+  nav a:hover { color: var(--black); opacity: 1; border-bottom-color: var(--black); }
+  nav .sep { color: var(--border); padding: 0 4px; font-size: 18px; line-height: 1; }
 
-  /* ── Sections ── */
-  section { margin-bottom: 2rem; }
-  h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
-  h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.6rem; color: var(--text2); }
+  /* ── STATS ── */
+  .stats-bar {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    padding: 28px 24px; text-align: center;
+    border-left: 1px solid var(--border);
+  }
+  .stat:last-child { border-left: none; }
+  .stat .value { font-size: 2rem; font-weight: 800; letter-spacing: -1px; display: block; color: var(--black); }
+  .stat .label { font-size: 10px; color: var(--light); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; margin-top: 2px; }
 
-  /* ── Tables ── */
-  table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 0.85rem; }
-  thead th { background: var(--surface2); color: var(--text2); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.65rem 0.85rem; text-align: right; border-bottom: 1px solid var(--border2); }
-  tbody td { padding: 0.6rem 0.85rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-  tbody tr:hover { background: rgba(108,99,255,0.04); }
-  .mono { font-family: 'SF Mono','Fira Code','Consolas',monospace; font-size: 0.78rem; direction: ltr; unicode-bidi: embed; color: var(--cyan); }
+  /* ── SECTIONS ── */
+  section { padding: 48px 60px; border-bottom: 1px solid var(--border); }
+  section.dark { background: var(--dark); color: var(--white); border-bottom: 1px solid #333; }
 
-  /* ── Cards ── */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; transition: border-color 0.2s; }
-  .card:hover { border-color: var(--border2); }
-  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
-  .card-title { font-weight: 700; font-size: 1rem; }
-  .card-details { font-size: 0.82rem; color: var(--text2); line-height: 1.8; }
-  .card-details strong { color: var(--text); font-weight: 500; }
-  .card-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
-  .card-links a { font-size: 0.75rem; padding: 0.2rem 0.6rem; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; }
-  .card-links a:hover { border-color: var(--accent); background: rgba(108,99,255,0.1); }
+  .sn {
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--light); font-weight: 600; margin-bottom: 20px;
+  }
+  .dark .sn { color: #444; }
 
-  /* ── Badges ── */
-  .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 0.15rem 0.55rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .badge-active { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
-  .badge-lead { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
-  .badge-alert { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
-  .badge-locked { background: rgba(108,99,255,0.15); color: var(--accent2); border: 1px solid rgba(108,99,255,0.3); }
-  .badge-silence { background: rgba(152,152,168,0.15); color: var(--text2); border: 1px solid rgba(152,152,168,0.3); }
-  .badge-draft { background: rgba(34,211,238,0.15); color: var(--cyan); border: 1px solid rgba(34,211,238,0.3); }
+  h2 {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.5px;
+    margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dark h2 { border-bottom-color: #333; color: var(--white); }
+  h3 { font-size: 14px; font-weight: 600; color: var(--mid); margin: 28px 0 12px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-  /* ── Tree ── */
-  .tree { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; font-family: 'SF Mono','Fira Code','Consolas',monospace; font-size: 0.8rem; direction: ltr; unicode-bidi: embed; line-height: 1.8; color: var(--text2); overflow-x: auto; }
-  .tree .folder { color: var(--amber); font-weight: 600; }
-  .tree .comment { color: var(--text3); }
+  /* ── TABLES ── */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; font-size: 13px; }
+  thead th {
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--light); font-weight: 600; padding: 8px 12px;
+    border-bottom: 1px solid var(--border); text-align: right;
+    background: var(--bg);
+  }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--bg); }
+  .dark table thead th { background: #222; border-bottom-color: #333; color: #555; }
+  .dark tbody td { border-bottom-color: #2a2a2a; color: #aaa; }
+  .dark tbody tr:hover td { background: #222; }
 
-  /* ── Financial ── */
-  .fin-amount { color: var(--green); font-weight: 600; font-family: 'SF Mono',monospace; direction: ltr; unicode-bidi: embed; }
-  .fin-pending { color: var(--amber); }
+  /* ── CARDS ── */
+  .card {
+    border: 1px solid var(--border); margin-bottom: 10px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover { transform: translateY(-1px); box-shadow: 0 3px 12px rgba(0,0,0,0.06); }
 
-  /* ── Rules ── */
-  .rules-list { list-style: none; counter-reset: rule; }
-  .rules-list li { counter-increment: rule; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--text2); }
-  .rules-list li::before { content: counter(rule); display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--surface2); border: 1px solid var(--border); border-radius: 5px; font-size: 0.7rem; font-weight: 700; color: var(--accent2); margin-left: 0.6rem; }
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 16px; background: var(--bg); border-bottom: 1px solid var(--border);
+  }
+  .card-title { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; }
+  .card-body { padding: 14px 16px; font-size: 13px; color: #444; line-height: 1.7; }
+  .card-body strong { color: var(--black); }
+  .card-links {
+    padding: 8px 16px 12px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .card-links a {
+    font-size: 11px; color: var(--mid); letter-spacing: 0.3px;
+    padding: 3px 10px; border: 1px solid var(--border);
+    background: var(--white); font-weight: 500;
+    transition: all 0.15s;
+  }
+  .card-links a:hover { background: var(--black); color: var(--white); opacity: 1; border-color: var(--black); }
 
-  /* ── Changelog ── */
-  .changelog-date { color: var(--accent2); font-weight: 600; font-family: 'SF Mono',monospace; font-size: 0.8rem; direction: ltr; unicode-bidi: embed; white-space: nowrap; min-width: 50px; }
+  /* ── BADGES ── */
+  .badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 3px 10px;
+  }
+  .badge-active  { background: var(--black); color: var(--white); }
+  .badge-hold    { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .badge-lead    { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .badge-silence { background: var(--bg); color: var(--light); border: 1px solid var(--border); }
+  .badge-locked  { background: var(--bg); color: var(--black); border: 1px solid var(--black); font-weight: 800; }
+  .badge-draft   { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .badge-blocked { background: var(--bg); color: var(--light); border: 1px solid #ddd; text-decoration: line-through; }
 
-  /* ── Section Note ── */
-  .section-note { font-size: 0.78rem; color: var(--text2); background: var(--surface); border-right: 3px solid var(--accent); padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; border-radius: 0 6px 6px 0; }
+  /* ── DOCUMENT CARDS ── */
+  .doc-category { margin-bottom: 2rem; }
+  .doc-cat-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--light); margin-bottom: 12px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cat-count {
+    font-size: 10px; color: var(--light); background: var(--bg);
+    padding: 1px 7px; border: 1px solid var(--border); font-weight: 500; letter-spacing: 0;
+  }
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+  .doc-card {
+    border: 1px solid var(--border); padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 6px;
+    transition: transform 0.15s, box-shadow 0.15s; cursor: pointer;
+    text-decoration: none; color: inherit;
+  }
+  .doc-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); opacity: 1; }
+  .doc-card.current-sot { border-color: var(--black); }
+  .doc-card-title { font-weight: 700; font-size: 13px; letter-spacing: -0.2px; color: var(--black); line-height: 1.3; }
+  .doc-card.current-sot .doc-card-title { color: var(--black); }
+  .doc-card-meta { display: flex; gap: 6px; align-items: center; }
+  .doc-ver {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+    padding: 2px 7px; font-family: 'Inter', monospace;
+  }
+  .doc-ver.live  { background: var(--black); color: var(--white); }
+  .doc-ver.std   { background: var(--bg); color: var(--black); border: 1px solid var(--border); }
+  .doc-ver.arch  { background: var(--white); color: var(--light); border: 1px solid var(--border); }
+  .doc-ver.sot   { background: var(--black); color: var(--white); letter-spacing: 1px; }
+  .doc-ver.lead  { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .doc-date { font-size: 10px; color: var(--light); }
+  .doc-card-desc { font-size: 11px; color: var(--mid); line-height: 1.5; }
 
-  /* ══════ TRIGGERS ══════ */
-  /* ── Collapsible ── */
+  /* ── MONO ── */
+  .mono { font-family: 'SFMono-Regular', 'Consolas', monospace; font-size: 0.88em; background: var(--bg); padding: 1px 5px; }
+
+  /* ── TREE ── */
+  .tree {
+    font-family: 'SFMono-Regular', 'Consolas', monospace;
+    font-size: 12px; line-height: 1.9; color: var(--mid);
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 20px 24px; margin-bottom: 12px; white-space: pre;
+    overflow-x: auto;
+  }
+  .folder { color: var(--black); font-weight: 600; }
+  .comment { color: var(--light); }
+
+  /* ── TRIGGER SYSTEM ── */
   .collapsible-header {
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    cursor: pointer; user-select: none;
+    display: flex; align-items: center; gap: 10px;
   }
-  .collapsible-header .toggle-icon {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 28px; height: 28px;
-    background: var(--surface2); border: 1px solid var(--border); border-radius: 6px;
-    font-size: 0.85rem; color: var(--accent2);
-    transition: transform 0.2s, background 0.2s;
-    flex-shrink: 0;
+  .collapsible-header:hover { opacity: 0.7; }
+  .toggle-icon {
+    font-size: 10px; color: var(--light); width: 14px;
+    transition: transform 0.2s; display: inline-block;
   }
-  .collapsible-header:hover .toggle-icon { background: rgba(108,99,255,0.15); }
-  .collapsible-content { display: none; }
+  .toggle-icon.open { transform: rotate(90deg); }
+  .collapsible-content { display: none; margin-top: 1.5rem; }
   .collapsible-content.open { display: block; }
-  .collapsible-header .toggle-icon.open { transform: rotate(90deg); }
 
-  /* ── Trigger-specific ── */
-  .trigger-id { font-family: 'SF Mono','Fira Code',monospace; font-weight: 700; color: var(--accent2); font-size: 0.8rem; }
-  .trigger-id a { color: var(--accent2); text-decoration: none; }
-  .trigger-id a:hover { text-decoration: underline; }
-  .trigger-phrase { font-family: 'SF Mono','Fira Code',monospace; font-size: 0.78rem; color: var(--cyan); background: rgba(34,211,238,0.08); padding: 1px 6px; border-radius: 4px; display: inline-block; margin: 1px 0; direction: ltr; unicode-bidi: embed; }
-  .trigger-phrase[data-lang="he"] { direction: rtl; color: var(--green); background: rgba(52,211,153,0.08); }
-  .type-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 99px; font-weight: 500; white-space: nowrap; }
-  .type-pipeline   { background: rgba(108,99,255,0.15); color: var(--accent2); }
-  .type-admin      { background: rgba(34,211,238,0.12); color: var(--cyan); }
-  .type-admin-doc  { background: rgba(34,211,238,0.08); color: #67e8f9; border: 1px dashed rgba(34,211,238,0.25); }
-  .type-pricing    { background: rgba(251,191,36,0.12); color: var(--amber); }
-  .type-workflow   { background: rgba(52,211,153,0.12); color: var(--green); }
-  .type-team       { background: rgba(244,114,182,0.12); color: var(--pink); }
-  .type-hygiene    { background: rgba(248,113,113,0.12); color: var(--red); }
-  .type-status     { background: rgba(156,163,175,0.12); color: #9ca3af; }
-  .type-knowledge  { background: rgba(45,212,191,0.12); color: var(--teal); }
-  .type-auto       { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px dashed rgba(251,191,36,0.3); }
-  .trigger-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; scroll-margin-top: 1rem; }
-  .trigger-card:hover { border-color: rgba(108,99,255,0.3); }
-  .trigger-card .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-  .trigger-card .card-title .tid { font-family: 'SF Mono','Fira Code',monospace; color: var(--accent2); font-weight: 700; }
-  .card-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-  .card-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid rgba(42,42,58,0.5); vertical-align: top; }
-  .card-table td:first-child { width: 70px; color: var(--text2); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
+  .trigger-card {
+    border: 1px solid var(--border); margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .trigger-card .card-header { gap: 10px; }
+  .tid {
+    font-weight: 800; font-size: 12px; letter-spacing: 0.5px;
+    background: var(--black); color: var(--white); padding: 2px 8px;
+  }
+  .trigger-phrase { font-weight: 600; font-family: 'SFMono-Regular', monospace; font-size: 12px; }
+
+  .type-tag {
+    font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 8px; font-weight: 700;
+  }
+  .type-pipeline  { background: var(--bg); color: var(--black); border: 1px solid var(--border); }
+  .type-admin     { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .type-admin-doc { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .type-pricing   { background: var(--black); color: var(--white); }
+  .type-workflow  { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .type-team      { background: var(--bg); color: var(--mid); border: 1px solid var(--border); }
+  .type-hygiene   { background: var(--bg); color: var(--light); border: 1px solid var(--border); }
+  .type-status    { background: var(--bg); color: var(--light); border: 1px solid var(--border); }
+  .type-knowledge { background: var(--black); color: var(--white); }
+  .type-auto      { background: var(--bg); color: var(--light); border: 1px solid #ddd; font-style: italic; }
+
+  .card-table { width: 100%; font-size: 12px; margin: 0; }
+  .card-table td { padding: 6px 14px; border: none; border-bottom: 1px solid var(--border); vertical-align: top; }
   .card-table tr:last-child td { border-bottom: none; }
-  .detail-text { font-size: 0.78rem; color: var(--text2); }
-  .ref-link { font-size: 0.72rem; color: var(--text2); font-family: 'SF Mono',monospace; opacity: 0.7; }
-  .mode-tag { font-size: 0.68rem; padding: 1px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-  .mode-recommend { background: rgba(251,191,36,0.15); color: var(--amber); }
-  .mode-execute   { background: rgba(248,113,113,0.15); color: var(--red); }
-  .separator { color: var(--text2); opacity: 0.5; margin: 0 2px; }
-  .removed-section table { opacity: 0.6; }
-  .removed-section tbody td { text-decoration: line-through; color: var(--text2); }
+  .card-table td:first-child { width: 72px; color: var(--light); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+  .card-table tbody tr:hover td { background: var(--bg); }
+  .separator { color: var(--border); }
+  .ref-link { font-family: 'SFMono-Regular', monospace; font-size: 11px; color: var(--mid); }
 
-  /* Triggers master table sticky */
-  .triggers-master thead th { position: sticky; top: 0; z-index: 1; }
+  /* Trigger ID link */
+  .trigger-id a { color: var(--black); font-weight: 700; font-size: 12px; letter-spacing: 0.5px; }
 
-  /* ── Footer ── */
-  footer { text-align: center; padding: 2rem 1rem; color: var(--text3); font-size: 0.75rem; border-top: 1px solid var(--border); margin-top: 1rem; }
+  /* ── FINANCIAL ── */
+  .fin-amount { font-weight: 700; color: var(--black); }
+  .fin-ok     { color: #059669; font-weight: 600; }
+  .fin-pending { color: var(--light); }
 
-  /* ── Responsive ── */
-  @media (max-width: 768px) {
-    body { padding: 1rem; }
-    header h1 { font-size: 1.5rem; }
+  /* ── REMOVED ── */
+  .removed-section tbody td { text-decoration: line-through; color: var(--light); }
+
+  /* ── RULES LIST ── */
+  .rules-list { list-style: none; counter-reset: rules; }
+  .rules-list li {
+    counter-increment: rules; padding: 10px 0;
+    border-bottom: 1px solid var(--border); font-size: 13px;
+    display: flex; gap: 16px; align-items: baseline;
+  }
+  .rules-list li:last-child { border-bottom: none; }
+  .rules-list li::before {
+    content: counter(rules, decimal-leading-zero);
+    font-size: 11px; font-weight: 700; color: var(--light);
+    letter-spacing: 0.5px; white-space: nowrap; min-width: 24px;
+  }
+
+  /* ── CHANGELOG ── */
+  .changelog-date { font-family: monospace; font-size: 12px; color: var(--light); white-space: nowrap; }
+
+  /* ── FOOTER (dark bookend) ── */
+  footer {
+    background: var(--black); color: #444;
+    padding: 32px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; letter-spacing: 0.5px;
+    flex-wrap: wrap; gap: 8px;
+  }
+  footer a { color: #666; }
+  footer a:hover { color: #fff; opacity: 1; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { padding: 48px 24px 40px; }
+    .hero h1 { font-size: 32px; letter-spacing: -1.5px; }
+    .proof-bar { padding: 0 24px 32px; }
+    nav { padding: 0 16px; }
+    nav a { padding: 12px 10px; font-size: 11px; }
     .stats-bar { grid-template-columns: repeat(3, 1fr); }
-    table { font-size: 0.78rem; }
-    thead th, tbody td { padding: 0.45rem 0.5rem; }
-    .card { padding: 1rem; }
-    .card-table td:first-child { width: 55px; }
+    .stat { padding: 20px 12px; }
+    section { padding: 32px 24px; }
+    .doc-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    footer { padding: 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ══════════ HEADER ══════════ -->
-<header>
-  <h1>PRIMAK — Command Room</h1>
-  <div class="subtitle">מקור אמת אחד — נתיבים, לקוחות, טריגרים, תשתיות</div>
-  <div class="meta">
-    <span>v4.0</span>
-    <span>עדכון: 11.03.2026</span>
-    <span>PRIMO System v8.0</span>
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-tag">Command Room</div>
+  <h1>PRIMAK</h1>
+  <div class="title">Command Room — Single Source of Truth</div>
+  <p class="sub">נתיבים, לקוחות, טריגרים, תשתיות — מקור האמת היחיד של PRIMAK ENGINE.</p>
+  <div class="hero-meta">
+    <span><span class="dot"></span>v4.0</span>
+    <span><span class="dot"></span>11.03.2026</span>
+    <span><span class="dot"></span>PRIMO System v8.0</span>
   </div>
-</header>
-
-<!-- ══════════ STATS ══════════ -->
-<div class="stats-bar">
-  <div class="stat"><span class="value green">5</span><span class="label">לקוחות פעילים</span></div>
-  <div class="stat"><span class="value amber">4</span><span class="label">לידים</span></div>
-  <div class="stat"><span class="value accent">36</span><span class="label">טריגרים</span></div>
-  <div class="stat"><span class="value cyan">31</span><span class="label">מסמכי Vault</span></div>
-  <div class="stat"><span class="value teal">3</span><span class="label">מנועי חיפוש</span></div>
-  <div class="stat"><span class="value pink">6</span><span class="label">שכבות</span></div>
 </div>
 
-<!-- ══════════ NAV ══════════ -->
-<nav id="nav">
+<!-- ══ PROOF BAR ══ -->
+<div class="proof-bar">
+  <div class="proof-item"><strong>5</strong> לקוחות פעילים</div>
+  <div class="proof-item"><strong>4</strong> לידים</div>
+  <div class="proof-item"><strong>36</strong> טריגרים</div>
+  <div class="proof-item"><strong>31</strong> מסמכי Vault</div>
+  <div class="proof-item"><strong>3</strong> מנועי חיפוש</div>
+  <div class="proof-item"><strong>6</strong> שכבות</div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
   <a href="#arch">ארכיטקטורה</a>
-  <a href="#drive">מבנה Drive</a>
+  <a href="#drive">Drive</a>
   <a href="#clients">לקוחות</a>
   <a href="#leads">לידים</a>
   <a href="#financial">פיננסי</a>
-  <span class="nav-sep">|</span>
+  <span class="sep">|</span>
   <a href="#triggers">טריגרים (36)</a>
-  <span class="nav-sep">|</span>
-  <a href="#knowledge">Knowledge System</a>
-  <a href="#github">GitHub Pages</a>
+  <span class="sep">|</span>
+  <a href="#knowledge">Knowledge</a>
+  <a href="#github">מסמכים</a>
   <a href="#rules">חוקים</a>
-  <a href="#log">לוג שינויים</a>
+  <a href="#log">לוג</a>
 </nav>
 
-<!-- ══════════ ARCHITECTURE ══════════ -->
+<!-- ══ STATS ══ -->
+<div class="stats-bar">
+  <div class="stat"><span class="value">5</span><span class="label">לקוחות</span></div>
+  <div class="stat"><span class="value">4</span><span class="label">לידים</span></div>
+  <div class="stat"><span class="value">36</span><span class="label">טריגרים</span></div>
+  <div class="stat"><span class="value">31</span><span class="label">Vault Docs</span></div>
+  <div class="stat"><span class="value">3</span><span class="label">Search Engines</span></div>
+  <div class="stat"><span class="value">6</span><span class="label">שכבות</span></div>
+</div>
+
+<!-- ══ ARCHITECTURE ══ -->
 <section id="arch">
+  <div class="sn">System Architecture</div>
   <h2>ארכיטקטורה — מה חי איפה</h2>
   <table>
     <thead><tr><th>שכבה</th><th>תפקיד</th><th>כלי גישה</th></tr></thead>
@@ -281,8 +404,9 @@
   </table>
 </section>
 
-<!-- ══════════ DRIVE ══════════ -->
+<!-- ══ DRIVE ══ -->
 <section id="drive">
+  <div class="sn">Drive Structure</div>
   <h2>מבנה Drive — PRIMAK-HQ</h2>
   <div class="tree">🎯 <span class="folder">PRIMAK-HQ/</span>
 ├── <span class="folder">_CLIENTS/</span>                    <span class="comment">← עבודה חיה של לקוחות בלבד</span>
@@ -300,22 +424,23 @@
 │   └── _REPORTS/
 │
 ├── <span class="folder">_ARCHIVE/</span>                    <span class="comment">← סגורים + deprecated</span>
-│   ├── ICA-Knowledge-Center/
-│   ├── PRIMAK-HQ-LIVE
-│   └── Prinak_templet doc
-│
 └── <span class="folder">_SHARE/</span>                      <span class="comment">← deliverables ללקוחות</span></div>
-  <div style="margin-top:0.75rem;font-size:0.82rem;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-right:3px solid var(--accent);border-radius:8px;padding:0.75rem 1rem;">
-    <strong style="color:var(--text);">עיקרון:</strong> _CLIENTS = עבודת לקוחות. _SYSTEM = ניהול פרימק. לעולם לא מתערבבים.
-  </div>
+  <p style="font-size:12px;color:var(--light);padding:10px 14px;border:1px solid var(--border);border-right:3px solid var(--black);background:var(--bg);">
+    <strong style="color:var(--black);">עיקרון:</strong> _CLIENTS = עבודת לקוחות. _SYSTEM = ניהול פרימק. לעולם לא מתערבבים.
+  </p>
 </section>
 
-<!-- ══════════ CLIENTS ══════════ -->
+<!-- ══ CLIENTS ══ -->
 <section id="clients">
+  <div class="sn">Active Clients</div>
   <h2>לקוחות פעילים (5)</h2>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">ICA / IcanDo</span><span class="badge badge-active">ACTIVE — חוזה חתום</span></div>
-    <div class="card-details">
+    <div class="card-header">
+      <span class="card-title">ICA / IcanDo</span>
+      <span class="badge badge-active">ACTIVE — חוזה חתום</span>
+    </div>
+    <div class="card-body">
       <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
       <strong>Tech Lead:</strong> איתי קאהן (<span class="mono">itaik@ica.org.il</span>)<br>
       <strong>תנאים:</strong> <span class="fin-amount">₪430/שעה</span> + מע"מ | 12 חודשים מ-01.01.2026 | שוטף+30<br>
@@ -328,43 +453,64 @@
       <a href="https://docs.google.com/document/d/18lyPdvSatXfZZCKXiPMxVeS36NM70vOa/edit">IcanDo</a>
       <a href="https://docs.google.com/document/d/1wxYZwjBlZyLh8QNkN55YxJk1_IceNLRy/edit">Proposal</a>
       <a href="https://docs.google.com/document/d/1Ak0cDs-4rCLa-u1oA3-HcGmU_WE-jnFk/edit">Workspace</a>
-    </div>
-    <div class="card-links" style="margin-top:0.3rem;">
       <a href="https://drive.google.com/drive/folders/1FxBsyZg6bE5FiKn_lJkFYkHxJuRTe3TG">ICA Web UI</a>
-      <a href="https://docs.google.com/document/d/1om7yLctGW3MF5HioA1EKBhmfgtZDx6br/edit">ica-knowledge-center</a>
-      <a href="https://docs.google.com/document/d/1eUhik7U15Dep9JjM2Toc9Id72diCdcvh/edit">ica-therapist-mvp</a>
+      <a href="https://docs.google.com/document/d/1om7yLctGW3MF5HioA1EKBhmfgtZDx6br/edit">knowledge-center</a>
+      <a href="https://docs.google.com/document/d/1eUhik7U15Dep9JjM2Toc9Id72diCdcvh/edit">therapist-mvp</a>
       <a href="https://docs.google.com/document/d/1-Fs37phYcUzRuk-Hki51o5qN7ABMhMYL/edit">ICA UI</a>
     </div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Momentick</span><span class="badge badge-active">ACTIVE — שוטף</span></div>
-    <div class="card-details">
+    <div class="card-header">
+      <span class="card-title">Momentick</span>
+      <span class="badge badge-active">ACTIVE — שוטף</span>
+    </div>
+    <div class="card-body">
       <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
-      <strong>חשבונית אחרונה:</strong> <span class="fin-amount">₪3,744</span> (14.02.2026) — <span class="fin-pending">סטטוס תשלום לא ידוע</span><br>
-      <strong>Local:</strong> <span class="mono">~/primak/_WORKSPACE/momentick/liberia/</span> (17 קבצים)<br>
-      11 Build HTMLs: P00-P10 + ASSEMBLED-liberia-proposal.html | 6 Figma patches
+      <strong>חשבונית:</strong> <span class="fin-amount">₪3,744</span> (14.02.2026) — <span class="fin-ok">שולם ✓</span><br>
+      <strong>Local:</strong> <span class="mono">~/primak/_WORKSPACE/momentick/liberia/</span><br>
+      11 Build HTMLs: P00-P10 + ASSEMBLED | 6 Figma patches
     </div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Open University</span><span class="badge badge-active">ACTIVE</span></div>
-    <div class="card-details"><strong>מפגשים:</strong> רביעי 17:00<br><strong>תשלום:</strong> שוטף</div>
+    <div class="card-header">
+      <span class="card-title">Open University</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-body"><strong>מפגשים:</strong> רביעי 17:00 | <strong>תשלום:</strong> שוטף</div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Club D</span><span class="badge badge-active">ACTIVE</span></div>
-    <div class="card-details"><strong>next action:</strong> לא מתועד</div>
+    <div class="card-header">
+      <span class="card-title">Club D</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-body"><strong>next action:</strong> לא מתועד — לעדכן</div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">DriftSense</span><span class="badge badge-active">ACTIVE</span></div>
-    <div class="card-details"><strong>next action:</strong> לא מתועד</div>
+    <div class="card-header">
+      <span class="card-title">DriftSense</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-body"><strong>next action:</strong> לא מתועד — לעדכן</div>
   </div>
 </section>
 
-<!-- ══════════ LEADS ══════════ -->
+<!-- ══ LEADS ══ -->
 <section id="leads">
+  <div class="sn">Active Leads</div>
   <h2>לידים פעילים</h2>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Barometer / Eli + Guy Asif</span><span class="badge badge-locked">תמחור נעול</span></div>
-    <div class="card-details"><strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span> | חבילה <span class="fin-amount">₪17,510</span> | 50/50 יניב+גיא</div>
+    <div class="card-header">
+      <span class="card-title">Barometer / Eli + Guy Asif</span>
+      <span class="badge badge-locked">תמחור נעול</span>
+    </div>
+    <div class="card-body">
+      <strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span> | חבילה <span class="fin-amount">₪17,510</span> | 50/50 יניב+גיא
+    </div>
     <div class="card-links">
       <a href="https://drive.google.com/drive/folders/14JGt5meBo-u6s205TMDqb8taBPt6vhV_">Barometer Drive</a>
       <a href="https://docs.google.com/document/d/1TNK6vbzk6rR5BQlwjuJ3MmDnJSLDu-YC/edit">הצעת שירות v2</a>
@@ -372,79 +518,92 @@
       <a href="https://docs.google.com/document/d/1tlXX8icGUZFaYlULppZMr_H-ZWsa-n-3DUv60VWQsXk/edit">Proposal Guy v1</a>
     </div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Zimlichman / ARC / Sheba</span><span class="badge badge-silence">SILENCE</span></div>
-    <div class="card-details"><strong>CV נשלח:</strong> 23.02 ל-<span class="mono">Eyal.Zimlichman@sheba.health.gov.il</span><br><strong>סטטוס:</strong> 9+ ימים silence</div>
+    <div class="card-header">
+      <span class="card-title">Zimlichman / ARC / Sheba</span>
+      <span class="badge badge-silence">SILENCE 9+ ימים</span>
+    </div>
+    <div class="card-body">
+      <strong>CV נשלח:</strong> 23.02 ל-<span class="mono">Eyal.Zimlichman@sheba.health.gov.il</span>
+    </div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Ifat Lavi / CathWorks</span><span class="badge badge-draft">DRAFT READY</span></div>
-    <div class="card-details">Score 95, draft מוכן, לא נשלח</div>
+    <div class="card-header">
+      <span class="card-title">Ifat Lavi / CathWorks</span>
+      <span class="badge badge-draft">DRAFT READY</span>
+    </div>
+    <div class="card-body">Score 95 — draft reconnect מוכן, לא נשלח</div>
   </div>
+
   <div class="card">
-    <div class="card-header"><span class="card-title">Omri Peleg</span><span class="badge badge-lead">CONNECTOR</span></div>
-    <div class="card-details">connector ל-3 targets, WhatsApp follow-up</div>
+    <div class="card-header">
+      <span class="card-title">Omri Peleg</span>
+      <span class="badge badge-lead">CONNECTOR</span>
+    </div>
+    <div class="card-body">connector ל-3 targets, WhatsApp follow-up</div>
   </div>
 </section>
 
-<!-- ══════════ FINANCIAL ══════════ -->
+<!-- ══ FINANCIAL ══ -->
 <section id="financial">
+  <div class="sn">Financial Tracking</div>
   <h2>פיננסי</h2>
   <table>
     <thead><tr><th>ישות</th><th>סכום</th><th>תאריך</th><th>סטטוס</th></tr></thead>
     <tbody>
-      <tr><td>Momentick</td><td class="fin-amount">₪3,744</td><td>14.02</td><td><span class="fin-pending">חשבונית יצאה — תשלום לא ידוע (17 יום)</span></td></tr>
-      <tr><td>עומרי רפאל</td><td>עסקה 90179</td><td>03.03</td><td>חדש — לבדוק</td></tr>
-      <tr><td>דינה וולף</td><td>חשבונית 92877</td><td>01.03</td><td>חדש — לבדוק</td></tr>
-      <tr><td>Morning</td><td>דוח פבר'</td><td>02.03</td><td>דוח תקופתי</td></tr>
+      <tr><td>Momentick</td><td class="fin-amount">₪3,744</td><td>14.02</td><td><span class="fin-ok">שולם ✓</span></td></tr>
+      <tr><td>עומרי רפאל</td><td>עסקה 90179</td><td>03.03</td><td><span class="fin-pending">לבדוק</span></td></tr>
+      <tr><td>דינה וולף</td><td>חשבונית 92877</td><td>01.03</td><td><span class="fin-pending">לבדוק</span></td></tr>
+      <tr><td>Morning</td><td>דוח פבר'</td><td>02.03</td><td><span class="fin-pending">דוח תקופתי</span></td></tr>
     </tbody>
   </table>
 </section>
 
-<!-- ══════════════════════════════════════════════════ -->
-<!-- ═══ TRIGGERS — COLLAPSIBLE ═══ -->
-<!-- ══════════════════════════════════════════════════ -->
+<!-- ══ TRIGGERS ══ -->
 <section id="triggers">
+  <div class="sn">Operating System</div>
   <h2 class="collapsible-header" onclick="toggleTriggers()">
     <span class="toggle-icon" id="trigger-toggle">▶</span>
     טריגרים — 36 Total (30 User + 6 Auto)
-    <span class="badge" style="background:var(--accent);color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:99px;">v4.0</span>
+    <span class="badge badge-locked" style="font-size:9px;padding:2px 8px;margin-right:4px;">v4.0</span>
   </h2>
 
-  <!-- Master Table — always visible -->
-  <table class="triggers-master">
-    <thead><tr><th style="width:50px">ID</th><th>Name</th><th>HE</th><th>EN</th><th style="width:90px">Category</th><th style="width:65px">Output</th></tr></thead>
+  <table class="triggers-master" style="margin-top:1rem;">
+    <thead><tr><th style="width:50px">ID</th><th>Name</th><th>HE</th><th>EN</th><th style="width:100px">Category</th><th style="width:70px">Output</th></tr></thead>
     <tbody>
-      <tr><td class="trigger-id"><a href="#t01">T01</a></td><td>Pipeline Dashboard</td><td><span class="trigger-phrase" data-lang="he">עדכן pipeline</span></td><td><span class="trigger-phrase">pipeline update</span></td><td><span class="type-tag type-pipeline">pipeline</span></td><td class="ref-link">.html</td></tr>
-      <tr><td class="trigger-id"><a href="#t02">T02</a></td><td>Lead Analysis</td><td><span class="trigger-phrase" data-lang="he">ניתוח ליד {name}</span></td><td><span class="trigger-phrase">analyze lead {name}</span></td><td><span class="type-tag type-pipeline">pipeline</span></td><td class="ref-link">.html</td></tr>
-      <tr><td class="trigger-id"><a href="#t03">T03</a></td><td>סטטוס לקוח</td><td><span class="trigger-phrase" data-lang="he">סטטוס {client}</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t04">T04</a></td><td>מייל ללקוח</td><td><span class="trigger-phrase" data-lang="he">תכתוב מייל ל-{name}</span></td><td><span class="trigger-phrase">follow up with {name}</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">draft</td></tr>
-      <tr><td class="trigger-id"><a href="#t05">T05</a></td><td>תדריך לפגישה</td><td><span class="trigger-phrase" data-lang="he">הכן אותי לפגישה עם {name}</span></td><td><span class="trigger-phrase">briefing for {name}</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t06">T06</a></td><td>תשלומים</td><td><span class="trigger-phrase" data-lang="he">סטטוס תשלומים</span></td><td><span class="trigger-phrase">payment status</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t07">T07</a></td><td>מצגת משקיעים</td><td><span class="trigger-phrase" data-lang="he">מצגת משקיעים</span></td><td><span class="trigger-phrase">investor deck</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.pptx</td></tr>
-      <tr><td class="trigger-id"><a href="#t08">T08</a></td><td>בריף לדיזיינר</td><td><span class="trigger-phrase" data-lang="he">בריף לדיזיינר</span></td><td><span class="trigger-phrase">designer brief</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.docx</td></tr>
-      <tr><td class="trigger-id"><a href="#t09">T09</a></td><td>הצעת מחיר</td><td><span class="trigger-phrase" data-lang="he">הצעת מחיר</span></td><td><span class="trigger-phrase">pricing proposal</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.docx</td></tr>
-      <tr><td class="trigger-id"><a href="#t10">T10</a></td><td>מחקר שוק</td><td><span class="trigger-phrase" data-lang="he">מחקר שוק</span></td><td><span class="trigger-phrase">market research</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.html</td></tr>
-      <tr><td class="trigger-id"><a href="#t11">T11</a></td><td>תוכנית פרויקט</td><td><span class="trigger-phrase" data-lang="he">תוכנית פרויקט</span></td><td><span class="trigger-phrase">project plan</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.md</td></tr>
-      <tr><td class="trigger-id"><a href="#t12">T12</a></td><td>שאילתת זיכרון</td><td><span class="trigger-phrase" data-lang="he">תזכיר לי</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t13">T13</a></td><td>כתיבה לזיכרון</td><td><span class="trigger-phrase" data-lang="he">תזכור ש-{topic}</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">memory</td></tr>
-      <tr><td class="trigger-id"><a href="#t14">T14</a></td><td>תמחור</td><td><span class="trigger-phrase" data-lang="he">תמחור {project}</span></td><td><span class="trigger-phrase">pricing</span></td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t15">T15</a></td><td>Go/No-Go</td><td><span class="trigger-phrase" data-lang="he">Go/No-Go {project}</span></td><td>—</td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t16">T16</a></td><td>Re-tier</td><td><span class="trigger-phrase" data-lang="he">Re-tier {client}</span></td><td>—</td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t17">T17</a></td><td>Red Flags</td><td><span class="trigger-phrase" data-lang="he">דגלים אדומים</span></td><td><span class="trigger-phrase">red flags</span></td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t18">T18</a></td><td>טען סטטוס</td><td><span class="trigger-phrase" data-lang="he">טען סטטוס</span></td><td><span class="trigger-phrase">load status</span></td><td><span class="type-tag type-workflow">workflow</span></td><td class="ref-link">state.md</td></tr>
-      <tr><td class="trigger-id"><a href="#t19">T19</a></td><td>שמור</td><td><span class="trigger-phrase" data-lang="he">שמור</span></td><td><span class="trigger-phrase">save</span></td><td><span class="type-tag type-workflow">workflow</span></td><td class="ref-link">state.md</td></tr>
-      <tr><td class="trigger-id"><a href="#t20">T20</a></td><td>Research Swarm</td><td><span class="trigger-phrase" data-lang="he">research swarm {topic}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">.md</td></tr>
-      <tr><td class="trigger-id"><a href="#t21">T21</a></td><td>Build Squad</td><td><span class="trigger-phrase" data-lang="he">build squad {project}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">files</td></tr>
-      <tr><td class="trigger-id"><a href="#t22">T22</a></td><td>QA Swarm</td><td><span class="trigger-phrase" data-lang="he">qa swarm {project}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">report</td></tr>
-      <tr><td class="trigger-id"><a href="#t23">T23</a></td><td>Debate Team</td><td><span class="trigger-phrase" data-lang="he">debate {topic}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">brief</td></tr>
-      <tr><td class="trigger-id"><a href="#t24">T24</a></td><td>ניקוי דרייב</td><td><span class="trigger-phrase" data-lang="he">ניקוי דרייב</span></td><td><span class="trigger-phrase">drive cleanup</span></td><td><span class="type-tag type-hygiene">hygiene</span></td><td class="ref-link">score</td></tr>
-      <tr><td class="trigger-id"><a href="#t25">T25</a></td><td>Team Status</td><td><span class="trigger-phrase" data-lang="he">סטטוס צוותים</span></td><td><span class="trigger-phrase">team status</span></td><td><span class="type-tag type-status">status</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t26">T26</a></td><td>Knowledge Search</td><td><span class="trigger-phrase" data-lang="he">חפש בידע</span></td><td><span class="trigger-phrase">primak search</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">inline</td></tr>
-      <tr><td class="trigger-id"><a href="#t27">T27</a></td><td>Knowledge Health</td><td><span class="trigger-phrase" data-lang="he">בריאות ידע</span></td><td><span class="trigger-phrase">knowledge health</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">report</td></tr>
-      <tr><td class="trigger-id"><a href="#t28">T28</a></td><td>Knowledge Reindex</td><td><span class="trigger-phrase" data-lang="he">אנדקס מחדש</span></td><td><span class="trigger-phrase">reindex</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">log</td></tr>
-      <tr><td class="trigger-id"><a href="#t29">T29</a></td><td>Knowledge Validate</td><td><span class="trigger-phrase" data-lang="he">בדוק ידע</span></td><td><span class="trigger-phrase">validate knowledge</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">10 tests</td></tr>
-      <tr><td class="trigger-id"><a href="#t30">T30</a></td><td>Vault Stats</td><td><span class="trigger-phrase" data-lang="he">סטטיסטיקות vault</span></td><td><span class="trigger-phrase">vault stats</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">inline</td></tr>
-      <tr style="background:var(--surface2);"><td colspan="6" style="text-align:center;color:var(--text2);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;padding:0.4rem;">Automatic Triggers</td></tr>
+      <tr><td class="trigger-id"><a href="#t01">T01</a></td><td>Pipeline Dashboard</td><td><span class="trigger-phrase">עדכן pipeline</span></td><td><span class="trigger-phrase">pipeline update</span></td><td><span class="type-tag type-pipeline">pipeline</span></td><td class="ref-link">.html</td></tr>
+      <tr><td class="trigger-id"><a href="#t02">T02</a></td><td>Lead Analysis</td><td><span class="trigger-phrase">ניתוח ליד {name}</span></td><td><span class="trigger-phrase">analyze lead {name}</span></td><td><span class="type-tag type-pipeline">pipeline</span></td><td class="ref-link">.html</td></tr>
+      <tr><td class="trigger-id"><a href="#t03">T03</a></td><td>סטטוס לקוח</td><td><span class="trigger-phrase">סטטוס {client}</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t04">T04</a></td><td>מייל ללקוח</td><td><span class="trigger-phrase">תכתוב מייל ל-{name}</span></td><td><span class="trigger-phrase">follow up with {name}</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">draft</td></tr>
+      <tr><td class="trigger-id"><a href="#t05">T05</a></td><td>תדריך לפגישה</td><td><span class="trigger-phrase">הכן אותי לפגישה עם {name}</span></td><td><span class="trigger-phrase">briefing for {name}</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t06">T06</a></td><td>תשלומים</td><td><span class="trigger-phrase">סטטוס תשלומים</span></td><td><span class="trigger-phrase">payment status</span></td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t07">T07</a></td><td>מצגת משקיעים</td><td><span class="trigger-phrase">מצגת משקיעים</span></td><td><span class="trigger-phrase">investor deck</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.pptx</td></tr>
+      <tr><td class="trigger-id"><a href="#t08">T08</a></td><td>בריף לדיזיינר</td><td><span class="trigger-phrase">בריף לדיזיינר</span></td><td><span class="trigger-phrase">designer brief</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.docx</td></tr>
+      <tr><td class="trigger-id"><a href="#t09">T09</a></td><td>הצעת מחיר</td><td><span class="trigger-phrase">הצעת מחיר</span></td><td><span class="trigger-phrase">pricing proposal</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.docx</td></tr>
+      <tr><td class="trigger-id"><a href="#t10">T10</a></td><td>מחקר שוק</td><td><span class="trigger-phrase">מחקר שוק</span></td><td><span class="trigger-phrase">market research</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.html</td></tr>
+      <tr><td class="trigger-id"><a href="#t11">T11</a></td><td>תוכנית פרויקט</td><td><span class="trigger-phrase">תוכנית פרויקט</span></td><td><span class="trigger-phrase">project plan</span></td><td><span class="type-tag type-admin-doc">admin-doc</span></td><td class="ref-link">.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t12">T12</a></td><td>שאילתת זיכרון</td><td><span class="trigger-phrase">תזכיר לי</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t13">T13</a></td><td>כתיבה לזיכרון</td><td><span class="trigger-phrase">תזכור ש-{topic}</span></td><td>—</td><td><span class="type-tag type-admin">admin</span></td><td class="ref-link">memory</td></tr>
+      <tr><td class="trigger-id"><a href="#t14">T14</a></td><td>תמחור</td><td><span class="trigger-phrase">תמחור {project}</span></td><td><span class="trigger-phrase">pricing</span></td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t15">T15</a></td><td>Go/No-Go</td><td><span class="trigger-phrase">Go/No-Go {project}</span></td><td>—</td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t16">T16</a></td><td>Re-tier</td><td><span class="trigger-phrase">Re-tier {client}</span></td><td>—</td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t17">T17</a></td><td>Red Flags</td><td><span class="trigger-phrase">דגלים אדומים</span></td><td><span class="trigger-phrase">red flags</span></td><td><span class="type-tag type-pricing">pricing</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t18">T18</a></td><td>טען סטטוס</td><td><span class="trigger-phrase">טען סטטוס</span></td><td><span class="trigger-phrase">load status</span></td><td><span class="type-tag type-workflow">workflow</span></td><td class="ref-link">state.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t19">T19</a></td><td>שמור</td><td><span class="trigger-phrase">שמור</span></td><td><span class="trigger-phrase">save</span></td><td><span class="type-tag type-workflow">workflow</span></td><td class="ref-link">state.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t20">T20</a></td><td>Research Swarm</td><td><span class="trigger-phrase">research swarm {topic}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">.md</td></tr>
+      <tr><td class="trigger-id"><a href="#t21">T21</a></td><td>Build Squad</td><td><span class="trigger-phrase">build squad {project}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">files</td></tr>
+      <tr><td class="trigger-id"><a href="#t22">T22</a></td><td>QA Swarm</td><td><span class="trigger-phrase">qa swarm {project}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">report</td></tr>
+      <tr><td class="trigger-id"><a href="#t23">T23</a></td><td>Debate Team</td><td><span class="trigger-phrase">debate {topic}</span></td><td>—</td><td><span class="type-tag type-team">agent-team</span></td><td class="ref-link">brief</td></tr>
+      <tr><td class="trigger-id"><a href="#t24">T24</a></td><td>ניקוי דרייב</td><td><span class="trigger-phrase">ניקוי דרייב</span></td><td><span class="trigger-phrase">drive cleanup</span></td><td><span class="type-tag type-hygiene">hygiene</span></td><td class="ref-link">score</td></tr>
+      <tr><td class="trigger-id"><a href="#t25">T25</a></td><td>Team Status</td><td><span class="trigger-phrase">סטטוס צוותים</span></td><td><span class="trigger-phrase">team status</span></td><td><span class="type-tag type-status">status</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t26">T26</a></td><td>Knowledge Search</td><td><span class="trigger-phrase">חפש בידע</span></td><td><span class="trigger-phrase">primak search</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">inline</td></tr>
+      <tr><td class="trigger-id"><a href="#t27">T27</a></td><td>Knowledge Health</td><td><span class="trigger-phrase">בריאות ידע</span></td><td><span class="trigger-phrase">knowledge health</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">report</td></tr>
+      <tr><td class="trigger-id"><a href="#t28">T28</a></td><td>Knowledge Reindex</td><td><span class="trigger-phrase">אנדקס מחדש</span></td><td><span class="trigger-phrase">reindex</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">log</td></tr>
+      <tr><td class="trigger-id"><a href="#t29">T29</a></td><td>Knowledge Validate</td><td><span class="trigger-phrase">בדוק ידע</span></td><td><span class="trigger-phrase">validate knowledge</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">10 tests</td></tr>
+      <tr><td class="trigger-id"><a href="#t30">T30</a></td><td>Vault Stats</td><td><span class="trigger-phrase">סטטיסטיקות vault</span></td><td><span class="trigger-phrase">vault stats</span></td><td><span class="type-tag type-knowledge">knowledge</span></td><td class="ref-link">inline</td></tr>
+      <tr style="background:var(--bg);"><td colspan="6" style="text-align:center;color:var(--light);font-size:10px;text-transform:uppercase;letter-spacing:0.1em;padding:6px;">Automatic Triggers</td></tr>
       <tr><td class="trigger-id"><a href="#a01">A01</a></td><td>Follow-up</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">recommend</td></tr>
       <tr><td class="trigger-id"><a href="#a02">A02</a></td><td>Invoice Reminder</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">push</td></tr>
       <tr><td class="trigger-id"><a href="#a03">A03</a></td><td>Re-tier Check</td><td>—</td><td>—</td><td><span class="type-tag type-auto">auto</span></td><td class="ref-link">recommend</td></tr>
@@ -454,534 +613,488 @@
     </tbody>
   </table>
 
-  <!-- Collapsible trigger cards -->
   <div class="collapsible-content" id="trigger-cards">
+    <h3>Pipeline Intelligence — T01–T02</h3>
+    <div class="trigger-card" id="t01">
+      <div class="card-header"><span class="card-title"><span class="tid">T01</span> Pipeline Intelligence Dashboard</span><span class="type-tag type-pipeline">pipeline</span></div>
+      <table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">עדכן pipeline</span> <span class="separator">·</span> <span class="trigger-phrase">עדכון pipeline</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pipeline update</span></td></tr><tr><td>Action</td><td>Regenerate Pipeline Intelligence Dashboard — all deals ranked, scored, 5-agent analysis</td></tr><tr><td>Output</td><td class="ref-link">_WORKSPACE/bizdev-intelligence/pipeline_intelligence_{YYYY-MM-DD}.html</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §2</td></tr></table>
+    </div>
+    <div class="trigger-card" id="t02">
+      <div class="card-header"><span class="card-title"><span class="tid">T02</span> Lead Analysis (Per Deal)</span><span class="type-tag type-pipeline">pipeline</span></div>
+      <table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">ניתוח ליד {name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">analyze lead {name}</span></td></tr><tr><td>Action</td><td>5-agent deep dive on single deal</td></tr><tr><td>When</td><td>Deal moved stage · new intel · pre-meeting · score crossed 50/70 · stuck >7 days</td></tr><tr><td>Output</td><td class="ref-link">_WORKSPACE/bizdev-intelligence/lead_analysis_{client}_{YYYY-MM-DD}.html</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §3</td></tr></table>
+    </div>
 
-    <!-- Pipeline T01-T02 -->
-    <h3>Pipeline Intelligence <span class="type-tag type-pipeline">T01–T02</span></h3>
-    <div class="trigger-card" id="t01"><div class="card-title"><span class="tid">T01</span> — Pipeline Intelligence Dashboard <span class="type-tag type-pipeline">pipeline</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">עדכן pipeline</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">עדכון pipeline</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pipeline update</span></td></tr><tr><td>Action</td><td>Regenerate Pipeline Intelligence Dashboard — all deals ranked, scored, 5-agent analysis</td></tr><tr><td>Output</td><td class="ref-link">_WORKSPACE/bizdev-intelligence/pipeline_intelligence_{YYYY-MM-DD}.html</td></tr><tr><td>Spec</td><td class="ref-link">_CORE/pipeline_intelligence_v1.md</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §2</td></tr></table></div>
-    <div class="trigger-card" id="t02"><div class="card-title"><span class="tid">T02</span> — Lead Analysis (Per Deal) <span class="type-tag type-pipeline">pipeline</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">ניתוח ליד {name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">analyze lead {name}</span></td></tr><tr><td>Action</td><td>5-agent deep dive on single deal</td></tr><tr><td>When</td><td class="detail-text">Deal moved stage · new intel · pre-meeting · score crossed 50/70 · stuck &gt;7 days</td></tr><tr><td>Output</td><td class="ref-link">_WORKSPACE/bizdev-intelligence/lead_analysis_{client}_{YYYY-MM-DD}.html</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §3</td></tr></table></div>
+    <h3>Admin — ניהול שוטף — T03–T13</h3>
+    <div class="trigger-card" id="t03"><div class="card-header"><span class="card-title"><span class="tid">T03</span> סטטוס לקוח</span><span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">סטטוס {client}</span></td></tr><tr><td>Action</td><td>Client status query — Client Intelligence → conversation_search → recent_chats</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
+    <div class="trigger-card" id="t04"><div class="card-header"><span class="card-title"><span class="tid">T04</span> מייל ללקוח</span><span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">תכתוב מייל ל-{name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">follow up with {name}</span></td></tr><tr><td>Action</td><td>Draft client email with RTL standards + Primak Pro signature</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.1</td></tr></table></div>
+    <div class="trigger-card" id="t05"><div class="card-header"><span class="card-title"><span class="tid">T05</span> תדריך לפגישה</span><span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">הכן אותי לפגישה עם {name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">briefing for {name}</span></td></tr><tr><td>Action</td><td>Meeting prep — Client Intelligence + Gmail scan + Calendar context</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.2</td></tr></table></div>
+    <div class="trigger-card" id="t06"><div class="card-header"><span class="card-title"><span class="tid">T06</span> תשלומים</span><span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">סטטוס תשלומים · מי חייב לי</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">payment status</span></td></tr><tr><td>Action</td><td>Payment tracking — scan Gmail + memory + Client Intelligence</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.3</td></tr></table></div>
+    <div class="trigger-card" id="t07"><div class="card-header"><span class="card-title"><span class="tid">T07</span> מצגת משקיעים</span><span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">מצגת משקיעים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">investor deck</span></td></tr><tr><td>Action</td><td>Create investor presentation from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_investor-deck_v1.0.pptx</td></tr></table></div>
+    <div class="trigger-card" id="t08"><div class="card-header"><span class="card-title"><span class="tid">T08</span> בריף לדיזיינר</span><span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">בריף לדיזיינר</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">designer brief</span></td></tr><tr><td>Action</td><td>Create designer brief from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_designer-brief_v1.0.docx</td></tr></table></div>
+    <div class="trigger-card" id="t09"><div class="card-header"><span class="card-title"><span class="tid">T09</span> הצעת מחיר</span><span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">הצעת מחיר</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pricing proposal</span></td></tr><tr><td>Action</td><td>Create pricing proposal from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_proposal_v1.0.docx</td></tr></table></div>
+    <div class="trigger-card" id="t10"><div class="card-header"><span class="card-title"><span class="tid">T10</span> מחקר שוק</span><span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">מחקר שוק</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">market research</span></td></tr><tr><td>Action</td><td>Create market research report from Deliverables Factory template</td></tr></table></div>
+    <div class="trigger-card" id="t11"><div class="card-header"><span class="card-title"><span class="tid">T11</span> תוכנית פרויקט</span><span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">תוכנית פרויקט</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">project plan</span></td></tr><tr><td>Action</td><td>Create project plan from Deliverables Factory template</td></tr></table></div>
+    <div class="trigger-card" id="t12"><div class="card-header"><span class="card-title"><span class="tid">T12</span> שאילתת זיכרון</span><span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">תזכיר לי</span></td></tr><tr><td>Action</td><td>Memory query — Client Intelligence → conversation_search → recent_chats</td></tr></table></div>
+    <div class="trigger-card" id="t13"><div class="card-header"><span class="card-title"><span class="tid">T13</span> כתיבה לזיכרון</span><span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">תזכור ש-{topic}</span></td></tr><tr><td>Action</td><td>Write to memory via memory_user_edits add</td></tr></table></div>
 
-    <!-- Admin T03-T13 -->
-    <h3>Admin — ניהול שוטף <span class="type-tag type-admin">T03–T13</span></h3>
-    <div class="trigger-card" id="t03"><div class="card-title"><span class="tid">T03</span> — סטטוס לקוח <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטוס {client}</span></td></tr><tr><td>Action</td><td>Client status query — Client Intelligence → conversation_search → recent_chats</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
-    <div class="trigger-card" id="t04"><div class="card-title"><span class="tid">T04</span> — מייל ללקוח <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תכתוב מייל ל-{name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">follow up with {name}</span></td></tr><tr><td>Action</td><td>Draft client email with RTL standards + Primak Pro signature</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.1</td></tr></table></div>
-    <div class="trigger-card" id="t05"><div class="card-title"><span class="tid">T05</span> — תדריך לפגישה <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">הכן אותי לפגישה עם {name}</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">briefing for {name}</span></td></tr><tr><td>Action</td><td>Meeting prep — Client Intelligence + Gmail scan + Calendar context</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.2</td></tr></table></div>
-    <div class="trigger-card" id="t06"><div class="card-title"><span class="tid">T06</span> — תשלומים <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטוס תשלומים</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">מי חייב לי</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">payment status</span></td></tr><tr><td>Action</td><td>Payment tracking — scan Gmail + memory + Client Intelligence</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.3</td></tr></table></div>
-    <div class="section-note">T07–T11 — Deliverables Factory. כל trigger יוצר סוג מסמך שונה מ-template.<br>Output: <code style="color:var(--text2)">_WORKSPACE/{client}/output/{YYYY-MM-DD}_{client}_{type}_v1.0.{ext}</code></div>
-    <div class="trigger-card" id="t07"><div class="card-title"><span class="tid">T07</span> — מצגת משקיעים <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">מצגת משקיעים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">investor deck</span></td></tr><tr><td>Action</td><td>Create investor presentation from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_investor-deck_v1.0.pptx</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
-    <div class="trigger-card" id="t08"><div class="card-title"><span class="tid">T08</span> — בריף לדיזיינר <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">בריף לדיזיינר</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">designer brief</span></td></tr><tr><td>Action</td><td>Create designer brief from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_designer-brief_v1.0.docx</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
-    <div class="trigger-card" id="t09"><div class="card-title"><span class="tid">T09</span> — הצעת מחיר <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">הצעת מחיר</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pricing proposal</span></td></tr><tr><td>Action</td><td>Create pricing proposal from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_proposal_v1.0.docx</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
-    <div class="trigger-card" id="t10"><div class="card-title"><span class="tid">T10</span> — מחקר שוק <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">מחקר שוק</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">market research</span></td></tr><tr><td>Action</td><td>Create market research report from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_market-research_v1.0.html</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
-    <div class="trigger-card" id="t11"><div class="card-title"><span class="tid">T11</span> — תוכנית פרויקט <span class="type-tag type-admin-doc">admin-doc</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תוכנית פרויקט</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">project plan</span></td></tr><tr><td>Action</td><td>Create project plan from Deliverables Factory template</td></tr><tr><td>Output</td><td class="ref-link">…_{client}_project-plan_v1.0.md</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §4.4</td></tr></table></div>
-    <div class="trigger-card" id="t12"><div class="card-title"><span class="tid">T12</span> — שאילתת זיכרון <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תזכיר לי</span></td></tr><tr><td>Action</td><td>Memory query — Client Intelligence → conversation_search → recent_chats</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
-    <div class="trigger-card" id="t13"><div class="card-title"><span class="tid">T13</span> — כתיבה לזיכרון <span class="type-tag type-admin">admin</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תזכור ש-{topic}</span></td></tr><tr><td>Action</td><td>Write to memory via memory_user_edits add</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §5</td></tr></table></div>
+    <h3>Pricing — תמחור והחלטות — T14–T17</h3>
+    <div class="trigger-card" id="t14"><div class="card-header"><span class="card-title"><span class="tid">T14</span> תמחור</span><span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">תמחור {project} · כמה לגבות</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pricing</span></td></tr><tr><td>Action</td><td>Full pricing — PPL classification → Formula Engine → Anti-Waste QA</td></tr><tr><td>Pre</td><td>Run PPL sensitivity classification first</td></tr></table></div>
+    <div class="trigger-card" id="t15"><div class="card-header"><span class="card-title"><span class="tid">T15</span> Go/No-Go</span><span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">Go/No-Go {project} · האם לקחת את הפרויקט</span></td></tr><tr><td>Action</td><td>5-criteria assessment → Go / Discuss / Refuse</td></tr></table></div>
+    <div class="trigger-card" id="t16"><div class="card-header"><span class="card-title"><span class="tid">T16</span> Re-tier</span><span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">Re-tier {client}</span></td></tr><tr><td>Action</td><td>90-day retainer review → Core / Growth / Scale / Exit</td></tr></table></div>
+    <div class="trigger-card" id="t17"><div class="card-header"><span class="card-title"><span class="tid">T17</span> Red Flags</span><span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">דגלים אדומים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">red flags</span></td></tr><tr><td>Action</td><td>Scan all projects for warning signs</td></tr></table></div>
 
-    <!-- Pricing T14-T17 -->
-    <h3>Pricing — תמחור והחלטות <span class="type-tag type-pricing">T14–T17</span></h3>
-    <div class="trigger-card" id="t14"><div class="card-title"><span class="tid">T14</span> — תמחור <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">תמחור {project}</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">כמה לגבות</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">pricing</span></td></tr><tr><td>Action</td><td>Full pricing — PPL classification → Formula Engine → Anti-Waste QA</td></tr><tr><td>Pre</td><td class="detail-text">Run PPL sensitivity classification first (operations.md §8.6)</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.1</td></tr></table></div>
-    <div class="trigger-card" id="t15"><div class="card-title"><span class="tid">T15</span> — Go/No-Go <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">Go/No-Go {project}</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">האם לקחת את הפרויקט</span></td></tr><tr><td>Action</td><td>5-criteria assessment → Go / Discuss / Refuse</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.2</td></tr></table></div>
-    <div class="trigger-card" id="t16"><div class="card-title"><span class="tid">T16</span> — Re-tier <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">Re-tier {client}</span></td></tr><tr><td>Action</td><td>90-day retainer review → Core / Growth / Scale / Exit</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.3</td></tr></table></div>
-    <div class="trigger-card" id="t17"><div class="card-title"><span class="tid">T17</span> — Red Flags <span class="type-tag type-pricing">pricing</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">דגלים אדומים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">red flags</span></td></tr><tr><td>Action</td><td>Scan all projects for warning signs</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §8.5</td></tr></table></div>
+    <h3>Workflow — T18–T19</h3>
+    <div class="trigger-card" id="t18"><div class="card-header"><span class="card-title"><span class="tid">T18</span> טען סטטוס</span><span class="type-tag type-workflow">workflow</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">טען סטטוס · איפה עצרנו</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">load status</span></td></tr><tr><td>Action</td><td>Load SESSION_RESUME → WAITING_FOR → TASKS → Memory → Lint quick-check</td></tr></table></div>
+    <div class="trigger-card" id="t19"><div class="card-header"><span class="card-title"><span class="tid">T19</span> שמור</span><span class="type-tag type-workflow">workflow</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">שמור · שמירה</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">save</span></td></tr><tr><td>Action</td><td>Update SESSION_RESUME → sync docx → git commit+push (if repo)</td></tr></table></div>
 
-    <!-- Workflow T18-T19 -->
-    <h3>Workflow — ניהול סשן <span class="type-tag type-workflow">T18–T19</span></h3>
-    <div class="trigger-card" id="t18"><div class="card-title"><span class="tid">T18</span> — טען סטטוס <span class="type-tag type-workflow">workflow</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">טען סטטוס</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">איפה עצרנו</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">load status</span></td></tr><tr><td>Action</td><td>Load SESSION_RESUME → WAITING_FOR → TASKS → Memory → Lint quick-check</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §7.1</td></tr></table></div>
-    <div class="trigger-card" id="t19"><div class="card-title"><span class="tid">T19</span> — שמור <span class="type-tag type-workflow">workflow</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">שמור</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">שמירה</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">save</span></td></tr><tr><td>Action</td><td>Update SESSION_RESUME → sync docx → git commit+push (if repo)</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §7.2</td></tr></table></div>
+    <h3>Agent Teams — T20–T23</h3>
+    <div class="trigger-card" id="t20"><div class="card-header"><span class="card-title"><span class="tid">T20</span> Research Swarm</span><span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">research swarm {topic}</span></td></tr><tr><td>Action</td><td>Launch 3-agent research team (market + competitors + tech)</td></tr><tr><td>Model</td><td>Sonnet</td></tr></table></div>
+    <div class="trigger-card" id="t21"><div class="card-header"><span class="card-title"><span class="tid">T21</span> Build Squad</span><span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">build squad {project}</span></td></tr><tr><td>Action</td><td>Launch 3-agent build team (backend + frontend + integration)</td></tr><tr><td>Model</td><td>Sonnet</td></tr></table></div>
+    <div class="trigger-card" id="t22"><div class="card-header"><span class="card-title"><span class="tid">T22</span> QA Swarm</span><span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">qa swarm {project}</span></td></tr><tr><td>Action</td><td>Launch 3-agent QA team (functional + edge cases + standards)</td></tr></table></div>
+    <div class="trigger-card" id="t23"><div class="card-header"><span class="card-title"><span class="tid">T23</span> Debate Team</span><span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">debate {topic}</span></td></tr><tr><td>Action</td><td>Launch 3-agent debate team (advocate + devil's advocate + analyst)</td></tr><tr><td>Model</td><td>Opus</td></tr></table></div>
 
-    <!-- Agent Teams T20-T23 -->
-    <h3>Agent Teams — צוותי סוכנים <span class="type-tag type-team">T20–T23</span></h3>
-    <div class="trigger-card" id="t20"><div class="card-title"><span class="tid">T20</span> — Research Swarm <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">research swarm {topic}</span></td></tr><tr><td>Action</td><td>Launch 3-agent research team (market + competitors + tech)</td></tr><tr><td>Model</td><td>Sonnet</td></tr><tr><td>Pre</td><td class="detail-text">Brief approved · ownership set · done criteria defined · quota check</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
-    <div class="trigger-card" id="t21"><div class="card-title"><span class="tid">T21</span> — Build Squad <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">build squad {project}</span></td></tr><tr><td>Action</td><td>Launch 3-agent build team (backend + frontend + integration)</td></tr><tr><td>Model</td><td>Sonnet</td></tr><tr><td>Pre</td><td class="detail-text">Approved spec · directory ownership per agent · human checkpoint · quota check</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
-    <div class="trigger-card" id="t22"><div class="card-title"><span class="tid">T22</span> — QA Swarm <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">qa swarm {project}</span></td></tr><tr><td>Action</td><td>Launch 3-agent QA team (functional + edge cases + standards)</td></tr><tr><td>Model</td><td>Sonnet</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
-    <div class="trigger-card" id="t23"><div class="card-title"><span class="tid">T23</span> — Debate Team <span class="type-tag type-team">agent-team</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">debate {topic}</span></td></tr><tr><td>Action</td><td>Launch 3-agent debate team (advocate + devil's advocate + analyst)</td></tr><tr><td>Model</td><td>Opus (reasoning depth required)</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.3</td></tr></table></div>
+    <h3>Hygiene + Status — T24–T25</h3>
+    <div class="trigger-card" id="t24"><div class="card-header"><span class="card-title"><span class="tid">T24</span> ניקוי דרייב</span><span class="type-tag type-hygiene">hygiene</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">ניקוי דרייב · סדר בבית</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">drive cleanup</span></td></tr><tr><td>Action</td><td>Full hygiene lifecycle: SCAN → DETECT → REPORT → REMEDIATE → VERIFY → LOG</td></tr><tr><td>SLA</td><td>≤14 calendar days</td></tr></table></div>
+    <div class="trigger-card" id="t25"><div class="card-header"><span class="card-title"><span class="tid">T25</span> Team Status</span><span class="type-tag type-status">status</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">סטטוס צוותים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">team status</span></td></tr><tr><td>Action</td><td>Show TEAM_STATUS table from state.md + active agent processes</td></tr></table></div>
 
-    <!-- Hygiene + Status T24-T25 -->
-    <h3>Hygiene + Status <span class="type-tag type-hygiene">T24</span> <span class="type-tag type-status">T25</span></h3>
-    <div class="trigger-card" id="t24"><div class="card-title"><span class="tid">T24</span> — ניקוי דרייב <span class="type-tag type-hygiene">hygiene</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">ניקוי דרייב</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">סדר בבית</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">drive cleanup</span></td></tr><tr><td>Action</td><td>Full hygiene lifecycle: SCAN → DETECT → REPORT → REMEDIATE → VERIFY → LOG</td></tr><tr><td>SLA</td><td class="detail-text">≤14 calendar days</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §10</td></tr></table></div>
-    <div class="trigger-card" id="t25"><div class="card-title"><span class="tid">T25</span> — Team Status <span class="type-tag type-status">status</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטוס צוותים</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">team status</span></td></tr><tr><td>Action</td><td>Show TEAM_STATUS table from state.md + active agent processes</td></tr><tr><td>Ref</td><td class="ref-link">operations.md §9.6</td></tr></table></div>
+    <h3>Knowledge System — T26–T30</h3>
+    <div class="trigger-card" id="t26"><div class="card-header"><span class="card-title"><span class="tid">T26</span> Knowledge Search</span><span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">חפש בידע · חפש ב-vault</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">primak search</span></td></tr><tr><td>CLI</td><td class="ref-link">primak-search "{query}" (smart) · primak-search "{query}" --deep (all 3)</td></tr></table></div>
+    <div class="trigger-card" id="t27"><div class="card-header"><span class="card-title"><span class="tid">T27</span> Knowledge Health</span><span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">בריאות ידע</span></td></tr><tr><td>CLI</td><td class="ref-link">primak-search --health</td></tr></table></div>
+    <div class="trigger-card" id="t28"><div class="card-header"><span class="card-title"><span class="tid">T28</span> Knowledge Reindex</span><span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">אנדקס מחדש</span></td></tr><tr><td>Fast</td><td class="ref-link">reindex-all.sh fast (~2 min)</td></tr><tr><td>Full</td><td class="ref-link">reindex-all.sh full (~90 min)</td></tr><tr><td>Schedule</td><td>Every Sunday 06:08 (fast mode)</td></tr></table></div>
+    <div class="trigger-card" id="t29"><div class="card-header"><span class="card-title"><span class="tid">T29</span> Knowledge Validate</span><span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">בדוק ידע</span></td></tr><tr><td>Script</td><td class="ref-link">scripts/validate.sh [--verbose]</td></tr></table></div>
+    <div class="trigger-card" id="t30"><div class="card-header"><span class="card-title"><span class="tid">T30</span> Vault Stats</span><span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase">סטטיסטיקות vault</span></td></tr><tr><td>MCP</td><td class="ref-link">knowledge_vault_stats tool</td></tr></table></div>
 
-    <!-- Knowledge T26-T30 -->
-    <h3>Knowledge System — מערכת ידע <span class="type-tag type-knowledge">T26–T30</span></h3>
-    <div class="section-note">Knowledge System v2.1 LOCKED · Docs: <code style="color:var(--text2)">_ENGINE/staging/knowledge-v1/ARCHITECTURE.md</code></div>
-    <div class="trigger-card" id="t26"><div class="card-title"><span class="tid">T26</span> — Knowledge Search <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">חפש בידע</span> <span class="separator">·</span> <span class="trigger-phrase" data-lang="he">חפש ב-vault</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">primak search</span></td></tr><tr><td>Action</td><td>Search knowledge vault using best-fit engine (FTS / Semantic / Graph RAG)</td></tr><tr><td>CLI</td><td class="ref-link">primak-search "{query}" (smart) · primak-search "{query}" --deep (all 3)</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §7</td></tr></table></div>
-    <div class="trigger-card" id="t27"><div class="card-title"><span class="tid">T27</span> — Knowledge Health <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">בריאות ידע</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">knowledge health</span></td></tr><tr><td>Action</td><td>Run health check on 3 engines (FTS · Semantic · Graph RAG)</td></tr><tr><td>CLI</td><td class="ref-link">primak-search --health</td></tr><tr><td>Pre</td><td class="detail-text">Ollama running</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §7</td></tr></table></div>
-    <div class="trigger-card" id="t28"><div class="card-title"><span class="tid">T28</span> — Knowledge Reindex <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">אנדקס מחדש</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">reindex</span></td></tr><tr><td>Action</td><td>Re-index vault search engines</td></tr><tr><td>Fast</td><td class="ref-link">reindex-all.sh fast (~2 min) — FTS + Vector only</td></tr><tr><td>Full</td><td class="ref-link">reindex-all.sh full (~90 min) — + Graph RAG rebuild</td></tr><tr><td>Schedule</td><td class="detail-text">Every Sunday 06:08 (fast mode)</td></tr><tr><td>Pre</td><td class="detail-text">Ollama running</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §8</td></tr></table></div>
-    <div class="trigger-card" id="t29"><div class="card-title"><span class="tid">T29</span> — Knowledge Validate <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">בדוק ידע</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">validate knowledge</span></td></tr><tr><td>Action</td><td>Run 10 automated tests across all 3 engines</td></tr><tr><td>Script</td><td class="ref-link">scripts/validate.sh [--verbose]</td></tr><tr><td>Pre</td><td class="detail-text">Ollama running</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §8</td></tr></table></div>
-    <div class="trigger-card" id="t30"><div class="card-title"><span class="tid">T30</span> — Vault Stats <span class="type-tag type-knowledge">knowledge</span></div><table class="card-table"><tr><td>HE</td><td><span class="trigger-phrase" data-lang="he">סטטיסטיקות vault</span></td></tr><tr><td>EN</td><td><span class="trigger-phrase">vault stats</span></td></tr><tr><td>Action</td><td>Show vault statistics (doc count · graph size · Ollama status)</td></tr><tr><td>MCP</td><td class="detail-text">knowledge_vault_stats tool</td></tr><tr><td>Ref</td><td class="ref-link">ARCHITECTURE.md §7</td></tr></table></div>
+    <h3>Automatic Triggers — A01–A06</h3>
+    <div class="trigger-card" id="a01"><div class="card-header"><span class="card-title"><span class="tid">A01</span> Follow-up Reminder</span><span class="type-tag type-auto">auto</span></div><table class="card-table"><tr><td>Condition</td><td>WAITING_FOR item > 3 days without response</td></tr><tr><td>Action</td><td>Suggest follow-up action to Yaniv</td></tr><tr><td>Mode</td><td>RECOMMEND</td></tr></table></div>
+    <div class="trigger-card" id="a02"><div class="card-header"><span class="card-title"><span class="tid">A02</span> Invoice Reminder</span><span class="type-tag type-auto">auto</span></div><table class="card-table"><tr><td>Condition</td><td>Invoice unpaid > 48h from delivery</td></tr><tr><td>Action</td><td>Push immediate invoice send</td></tr><tr><td>Mode</td><td>RECOMMEND</td></tr></table></div>
+    <div class="trigger-card" id="a03"><div class="card-header"><span class="card-title"><span class="tid">A03</span> Re-tier Check</span><span class="type-tag type-auto">auto</span></div><table class="card-table"><tr><td>Condition</td><td>Retainer age > 90 days since last review</td></tr><tr><td>Action</td><td>Recommend Re-tier assessment (→ T16)</td></tr><tr><td>Mode</td><td>RECOMMEND</td></tr></table></div>
+    <div class="trigger-card" id="a04"><div class="card-header"><span class="card-title"><span class="tid">A04</span> Exit Trigger</span><span class="type-tag type-auto">auto</span></div><table class="card-table"><tr><td>Condition</td><td>No data > 6 months</td></tr><tr><td>Action</td><td>Recommend Exit process</td></tr><tr><td>Mode</td><td>RECOMMEND</td></tr></table></div>
+    <div class="trigger-card" id="a05"><div class="card-header"><span class="card-title"><span class="tid">A05</span> Concentration Alert</span><span class="type-tag type-auto">auto</span></div><table class="card-table"><tr><td>Condition</td><td>Single client > 40% revenue</td></tr><tr><td>Action</td><td>Flag risk + recommend diversification</td></tr><tr><td>Mode</td><td>RECOMMEND</td></tr></table></div>
+    <div class="trigger-card" id="a06"><div class="card-header"><span class="card-title"><span class="tid">A06</span> Lead Analysis Recommend</span><span class="type-tag type-auto">auto</span></div><table class="card-table"><tr><td>Condition</td><td>Deal moved stage · new intel · stuck >7 days</td></tr><tr><td>Action</td><td>Recommend ניתוח ליד {name} to Yaniv (→ T02)</td></tr><tr><td>Mode</td><td>RECOMMEND</td></tr></table></div>
 
-    <!-- Auto A01-A06 -->
-    <h3>Automatic Triggers <span class="type-tag type-auto">A01–A06</span></h3>
-    <div class="section-note">מופעלים אוטומטית לפי תנאים. Mode: <span class="mode-tag mode-recommend">RECOMMEND</span> = מציע ליניב · <span class="mode-tag mode-execute">EXECUTE</span> = מבצע ישירות.</div>
-    <div class="trigger-card" id="a01"><div class="card-title"><span class="tid">A01</span> — Follow-up Reminder <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>WAITING_FOR item &gt; 3 days without response</td></tr><tr><td>Action</td><td>Suggest follow-up action to Yaniv</td></tr><tr><td>Frequency</td><td class="detail-text">Session start</td></tr></table></div>
-    <div class="trigger-card" id="a02"><div class="card-title"><span class="tid">A02</span> — Invoice Reminder <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Invoice unpaid &gt; 48h from delivery</td></tr><tr><td>Action</td><td>Push immediate invoice send</td></tr><tr><td>Frequency</td><td class="detail-text">Session start</td></tr></table></div>
-    <div class="trigger-card" id="a03"><div class="card-title"><span class="tid">A03</span> — Re-tier Check <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Retainer age &gt; 90 days since last review</td></tr><tr><td>Action</td><td>Recommend Re-tier assessment (→ T16)</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update</td></tr></table></div>
-    <div class="trigger-card" id="a04"><div class="card-title"><span class="tid">A04</span> — Exit Trigger <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>No data &gt; 6 months</td></tr><tr><td>Action</td><td>Recommend Exit process</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update</td></tr></table></div>
-    <div class="trigger-card" id="a05"><div class="card-title"><span class="tid">A05</span> — Concentration Alert <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Single client &gt; 40% revenue</td></tr><tr><td>Action</td><td>Flag risk + recommend diversification</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update · financial review</td></tr></table></div>
-    <div class="trigger-card" id="a06"><div class="card-title"><span class="tid">A06</span> — Lead Analysis Recommend <span class="type-tag type-auto">auto</span> <span class="mode-tag mode-recommend">RECOMMEND</span></div><table class="card-table"><tr><td>Condition</td><td>Deal moved stage · new intel · pre-meeting · score crossed 50/70 · stuck &gt;7 days</td></tr><tr><td>Action</td><td>Recommend ניתוח ליד {name} to Yaniv (→ T02)</td></tr><tr><td>Frequency</td><td class="detail-text">Pipeline update</td></tr></table></div>
-
-    <!-- Removed -->
-    <h3 style="color:var(--text3)">Removed Triggers (Since v8.0)</h3>
-    <div class="removed-section"><table><thead><tr><th style="width:80px"># ישן</th><th>טריגר</th><th>הוחלף ב-</th></tr></thead><tbody>
-      <tr><td>T01 (old)</td><td>דו"ח בוקר</td><td>PRIMO session brief</td></tr>
-      <tr><td>T02 (old)</td><td>שכבת לקון</td><td>PRIMO operating layer</td></tr>
-      <tr><td>T03 (old)</td><td>מה יש היום</td><td>PRIMO conversational</td></tr>
-      <tr><td>T04 (old)</td><td>מיילים דחופים</td><td>PRIMO conversational</td></tr>
-      <tr><td>T16 (old)</td><td>סיום יום / EOD</td><td>— (never used)</td></tr>
-      <tr><td>T17 (old)</td><td>סיכום שבועי</td><td>— (never used)</td></tr>
-      <tr><td>T22 (old)</td><td>pipeline (old)</td><td>T01 Pipeline Intelligence</td></tr>
-      <tr><td>T25 (old)</td><td>צור סיכום</td><td>state.md session end</td></tr>
-      <tr><td>T32 (old)</td><td>Continuity check</td><td>— (morning report chain)</td></tr>
-      <tr><td>A01 (old)</td><td>Bizdev Sub-Layer</td><td>Pipeline Intelligence</td></tr>
-      <tr><td>A02 (old)</td><td>Guardian (Quiet Day)</td><td>PRIMO proactive</td></tr>
-    </tbody></table></div>
-
-  </div><!-- /trigger-cards -->
+    <h3 style="color:var(--light)">Removed Triggers — Since v8.0</h3>
+    <div class="removed-section">
+      <table><thead><tr><th style="width:80px"># ישן</th><th>טריגר</th><th>הוחלף ב-</th></tr></thead><tbody>
+        <tr><td>T01 (old)</td><td>דו"ח בוקר</td><td>PRIMO session brief</td></tr>
+        <tr><td>T02 (old)</td><td>שכבת לקון</td><td>PRIMO operating layer</td></tr>
+        <tr><td>T03 (old)</td><td>מה יש היום</td><td>PRIMO conversational</td></tr>
+        <tr><td>T04 (old)</td><td>מיילים דחופים</td><td>PRIMO conversational</td></tr>
+        <tr><td>T22 (old)</td><td>pipeline (old)</td><td>T01 Pipeline Intelligence</td></tr>
+        <tr><td>T25 (old)</td><td>צור סיכום</td><td>state.md session end</td></tr>
+      </tbody></table>
+    </div>
+  </div>
 </section>
 
-<!-- ══════════ KNOWLEDGE SYSTEM ══════════ -->
-<section id="knowledge">
-  <h2>Knowledge System v2.1</h2>
+<!-- ══ KNOWLEDGE SYSTEM ══ -->
+<section id="knowledge" class="dark">
+  <div class="sn">Knowledge Infrastructure</div>
+  <h2>Knowledge System v2.1 — LOCKED</h2>
   <table>
     <thead><tr><th>רכיב</th><th>נתיב</th><th>תיאור</th></tr></thead>
     <tbody>
-      <tr><td><strong>Vault (SOT)</strong></td><td class="mono">~/primak/_KNOWLEDGE/</td><td>31 מסמכים, Obsidian Vault</td></tr>
-      <tr><td><strong>Engine</strong></td><td class="mono">~/primak/_ENGINE/staging/knowledge-v1/</td><td>3-engine search system</td></tr>
-      <tr><td><strong>CLI</strong></td><td class="mono">~/primak/_TOOLS/primak-search</td><td>Unified search CLI</td></tr>
-      <tr><td><strong>Vault Digest</strong></td><td class="mono">scripts/generate-vault-digest.py</td><td>סיכום vault אוטומטי (~529 tokens)</td></tr>
+      <tr><td><strong style="color:#ccc">Vault (SOT)</strong></td><td><span class="mono">~/primak/_KNOWLEDGE/</span></td><td>31 מסמכים, Obsidian Vault</td></tr>
+      <tr><td><strong style="color:#ccc">Engine</strong></td><td><span class="mono">~/primak/_ENGINE/staging/knowledge-v1/</span></td><td>3-engine search system</td></tr>
+      <tr><td><strong style="color:#ccc">CLI</strong></td><td><span class="mono">~/primak/_TOOLS/primak-search</span></td><td>Unified search CLI</td></tr>
+      <tr><td><strong style="color:#ccc">Vault Digest</strong></td><td><span class="mono">scripts/generate-vault-digest.py</span></td><td>סיכום vault אוטומטי (~529 tokens)</td></tr>
     </tbody>
   </table>
   <h3>Search Engines</h3>
   <table>
     <thead><tr><th>מנוע</th><th>סוג</th><th>זמן</th><th>שימוש</th></tr></thead>
     <tbody>
-      <tr><td><strong>FTS (BM25)</strong></td><td>Keyword</td><td>&lt;1s</td><td>מילים מדויקות, שמות קבצים</td></tr>
-      <tr><td><strong>Semantic (RRF)</strong></td><td>Hybrid FTS+Vector</td><td>2-5s</td><td>קונספטים, "מצא לי..."</td></tr>
-      <tr><td><strong>Graph RAG</strong></td><td>Entity relations</td><td>10-60s</td><td>"מי?", "מה הקשר?"</td></tr>
+      <tr><td><strong style="color:#ccc">FTS (BM25)</strong></td><td>Keyword</td><td>&lt;1s</td><td>מילים מדויקות, שמות קבצים</td></tr>
+      <tr><td><strong style="color:#ccc">Semantic (RRF)</strong></td><td>Hybrid FTS+Vector</td><td>2-5s</td><td>קונספטים, "מצא לי..."</td></tr>
+      <tr><td><strong style="color:#ccc">Graph RAG</strong></td><td>Entity relations</td><td>10-60s</td><td>"מי?", "מה הקשר?"</td></tr>
     </tbody>
   </table>
-  <h3>Infrastructure</h3>
-  <div class="card-details" style="font-size:0.82rem;color:var(--text2);">
-    <strong>Ollama:</strong> qwen3:8b (5.2GB) + nomic-embed-text (274MB)<br>
-    <strong>DB:</strong> DuckDB 1.4.4 (14MB) | LightRAG v1.4.10 | FastMCP<br>
-    <strong>Graph:</strong> 318 entities, 294 relations, 262KB graphml<br>
-    <strong>Triggers:</strong> T26-T30 (triggers.md v4.0)<br>
-    <strong>Scheduled:</strong> <span class="mono">knowledge-reindex</span> — ראשון 06:08 (fast mode)
-  </div>
+  <p style="font-size:12px;color:#555;margin-top:12px;">
+    Ollama: qwen3:8b (5.2GB) + nomic-embed-text (274MB) &nbsp;·&nbsp;
+    DuckDB 1.4.4 (14MB) | LightRAG v1.4.10 &nbsp;·&nbsp;
+    Graph: 318 entities, 294 relations &nbsp;·&nbsp;
+    Reindex: ראשון 06:08 (fast)
+  </p>
 </section>
 
-<!-- ══════════ GITHUB PAGES ══════════ -->
+<!-- ══ GITHUB PAGES — DOCUMENT LIBRARY ══ -->
 <section id="github">
+  <div class="sn">Document Library</div>
   <h2>GitHub Pages — ספריית מסמכים</h2>
-  <div style="margin-bottom:1.25rem;font-size:0.85rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-    <span><strong>בסיס:</strong> <a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io/primak-reports/</a></span>
-    <span style="color:var(--text3)">|</span>
-    <a href="https://primakdigital.github.io/primak-reports/library.html" style="color:var(--cyan);font-size:0.8rem;">ספרייה מלאה ←</a>
-  </div>
+  <p style="font-size:12px;color:var(--light);margin-bottom:24px;">
+    <strong style="color:var(--black);">בסיס:</strong>
+    <a href="https://primakdigital.github.io/primak-reports/" style="color:var(--mid);">primakdigital.github.io/primak-reports/</a>
+    &nbsp;·&nbsp;
+    <a href="https://primakdigital.github.io/primak-reports/library.html" style="color:var(--mid);">ספרייה מלאה →</a>
+  </p>
 
-  <style>
-    .doc-category { margin-bottom: 1.75rem; }
-    .doc-category-title {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--text3); margin-bottom: 0.75rem; padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.5rem;
-    }
-    .doc-category-title .cat-count {
-      background: var(--surface3); color: var(--text3); font-size: 0.65rem;
-      padding: 0.1rem 0.45rem; border-radius: 10px; font-weight: 500; letter-spacing: 0;
-    }
-    .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.6rem; }
-    .doc-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-      padding: 0.75rem 0.85rem; display: flex; flex-direction: column; gap: 0.3rem;
-      transition: border-color 0.2s, background 0.2s; text-decoration: none;
-    }
-    .doc-card:hover { border-color: var(--accent); background: rgba(108,99,255,0.06); }
-    .doc-card-title { color: var(--text); font-size: 0.85rem; font-weight: 600; line-height: 1.3; }
-    .doc-card-meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-    .doc-version {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px;
-      padding: 0.1rem 0.4rem; border-radius: 4px; font-family: monospace;
-    }
-    .doc-version.active { background: rgba(52,211,153,0.15); color: var(--green); }
-    .doc-version.system { background: rgba(108,99,255,0.15); color: var(--accent2); }
-    .doc-version.brand  { background: rgba(244,114,182,0.15); color: var(--pink); }
-    .doc-version.lead   { background: rgba(251,191,36,0.15); color: var(--amber); }
-    .doc-version.arch   { background: rgba(107,114,128,0.15); color: var(--text3); }
-    .doc-date { font-size: 0.7rem; color: var(--text3); }
-    .doc-card-desc { font-size: 0.75rem; color: var(--text2); line-height: 1.4; margin-top: 0.1rem; }
-    .doc-card.current-doc { border-color: var(--cyan); }
-    .doc-card.current-doc .doc-card-title { color: var(--cyan); }
-  </style>
-
-  <!-- SYSTEM -->
+  <!-- System -->
   <div class="doc-category">
-    <div class="doc-category-title">System &amp; Operations <span class="cat-count">5</span></div>
+    <div class="doc-cat-title">System &amp; Operations <span class="cat-count">5</span></div>
     <div class="doc-grid">
-      <a class="doc-card current-doc" href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html" target="_blank">
+      <a class="doc-card current-sot" href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html" target="_blank">
         <div class="doc-card-title">Command Room</div>
-        <div class="doc-card-meta"><span class="doc-version system">v3.0</span><span class="doc-date">09.03.2026</span></div>
-        <div class="doc-card-desc">SOT מרכזי — נתיבים, לקוחות, טריגרים, Knowledge</div>
+        <div class="doc-card-meta"><span class="doc-ver sot">v4.0 SOT</span><span class="doc-date">11.03.2026</span></div>
+        <div class="doc-card-desc">נתיבים, לקוחות, טריגרים — מקור האמת</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/library.html" target="_blank">
         <div class="doc-card-title">Document Library</div>
-        <div class="doc-card-meta"><span class="doc-version system">v5</span><span class="doc-date">02.03.2026</span></div>
-        <div class="doc-card-desc">ספריית כל המסמכים — 60+ קבצים מקוטגרים</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v5</span><span class="doc-date">02.03.2026</span></div>
+        <div class="doc-card-desc">ספריית כל המסמכים — 60+ קבצים</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/index.html" target="_blank">
         <div class="doc-card-title">Dashboard</div>
-        <div class="doc-card-meta"><span class="doc-version system">v16.0</span><span class="doc-date">03.03.2026</span></div>
-        <div class="doc-card-desc">Command Center — overview כל הפרויקטים</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v16.0</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">Command Center — overview</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/primak-triggers-v1.html" target="_blank">
         <div class="doc-card-title">Trigger Reference</div>
-        <div class="doc-card-meta"><span class="doc-version system">v3.1</span><span class="doc-date">09.03.2026</span></div>
-        <div class="doc-card-desc">36 טריגרים — T01-T30 + A01-A06</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v3.1</span><span class="doc-date">09.03.2026</span></div>
+        <div class="doc-card-desc">36 טריגרים — standalone</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/morning-brief-live.html" target="_blank">
         <div class="doc-card-title">Morning Brief — Live</div>
-        <div class="doc-card-meta"><span class="doc-version system">Live</span><span class="doc-date">Daily</span></div>
-        <div class="doc-card-desc">בריף בוקר חי — pipeline + tasks</div>
+        <div class="doc-card-meta"><span class="doc-ver live">LIVE</span><span class="doc-date">Daily</span></div>
+        <div class="doc-card-desc">pipeline + tasks שוטף</div>
       </a>
     </div>
   </div>
 
-  <!-- BRAND -->
+  <!-- Brand -->
   <div class="doc-category">
-    <div class="doc-category-title">Branding — Pentagram Reset <span class="cat-count">11</span></div>
+    <div class="doc-cat-title">Branding — Pentagram Reset <span class="cat-count">11</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/primak-brand-bible-v1.html" target="_blank">
         <div class="doc-card-title">Brand Bible</div>
-        <div class="doc-card-meta"><span class="doc-version brand">v1</span><span class="doc-date">23.02.2026</span></div>
-        <div class="doc-card-desc">Identity, positioning, voice, visual DNA — SOT</div>
+        <div class="doc-card-meta"><span class="doc-ver sot">v1 SOT</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Identity, positioning, voice, visual DNA</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brand-reset-decisions-v1.html" target="_blank">
         <div class="doc-card-title">Brand Decisions</div>
-        <div class="doc-card-meta"><span class="doc-version brand">6/7</span><span class="doc-date">19.02.2026</span></div>
-        <div class="doc-card-desc">6/7 החלטות נעולות + חסם Decision #3</div>
+        <div class="doc-card-meta"><span class="doc-ver std">6/7</span><span class="doc-date">19.02.2026</span></div>
+        <div class="doc-card-desc">6/7 נעולות — חסם: Decision #3</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/one-liner-simulation-v1.html" target="_blank">
         <div class="doc-card-title">Buyer Simulation</div>
-        <div class="doc-card-meta"><span class="doc-version brand">9/9</span><span class="doc-date">19.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver std">9/9</span><span class="doc-date">19.02.2026</span></div>
         <div class="doc-card-desc">9 פרסונות — בדיקת one-liner</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brand-reset-brief-v1.html" target="_blank">
         <div class="doc-card-title">Brand Reset Brief</div>
-        <div class="doc-card-meta"><span class="doc-version brand">v1</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">ה-brief המקורי — הגדרת בעיה ויעד</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">ה-brief המקורי</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/paradigm-shift-v1.html" target="_blank">
         <div class="doc-card-title">Paradigm Shift 2026</div>
-        <div class="doc-card-meta"><span class="doc-version brand">v1</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">שינוי פרדיגמה — מ-agency ל-solo CPO</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">מ-agency ל-solo CPO</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-methodology-primak-v1.html" target="_blank">
         <div class="doc-card-title">Methodology — 6 Phases</div>
-        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">מתודולוגיית Pentagram — 6 שלבים</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">מתודולוגיית Pentagram</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-brand-reset-v1.html" target="_blank">
         <div class="doc-card-title">Team A — Creative</div>
-        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">הצעות עיצוב — שפה ויזואלית מאושרת</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">שפה ויזואלית מאושרת</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-brand-reset-counter-v1.html" target="_blank">
         <div class="doc-card-title">Team B — Counter Brief</div>
-        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">"Signal not dashboard" — counter proposal</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">"Signal not dashboard"</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-market-research-v1.html" target="_blank">
         <div class="doc-card-title">Market Research</div>
-        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">5 workstreams — competitors, buyer language, AI retrieval</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">5 workstreams — competitors, buyers</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-cv-rewrite-v1.html" target="_blank">
         <div class="doc-card-title">CV Rewrite Analysis</div>
-        <div class="doc-card-meta"><span class="doc-version brand">Research</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Research</span><span class="doc-date">17.02.2026</span></div>
         <div class="doc-card-desc">ניתוח + כיוון עיצוב ל-CV</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/pentagram-deliverables-research-v1.html" target="_blank">
         <div class="doc-card-title">Deliverables Research</div>
-        <div class="doc-card-meta"><span class="doc-version brand">50+</span><span class="doc-date">17.02.2026</span></div>
-        <div class="doc-card-desc">Pentagram process — 50+ deliverables, 11 categories</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">50+</span><span class="doc-date">17.02.2026</span></div>
+        <div class="doc-card-desc">50+ deliverables, 11 קטגוריות</div>
       </a>
     </div>
   </div>
 
   <!-- CV -->
   <div class="doc-category">
-    <div class="doc-category-title">CV — גרסאות <span class="cat-count">7</span></div>
+    <div class="doc-cat-title">CV — גרסאות <span class="cat-count">7</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/yaniv-primak-cv-2026.html" target="_blank">
         <div class="doc-card-title">CV 2026 — Cornerstone</div>
-        <div class="doc-card-meta"><span class="doc-version active">LIVE</span><span class="doc-date">23.02.2026</span></div>
-        <div class="doc-card-desc">Dark hero + Inter + proof bar — baseline לכל deliverable</div>
+        <div class="doc-card-meta"><span class="doc-ver live">LIVE</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Dark hero + proof bar — baseline לכל deliverable</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-zim-v6.html" target="_blank">
-        <div class="doc-card-title">CV — Zimlichman Version</div>
-        <div class="doc-card-meta"><span class="doc-version active">v6</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-title">CV — Zimlichman v6</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v6</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">גרסה מותאמת ל-ARC/Sheba</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v5.html" target="_blank">
         <div class="doc-card-title">CV Standalone</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v5</span><span class="doc-date">22.02.2026</span></div>
-        <div class="doc-card-desc">Standalone v5</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v5</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">Standalone</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v4.html" target="_blank">
-        <div class="doc-card-title">CV Minimal 4 Sizes</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v4</span><span class="doc-date">21.02.2026</span></div>
+        <div class="doc-card-title">CV Minimal</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v4</span><span class="doc-date">21.02.2026</span></div>
         <div class="doc-card-desc">4-size type hierarchy</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v3.html" target="_blank">
         <div class="doc-card-title">CV Moog Restrained</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v3</span><span class="doc-date">20.02.2026</span></div>
-        <div class="doc-card-desc">Moog-inspired restraint</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v3</span><span class="doc-date">20.02.2026</span></div>
+        <div class="doc-card-desc">Moog-inspired</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v2.html" target="_blank">
         <div class="doc-card-title">CV Pentagram Bold</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v2</span><span class="doc-date">19.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v2</span><span class="doc-date">19.02.2026</span></div>
         <div class="doc-card-desc">Pentagram bold aesthetic</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/cv-yaniv-primak-v1.html" target="_blank">
         <div class="doc-card-title">CV White Original</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v1</span><span class="doc-date">18.02.2026</span></div>
-        <div class="doc-card-desc">גרסה ראשונה מקורית</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">18.02.2026</span></div>
+        <div class="doc-card-desc">גרסה ראשונה</div>
       </a>
     </div>
   </div>
 
-  <!-- LINKEDIN -->
+  <!-- LinkedIn -->
   <div class="doc-category">
-    <div class="doc-category-title">LinkedIn — גרסאות <span class="cat-count">6</span></div>
+    <div class="doc-cat-title">LinkedIn — גרסאות <span class="cat-count">6</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v6.html" target="_blank">
         <div class="doc-card-title">LinkedIn Update</div>
-        <div class="doc-card-meta"><span class="doc-version active">v6 LATEST</span><span class="doc-date">09.03.2026</span></div>
-        <div class="doc-card-desc">גרסה פעילה — v8 ready for Claude Code deploy</div>
+        <div class="doc-card-meta"><span class="doc-ver live">v6 LATEST</span><span class="doc-date">09.03.2026</span></div>
+        <div class="doc-card-desc">v8 ready for Claude Code deploy</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v5.html" target="_blank">
         <div class="doc-card-title">LinkedIn v5</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v5</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v5</span><span class="doc-date">03.03.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v4.html" target="_blank">
         <div class="doc-card-title">LinkedIn v4</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v4</span><span class="doc-date">01.03.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v4</span><span class="doc-date">01.03.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v3.html" target="_blank">
         <div class="doc-card-title">LinkedIn v3</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v3</span><span class="doc-date">26.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v3</span><span class="doc-date">26.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v2.html" target="_blank">
         <div class="doc-card-title">LinkedIn v2</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v2</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v2</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/linkedin-update-v1.html" target="_blank">
         <div class="doc-card-title">LinkedIn v1</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v1</span><span class="doc-date">18.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">18.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
     </div>
   </div>
 
-  <!-- PIPELINE & OUTREACH -->
+  <!-- Pipeline & Outreach -->
   <div class="doc-category">
-    <div class="doc-category-title">Pipeline &amp; Outreach <span class="cat-count">7</span></div>
+    <div class="doc-cat-title">Pipeline &amp; Outreach <span class="cat-count">7</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/scout-outreach-hub-v1.html" target="_blank">
         <div class="doc-card-title">Outreach Hub — Briefs</div>
-        <div class="doc-card-meta"><span class="doc-version lead">Active</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver lead">Blocked</span><span class="doc-date">03.03.2026</span></div>
         <div class="doc-card-desc">Scout briefs — חסום Decision #3</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/scout-plan-v1.html" target="_blank">
         <div class="doc-card-title">Scout Plan</div>
-        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">01.03.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver std">v1</span><span class="doc-date">01.03.2026</span></div>
         <div class="doc-card-desc">9 targets | ₪470-960K EV</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/scout-targets-v2.html" target="_blank">
         <div class="doc-card-title">Target Bank</div>
-        <div class="doc-card-meta"><span class="doc-version lead">v2</span><span class="doc-date">03.03.2026</span></div>
-        <div class="doc-card-desc">בנק מטרות מלא — scored + prioritized</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v2</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">scored + prioritized</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brief-barometer-eli-24-02.html" target="_blank">
         <div class="doc-card-title">Barometer / Eli Brief</div>
-        <div class="doc-card-meta"><span class="doc-version lead">Lead</span><span class="doc-date">24.02.2026</span></div>
-        <div class="doc-card-desc">בריף ל-אלי צחור — ₪17,510 חבילה</div>
+        <div class="doc-card-meta"><span class="doc-ver lead">Lead</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-desc">₪17,510 — ממתין לאישור Guy</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/arc-innovation-deep-dive-v1.html" target="_blank">
         <div class="doc-card-title">ARC Deep Dive — Sheba</div>
-        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">22.02.2026</span></div>
-        <div class="doc-card-desc">Zimlichman — STRATEGIC HIGH, 9+ ימים silence</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v1</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">Zimlichman — STRATEGIC HIGH</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/connection-map-v1.html" target="_blank">
         <div class="doc-card-title">Connection Map</div>
-        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">24.02.2026</span></div>
-        <div class="doc-card-desc">מפת קשרים — connectors וגישה ל-targets</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-desc">connectors וגישה ל-targets</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/network-intelligence-v1.html" target="_blank">
         <div class="doc-card-title">Network — 12 Gateways</div>
-        <div class="doc-card-meta"><span class="doc-version lead">v1</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">24.02.2026</span></div>
         <div class="doc-card-desc">12 שערי כניסה לשוק</div>
       </a>
     </div>
   </div>
 
-  <!-- STRATEGY -->
+  <!-- Strategy -->
   <div class="doc-category">
-    <div class="doc-category-title">Strategy &amp; Intelligence <span class="cat-count">6</span></div>
+    <div class="doc-cat-title">Strategy &amp; Intelligence <span class="cat-count">6</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/strategic-synthesis-v2.html" target="_blank">
         <div class="doc-card-title">Intelligence Synthesis</div>
-        <div class="doc-card-meta"><span class="doc-version active">v2</span><span class="doc-date">03.03.2026</span></div>
-        <div class="doc-card-desc">סינתזה אסטרטגית — pipeline + positioning</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v2</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">pipeline + positioning סינתזה</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/strategic-analysis-v1.html" target="_blank">
         <div class="doc-card-title">Strategic Analysis</div>
-        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">25.02.2026</span></div>
-        <div class="doc-card-desc">ניתוח אסטרטגי שוק ו-positioning</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">25.02.2026</span></div>
+        <div class="doc-card-desc">ניתוח שוק ו-positioning</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/market-intelligence-v1.html" target="_blank">
         <div class="doc-card-title">Market Intelligence</div>
-        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">Q4/Q1 2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">Q4/Q1 2026</span></div>
         <div class="doc-card-desc">מודיעין שוק — AI, Israel, global</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/reality-check-2026-v2.html" target="_blank">
         <div class="doc-card-title">Reality Check 2026</div>
-        <div class="doc-card-meta"><span class="doc-version active">v2</span><span class="doc-date">03.03.2026</span></div>
-        <div class="doc-card-desc">מצב ביטחוני + כלכלי — השלכות על pipeline</div>
+        <div class="doc-card-meta"><span class="doc-ver std">v2</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">מצב ביטחוני + כלכלי — pipeline</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/intelligence-hub-update-v1.html" target="_blank">
         <div class="doc-card-title">Intelligence Hub Update</div>
-        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">עדכון מרכז המודיעין</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/sunday-brief-22-02-v1.html" target="_blank">
         <div class="doc-card-title">Sunday Brief</div>
-        <div class="doc-card-meta"><span class="doc-version arch">v1</span><span class="doc-date">22.02.2026</span></div>
-        <div class="doc-card-desc">בריף ראשון לאחר ה-reset</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">בריף ראשון אחרי ה-reset</div>
       </a>
     </div>
   </div>
 
-  <!-- PROOF CASES -->
+  <!-- Proof Cases -->
   <div class="doc-category">
-    <div class="doc-category-title">Proof Cases <span class="cat-count">9</span></div>
+    <div class="doc-cat-title">Proof Cases <span class="cat-count">9</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-pack-v1.html" target="_blank">
         <div class="doc-card-title">Proof Pack — Master</div>
-        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver std">v1</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">כל ה-cases בפרזנטציה אחת</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/cathworks.html" target="_blank">
         <div class="doc-card-title">CathWorks</div>
-        <div class="doc-card-meta"><span class="doc-version active">$585M</span><span class="doc-date">23.02.2026</span></div>
-        <div class="doc-card-desc">FDA cleared AI cardiac — Medtronic acquisition</div>
+        <div class="doc-card-meta"><span class="doc-ver live">$585M</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">FDA cleared AI cardiac — Medtronic</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/orchestra.html" target="_blank">
         <div class="doc-card-title">Orchestra</div>
-        <div class="doc-card-meta"><span class="doc-version active">Cyber</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver std">Cyber</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">CISO platform — NSO Group founders</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/queue.html" target="_blank">
         <div class="doc-card-title">Queue Platform</div>
-        <div class="doc-card-meta"><span class="doc-version active">CPO</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver std">CPO</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">B2B2C — fundraising through launch</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/selina.html" target="_blank">
         <div class="doc-card-title">Selina Hotels</div>
-        <div class="doc-card-meta"><span class="doc-version active">Startup</span><span class="doc-date">23.02.2026</span></div>
-        <div class="doc-card-desc">Unicorn hospitality — booking redesign</div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Startup</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-desc">Unicorn hospitality</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/anu.html" target="_blank">
         <div class="doc-card-title">ANU Museum</div>
-        <div class="doc-card-meta"><span class="doc-version active">Heritage</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Heritage</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">מוזיאון העם היהודי</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/beefree.html" target="_blank">
         <div class="doc-card-title">Beefree</div>
-        <div class="doc-card-meta"><span class="doc-version active">SaaS</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">SaaS</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">Email builder SaaS</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/labs02.html" target="_blank">
         <div class="doc-card-title">Labs02</div>
-        <div class="doc-card-meta"><span class="doc-version active">Lab</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Lab</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/proof-cases/neurobrave.html" target="_blank">
         <div class="doc-card-title">NeuroBrave</div>
-        <div class="doc-card-meta"><span class="doc-version active">AI</span><span class="doc-date">23.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">AI</span><span class="doc-date">23.02.2026</span></div>
         <div class="doc-card-desc">Neuro AI product</div>
       </a>
     </div>
   </div>
 
-  <!-- PROJECTS -->
+  <!-- Projects -->
   <div class="doc-category">
-    <div class="doc-category-title">Project Pages <span class="cat-count">5</span></div>
+    <div class="doc-cat-title">Project Pages <span class="cat-count">5</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/barometer.html" target="_blank">
         <div class="doc-card-title">Barometer / Eli</div>
-        <div class="doc-card-meta"><span class="doc-version lead">Lead</span><span class="doc-date">03.03.2026</span></div>
-        <div class="doc-card-desc">₪17,510 — ממתין לאישור Guy</div>
+        <div class="doc-card-meta"><span class="doc-ver lead">Lead</span><span class="doc-date">03.03.2026</span></div>
+        <div class="doc-card-desc">₪17,510 — ממתין Guy</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/arc-innovation.html" target="_blank">
         <div class="doc-card-title">ARC Innovation</div>
-        <div class="doc-card-meta"><span class="doc-version lead">STRATEGIC</span><span class="doc-date">22.02.2026</span></div>
-        <div class="doc-card-desc">Zimlichman / Sheba — silence 9+ ימים</div>
+        <div class="doc-card-meta"><span class="doc-ver lead">Strategic</span><span class="doc-date">22.02.2026</span></div>
+        <div class="doc-card-desc">Zimlichman — 9+ ימים silence</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/momentick.html" target="_blank">
         <div class="doc-card-title">Momentick</div>
-        <div class="doc-card-meta"><span class="doc-version active">Active</span><span class="doc-date">04.03.2026</span></div>
-        <div class="doc-card-desc">Liberia proposal ₪60-100K — ממתין תגובה</div>
+        <div class="doc-card-meta"><span class="doc-ver live">Active</span><span class="doc-date">04.03.2026</span></div>
+        <div class="doc-card-desc">Liberia ₪60-100K — ממתין תגובה</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/projects/scout-outreach.html" target="_blank">
         <div class="doc-card-title">Scout Outreach</div>
-        <div class="doc-card-meta"><span class="doc-version lead">Blocked</span><span class="doc-date">01.03.2026</span></div>
-        <div class="doc-card-desc">חסום Decision #3 — 9 targets מוקפאים</div>
+        <div class="doc-card-meta"><span class="doc-ver lead">Blocked</span><span class="doc-date">01.03.2026</span></div>
+        <div class="doc-card-desc">חסום Decision #3</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/brief-momentick-liberia-24-02.html" target="_blank">
         <div class="doc-card-title">Momentick Liberia Brief</div>
-        <div class="doc-card-meta"><span class="doc-version active">v1</span><span class="doc-date">24.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">v1</span><span class="doc-date">24.02.2026</span></div>
         <div class="doc-card-desc">scope + approach Liberia</div>
       </a>
     </div>
   </div>
 
-  <!-- VENTURE -->
+  <!-- Venture -->
   <div class="doc-category">
-    <div class="doc-category-title">Venture &amp; Specs <span class="cat-count">6</span></div>
+    <div class="doc-cat-title">Venture &amp; Specs <span class="cat-count">6</span></div>
     <div class="doc-grid">
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/visual-acuity-pwa-techspec-v1.html" target="_blank">
         <div class="doc-card-title">Visual Acuity PWA</div>
-        <div class="doc-card-meta"><span class="doc-version system">Spec v1</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Spec v1</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">Tech spec — PWA</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/photoshield-onepager-v1.html" target="_blank">
         <div class="doc-card-title">PhotoShield</div>
-        <div class="doc-card-meta"><span class="doc-version system">One-Pager</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">One-Pager</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">One-pager ליזמות</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-exec-memo-template-v1.html" target="_blank">
         <div class="doc-card-title">Exec Memo Template</div>
-        <div class="doc-card-meta"><span class="doc-version system">Template</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Template</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">תבנית Executive Memo</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-trackmodel-exec-memo.html" target="_blank">
         <div class="doc-card-title">TrackModel — Exec Memo</div>
-        <div class="doc-card-meta"><span class="doc-version system">TrackModel</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Track</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-trackmodel-gonogo.html" target="_blank">
         <div class="doc-card-title">TrackModel — Go/No-Go</div>
-        <div class="doc-card-meta"><span class="doc-version system">TrackModel</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Track</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/venture-trackmodel-legal.html" target="_blank">
         <div class="doc-card-title">TrackModel — Legal</div>
-        <div class="doc-card-meta"><span class="doc-version system">TrackModel</span><span class="doc-date">28.02.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver arch">Track</span><span class="doc-date">28.02.2026</span></div>
         <div class="doc-card-desc">—</div>
       </a>
     </div>
@@ -989,38 +1102,41 @@
 
 </section>
 
-<!-- ══════════ RULES ══════════ -->
+<!-- ══ RULES ══ -->
 <section id="rules">
+  <div class="sn">Operating Rules</div>
   <h2>חוקי Command Room</h2>
   <ol class="rules-list">
     <li>כל נתיב = מאומת. לינק שבור = מסיר מיד.</li>
     <li>כל שינוי נתיב = עדכון מיידי של הקובץ הזה.</li>
     <li>קובץ חדש ללקוח = נכנס לאינדקס תחת הלקוח.</li>
     <li>_CLIENTS = עבודת לקוחות בלבד. _SYSTEM = ניהול בלבד.</li>
-    <li>Session start: קרא command_room.md רק כשצריך נתיבים.</li>
+    <li>Session start: קרא command_room.md רק כשצריך נתיבי קבצים.</li>
   </ol>
 </section>
 
-<!-- ══════════ CHANGELOG ══════════ -->
+<!-- ══ CHANGELOG ══ -->
 <section id="log">
+  <div class="sn">Change Log</div>
   <h2>לוג שינויים</h2>
   <table>
-    <thead><tr><th>תאריך</th><th>שינוי</th></tr></thead>
+    <thead><tr><th style="width:80px">תאריך</th><th>שינוי</th></tr></thead>
     <tbody>
-      <tr><td class="changelog-date">11.03</td><td>Command Room v4.0 — GitHub Pages section: טבלה → כרטיסים מקוטגרים. 8 קטגוריות, 56 מסמכים, versions + dates לכל מסמך.</td></tr>
+      <tr><td class="changelog-date">11.03</td><td>Command Room v4.0 — עיצוב: שחזור לפי brand DNA (Inter, grayscale, dark hero). Document library: 8 קטגוריות, 56 כרטיסים עם versions + dates.</td></tr>
       <tr><td class="changelog-date">09.03</td><td>Command Room v3.0 — unified SOT: command room + triggers merged into single HTML.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>triggers.md v4.0 — UX redesign: unified card format, anchor navigation, standardized placeholders.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>Knowledge System v2.1 — 3-engine search, MCP server, CLI, validation, T26-T30.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>triggers.md v4.0 — UX redesign. Knowledge System v2.1.</td></tr>
       <tr><td class="changelog-date">03.03</td><td>command_room.md v2. הפרדת _CLIENTS/_SYSTEM. Momentick = לקוח 5.</td></tr>
-      <tr><td class="changelog-date">03.03</td><td>ICA/IcanDo חוזה חתום. ACTIVE.</td></tr>
-      <tr><td class="changelog-date">03.03</td><td>Barometer תמחור נעול.</td></tr>
+      <tr><td class="changelog-date">03.03</td><td>ICA/IcanDo חוזה חתום. ACTIVE. Barometer תמחור נעול.</td></tr>
     </tbody>
   </table>
 </section>
 
-<!-- ══════════ FOOTER ══════════ -->
+<!-- ══ FOOTER (dark bookend) ══ -->
 <footer>
-  PRIMAK — Command Room v4.0 (Unified SOT) | Source: command_room.md + triggers.md | 11.03.2026 | Primak Digital
+  <span>PRIMAK — Command Room v4.0</span>
+  <span>Source: command_room.md + triggers.md</span>
+  <span>11.03.2026</span>
+  <span><a href="https://primakdigital.github.io/primak-reports/library.html">Library →</a></span>
 </footer>
 
 <script>
@@ -1030,13 +1146,10 @@ function toggleTriggers() {
   cards.classList.toggle('open');
   icon.classList.toggle('open');
 }
-
-// Auto-open triggers section if URL has trigger anchor
 if (window.location.hash && (window.location.hash.match(/^#[ta]\d/) || window.location.hash === '#triggers')) {
   document.getElementById('trigger-cards').classList.add('open');
   document.getElementById('trigger-toggle').classList.add('open');
 }
 </script>
-
 </body>
 </html>
