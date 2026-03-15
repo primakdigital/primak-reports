@@ -334,27 +334,28 @@
   <div class="hero-tag">Command Room</div>
   <h1>PRIMAK</h1>
   <div class="title">Command Room — Single Source of Truth</div>
-  <p class="sub">נתיבים, לקוחות, טריגרים, תשתיות — מקור האמת היחיד של PRIMAK ENGINE.</p>
+  <p class="sub">אינדקס מרכזי — כל הנתיבים, כל הנכסים. ENGINE v0.4.1 + MCP FULL.</p>
   <div class="hero-meta">
-    <span><span class="dot"></span>v4.0</span>
-    <span><span class="dot"></span>11.03.2026</span>
-    <span><span class="dot"></span>PRIMO System v8.0</span>
+    <span><span class="dot"></span>v5.0</span>
+    <span><span class="dot"></span>14.03.2026</span>
+    <span><span class="dot"></span>ENGINE v0.4.1 + MCP FULL</span>
   </div>
 </div>
 
 <!-- ══ PROOF BAR ══ -->
 <div class="proof-bar">
   <div class="proof-item"><strong>5</strong> לקוחות פעילים</div>
-  <div class="proof-item"><strong>4</strong> לידים</div>
+  <div class="proof-item"><strong>6</strong> לידים</div>
   <div class="proof-item"><strong>36</strong> טריגרים</div>
-  <div class="proof-item"><strong>31</strong> מסמכי Vault</div>
+  <div class="proof-item"><strong>33</strong> מסמכי Vault</div>
   <div class="proof-item"><strong>3</strong> מנועי חיפוש</div>
-  <div class="proof-item"><strong>6</strong> שכבות</div>
+  <div class="proof-item"><strong>8</strong> MCP Connections</div>
 </div>
 
 <!-- ══ NAV ══ -->
 <nav>
   <a href="#arch">ארכיטקטורה</a>
+  <a href="#mcp">MCP</a>
   <a href="#drive">Drive</a>
   <a href="#clients">לקוחות</a>
   <a href="#leads">לידים</a>
@@ -363,6 +364,7 @@
   <a href="#triggers">טריגרים (36)</a>
   <span class="sep">|</span>
   <a href="#knowledge">Knowledge</a>
+  <a href="#health">Health</a>
   <a href="#github">מסמכים</a>
   <a href="#rules">חוקים</a>
   <a href="#log">לוג</a>
@@ -371,11 +373,11 @@
 <!-- ══ STATS ══ -->
 <div class="stats-bar">
   <div class="stat"><span class="value">5</span><span class="label">לקוחות</span></div>
-  <div class="stat"><span class="value">4</span><span class="label">לידים</span></div>
+  <div class="stat"><span class="value">6</span><span class="label">לידים</span></div>
   <div class="stat"><span class="value">36</span><span class="label">טריגרים</span></div>
-  <div class="stat"><span class="value">31</span><span class="label">Vault Docs</span></div>
+  <div class="stat"><span class="value">33</span><span class="label">Vault Docs</span></div>
   <div class="stat"><span class="value">3</span><span class="label">Search Engines</span></div>
-  <div class="stat"><span class="value">6</span><span class="label">שכבות</span></div>
+  <div class="stat"><span class="value">8</span><span class="label">MCP Connections</span></div>
 </div>
 
 <!-- ══ ARCHITECTURE ══ -->
@@ -383,48 +385,97 @@
   <div class="sn">System Architecture</div>
   <h2>ארכיטקטורה — מה חי איפה</h2>
   <table>
-    <thead><tr><th>שכבה</th><th>תפקיד</th><th>כלי גישה</th></tr></thead>
+    <thead><tr><th>שכבה</th><th>תפקיד</th><th>כלי גישה</th><th>סטטוס</th></tr></thead>
     <tbody>
-      <tr><td><strong>Claude.ai Project</strong> (PRIMAK HQ)</td><td>סטטוס + החלטות</td><td>נטען אוטומטי כל session</td></tr>
-      <tr><td><strong>Google Drive</strong>: PRIMAK-HQ</td><td>נכסים, חוזים, מסמכי לקוחות</td><td>Gmail/Drive MCP</td></tr>
-      <tr><td><strong>Apple Notes</strong>: ENGINE-LOG</td><td>לוג תובנות והחלטות שוטף</td><td>Apple Notes MCP</td></tr>
-      <tr><td><strong>GitHub Pages</strong></td><td>תוצרים ציבוריים, dashboard</td><td><a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io</a></td></tr>
-      <tr><td><strong>Local</strong>: <span class="mono">~/primak/</span></td><td>workspace פעיל, scripts</td><td>Claude Code (MCP)</td></tr>
-      <tr><td><strong>Knowledge System</strong></td><td>3-engine vault search (31 docs)</td><td>MCP + CLI (<span class="mono">primak-search</span>)</td></tr>
+      <tr><td><strong>Claude.ai Project</strong> (PRIMAK HQ)</td><td>context + decisions + Living Docs</td><td>נטען אוטומטי כל session</td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
+      <tr><td><strong>Knowledge System v2.1</strong></td><td>3-engine search: FTS + Semantic + Graph RAG</td><td>CLI + vault-digest.md</td><td><span class="badge badge-locked" style="font-size:9px;padding:2px 6px;">LOCKED</span></td></tr>
+      <tr><td><strong>Google Drive</strong>: PRIMAK-HQ/_PRODUCTION</td><td>נכסים, חוזים, מסמכי לקוחות</td><td>Drive MCP (read-only)</td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
+      <tr><td><strong>Apple Notes</strong>: PRIMAK-ENGINE-LOG</td><td>לוג תובנות והחלטות שוטף</td><td>Apple Notes MCP</td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
+      <tr><td><strong>Gmail</strong></td><td>email threads, search, drafts</td><td>Gmail MCP</td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
+      <tr><td><strong>Google Calendar</strong></td><td>events, scheduling, availability</td><td>Calendar MCP</td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
+      <tr><td><strong>Notion</strong> (ICA Portal)</td><td>project management, visual workflow</td><td>Browser only (no MCP)</td><td><span class="badge badge-hold" style="font-size:9px;padding:2px 6px;">MANUAL</span></td></tr>
+      <tr><td><strong>GitHub Pages</strong></td><td>תוצרים ציבוריים, dashboard</td><td><a href="https://primakdigital.github.io/primak-reports/">primakdigital.github.io</a></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
+      <tr><td><strong>Local</strong>: <span class="mono">~/primak/</span></td><td>workspace פעיל, scripts, Knowledge vault</td><td>Claude Code MCP</td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td></tr>
     </tbody>
   </table>
-  <h3>קבצי Project (נטענים אוטומטית)</h3>
+
+  <h3>קבצי Project — ENGINE v0.4.1 (12 קבצים)</h3>
+  <h3 style="margin-top:8px;color:var(--black);">Layer 1 — Static Context</h3>
   <table>
-    <thead><tr><th>קובץ</th><th>תפקיד</th><th>גודל</th></tr></thead>
+    <thead><tr><th>קובץ</th><th>תפקיד</th><th>מקסימום</th></tr></thead>
     <tbody>
-      <tr><td><span class="mono">CLAUDE.md</span></td><td>הקשר עסקי שוטף</td><td>~2K</td></tr>
-      <tr><td><span class="mono">state.md</span></td><td>לקוחות, leads, outcomes — source of truth</td><td>~4K</td></tr>
-      <tr><td><span class="mono">vault-digest.md</span></td><td>סיכום vault אוטומטי — entities, docs, graph</td><td>~500 tokens</td></tr>
+      <tr><td><span class="mono">CLAUDE.md</span></td><td>index + session protocol</td><td>~40 שורות</td></tr>
+      <tr><td><span class="mono">MEMORY-cc.md</span></td><td>behavioral rules + quick links (Claude Code)</td><td>~100 שורות</td></tr>
+      <tr><td><span class="mono">vault-digest.md</span></td><td>auto-generated vault summary</td><td>~75 שורות</td></tr>
     </tbody>
   </table>
+  <h3 style="color:var(--black);">Layer 2 — Dynamic State</h3>
+  <table>
+    <thead><tr><th>קובץ</th><th>תפקיד</th><th>מקסימום</th></tr></thead>
+    <tbody>
+      <tr><td><span class="mono">state.md</span></td><td>Weekly Snapshot + Client/Leads Index</td><td>130 שורות</td></tr>
+      <tr><td><span class="mono">ica-context.md</span></td><td>Living Doc: ICA/IcanDo</td><td>170 שורות</td></tr>
+      <tr><td><span class="mono">momentick-context.md</span></td><td>Living Doc: Momentick</td><td>30 שורות</td></tr>
+      <tr><td><span class="mono">baro-context.md</span></td><td>Living Doc: Barometer</td><td>25 שורות</td></tr>
+      <tr><td><span class="mono">openu-context.md</span></td><td>Living Doc: Open University</td><td>15 שורות</td></tr>
+      <tr><td><span class="mono">clubd-context.md</span></td><td>Living Doc: Club D</td><td>15 שורות</td></tr>
+      <tr><td><span class="mono">drift-context.md</span></td><td>Living Doc: DriftSense</td><td>15 שורות</td></tr>
+      <tr><td><span class="mono">arc-context.md</span></td><td>Living Doc: Zimlichman/ARC</td><td>20 שורות</td></tr>
+      <tr><td><span class="mono">lavi-context.md</span></td><td>Living Doc: Ifat Lavi</td><td>15 שורות</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--light);padding:10px 14px;border:1px solid var(--border);border-right:3px solid var(--black);background:var(--bg);margin-top:16px;">
+    <strong style="color:var(--black);">PATCH Protocol v1.1:</strong> Claude מייצר PATCH → יניב מדביק בקובץ → Knowledge System auto-reindex → Claude.ai Project auto-sync. <strong>זמן:</strong> 60 שניות טוטאל.
+  </p>
+</section>
+
+<!-- ══ MCP CONNECTIONS ══ -->
+<section id="mcp">
+  <div class="sn">MCP Infrastructure</div>
+  <h2>MCP Connections Status</h2>
+  <table>
+    <thead><tr><th>MCP Server</th><th>סטטוס</th><th>Functions Available</th><th>Last Verified</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Gmail</strong></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td><td>search_messages, read_message, read_thread, list_drafts, create_draft</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Google Calendar</strong></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td><td>list_events, create_event, update_event, find_meeting_times</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Google Drive</strong></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td><td>search, fetch (read-only), document access</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Apple Notes</strong></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td><td>get_content, add_note, update_note_content, list_notes</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Control Mac</strong></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td><td>osascript execution</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Filesystem</strong></td><td><span class="badge badge-active" style="font-size:9px;padding:2px 6px;">ACTIVE</span></td><td>read_multiple_files, directory operations</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Notion</strong></td><td><span style="color:#dc2626;font-weight:700;font-size:11px;">MISSING</span></td><td>Not available in Claude Code</td><td>14.03 12:52</td></tr>
+      <tr><td><strong>Figma</strong></td><td><span class="badge badge-hold" style="font-size:9px;padding:2px 6px;">PARTIAL</span></td><td>get_metadata only (design_context limited)</td><td>14.03 12:52</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:12px;color:var(--light);padding:10px 14px;border:1px solid var(--border);border-right:3px solid #dc2626;background:var(--bg);margin-top:16px;">
+    <strong style="color:var(--black);">Critical Gap:</strong> Notion MCP missing → manual workflow for project management updates.
+  </p>
 </section>
 
 <!-- ══ DRIVE ══ -->
 <section id="drive">
   <div class="sn">Drive Structure</div>
-  <h2>מבנה Drive — PRIMAK-HQ</h2>
+  <h2>מבנה Drive — PRIMAK-HQ/_PRODUCTION</h2>
   <div class="tree">🎯 <span class="folder">PRIMAK-HQ/</span>
-├── <span class="folder">_CLIENTS/</span>                    <span class="comment">← עבודה חיה של לקוחות בלבד</span>
-│   ├── ICA-IcanDo/
-│   ├── Momentick/
-│   ├── Open-University/
-│   ├── Club-D/
-│   ├── DriftSense/
-│   └── Barometer/               <span class="comment">(ליד)</span>
-│
-├── <span class="folder">_SYSTEM/</span>                     <span class="comment">← ניהול המערכת — לא לקוחות</span>
-│   ├── command_room.md
-│   ├── MENTAL.md
-│   ├── _ENGINE/
-│   └── _REPORTS/
-│
-├── <span class="folder">_ARCHIVE/</span>                    <span class="comment">← סגורים + deprecated</span>
-└── <span class="folder">_SHARE/</span>                      <span class="comment">← deliverables ללקוחות</span></div>
+├── <span class="folder">_PRODUCTION/</span>
+│   ├── <span class="folder">_CLIENTS/</span>                    <span class="comment">← לקוחות פעילים בלבד</span>
+│   │   ├── ICA-IcanDo/
+│   │   │   ├── _WORK/               <span class="comment">← meeting transcripts, briefs</span>
+│   │   │   ├── _DELIVERED/          <span class="comment">← Guide v1.1, components</span>
+│   │   │   └── _OLD/
+│   │   ├── Momentick/
+│   │   ├── Open-University/
+│   │   ├── Club-D/
+│   │   ├── DriftSense/
+│   │   └── Barometer/
+│   ├── <span class="folder">_SYSTEM/</span>
+│   │   ├── _ENGINE/                 <span class="comment">← file-map, triggers, health scripts</span>
+│   │   ├── _REPORTS/                <span class="comment">← Financial Plan v2.0</span>
+│   │   └── _FINANCE/
+│   └── <span class="folder">_ARCHIVE/</span>
+├── CLAUDE.md                        <span class="comment">← Project context</span>
+├── state.md                         <span class="comment">← Dynamic source of truth</span>
+├── vault-digest.md                  <span class="comment">← Auto-generated</span>
+└── command_room (זה הקובץ)</div>
   <p style="font-size:12px;color:var(--light);padding:10px 14px;border:1px solid var(--border);border-right:3px solid var(--black);background:var(--bg);">
     <strong style="color:var(--black);">עיקרון:</strong> _CLIENTS = עבודת לקוחות. _SYSTEM = ניהול פרימק. לעולם לא מתערבבים.
   </p>
@@ -438,13 +489,14 @@
   <div class="card">
     <div class="card-header">
       <span class="card-title">ICA / IcanDo</span>
-      <span class="badge badge-active">ACTIVE — חוזה חתום</span>
+      <span class="badge badge-hold">ACTIVE — ON HOLD מצב ביטחוני</span>
     </div>
     <div class="card-body">
       <strong>PM:</strong> איה אשדת (<span class="mono">aya.eshdat@gmail.com</span>)<br>
       <strong>Tech Lead:</strong> איתי קאהן (<span class="mono">itaik@ica.org.il</span>)<br>
       <strong>תנאים:</strong> <span class="fin-amount">₪430/שעה</span> + מע"מ | 12 חודשים מ-01.01.2026 | שוטף+30<br>
-      <strong>הגנות:</strong> הגבלת אחריות + הגנת IP קודם. אין התניית IP בתשלום.
+      <strong>הגנות:</strong> הגבלת אחריות + הגנת IP קודם. אין התניית IP בתשלום.<br>
+      <strong>Recent:</strong> Meeting Workflow Guide v1.1 delivered, context files synced
     </div>
     <div class="card-links">
       <a href="https://drive.google.com/file/d/1u-HplD3_6Eykxv7Bs3AwoJsS6dQ_KyZY/view">חוזה חתום</a>
@@ -501,7 +553,20 @@
 <!-- ══ LEADS ══ -->
 <section id="leads">
   <div class="sn">Active Leads</div>
-  <h2>לידים פעילים</h2>
+  <h2>לידים פעילים (6)</h2>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">ICA מרכז הידע</span>
+      <span class="badge badge-active">PROPOSAL SENT</span>
+    </div>
+    <div class="card-body">
+      <strong>Contact:</strong> דנה אייזנברג (<span class="mono">Training@ica.org.il</span>)<br>
+      <strong>תמחור:</strong> פתיחה <span class="fin-amount">₪700K</span> | רצפה <span class="fin-amount">₪650K</span><br>
+      <strong>Gmail thread:</strong> <span class="mono">19c8a5f1fa8ec799</span><br>
+      <strong>Next:</strong> Follow-up #1 ב-15.03 (confirm receipt)
+    </div>
+  </div>
 
   <div class="card">
     <div class="card-header">
@@ -509,7 +574,8 @@
       <span class="badge badge-locked">תמחור נעול</span>
     </div>
     <div class="card-body">
-      <strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span> | חבילה <span class="fin-amount">₪17,510</span> | 50/50 יניב+גיא
+      <strong>תמחור 03.03:</strong> סדנה <span class="fin-amount">₪18K</span> | 1:1 <span class="fin-amount">₪2,600</span><br>
+      <strong>Next:</strong> send proposal (pending Guy Asif approval)
     </div>
     <div class="card-links">
       <a href="https://drive.google.com/drive/folders/14JGt5meBo-u6s205TMDqb8taBPt6vhV_">Barometer Drive</a>
@@ -522,10 +588,11 @@
   <div class="card">
     <div class="card-header">
       <span class="card-title">Zimlichman / ARC / Sheba</span>
-      <span class="badge badge-silence">SILENCE 9+ ימים</span>
+      <span class="badge badge-silence">SILENCE 18+ ימים</span>
     </div>
     <div class="card-body">
-      <strong>CV נשלח:</strong> 23.02 ל-<span class="mono">Eyal.Zimlichman@sheba.health.gov.il</span>
+      <strong>Status:</strong> 18+ ימים silence<br>
+      <strong>Next:</strong> re-engage דרך דידי
     </div>
   </div>
 
@@ -539,24 +606,43 @@
 
   <div class="card">
     <div class="card-header">
-      <span class="card-title">Omri Peleg</span>
-      <span class="badge badge-lead">CONNECTOR</span>
+      <span class="card-title">RGE / עינבר סלוצקי</span>
+      <span class="badge badge-active">ACTIVE</span>
     </div>
-    <div class="card-body">connector ל-3 targets, WhatsApp follow-up</div>
+    <div class="card-body">
+      <strong>פגישה 12.03</strong> עם גיא אסיף: OpenU+Reichman proposal<br>
+      <strong>Next:</strong> document outcomes + build proposal
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">BoW / BIGY</span>
+      <span class="badge badge-active">ACTIVE</span>
+    </div>
+    <div class="card-body">
+      <strong>פגישה recurring:</strong> 15.03 10:00<br>
+      <strong>Contact:</strong> <span class="mono">omri@promanager.co.il</span>
+    </div>
   </div>
 </section>
 
 <!-- ══ FINANCIAL ══ -->
 <section id="financial">
   <div class="sn">Financial Tracking</div>
-  <h2>פיננסי</h2>
+  <h2>פיננסי — North Star 2026</h2>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:20px;line-height:1.8;">
+    <strong style="color:var(--black);">Target:</strong> ₪850K–₪1.13M &nbsp;·&nbsp;
+    <strong style="color:var(--black);">Current MRR:</strong> ~₪25K &nbsp;·&nbsp;
+    <strong style="color:var(--black);">Target Q3:</strong> ₪50K (3 retainers) &nbsp;·&nbsp;
+    <strong style="color:var(--black);">LeCun Score:</strong> 42/100 (מ-28 בפב')
+  </p>
   <table>
     <thead><tr><th>ישות</th><th>סכום</th><th>תאריך</th><th>סטטוס</th></tr></thead>
     <tbody>
       <tr><td>Momentick</td><td class="fin-amount">₪3,744</td><td>14.02</td><td><span class="fin-ok">שולם ✓</span></td></tr>
-      <tr><td>עומרי רפאל</td><td>עסקה 90179</td><td>03.03</td><td><span class="fin-pending">לבדוק</span></td></tr>
-      <tr><td>דינה וולף</td><td>חשבונית 92877</td><td>01.03</td><td><span class="fin-pending">לבדוק</span></td></tr>
-      <tr><td>Morning</td><td>דוח פבר'</td><td>02.03</td><td><span class="fin-pending">דוח תקופתי</span></td></tr>
+      <tr><td>ביטוח לאומי</td><td>—</td><td>15.03</td><td><span style="color:#dc2626;font-weight:600;">URGENT</span></td></tr>
+      <tr><td>מע"מ ינו-פבר</td><td>—</td><td>—</td><td><span class="fin-pending">ממתין לניירת דינה</span></td></tr>
     </tbody>
   </table>
 </section>
@@ -567,7 +653,7 @@
   <h2 class="collapsible-header" onclick="toggleTriggers()">
     <span class="toggle-icon" id="trigger-toggle">▶</span>
     טריגרים — 36 Total (30 User + 6 Auto)
-    <span class="badge badge-locked" style="font-size:9px;padding:2px 8px;margin-right:4px;">v4.0</span>
+    <span class="badge badge-locked" style="font-size:9px;padding:2px 8px;margin-right:4px;">v5.0</span>
   </h2>
 
   <table class="triggers-master" style="margin-top:1rem;">
@@ -693,7 +779,7 @@
   <table>
     <thead><tr><th>רכיב</th><th>נתיב</th><th>תיאור</th></tr></thead>
     <tbody>
-      <tr><td><strong style="color:#ccc">Vault (SOT)</strong></td><td><span class="mono">~/primak/_KNOWLEDGE/</span></td><td>31 מסמכים, Obsidian Vault</td></tr>
+      <tr><td><strong style="color:#ccc">Vault (SOT)</strong></td><td><span class="mono">~/primak/_KNOWLEDGE/</span></td><td>33 מסמכים, Obsidian Vault</td></tr>
       <tr><td><strong style="color:#ccc">Engine</strong></td><td><span class="mono">~/primak/_ENGINE/staging/knowledge-v1/</span></td><td>3-engine search system</td></tr>
       <tr><td><strong style="color:#ccc">CLI</strong></td><td><span class="mono">~/primak/_TOOLS/primak-search</span></td><td>Unified search CLI</td></tr>
       <tr><td><strong style="color:#ccc">Vault Digest</strong></td><td><span class="mono">scripts/generate-vault-digest.py</span></td><td>סיכום vault אוטומטי (~529 tokens)</td></tr>
@@ -711,9 +797,57 @@
   <p style="font-size:12px;color:#555;margin-top:12px;">
     Ollama: qwen3:8b (5.2GB) + nomic-embed-text (274MB) &nbsp;·&nbsp;
     DuckDB 1.4.4 (14MB) | LightRAG v1.4.10 &nbsp;·&nbsp;
-    Graph: 318 entities, 294 relations &nbsp;·&nbsp;
+    Graph: 985 entities, 802 relations &nbsp;·&nbsp;
     Reindex: ראשון 06:08 (fast)
   </p>
+</section>
+
+<!-- ══ HEALTH MONITORING ══ -->
+<section id="health">
+  <div class="sn">System Health</div>
+  <h2>Health Monitoring</h2>
+
+  <h3>System Health Dashboard</h3>
+  <table>
+    <thead><tr><th>Metric</th><th>Location</th><th>Update Frequency</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Knowledge System status</strong></td><td>Notion ICA Portal → "System Health"</td><td>Manual daily check</td></tr>
+      <tr><td><strong>MCP connection health</strong></td><td>CLI health-check.sh</td><td>Sunday mornings + before sessions</td></tr>
+      <tr><td><strong>Last sync timestamps</strong></td><td>vault-digest.md</td><td>Auto (Sunday 06:08)</td></tr>
+      <tr><td><strong>Critical issues count</strong></td><td>Notion Dashboard</td><td>Manual</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Auto Health Checks</h3>
+  <p style="font-size:13px;color:var(--mid);margin-bottom:12px;">
+    <strong style="color:var(--black);">Script:</strong> <span class="mono">~/primak/_ENGINE/staging/knowledge-v1/scripts/health-check.sh</span><br>
+    Validates: vault integrity, index status, MCP availability<br>
+    <strong style="color:var(--black);">Run:</strong> Sunday mornings + before important sessions
+  </p>
+
+  <h3>Alert Conditions</h3>
+  <table>
+    <thead><tr><th>Level</th><th>Condition</th></tr></thead>
+    <tbody>
+      <tr><td><span style="color:#dc2626;font-weight:700;">CRITICAL</span></td><td>Knowledge System reindex fails</td></tr>
+      <tr><td><span style="color:#dc2626;font-weight:700;">CRITICAL</span></td><td>Gmail/Calendar MCP down</td></tr>
+      <tr><td><span style="color:#dc2626;font-weight:700;">CRITICAL</span></td><td>Vault sync broken</td></tr>
+      <tr><td><span style="color:#d97706;font-weight:700;">WARNING</span></td><td>Command Room >7 days outdated</td></tr>
+      <tr><td><span style="color:#d97706;font-weight:700;">WARNING</span></td><td>Health Dashboard not updated >3 days</td></tr>
+      <tr><td><span style="color:#d97706;font-weight:700;">WARNING</span></td><td>Manual Notion sync pending >1 day</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Knowledge System v2.1 — Health Indicators</h3>
+  <table>
+    <thead><tr><th>Check</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>10/10 validation tests</td><td><span class="fin-ok">PASSING</span></td></tr>
+      <tr><td>Auto-reindex (Sunday 06:08)</td><td><span class="fin-ok">ACTIVE</span></td></tr>
+      <tr><td>Sync to Claude.ai</td><td><span class="fin-ok">WORKING</span></td></tr>
+      <tr><td>vault-digest.md (676 tokens)</td><td><span class="fin-ok">AUTO-GENERATED</span></td></tr>
+    </tbody>
+  </table>
 </section>
 
 <!-- ══ GITHUB PAGES — DOCUMENT LIBRARY ══ -->
@@ -733,7 +867,7 @@
     <div class="doc-grid">
       <a class="doc-card current-sot" href="https://primakdigital.github.io/primak-reports/primak-command-room-v1.html" target="_blank">
         <div class="doc-card-title">Command Room</div>
-        <div class="doc-card-meta"><span class="doc-ver sot">v4.0 SOT</span><span class="doc-date">11.03.2026</span></div>
+        <div class="doc-card-meta"><span class="doc-ver sot">v5.0 SOT</span><span class="doc-date">14.03.2026</span></div>
         <div class="doc-card-desc">נתיבים, לקוחות, טריגרים — מקור האמת</div>
       </a>
       <a class="doc-card" href="https://primakdigital.github.io/primak-reports/library.html" target="_blank">
@@ -1105,13 +1239,16 @@
 <!-- ══ RULES ══ -->
 <section id="rules">
   <div class="sn">Operating Rules</div>
-  <h2>חוקי Command Room</h2>
+  <h2>חוקי Command Room v5.0</h2>
   <ol class="rules-list">
-    <li>כל נתיב = מאומת. לינק שבור = מסיר מיד.</li>
-    <li>כל שינוי נתיב = עדכון מיידי של הקובץ הזה.</li>
-    <li>קובץ חדש ללקוח = נכנס לאינדקס תחת הלקוח.</li>
-    <li>_CLIENTS = עבודת לקוחות בלבד. _SYSTEM = ניהול בלבד.</li>
-    <li>Session start: קרא command_room.md רק כשצריך נתיבי קבצים.</li>
+    <li><strong>Health First:</strong> בדוק System Health Dashboard לפני כל session גדול.</li>
+    <li><strong>MCP Awareness:</strong> אם MCP down → fallback to manual/alternative tools.</li>
+    <li><strong>Knowledge Sync:</strong> vault-digest.md = source of truth עבור Claude.ai.</li>
+    <li><strong>Version Lock:</strong> Knowledge System v2.1 קפוא עד v3.0.</li>
+    <li><strong>Notion Gap:</strong> manual updates only עד MCP availability.</li>
+    <li><strong>Auto-Reindex:</strong> Sunday 06:08 + manual trigger כשצריך.</li>
+    <li><strong>PATCH Protocol:</strong> 4 steps, 60 seconds total.</li>
+    <li><strong>Crisis Protocol:</strong> אם >2 systems down → escalate to manual mode.</li>
   </ol>
 </section>
 
@@ -1122,20 +1259,36 @@
   <table>
     <thead><tr><th style="width:80px">תאריך</th><th>שינוי</th></tr></thead>
     <tbody>
-      <tr><td class="changelog-date">11.03</td><td>Command Room v4.0 — עיצוב: שחזור לפי brand DNA (Inter, grayscale, dark hero). Document library: 8 קטגוריות, 56 כרטיסים עם versions + dates.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>Command Room v3.0 — unified SOT: command room + triggers merged into single HTML.</td></tr>
-      <tr><td class="changelog-date">09.03</td><td>triggers.md v4.0 — UX redesign. Knowledge System v2.1.</td></tr>
+      <tr><td class="changelog-date">14.03</td><td>v5.0 — MCP status added. Knowledge System v2.1 locked. Health monitoring section. ENGINE v0.4.1.</td></tr>
+      <tr><td class="changelog-date">14.03</td><td>IcanDo: Meeting Workflow Guide v1.1 delivered. Context files updated.</td></tr>
+      <tr><td class="changelog-date">11.03</td><td>Financial Plan v2.0. LeCun Score: 28→42.</td></tr>
+      <tr><td class="changelog-date">09.03</td><td>Knowledge System v2.1 VERSION LOCKED.</td></tr>
+      <tr><td class="changelog-date">05.03</td><td>v4.0 — ENGINE v0.4.0. Living Docs × 5. PATCH Protocol.</td></tr>
       <tr><td class="changelog-date">03.03</td><td>command_room.md v2. הפרדת _CLIENTS/_SYSTEM. Momentick = לקוח 5.</td></tr>
       <tr><td class="changelog-date">03.03</td><td>ICA/IcanDo חוזה חתום. ACTIVE. Barometer תמחור נעול.</td></tr>
     </tbody>
   </table>
 </section>
 
+<!-- ══ NEXT MILESTONES ══ -->
+<section id="milestones" class="dark">
+  <div class="sn">Roadmap</div>
+  <h2>Next System Milestones</h2>
+  <table>
+    <thead><tr><th>Timeline</th><th>Milestone</th></tr></thead>
+    <tbody>
+      <tr><td><strong style="color:#ccc">15.03 — Immediate</strong></td><td>ICA KC follow-up #1 &nbsp;·&nbsp; BoW/BIGY meeting 10:00 &nbsp;·&nbsp; BI payment deadline</td></tr>
+      <tr><td><strong style="color:#ccc">20.03 — Short-term</strong></td><td>Knowledge System v3.0 planning checkpoint &nbsp;·&nbsp; Notion MCP evaluation (vs Monday.com MCP) &nbsp;·&nbsp; Command Room v6.0 (quarterly review)</td></tr>
+      <tr><td><strong style="color:#ccc">01.04 — Medium-term</strong></td><td>Dual-LLM architecture review checkpoint &nbsp;·&nbsp; Health monitoring automation upgrade</td></tr>
+    </tbody>
+  </table>
+</section>
+
 <!-- ══ FOOTER (dark bookend) ══ -->
 <footer>
-  <span>PRIMAK — Command Room v4.0</span>
-  <span>Source: command_room.md + triggers.md</span>
-  <span>11.03.2026</span>
+  <span>PRIMAK — Command Room v5.0</span>
+  <span>Source: command_room_v5.0.md + triggers.md</span>
+  <span>14.03.2026</span>
   <span><a href="https://primakdigital.github.io/primak-reports/library.html">Library →</a></span>
 </footer>
 
