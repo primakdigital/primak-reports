@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIGI — דיווח השתלשלות אירועים</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    background: #FAFAFA;
+    color: #1A1A1A;
+    line-height: 1.6;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  header {
+    border-bottom: 3px solid #1A1A1A;
+    padding-bottom: 24px;
+    margin-bottom: 40px;
+  }
+
+  header h1 {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  header .subtitle {
+    font-size: 14px;
+    color: #666;
+    font-weight: 400;
+  }
+
+  .scan-time {
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+  }
+
+  .summary-box {
+    background: #F0F0F0;
+    border-right: 4px solid #C62828;
+    padding: 20px 24px;
+    margin-bottom: 36px;
+  }
+
+  .summary-box h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #C62828;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+
+  .summary-item {
+    font-size: 14px;
+  }
+
+  .summary-item .label {
+    color: #666;
+    font-weight: 400;
+  }
+
+  .summary-item .value {
+    font-weight: 700;
+  }
+
+  section {
+    margin-bottom: 36px;
+  }
+
+  section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #E0E0E0;
+  }
+
+  section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  .timeline {
+    position: relative;
+    padding-right: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #DDD;
+  }
+
+  .event {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    background: #FFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 6px;
+  }
+
+  .event::before {
+    content: '';
+    position: absolute;
+    right: -28px;
+    top: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #1A1A1A;
+    border: 2px solid #FFF;
+    box-shadow: 0 0 0 2px #DDD;
+  }
+
+  .event.milestone::before { background: #2E7D32; box-shadow: 0 0 0 2px #2E7D32; }
+  .event.decision::before { background: #C62828; box-shadow: 0 0 0 2px #C62828; }
+  .event.stagnation::before { background: #F57F17; box-shadow: 0 0 0 2px #F57F17; }
+  .event.action::before { background: #1565C0; box-shadow: 0 0 0 2px #1565C0; }
+
+  .event-date {
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  .event-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .event-detail {
+    font-size: 14px;
+    color: #444;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  .tag-decision { background: #FFEBEE; color: #C62828; }
+  .tag-milestone { background: #E8F5E9; color: #2E7D32; }
+  .tag-stagnation { background: #FFF8E1; color: #F57F17; }
+  .tag-action { background: #E3F2FD; color: #1565C0; }
+  .tag-exit { background: #1A1A1A; color: #FFF; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+
+  th {
+    text-align: right;
+    background: #F5F5F5;
+    padding: 10px 12px;
+    font-weight: 700;
+    border-bottom: 2px solid #DDD;
+    font-size: 13px;
+    color: #555;
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #EEE;
+    vertical-align: top;
+  }
+
+  .status-pill {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  .status-done { background: #E8F5E9; color: #2E7D32; }
+  .status-pending { background: #FFF8E1; color: #F57F17; }
+  .status-exit { background: #FFEBEE; color: #C62828; }
+  .status-active { background: #E3F2FD; color: #1565C0; }
+
+  .context-block {
+    background: #FFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+
+  .context-block p {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .context-block p:last-child { margin-bottom: 0; }
+
+  .highlight {
+    background: #FFF3E0;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  .numbers-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+  }
+
+  .number-card {
+    flex: 1;
+    min-width: 140px;
+    background: #FFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .number-card .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1A1A1A;
+  }
+
+  .number-card .desc {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+  }
+
+  .lesson-box {
+    background: #FFF;
+    border-right: 3px solid #1A1A1A;
+    padding: 14px 18px;
+    margin: 8px 0;
+    font-size: 14px;
+  }
+
+  .lesson-box strong {
+    color: #C62828;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #E0E0E0;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .summary-grid { grid-template-columns: 1fr; }
+    .numbers-row { flex-direction: column; }
+    body { padding: 20px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>BIGI — השתלשלות אירועים</h1>
+  <div class="subtitle">דיווח כרונולוגי מלא | RGE Group / דרור קראוס</div>
+  <div class="scan-time">נוצר: 26.02.2026</div>
+</header>
+
+<!-- ==================== SUMMARY ==================== -->
+<div class="summary-box">
+  <h2>תמונת מצב</h2>
+  <div class="summary-grid">
+    <div class="summary-item"><span class="label">סטטוס:</span> <span class="value" style="color:#C62828;">EXIT COMPLETE</span></div>
+    <div class="summary-item"><span class="label">החלטה:</span> <span class="value">01.02.2026</span></div>
+    <div class="summary-item"><span class="label">לקוח:</span> <span class="value">דרור קראוס / R.G.E. Group</span></div>
+    <div class="summary-item"><span class="label">סיבה אמיתית:</span> <span class="value">GM 27% + 9 חודשים ללא דאטה</span></div>
+    <div class="summary-item"><span class="label">השפעה על הכנסה:</span> <span class="value">~103K ₪ (~23% מ-2025)</span></div>
+    <div class="summary-item"><span class="label">פרויקטי RGE שממשיכים:</span> <span class="value">7 פרויקטים פעילים</span></div>
+  </div>
+</div>
+
+<!-- ==================== NUMBERS ==================== -->
+<div class="numbers-row">
+  <div class="number-card">
+    <div class="num">27%</div>
+    <div class="desc">GM — מתחת לרצפה (55%)</div>
+  </div>
+  <div class="number-card">
+    <div class="num">9</div>
+    <div class="desc">חודשים ללא דאטה מהלקוח</div>
+  </div>
+  <div class="number-card">
+    <div class="num">19,761</div>
+    <div class="desc">המרות שהועברו</div>
+  </div>
+  <div class="number-card">
+    <div class="num">1.87₪</div>
+    <div class="desc">CPA מוביל (ביקוש)</div>
+  </div>
+</div>
+
+<!-- ==================== BACKGROUND ==================== -->
+<section>
+  <h2>1. רקע — מה זה BIGI?</h2>
+  <div class="context-block">
+    <p><strong>BIGI</strong> — אפליקציה צרכנית (B2C) שפרימק ניהלה עבורה קמפיינים דיגיטליים (PPC).</p>
+    <p><strong>הבעלים:</strong> דרור קראוס (בנימיני) — יזם סדרתי שמנהל את R.G.E. Group, קבוצה עם 8 פרויקטים מקבילים.</p>
+    <p><strong>הקשר עם יניב:</strong> לקוח ותיק מ-2021 לפחות (תיעוד "Dror&Yaniv@Kayma"). דרור רואה את כל הפרויקטים כמערכת אחת — פרימק הוא ספק מרכזי לכל הפורטפוליו.</p>
+    <p><strong>העבודה שבוצעה:</strong> ניהול קמפיינים (83% מתקציב, ~35,587₪), דוחות KPI, דוח שנתי 2025, אסטרטגיית דיגיטל, קונספט BIGI AI Academy.</p>
+  </div>
+</section>
+
+<!-- ==================== TIMELINE ==================== -->
+<section>
+  <h2>2. ציר זמן — השתלשלות האירועים</h2>
+
+  <div class="timeline">
+
+    <div class="event decision">
+      <div class="event-date">01.02.2026 <span class="tag tag-decision">החלטה</span></div>
+      <div class="event-title">החלטת EXIT על BIGI</div>
+      <div class="event-detail">
+        יניב מחליט לסיים את ההתקשרות על BIGI. שתי סיבות:
+        <br>1. <strong>GM 27%</strong> — מתחת לרצפה של 55% (ואפילו מתחת ל-Exit Trigger של 6 חודשים)
+        <br>2. <strong>9 חודשים ללא דאטה</strong> — הלקוח לא מעביר מידע, אי אפשר לנהל קמפיינים ביעילות
+        <br><br>הסיבה האמיתית = כלכלית + חוסר שיתוף פעולה. הנרטיב הרשמי = "מיקוד אסטרטגי של פרימק".
+      </div>
+    </div>
+
+    <div class="event milestone">
+      <div class="event-date">03.02.2026 <span class="tag tag-milestone">אבן דרך</span></div>
+      <div class="event-title">הכנת בריף Exit + אסטרטגיית בעלי עניין</div>
+      <div class="event-detail">
+        נוצרו 3 מסמכים:
+        <br>1. <strong>BIGI_Exit_Brief_Dror.docx</strong> — בריף רשמי ל-6 סעיפים (סיכום, הקשר, המלצה, מעבר, דלת פתוחה, סיכום)
+        <br>2. <strong>BIGY_Exit_Process.md</strong> — תיעוד תהליך מלא (לוחות זמנים, חומרים, סיכונים)
+        <br>3. <strong>BIGY_Exit_Stakeholder_Strategy.md</strong> — ניתוח דרור + אסטרטגיית תקשורת + תרחישי תגובה
+        <br><br>אסטרטגיה מרכזית: <em>"אנחנו מתמקדים, לא עוזבים"</em> — מציגים את ה-Exit כמיקוד של פרימק ב-AI/Enterprise, לא ככישלון של BIGI.
+      </div>
+    </div>
+
+    <div class="event action">
+      <div class="event-date">08.02.2026 <span class="tag tag-action">פעולה</span></div>
+      <div class="event-title">בריף נשלח לדרור</div>
+      <div class="event-detail">
+        מסמך ה-Exit Brief הועבר לדרור קראוס. פגישה/שיחה נקבעה ליום למחרת.
+      </div>
+    </div>
+
+    <div class="event milestone">
+      <div class="event-date">09.02.2026 <span class="tag tag-milestone">אבן דרך</span></div>
+      <div class="event-title">שיחה עם דרור — 12:00</div>
+      <div class="event-detail">
+        שיחת טלפון ראשונה בנושא ה-Exit. לפי האסטרטגיה שהוכנה: פתיחה בהוקרה, הסבר על מיקוד, המלצה לסוכנות B2C, הרגעה ששאר RGE ממשיך.
+      </div>
+    </div>
+
+    <div class="event action">
+      <div class="event-date">10.02.2026 <span class="tag tag-action">פעולה</span></div>
+      <div class="event-title">תחילת שלב 1 — העברת תיעוד</div>
+      <div class="event-detail">
+        תחילת תהליך מסירה מסודר. חומרים להעברה: דוח שנתי, KPI, אסטרטגיית דיגיטל, מצגות, סיכומי פגישות. יעד סיום שלב 1: עד 10.02.
+      </div>
+    </div>
+
+    <div class="event stagnation">
+      <div class="event-date">16.02.2026 <span class="tag tag-stagnation">עיכוב</span></div>
+      <div class="event-title">דרור לא עונה לשיחה — 15:30</div>
+      <div class="event-detail">
+        פגישת מעקב היתה מתוכננת ל-16.02 בשעה 15:30. דרור <strong>לא ענה</strong>.
+        <br>יניב שולח הודעת WhatsApp באותו ערב: <em>"תתקשר אלי מחר מהדרך, 5 דקות"</em> — טון קליל, אפס לחץ.
+        <br><br>שער אזהרה: שתיקה עד 21.02 = RED Alert.
+      </div>
+    </div>
+
+    <div class="event decision">
+      <div class="event-date">19.02.2026 <span class="tag tag-exit">EXIT</span></div>
+      <div class="event-title">סטטוס RGE עובר ל-EXIT בפייפליין</div>
+      <div class="event-detail">
+        בפייפליין של פרימק, פרויקט RGE Group מקבל סטטוס <strong>EXIT / CLOSED</strong>.
+        <br>הערה: "BIGY EXIT email sent. Omri takes over social."
+        <br>עומרי — גורם שמחליף את פרימק בניהול הסושיאל.
+        <br>הפרויקט עובר לארכיון.
+      </div>
+    </div>
+
+    <div class="event milestone">
+      <div class="event-date">23.02.2026 <span class="tag tag-milestone">אבן דרך</span></div>
+      <div class="event-title">יצירת Deal Debrief Protocol</div>
+      <div class="event-detail">
+        ה-Exit של BIGI מניע יצירת פרוטוקול תחקיר עסקאות כללי בפרימק.
+        <br>5 דפוסים זוהו (P1-P5): עבודה בלי תקציב, מקבל החלטות מוסתר, scope creep שקט, Exit מאוחר, פריצת רצפת מחיר.
+        <br>BIGI = Case Study #1 לפרוטוקול.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== WHY ==================== -->
+<section>
+  <h2>3. מדוע ה-Exit — ניתוח</h2>
+
+  <h3>הסיבה האמיתית (פנימי)</h3>
+  <table>
+    <tr><th>מדד</th><th>ערך</th><th>סף</th><th>מצב</th></tr>
+    <tr><td>Gross Margin</td><td>27%</td><td>55% (Launch)</td><td><span class="status-pill status-exit">מתחת לרצפה</span></td></tr>
+    <tr><td>דאטה מהלקוח</td><td>0 (9 חודשים)</td><td>Exit Trigger = 6 חודשים</td><td><span class="status-pill status-exit">חריגה × 1.5</span></td></tr>
+    <tr><td>Alignment Score</td><td>35/100</td><td>50+ לשימור</td><td><span class="status-pill status-exit">לא מתאים</span></td></tr>
+    <tr><td>התאמה ל-2026</td><td>B2C App Marketing</td><td>AI / Enterprise / UX</td><td><span class="status-pill status-exit">מחוץ לליבה</span></td></tr>
+  </table>
+
+  <h3>הנרטיב הרשמי (חיצוני)</h3>
+  <div class="context-block">
+    <p>"פרימק מבצעת מיקוד אסטרטגי ב-2026 בתחומי ליבה: AI, מערכות ידע, Enterprise UX/UI. קידום אפליקציות צרכניות (B2C) אינו בליבת העשייה החדשה. מומלץ להעביר ניהול לסוכנות מתמחה באפליקציות B2C."</p>
+  </div>
+</section>
+
+<!-- ==================== WHAT WAS DELIVERED ==================== -->
+<section>
+  <h2>4. מה הועבר — ערך שנוצר</h2>
+  <table>
+    <tr><th>תחום</th><th>תוצאות</th></tr>
+    <tr><td>קמפיין אפליקציה</td><td>~19,761 המרות | CPA 4.31₪ | 83% מהתקציב (~35,587₪)</td></tr>
+    <tr><td>יצירת ביקוש (Demand Gen)</td><td>CPA מוביל — <strong>1.87₪</strong> (ביצוע הכי טוב)</td></tr>
+    <tr><td>קמפייני מיתוג</td><td>TikTok + חיפוש (~5,700₪) | מודעות (Attribution Gap)</td></tr>
+    <tr><td>דוחות</td><td>דוח KPI מתעדכן + דוח שנתי 2025 מלא</td></tr>
+    <tr><td>אסטרטגיה</td><td>אסטרטגיית דיגיטל 2025 — מסמך מלא</td></tr>
+    <tr><td>BIGI AI Academy</td><td>קונספט פסטיבל AI לנוער — מצגת מלאה</td></tr>
+  </table>
+</section>
+
+<!-- ==================== RGE PORTFOLIO ==================== -->
+<section>
+  <h2>5. הקשר רחב — פורטפוליו RGE Group</h2>
+  <div class="context-block">
+    <p><strong>קריטי:</strong> BIGI הוא רק 1 מתוך 8 פרויקטים עם דרור. ה-Exit היה רק על BIGI — כל השאר ממשיך.</p>
+  </div>
+
+  <table>
+    <tr><th>פרויקט</th><th>סטטוס</th><th>תחום</th></tr>
+    <tr><td>BIGI (PPC/Digital)</td><td><span class="status-pill status-exit">EXIT</span></td><td>שיווק דיגיטלי לאפליקציה</td></tr>
+    <tr><td>AI Adventure</td><td><span class="status-pill status-active">ACTIVE</span></td><td>תוכנית חינוכית AI</td></tr>
+    <tr><td>Media Solutions</td><td><span class="status-pill status-active">ACTIVE</span></td><td>GTM & Positioning</td></tr>
+    <tr><td>SOD (Sound on Demand)</td><td><span class="status-pill status-active">ACTIVE</span></td><td>קונספט שידורי ספורט</td></tr>
+    <tr><td>MediaMinder</td><td><span class="status-pill status-active">ACTIVE</span></td><td>UX Research</td></tr>
+    <tr><td>The LaunchBridge</td><td><span class="status-pill status-active">ACTIVE</span></td><td>—</td></tr>
+    <tr><td>Venture</td><td><span class="status-pill status-active">ACTIVE</span></td><td>מצגות משקיעים</td></tr>
+    <tr><td>Group Communications</td><td><span class="status-pill status-active">ACTIVE</span></td><td>LinkedIn / Positioning</td></tr>
+  </table>
+</section>
+
+<!-- ==================== RISK MANAGEMENT ==================== -->
+<section>
+  <h2>6. ניהול סיכונים</h2>
+  <table>
+    <tr><th>סיכון</th><th>חומרה</th><th>מיטיגציה</th><th>מה קרה</th></tr>
+    <tr>
+      <td>דרור מפרש כנטישה של כל RGE</td>
+      <td><span class="status-pill status-exit">HIGH</span></td>
+      <td>ניסוח "מיקוד שלנו" לא "כישלון שלכם" + ציון 7 פרויקטים שממשיכים</td>
+      <td>נוהל לפי התוכנית</td>
+    </tr>
+    <tr>
+      <td>דרור דורש מעבר ארוך</td>
+      <td><span class="status-pill status-pending">MED</span></td>
+      <td>3 שבועות מובנה + אפשרות עד סוף מרץ</td>
+      <td>עומרי מחליף — מעבר מסודר</td>
+    </tr>
+    <tr>
+      <td>חוסר שת"פ בהעברת חומרים</td>
+      <td><span class="status-pill status-pending">MED</span></td>
+      <td>כל החומרים כבר בידי פרימק</td>
+      <td>ללא חסימה</td>
+    </tr>
+    <tr>
+      <td>דרור לא עונה / מתחמק</td>
+      <td><span class="status-pill status-pending">MED</span></td>
+      <td>WhatsApp קליל, שער RED ב-21.02</td>
+      <td>פגישה ב-16.02 לא נענתה, WhatsApp נשלח</td>
+    </tr>
+  </table>
+</section>
+
+<!-- ==================== EXIT PROCESS ==================== -->
+<section>
+  <h2>7. תהליך היציאה — שלבים</h2>
+  <table>
+    <tr><th>שלב</th><th>פעולה</th><th>יעד</th><th>סטטוס</th></tr>
+    <tr><td>0</td><td>הכנת בריף + אסטרטגיית תקשורת</td><td>03.02</td><td><span class="status-pill status-done">DONE</span></td></tr>
+    <tr><td>1</td><td>שליחת בריף + שיחה עם דרור</td><td>08-09.02</td><td><span class="status-pill status-done">DONE</span></td></tr>
+    <tr><td>2</td><td>העברת תיעוד קמפיינים + היסטוריה</td><td>10-17.02</td><td><span class="status-pill status-done">DONE</span></td></tr>
+    <tr><td>3</td><td>מעבר לעומרי (גורם מחליף)</td><td>17-19.02</td><td><span class="status-pill status-done">DONE</span></td></tr>
+    <tr><td>4</td><td>סיום רשמי + סטטוס EXIT</td><td>19.02</td><td><span class="status-pill status-done">DONE</span></td></tr>
+    <tr><td>5</td><td>העברה לארכיון</td><td>מרץ 2026</td><td><span class="status-pill status-done">DONE</span></td></tr>
+  </table>
+</section>
+
+<!-- ==================== LESSONS ==================== -->
+<section>
+  <h2>8. לקחים שנלמדו</h2>
+
+  <div class="lesson-box">
+    <strong>P4 — Late Exit:</strong> ה-Exit Trigger הוא 6 חודשים ללא דאטה. BIGI חיכינו 9 חודשים — 3 חודשים יותר מדי. ב-CLAUDE.md v9.1 הוגדר Timeout חדש: 3 חודשים ללא התקדמות = Auto Debrief + Exit/Pivot.
+  </div>
+
+  <div class="lesson-box">
+    <strong>P5 — Floor Breach:</strong> GM של 27% זה כמעט חצי מהרצפה (55%). ה-Deal Gate החדש: בדיקת תקציב <em>בפגישה הראשונה</em>. שתי פגישות בלי תשובה על תקציב = עצור.
+  </div>
+
+  <div class="lesson-box">
+    <strong>P1 — Work Without Budget:</strong> עבודה ללא נתונים = עבודה ללא מוצר. 9 חודשים של תפעול עיוור. כלל חדש: אין LOI/MOU אחרי שבועיים של פגישות discovery = עצור.
+  </div>
+
+  <div class="lesson-box">
+    <strong>אסטרטגיית Exit:</strong> תמיד לנסח את היציאה כ"מיקוד אסטרטגי שלנו" ולא כ"בעיה של הלקוח". במיוחד כשיש פרויקטים נוספים עם אותו לקוח.
+  </div>
+
+  <div class="lesson-box">
+    <strong>Deal Debrief Protocol:</strong> ה-Exit של BIGI הוליד פרוטוקול תחקיר עסקאות שלם (5 דפוסים, 6 שערים, 6 שאלות ניתוח) — כלי שמשרת את כל העסקאות העתידיות.
+  </div>
+</section>
+
+<!-- ==================== DOCUMENTS ==================== -->
+<section>
+  <h2>9. מסמכים קשורים</h2>
+  <table>
+    <tr><th>מסמך</th><th>מיקום</th></tr>
+    <tr><td>Exit Process (תיעוד מלא)</td><td><code>_ADMIN/bizdev/2026-02-03_BIGY_Exit_Process.md</code></td></tr>
+    <tr><td>Stakeholder Strategy</td><td><code>_ADMIN/bizdev/2026-02-03_BIGY_Exit_Stakeholder_Strategy.md</code></td></tr>
+    <tr><td>Exit Brief לדרור</td><td><code>BIGI_Exit_Brief_Dror.docx / .gdoc</code></td></tr>
+    <tr><td>דוח שנתי 2025</td><td><code>Drive: RGE Group/BIGI/0126/</code></td></tr>
+    <tr><td>Deal Debrief Protocol</td><td><code>_REPORTS/deal-debrief-ica-kc-v1.html</code></td></tr>
+    <tr><td>Pattern Registry</td><td><code>_CORE/protocols/pattern-registry.md</code></td></tr>
+  </table>
+</section>
+
+<!-- ==================== BOTTOM LINE ==================== -->
+<section>
+  <h2>10. שורה תחתונה</h2>
+  <div class="summary-box" style="border-right-color: #1A1A1A;">
+    <h2 style="color: #1A1A1A;">סיכום</h2>
+    <p style="font-size: 15px; line-height: 1.7;">
+      BIGI היה פרויקט B2C שלא התאים לכיוון של פרימק ב-2026.
+      GM של 27% ו-9 חודשים ללא דאטה הפכו אותו ללא כדאי עסקית.
+      <br><br>
+      ה-Exit בוצע <strong>מקצועית ודיפלומטית</strong> — בריף מסודר, שיחה אישית, מעבר ל-3 שבועות, שימור 7 פרויקטים אחרים עם RGE Group.
+      <br><br>
+      התוצאה: יציאה נקייה, יחסים שלמים, ועומרי מחליף בסושיאל.
+      <br><br>
+      <strong>הערך הגדול:</strong> ה-Exit של BIGI הוליד את ה-Deal Debrief Protocol ואת ה-Pattern Registry — כלים שמונעים טעויות דומות בעתיד.
+    </p>
+  </div>
+</section>
+
+<footer>
+  PRIMO | Primak Digital | 26.02.2026
+</footer>
+
+</div>
+</body>
+</html>
