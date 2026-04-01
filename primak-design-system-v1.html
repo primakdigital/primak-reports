@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIMAK Design System v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #000000;
+    --hero: #111111;
+    --dark: #1a1a1a;
+    --text: #111111;
+    --secondary: #555555;
+    --muted: #888888;
+    --ghost: #ebebeb;
+    --border: #e0e0e0;
+    --light: #f7f7f7;
+    --white: #ffffff;
+
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-hebrew: 'Noto Sans Hebrew', 'Arial Hebrew', system-ui, sans-serif;
+
+    --base: 8px;
+    --section-pad: 64px;
+    --body-max: 680px;
+  }
+
+  body {
+    font-family: var(--font-primary);
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--hero);
+    color: var(--light);
+    padding: 48px 40px;
+    border-bottom: 3px solid var(--black);
+  }
+  @media (min-width: 768px) {
+    .hero { padding: var(--section-pad); min-height: 60vh;
+            display: flex; flex-direction: column; justify-content: flex-end; }
+  }
+  @media (max-width: 767px) {
+    section { padding: 32px 24px; }
+    .swatches { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    table { font-size: 12px; }
+    th, td { padding: 8px; }
+    h1 { font-size: 32px !important; }
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 48px; font-weight: 800;
+    letter-spacing: -2px; color: var(--light);
+    margin-bottom: 8px;
+  }
+  .hero-sub {
+    font-size: 17px; font-weight: 400;
+    color: var(--muted); margin-bottom: 32px;
+  }
+  .hero-meta {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: var(--section-pad); }
+  section.dark { background: var(--dark); color: var(--light); }
+  section.black { background: var(--black); color: var(--light); }
+
+  .sn {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 24px;
+  }
+  section.dark .sn, section.black .sn { color: #444; }
+
+  h2 {
+    font-size: 26px; font-weight: 700;
+    letter-spacing: -0.5px; margin-bottom: 16px;
+  }
+
+  h3 {
+    font-size: 17px; font-weight: 700;
+    margin: 32px 0 12px;
+  }
+
+  h4 {
+    font-size: 14px; font-weight: 700;
+    margin: 16px 0 8px;
+  }
+
+  p {
+    font-size: 15px; color: var(--secondary);
+    max-width: var(--body-max); margin-bottom: 16px;
+  }
+  section.dark p, section.black p { color: #999; }
+
+  /* ── TABLES ── */
+  table {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px; margin: 16px 0 32px;
+  }
+  th {
+    text-align: left; padding: 10px 16px;
+    font-weight: 600; color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--light);
+    color: var(--secondary); vertical-align: top;
+  }
+  td:first-child { color: var(--text); font-weight: 600; }
+  section.dark th { color: #555; border-color: #333; }
+  section.dark td { color: #999; border-color: #222; }
+  section.dark td:first-child { color: var(--light); }
+
+  /* ── SWATCHES ── */
+  .swatches {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 12px; margin: 24px 0 32px;
+  }
+  .swatch {
+    aspect-ratio: 1; display: flex;
+    flex-direction: column; justify-content: flex-end;
+    padding: 12px; font-size: 11px; font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .swatch-name { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ── GRID ── */
+  .grid-2 {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px; margin: 24px 0;
+  }
+  .grid-2 ul { list-style: none; }
+  .grid-2 li {
+    font-size: 14px; color: var(--secondary);
+    padding: 6px 0; border-bottom: 1px solid var(--light);
+  }
+  .grid-2 li strong { color: var(--text); }
+  section.dark .grid-2 li { border-color: #222; color: #999; }
+  section.dark .grid-2 li strong { color: var(--light); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--hero);
+    padding: 16px 24px; margin: 24px 0;
+    font-size: 14px; color: var(--secondary);
+  }
+  .callout.red { border-color: #c00; }
+  .callout strong { color: var(--text); }
+  section.dark .callout { border-color: #444; color: #999; }
+  section.dark .callout strong { color: var(--light); }
+
+  /* ── TYPE SPECIMENS ── */
+  .specimen {
+    border: 1px solid var(--border); padding: 32px;
+    margin: 12px 0;
+  }
+  .specimen-label {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 8px;
+  }
+
+  /* ── CODE ── */
+  code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px; background: var(--light);
+    padding: 2px 6px;
+  }
+  section.dark code { background: #222; color: #ccc; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center; padding: 32px var(--section-pad);
+    border-top: 1px solid var(--border);
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 2px; color: var(--muted);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .hero { min-height: auto; page-break-after: always; }
+    section { padding: 32px; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="hero-label">Design System</div>
+  <h1>PRIMAK<br>Design System</h1>
+  <div class="hero-sub">The single visual reference for all Primak deliverables.<br>Every document, page, presentation, and touchpoint inherits from this system.</div>
+  <div class="hero-meta">v1.0 &nbsp;·&nbsp; 01 April 2026 &nbsp;·&nbsp; Source: Brand Bible v1 + Pentagram Brand Reset + Design Brief v2</div>
+</section>
+
+<!-- ═══════════════ 01 — LOGO ═══════════════ -->
+<section>
+  <div class="sn">01 — Logo</div>
+  <h2>The logo is fixed. Everything else adapts.</h2>
+
+  <p>The Primak wordmark is a geometric grotesque in bold/black weight, all lowercase. Rounded terminals on p, r, a provide warmth. The angular cut on the k provides edge. This tension — human within heavy — defines the brand's visual character.</p>
+
+  <h3>Logo Anatomy</h3>
+  <table>
+    <tr><th>Attribute</th><th>Value</th><th>Implication</th></tr>
+    <tr><td>Case</td><td>Lowercase only</td><td>Confident, not shouting</td></tr>
+    <tr><td>Weight</td><td>Bold / Black</td><td>Authority without apology</td></tr>
+    <tr><td>Terminals</td><td>Rounded on p, r, a</td><td>Human within the weight</td></tr>
+    <tr><td>k</td><td>Angular cut</td><td>Precision. Edge. Not purely soft.</td></tr>
+    <tr><td>Classification</td><td>Geometric grotesque + humanist DNA</td><td>Fashion house, not tech startup</td></tr>
+  </table>
+
+  <h3>Logo Rules</h3>
+  <div class="grid-2">
+    <ul>
+      <li><strong>Clear space:</strong> Minimum = height of the "p" on all sides</li>
+      <li><strong>Minimum size:</strong> 80px width on screen, 20mm in print</li>
+      <li><strong>Color:</strong> Black on white, white on black. No exceptions.</li>
+      <li><strong>Backgrounds:</strong> Reads on #fff, #1a1a1a, #000 — all three</li>
+    </ul>
+    <ul>
+      <li><strong>Never</strong> add effects (shadow, glow, gradient)</li>
+      <li><strong>Never</strong> change proportions or weight</li>
+      <li><strong>Never</strong> set in a different typeface</li>
+      <li><strong>Never</strong> add a tagline lockup to the logo itself</li>
+    </ul>
+  </div>
+
+  <h3>Open Items (Donna)</h3>
+  <table>
+    <tr><th>Item</th><th>Status</th><th>Description</th></tr>
+    <tr><td>Signature Element</td><td>OPEN</td><td>A: Rule Line (3px solid) / B: Grid Cell / C: Exponent — decision pending</td></tr>
+    <tr><td>Logo Pairing</td><td>OPEN</td><td>Size hierarchy relative to Inter headings per touchpoint type</td></tr>
+    <tr><td>Hebrew Extension</td><td>OPEN</td><td>Companion rule for Hebrew materials — font, weight, spacing matching logo character</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════ 02 — COLOR ═══════════════ -->
+<section class="dark">
+  <div class="sn">02 — Color</div>
+  <h2>Grayscale only. The restraint IS the statement.</h2>
+
+  <p>No accent colors. No brand color. No "subtle touches." If you feel the urge to add color — the content is not strong enough. Strengthen the content.</p>
+
+  <div class="swatches">
+    <div class="swatch" style="background:#000;color:#888;"><span class="swatch-name">Black</span>#000000</div>
+    <div class="swatch" style="background:#111;color:#888;"><span class="swatch-name">Hero</span>#111111</div>
+    <div class="swatch" style="background:#1a1a1a;color:#888;"><span class="swatch-name">Dark</span>#1a1a1a</div>
+    <div class="swatch" style="background:#555;color:#ccc;"><span class="swatch-name">Secondary</span>#555555</div>
+    <div class="swatch" style="background:#888;color:#fff;"><span class="swatch-name">Muted</span>#888888</div>
+  </div>
+  <div class="swatches">
+    <div class="swatch" style="background:#ebebeb;color:#555;"><span class="swatch-name">Ghost</span>#ebebeb</div>
+    <div class="swatch" style="background:#e0e0e0;color:#555;"><span class="swatch-name">Border</span>#e0e0e0</div>
+    <div class="swatch" style="background:#f7f7f7;color:#555;border:1px solid #e0e0e0;"><span class="swatch-name">Light</span>#f7f7f7</div>
+    <div class="swatch" style="background:#fff;color:#555;border:1px solid #e0e0e0;"><span class="swatch-name">White</span>#ffffff</div>
+    <div class="swatch" style="background:repeating-linear-gradient(45deg,#fff,#fff 4px,#f7f7f7 4px,#f7f7f7 8px);color:#888;border:1px solid #e0e0e0;"><span class="swatch-name">—</span>No accent</div>
+  </div>
+
+  <h3>Usage Rules</h3>
+  <table>
+    <tr><th>Context</th><th>Color</th><th>Rule</th></tr>
+    <tr><td>Primary text on white</td><td>#111111</td><td>Not pure black — softer on eyes</td></tr>
+    <tr><td>Body text</td><td>#555555</td><td>Secondary hierarchy</td></tr>
+    <tr><td>Labels, meta, dates</td><td>#888888</td><td>Muted — structural, not content</td></tr>
+    <tr><td>Large numerals</td><td>#ebebeb</td><td>Visual anchor without weight</td></tr>
+    <tr><td>Borders, grid lines</td><td>#e0e0e0</td><td>Light structure</td></tr>
+    <tr><td>Hero sections</td><td>#111111</td><td>Dark hero background</td></tr>
+    <tr><td>Dark alternation</td><td>#1a1a1a</td><td>Section rhythm</td></tr>
+    <tr><td>Closing sections</td><td>#000000</td><td>Black bookend</td></tr>
+    <tr><td>Photography</td><td>grayscale(100%)</td><td>B&W only. Always.</td></tr>
+  </table>
+
+  <div class="callout" style="border-color:#444;">
+    <strong>Section alternation:</strong> white → dark (#1a1a1a) → black (#000) → white. Creates rhythm and depth without any color. The logo reads identically on all three backgrounds.
+  </div>
+</section>
+
+<!-- ═══════════════ 03 — TYPOGRAPHY ═══════════════ -->
+<section>
+  <div class="sn">03 — Typography</div>
+  <h2>Typography = 80% of the identity.</h2>
+
+  <p>Inter is the only typeface. It shares DNA with the logo — geometric grotesque with humanist qualities. It complements without competing.</p>
+
+  <h3>Type Scale</h3>
+  <table>
+    <tr><th>Element</th><th>Size</th><th>Weight</th><th>Letter-spacing</th><th>Line-height</th></tr>
+    <tr><td>Display / Hero</td><td>44–48px</td><td>800</td><td>-2px</td><td>1.0–1.1</td></tr>
+    <tr><td>H2 / Section title</td><td>26–32px</td><td>700</td><td>-0.5px to -1px</td><td>1.2</td></tr>
+    <tr><td>H3 / Subsection</td><td>17–20px</td><td>700</td><td>0</td><td>1.4</td></tr>
+    <tr><td>Body</td><td>14–17px</td><td>400–600</td><td>0</td><td>1.7–1.8</td></tr>
+    <tr><td>Section labels</td><td>10–11px</td><td>600</td><td>3–4px</td><td>1.0</td></tr>
+    <tr><td>Outcome / meta</td><td>10px</td><td>600</td><td>1.5px</td><td>1.0</td></tr>
+  </table>
+
+  <p>Section labels and outcome lines are always <strong>UPPERCASE</strong>.</p>
+
+  <h3>Specimens</h3>
+
+  <div class="specimen">
+    <div class="specimen-label">Display — 48px / 800 / -2px</div>
+    <div style="font-size:48px;font-weight:800;letter-spacing:-2px;line-height:1.05;">Yaniv Primak</div>
+  </div>
+
+  <div class="specimen">
+    <div class="specimen-label">H2 — 26px / 700 / -0.5px</div>
+    <div style="font-size:26px;font-weight:700;letter-spacing:-0.5px;">Product leadership for AI that can't fail.</div>
+  </div>
+
+  <div class="specimen">
+    <div class="specimen-label">Body — 15px / 400 / line-height 1.7</div>
+    <div style="font-size:15px;font-weight:400;line-height:1.7;color:#555;max-width:680px;">I turn stuck technology into product. 5 companies, 5 industries, zero failures. From AI cardiac diagnostics ($585M Medtronic acquisition) to national newsroom digital transformation.</div>
+  </div>
+
+  <div class="specimen">
+    <div class="specimen-label">Section Label — 11px / 600 / 4px tracking / uppercase</div>
+    <div style="font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#888;">Selected Work</div>
+  </div>
+
+  <div class="specimen">
+    <div class="specimen-label">Outcome — 10px / 600 / 1.5px tracking / uppercase</div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;">$585M Exit &nbsp;&nbsp; FDA Cleared &nbsp;&nbsp; 100,000+ Patients &nbsp;&nbsp; 5 Domains &nbsp;&nbsp; 0 Failures</div>
+  </div>
+
+  <h3>Hebrew</h3>
+  <table>
+    <tr><th>Role</th><th>Font</th><th>Status</th></tr>
+    <tr><td>Primary Hebrew</td><td>Noto Sans Hebrew</td><td>Active</td></tr>
+    <tr><td>Fallback</td><td>Arial Hebrew → system-ui</td><td>Fallback only</td></tr>
+    <tr><td>IBM Plex Sans Hebrew</td><td>—</td><td style="color:#c00;">DEPRECATED — do not use</td></tr>
+  </table>
+  <p>Hebrew text: line-height 1.7 minimum. Font size +1px over English equivalent for equal visual weight. Always <code>dir="rtl"</code>.</p>
+</section>
+
+<!-- ═══════════════ 04 — SPATIAL SYSTEM ═══════════════ -->
+<section class="dark">
+  <div class="sn">04 — Spatial System</div>
+  <h2>Every measurement is a multiple of 8.</h2>
+
+  <table>
+    <tr><th>Token</th><th>Value</th><th>Usage</th></tr>
+    <tr><td>Base unit</td><td>8px</td><td>All spacing derives from this</td></tr>
+    <tr><td>Section padding</td><td>64px (8×8)</td><td>Consistent on all sections</td></tr>
+    <tr><td>Body max width</td><td>680px</td><td>Prose text only. Tables and grids go full width.</td></tr>
+    <tr><td>Hero min-height</td><td>80vh</td><td>Major documents open with dark hero</td></tr>
+    <tr><td>Hero border</td><td>3px solid #000</td><td>Bottom only. Separates hero from content.</td></tr>
+    <tr><td>Card padding</td><td>32px (8×4)</td><td>Internal card spacing</td></tr>
+    <tr><td>Grid gap</td><td>24px (8×3) or 32px</td><td>Between grid items</td></tr>
+    <tr><td>Paragraph spacing</td><td>16px (8×2)</td><td>margin-bottom on &lt;p&gt;</td></tr>
+    <tr><td>Section title gap</td><td>24px (8×3)</td><td>Below section label, above content</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════ 05 — STRUCTURAL ELEMENTS ═══════════════ -->
+<section>
+  <div class="sn">05 — Visual Grammar</div>
+  <h2>Structure is the decoration.</h2>
+
+  <p>There is no decoration in PRIMAK's system. Structure — borders, grids, section numbers, rule lines — does all the visual work. This is not minimalism as aesthetic. It is minimalism as discipline.</p>
+
+  <div class="grid-2">
+    <div>
+      <h4>Structural Elements</h4>
+      <ul>
+        <li><strong>Rule lines:</strong> 3px solid #111 hero separator. 1px #e0e0e0 for grids.</li>
+        <li><strong>Callout border:</strong> border-left 3px solid #111</li>
+        <li><strong>Section numbers:</strong> 10px, uppercase, 3–4px tracking. Always first element.</li>
+        <li><strong>Grid cells:</strong> border-collapse tables. Structure proves precision.</li>
+        <li><strong>Large numerals:</strong> 48–56px in #ebebeb. Visual anchor without weight.</li>
+        <li><strong>Section alternation:</strong> white → dark → black → white. Creates depth.</li>
+        <li><strong>Dark bookends:</strong> Open dark, close dark. Every major document.</li>
+        <li><strong>Proof bar:</strong> After hero. Uppercase, spaced, muted (#888).</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Never Use</h4>
+      <ul>
+        <li><strong>Gradients</strong> — any direction, any opacity</li>
+        <li><strong>Box shadows</strong> — not even subtle ones</li>
+        <li><strong>Rounded corners</strong> — flat edges only. 0px border-radius.</li>
+        <li><strong>Accent colors</strong> — not even "subtle" ones</li>
+        <li><strong>Decorative icons</strong> — or illustrations of any kind</li>
+        <li><strong>Photography</strong> — in brand materials (B&W portrait is the one exception)</li>
+        <li><strong>Animation</strong> — beyond simple hover state transitions</li>
+        <li><strong>Cards with backgrounds</strong> — use borders instead</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>The Fashion House Principle:</strong> A fashion house doesn't produce a new style each season — it applies a consistent grammar across contexts. Chanel jacket, Chanel poster, Chanel perfume bottle — one grammar. When a client receives a proposal, sees the LinkedIn, opens the website — they feel the same house. Not "branded." An institution.
+  </div>
+</section>
+
+<!-- ═══════════════ 06 — LAYOUT PATTERNS ═══════════════ -->
+<section class="dark">
+  <div class="sn">06 — Layout Patterns</div>
+  <h2>Four document structures.</h2>
+
+  <h3>Pattern A: Dark Hero Document</h3>
+  <p>CV, One-Pagers, major proposals. Opens with #111 hero (80vh), proof bar, white content sections, dark bookend close.</p>
+
+  <h3>Pattern B: Section Alternation</h3>
+  <p>Design briefs, research docs, long-form. White → dark → black → white rhythm. Each section = one topic.</p>
+
+  <h3>Pattern C: Card Grid</h3>
+  <p>Proof cases, service overview, comparison views. Cards with 1px #e0e0e0 border, no background. Hover: translateY(-2px). Tier 1 = full cards. Tier 2 = compact grid.</p>
+
+  <h3>Pattern D: Clean Prose</h3>
+  <p>Emails, outreach, internal docs. White background, max-width 680px, Inter 15px body, minimal structure. No hero. Footer only.</p>
+
+  <h3>Universal Elements</h3>
+  <table>
+    <tr><th>Element</th><th>Every Document</th></tr>
+    <tr><td>Footer</td><td>PRIMAK — Strategy · Product · AI</td></tr>
+    <tr><td>Title</td><td>CPO, Primak (never Founder, CEO, Consultant)</td></tr>
+    <tr><td>File naming</td><td>[YYYY-MM-DD]_[CLIENT]_[TYPE]_[DESC]_v[X.Y].[ext]</td></tr>
+    <tr><td>Version number</td><td>Required on every deliverable</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════ 07 — PROOF BAR ═══════════════ -->
+<section>
+  <div class="sn">07 — Proof Bar</div>
+  <h2>The numbers that do the talking.</h2>
+
+  <p>Appears after the hero section in major documents. Five facts. Uppercase. Spaced. Muted color. No adjectives — numbers only.</p>
+
+  <div style="background:var(--dark);padding:24px 32px;margin:24px 0;display:flex;gap:40px;flex-wrap:wrap;">
+    <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;font-variant:small-caps;">$585M Exit</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;font-variant:small-caps;">FDA Cleared</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;font-variant:small-caps;">100,000+ Patients</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;font-variant:small-caps;">5 Domains</span>
+    <span style="font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;font-variant:small-caps;">0 Failures</span>
+  </div>
+
+  <h3>Proof Cases — Flex by Audience</h3>
+  <table>
+    <tr><th>Signal</th><th>Lead Case</th><th>Hook</th></tr>
+    <tr><td>FDA, regulation</td><td>CathWorks</td><td>AI cardiac. FDA cleared. 100K patients. $585M Medtronic.</td></tr>
+    <tr><td>Security, defense</td><td>Orchestra</td><td>NSO founders. Built from zero. Cisco partnership.</td></tr>
+    <tr><td>Scale, complexity</td><td>Haaretz-TheMarker</td><td>70 people. 3 years. Output tripled. Two languages.</td></tr>
+    <tr><td>CPO skepticism</td><td>Queue Platform</td><td>Full CPO title. B2B2C. Fundraising through launch.</td></tr>
+    <tr><td>Early stage</td><td>Selina Hotels</td><td>Unicorn. Booking redesign. Speed and scale.</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════ 08 — DESIGN REFERENCE ═══════════════ -->
+<section class="dark">
+  <div class="sn">08 — Design Reference</div>
+  <h2>The DNA sources.</h2>
+
+  <p>PRIMAK's visual system draws from five reference points — none copied, all informing.</p>
+
+  <table>
+    <tr><th>Reference</th><th>What We Take</th></tr>
+    <tr><td>Moog</td><td>Precision + beauty. Executive editorial meets Monocle. The content IS the design.</td></tr>
+    <tr><td>UNIQLO LifeWear</td><td>Grid discipline. Fashion that doesn't try to be beautiful — tries to be correct.</td></tr>
+    <tr><td>Power Grid (Pentagram)</td><td>Industrial authority. Infrastructure that can't fail. Premium without softening.</td></tr>
+    <tr><td>General Catalyst</td><td>Geometric language derived from a mark. Every element shares DNA.</td></tr>
+    <tr><td>Pentagram.com</td><td>The brief itself as design. No decoration. Structure = communication.</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════ 09 — CSS TOKENS ═══════════════ -->
+<section>
+  <div class="sn">09 — Implementation Tokens</div>
+  <h2>Copy-paste ready.</h2>
+
+  <h3>CSS Variables</h3>
+  <div style="background:var(--light);padding:24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:2;overflow-x:auto;">
+    :root {<br>
+    &nbsp;&nbsp;--font-primary: 'Inter', -apple-system, system-ui, sans-serif;<br>
+    &nbsp;&nbsp;--font-hebrew: 'Noto Sans Hebrew', 'Arial Hebrew', system-ui, sans-serif;<br>
+    &nbsp;&nbsp;--black: #000000;<br>
+    &nbsp;&nbsp;--hero: #111111;<br>
+    &nbsp;&nbsp;--dark: #1a1a1a;<br>
+    &nbsp;&nbsp;--text: #111111;<br>
+    &nbsp;&nbsp;--secondary: #555555;<br>
+    &nbsp;&nbsp;--muted: #888888;<br>
+    &nbsp;&nbsp;--ghost: #ebebeb;<br>
+    &nbsp;&nbsp;--border: #e0e0e0;<br>
+    &nbsp;&nbsp;--light: #f7f7f7;<br>
+    &nbsp;&nbsp;--white: #ffffff;<br>
+    &nbsp;&nbsp;--base: 8px;<br>
+    &nbsp;&nbsp;--section-pad: 64px;<br>
+    &nbsp;&nbsp;--body-max: 680px;<br>
+    &nbsp;&nbsp;--footer: "PRIMAK — Strategy · Product · AI";<br>
+    }
+  </div>
+
+  <h3>Word Document Settings (docx-js)</h3>
+  <div style="background:var(--light);padding:24px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;line-height:2;overflow-x:auto;">
+    // A4<br>
+    page: { size: { width: 11906, height: 16838 },<br>
+    &nbsp;&nbsp;margin: { top: 1440, right: 1440, bottom: 1871, left: 1440 } }<br>
+    // Fonts<br>
+    run: { font: "Inter", size: 24 } // 12pt<br>
+    // Hebrew<br>
+    run: { font: "Noto Sans Hebrew", size: 24 }
+  </div>
+</section>
+
+<!-- ═══════════════ BOOKEND ═══════════════ -->
+<section class="black">
+  <div class="sn">Status</div>
+  <h2>Design System v1.0</h2>
+  <p style="color:#555;margin-top:16px;">Consolidated from: Brand Bible v1 (23.02.2026) · Brand Reset Decisions v3 · Design Brief v2 (06.03.2026) · Pentagram Methodology · Team A Creative Proposal · Logo Analysis</p>
+  <p style="color:#555;">Open items: Signature element · Logo pairing rules · Hebrew extension rules — pending Donna</p>
+  <div style="margin-top:48px;padding-top:24px;border-top:1px solid #1a1a1a;">
+    <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#333;">
+      PRIMAK ENGINE v0.4.0 &nbsp;·&nbsp; primak-design-system-v1 &nbsp;·&nbsp; 2026-04-01
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<div class="footer">PRIMAK — Strategy · Product · AI</div>
+
+</body>
+</html>
