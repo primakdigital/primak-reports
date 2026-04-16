@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ScooterShield Dashboard v12 — Mount Comparison</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -144,9 +145,32 @@ body{background:#030305;font-family:'Inter',-apple-system,system-ui,sans-serif;c
 /* Speed gate banner */
 .gate-banner{display:none;margin-top:8px;padding:8px 12px;background:rgba(255,23,68,0.08);border:1px solid rgba(255,23,68,0.25);border-radius:6px;font-size:11px;color:#FF6E7A;line-height:1.5}
 .gate-banner.visible{display:block}
+
+/* Mobile fallback */
+.mobile-fallback{display:none;position:fixed;inset:0;z-index:9999;background:#030305;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px}
+.mobile-fallback .mf-logo{font-size:48px;margin-bottom:24px}
+.mobile-fallback .mf-title{font-size:20px;font-weight:800;letter-spacing:3px;color:#fff;margin-bottom:8px}
+.mobile-fallback .mf-sub{font-size:13px;color:#00E676;font-weight:700;letter-spacing:2px;margin-bottom:32px}
+.mobile-fallback .mf-msg{font-size:14px;color:#889;line-height:1.8;max-width:320px}
+.mobile-fallback .mf-icon{font-size:32px;margin-bottom:16px;opacity:0.6}
+.mobile-fallback .mf-hint{margin-top:24px;font-size:12px;color:#556;border:1px solid #1f1f2e;padding:10px 20px;border-radius:8px;letter-spacing:1px}
+@media(max-width:900px){
+  .mobile-fallback{display:flex}
+  .top-bar,.mount-bar,.split,.controls,.comparison-section{display:none}
+}
 </style>
 </head>
 <body>
+
+<div class="mobile-fallback">
+  <div class="mf-logo">&#128737;</div>
+  <div class="mf-title">SCOOTERSHIELD</div>
+  <div class="mf-sub">AI THREAT DETECTION</div>
+  <div class="mf-icon">&#128187;</div>
+  <div class="mf-msg">This interactive demo includes real-time video analysis, telemetry feeds, and multi-sensor simulation — optimized for desktop viewing.</div>
+  <div class="mf-hint">&#8594; Open on laptop or desktop</div>
+</div>
+
 
 <div class="top-bar">
   <span class="title">SCOOTERSHIELD <span style="color:#00E676;font-weight:400">|</span> LIVE AI DETECTION <span style="color:#556;font-weight:400;font-size:11px;margin-left:8px;">v12 &middot; Config C &middot; Helmet vs Handlebar</span></span>
